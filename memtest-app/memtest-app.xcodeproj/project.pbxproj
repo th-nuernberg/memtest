@@ -474,7 +474,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"memtest-app/Preview Content\"";
 				DEVELOPMENT_TEAM = 4MQKZ58XNK;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
+				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "/Users/christopherwitzl/Documents/Entwicklung/Workspaces/memtest/memtest-app/memtest-app/Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -513,7 +513,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"memtest-app/Preview Content\"";
 				DEVELOPMENT_TEAM = 4MQKZ58XNK;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
+				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "/Users/christopherwitzl/Documents/Entwicklung/Workspaces/memtest/memtest-app/memtest-app/Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
