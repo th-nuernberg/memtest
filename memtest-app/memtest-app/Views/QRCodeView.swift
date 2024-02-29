@@ -20,6 +20,11 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
                 self.parent = parent
             }
             
+            @objc func cancelScanning() {
+                   parent.isScanning = false
+                   parent.presentationMode.wrappedValue.dismiss()
+               }
+            
             func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
                 if let metadataObject = metadataObjects.first {
                     guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
@@ -60,10 +65,29 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
         previewLayer.videoGravity = .resizeAspectFill
         viewController.view.layer.addSublayer(previewLayer)
         
+        // Leiste am unteren Bildschirmrand
+        let screenHeight = viewController.view.frame.size.height
+        let barHeight: CGFloat = 60
+        let bottomBar = UIView(frame: CGRect(x: 0, y: screenHeight - barHeight, width: viewController.view.frame.width, height: barHeight))
+        bottomBar.backgroundColor = UIColor.black.withAlphaComponent(0.6) // Halbtransparent
+        viewController.view.addSubview(bottomBar)
+        
+        // Abbrechen-Button
+        let buttonWidth: CGFloat = 100
+        let buttonHeight: CGFloat = 40
+        let cancelButton = UIButton(type: .system)
+        cancelButton.setTitle("Abbrechen", for: .normal)
+        cancelButton.setTitleColor(.red, for: .normal)
+        cancelButton.frame = CGRect(x: bottomBar.frame.width - buttonWidth - 20, y: (barHeight - buttonHeight) / 2, width: buttonWidth, height: buttonHeight) // Rechtsbündig in der Leiste
+        cancelButton.addTarget(context.coordinator, action: #selector(Coordinator.cancelScanning), for: .touchUpInside)
+        bottomBar.addSubview(cancelButton)
+        
         captureSession.startRunning()
         
         return viewController
     }
+    
+    
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 }
