@@ -90,7 +90,7 @@ struct QRCodeView: View {
                                 .padding()
                         }
                     }
-                    .background(Color("l_gray"))
+                    .background(.lGray)
                     .cornerRadius(10)
                     
                     Spacer()
@@ -106,12 +106,12 @@ struct QRCodeView: View {
                     .font(.title)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
-                    .background(Color("t_blue"))
+                    .background(.tBlue)
                     .cornerRadius(30)
                     .padding()
                 
                 }
-            } 
+            }
             .background(Color.white)
             .navigationBarTitle("Scan QR Code", displayMode: .inline)
         }
