@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 
 struct QRCodeScannerView: UIViewControllerRepresentable {
-    @Binding var scannedCode: String?
+    @Binding var qrCodeData: QRCodeData?
         @Binding var isScanning: Bool // Hinzufügen eines Bindings für isScanning
         @Environment(\.presentationMode) var presentationMode
         
@@ -21,16 +21,16 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
             }
             
             @objc func cancelScanning() {
-                   parent.isScanning = false
-                   parent.presentationMode.wrappedValue.dismiss()
-               }
+               parent.isScanning = false
+               parent.presentationMode.wrappedValue.dismiss()
+           }
             
             func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
                 if let metadataObject = metadataObjects.first {
                     guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
                     guard let stringValue = readableObject.stringValue else { return }
                     AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-                    parent.scannedCode = stringValue
+                    parent.qrCodeData = decodeQRCodeString(stringValue)
                     parent.isScanning = false // Setzen Sie isScanning auf false, da ein QR-Code gescannt wurde
                     parent.presentationMode.wrappedValue.dismiss()
                 }
@@ -93,7 +93,7 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
 }
 
 struct QRCodeView: View {
-    @State private var scannedCode: String? = "TEST"
+    @State private var qrCodeData: QRCodeData?
     @State private var isScanning = false // Zustand, um das Scannen zu steuern
     
     var body: some View {
@@ -107,13 +107,15 @@ struct QRCodeView: View {
                             .padding()
                             .foregroundColor(.black)
                             
-                        if let scannedCode = scannedCode, !scannedCode.isEmpty {
-                            Text(scannedCode)
-                                .font(.title)
-                                .foregroundColor(.black)
-                                .padding()
-                        }
-                    }
+                        if let qrCodeData = $qrCodeData.wrappedValue { // Zugriff auf den Wert des Bindings
+                            if !qrCodeData.id.isEmpty { // Überprüfen, ob die ID leer ist
+                                
+                                Text("Studien-ID: "+qrCodeData.id)
+                                    .font(.title)
+                                    .foregroundColor(.black)
+                                    .padding()
+                            }
+                        }                    }
                     .background(.lGray)
                     .cornerRadius(10)
                     
@@ -142,7 +144,7 @@ struct QRCodeView: View {
        
             
         if isScanning {
-            QRCodeScannerView(scannedCode: $scannedCode, isScanning: $isScanning) // Binden des isScanning-Zustands
+            QRCodeScannerView(qrCodeData: $qrCodeData, isScanning: $isScanning) // Binden des isScanning-Zustands
             .edgesIgnoringSafeArea(.all)
             .transition(.move(edge: .bottom))
             .onDisappear {
