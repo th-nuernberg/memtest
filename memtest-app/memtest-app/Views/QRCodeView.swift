@@ -125,16 +125,34 @@ struct QRCodeView: View {
                 
                 VStack {
                     Spacer()
-                    Button("Scan") {
-                        isScanning = true
+                    
+                    HStack {
+                        Button(action: {
+                            isScanning = true
+                        }) {
+                            Text(qrCodeData != nil ? "Erneut Scannen" : "Scan") // Dynamischer Button-Text
+                        }
+                        .padding()
+                        .font(.title)
+                        .foregroundColor(qrCodeData == nil ? .white : .black)
+                        .frame(maxWidth: .infinity)
+                        .background(qrCodeData == nil ? .tBlue : .lGray)
+                        .cornerRadius(30)
+                        .padding()
+                        
+                        if qrCodeData != nil {
+                            Button("Weiter") {
+                                
+                            }
+                            .padding()
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .background(.tBlue)
+                            .cornerRadius(30)
+                            .padding()
+                        }
                     }
-                    .padding()
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .background(.tBlue)
-                    .cornerRadius(30)
-                    .padding()
                 
                 }
             }
