@@ -100,23 +100,35 @@ struct QRCodeView: View {
     var body: some View {
         NavigationStack {
             VStack{
-                
-                
                 if !isScanning {
                     ZStack {
                         VStack {
                             VStack {
-                                Text("Bitte Scannen Sie den QR-Code")
-                                    .font(.title)
-                                    .bold()
-                                    .padding()
-                                    .foregroundColor(.black)
+                                
+                                if (qrCodeData == nil) {
+                                    Text("Bitte Scannen Sie den QR-Code")
+                                        .font(.title)
+                                        .bold()
+                                        .padding()
+                                        .foregroundColor(.black)
+                                }
                                     
                                 if let qrCodeData = $qrCodeData.wrappedValue { // Zugriff auf den Wert des Bindings
                                     if !qrCodeData.id.isEmpty { // Überprüfen, ob die ID leer ist
                                         
                                         Text("Studien-ID: "+qrCodeData.id)
                                             .font(.title)
+                                            .foregroundColor(.black)
+                                            .padding()
+                                        
+                                        Text("Public-Key: " + qrCodeData.publicKey.prefix(60))
+                                            .font(.caption)
+                                            .foregroundColor(.black)
+                                            .padding()
+                                        
+                                        
+                                        Text("Private-Key: " + qrCodeData.privateKey.prefix(60))
+                                            .font(.caption)
                                             .foregroundColor(.black)
                                             .padding()
                                     }
