@@ -1,25 +1,25 @@
 //
-//  ContentView.swift
+//  AudioCalibrationView.swift
 //  memtest-app
 //
-//  Created by Christopher Witzl on 22.02.24.
+//  Created by Maximilian Werzinger - TH on 02.03.24.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct AudioCalibrationView: View {
     @State var showNextView: Bool = false
     var body: some View {
         NavigationStack {
             VStack{
-                Text("Das ist die ContentView")
+                Text("Das ist die AudioCalibrationView")
                 Button{
                     showNextView.toggle()
                 }label: {
                     Text("Zur nächsten View")
                 }
                 .navigationDestination(isPresented: $showNextView) {
-                    QRCodeInputView()
+                    Test1View()
                 }
                 .navigationBarBackButtonHidden(true)
             }
@@ -28,5 +28,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    AudioCalibrationView()
 }
