@@ -17,7 +17,6 @@
 		2ECA208B2B873EC3000F2790 /* memtest_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECA208A2B873EC3000F2790 /* memtest_appUITests.swift */; };
 		2ECA208D2B873EC3000F2790 /* memtest_appUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECA208C2B873EC3000F2790 /* memtest_appUITestsLaunchTests.swift */; };
 		2ECA209A2B873F36000F2790 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ECA20992B873F36000F2790 /* Launch Screen.storyboard */; };
-		C6190AE42B934B3300633305 /* QRCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AE32B934B3300633305 /* QRCodeInputView.swift */; };
 		C6190AE62B934C7A00633305 /* DataInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AE52B934C7A00633305 /* DataInputView.swift */; };
 		C6190AEF2B934E1300633305 /* TestExplinationDragDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AEE2B934E1300633305 /* TestExplinationDragDropView.swift */; };
 		C6190AF12B934E2700633305 /* TestExplinationTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AF02B934E2700633305 /* TestExplinationTipView.swift */; };
@@ -70,7 +69,6 @@
 		2ECA208C2B873EC3000F2790 /* memtest_appUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memtest_appUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2ECA20992B873F36000F2790 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		2ECA20A42B87659C000F2790 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C6190AE32B934B3300633305 /* QRCodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeInputView.swift; sourceTree = "<group>"; };
 		C6190AE52B934C7A00633305 /* DataInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataInputView.swift; sourceTree = "<group>"; };
 		C6190AEE2B934E1300633305 /* TestExplinationDragDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExplinationDragDropView.swift; sourceTree = "<group>"; };
 		C6190AF02B934E2700633305 /* TestExplinationTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExplinationTipView.swift; sourceTree = "<group>"; };
@@ -184,7 +182,6 @@
 				C6190AFA2B934FA000633305 /* Tests */,
 				C6190AED2B934D7900633305 /* TestCalibration */,
 				2ECA209E2B874099000F2790 /* Activities */,
-				C6190AE32B934B3300633305 /* QRCodeInputView.swift */,
 				C6190AE52B934C7A00633305 /* DataInputView.swift */,
 				C6190B042B93510100633305 /* TestEndView.swift */,
 				C6190B062B93511000633305 /* FeedbackView.swift */,
@@ -449,7 +446,6 @@
 				2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */,
 				C6190AF92B934E7700633305 /* AudioCalibrationView.swift in Sources */,
 				2ECA20712B873EC2000F2790 /* ContentView.swift in Sources */,
-				C6190AE42B934B3300633305 /* QRCodeInputView.swift in Sources */,
 				C6190AF12B934E2700633305 /* TestExplinationTipView.swift in Sources */,
 				C6190B112B93515E00633305 /* Test5View.swift in Sources */,
 				2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */,

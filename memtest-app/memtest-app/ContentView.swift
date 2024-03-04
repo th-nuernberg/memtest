@@ -10,20 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State var showNextView: Bool = false
     var body: some View {
-        NavigationStack {
-            VStack{
-                Text("Das ist die ContentView")
-                Button{
-                    showNextView.toggle()
-                }label: {
-                    Text("Zur nächsten View")
-                }
-                .navigationDestination(isPresented: $showNextView) {
-                    QRCodeInputView()
-                }
-                .navigationBarBackButtonHidden(true)
-            }
-        }
+        QRCodeView()
     }
 }
 
