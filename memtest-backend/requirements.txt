@@ -1,0 +1,7 @@
+cffi==1.16.0
+cryptography==42.0.5
+pillow==10.2.0
+pycparser==2.21
+pypng==0.20220715.0
+qrcode==7.4.2
+typing_extensions==4.10.0
