@@ -17,12 +17,11 @@
 		2ECA208B2B873EC3000F2790 /* memtest_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECA208A2B873EC3000F2790 /* memtest_appUITests.swift */; };
 		2ECA208D2B873EC3000F2790 /* memtest_appUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECA208C2B873EC3000F2790 /* memtest_appUITestsLaunchTests.swift */; };
 		2ECA209A2B873F36000F2790 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ECA20992B873F36000F2790 /* Launch Screen.storyboard */; };
+		2EEA58142B9A773C00CB2483 /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEA58132B9A773C00CB2483 /* OpenAPIURLSession */; };
 		2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */; };
 		2EF974972B99E19000EFFA46 /* memtest_server_client.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EF974962B99E19000EFFA46 /* memtest_server_client.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2EF9749A2B99E19000EFFA46 /* memtest_server_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF974942B99E19000EFFA46 /* memtest_server_client.framework */; };
 		2EF9749B2B99E19000EFFA46 /* memtest_server_client.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF974942B99E19000EFFA46 /* memtest_server_client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2EF974A82B99E39C00EFFA46 /* OpenAPIRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF974A72B99E39C00EFFA46 /* OpenAPIRuntime */; };
-		2EF974AB2B99E3E300EFFA46 /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF974AA2B99E3E300EFFA46 /* OpenAPIURLSession */; };
 		2EF974AF2B99E42600EFFA46 /* openapi.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 2EF974AE2B99E42600EFFA46 /* openapi.yaml */; };
 		2EF974B12B99E7E700EFFA46 /* openapi-generator-config.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 2EF974B02B99E7E700EFFA46 /* openapi-generator-config.yaml */; };
 		2EF974B52B99E94500EFFA46 /* MemtestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF974B42B99E94500EFFA46 /* MemtestClient.swift */; };
@@ -151,8 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EF974AB2B99E3E300EFFA46 /* OpenAPIURLSession in Frameworks */,
-				2EF974A82B99E39C00EFFA46 /* OpenAPIRuntime in Frameworks */,
+				2EEA58142B9A773C00CB2483 /* OpenAPIURLSession in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,8 +472,7 @@
 			);
 			name = "memtest-server-client";
 			packageProductDependencies = (
-				2EF974A72B99E39C00EFFA46 /* OpenAPIRuntime */,
-				2EF974AA2B99E3E300EFFA46 /* OpenAPIURLSession */,
+				2EEA58132B9A773C00CB2483 /* OpenAPIURLSession */,
 			);
 			productName = "memtest-server-client";
 			productReference = 2EF974942B99E19000EFFA46 /* memtest_server_client.framework */;
@@ -518,9 +515,9 @@
 			);
 			mainGroup = 2ECA20622B873EC2000F2790;
 			packageReferences = (
-				2EF974A52B99E39100EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */,
-				2EF974A62B99E39C00EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */,
-				2EF974A92B99E3E300EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */,
+				2EEA580F2B9A763D00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */,
+				2EEA58102B9A764600CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */,
+				2EEA58122B9A773C00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */,
 			);
 			productRefGroup = 2ECA206C2B873EC2000F2790 /* Products */;
 			projectDirPath = "";
@@ -776,10 +773,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"memtest-app/Preview Content\"";
-				DEVELOPMENT_TEAM = 4MQKZ58XNK;
+				DEVELOPMENT_TEAM = 85QAQGXVGG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "memtest-app/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Die Kamera wird für das Scannen von QR-Codes verwendet.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -796,7 +794,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.thnuernberg.memtest-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.th-nuernberg.memtest-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -816,10 +814,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"memtest-app/Preview Content\"";
-				DEVELOPMENT_TEAM = 4MQKZ58XNK;
+				DEVELOPMENT_TEAM = 85QAQGXVGG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "memtest-app/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Die Kamera wird für das Scannen von QR-Codes verwendet.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -836,7 +835,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.thnuernberg.memtest-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.th-nuernberg.memtest-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -853,6 +852,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4MQKZ58XNK;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -875,6 +875,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4MQKZ58XNK;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -896,6 +897,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4MQKZ58XNK;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -917,6 +919,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4MQKZ58XNK;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -1059,6 +1062,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2EEA580F2B9A763D00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-generator";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+		2EEA58102B9A764600CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-runtime";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.2;
+			};
+		};
+		2EEA58122B9A773C00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-urlsession";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
 		2EF974A52B99E39100EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-openapi-generator";
@@ -1067,33 +1094,12 @@
 				minimumVersion = 1.2.1;
 			};
 		};
-		2EF974A62B99E39C00EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-openapi-runtime";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.2;
-			};
-		};
-		2EF974A92B99E3E300EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-openapi-urlsession";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2EF974A72B99E39C00EFFA46 /* OpenAPIRuntime */ = {
+		2EEA58132B9A773C00CB2483 /* OpenAPIURLSession */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2EF974A62B99E39C00EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */;
-			productName = OpenAPIRuntime;
-		};
-		2EF974AA2B99E3E300EFFA46 /* OpenAPIURLSession */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EF974A92B99E3E300EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */;
+			package = 2EEA58122B9A773C00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */;
 			productName = OpenAPIURLSession;
 		};
 		2EF974AC2B99E3FA00EFFA46 /* OpenAPIGenerator */ = {
