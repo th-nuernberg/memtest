@@ -9,18 +9,20 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.11
 servers:
-  - url: http://localhost:8080/api/v1
+  - url: http://192.168.178.187:8080/api/v1
 tags:
   - name: result
     description: Everything about the results of the finished tests
-    
+  - name: health
+    description: Health check for the application
+
 paths:
   /result:
     post:
       tags:
         - result
       description: uploads a single test result
-      operationId: uploadTestResult
+      operationId: api.test_result.upload_test_result
       requestBody:
         content:
           application/json:
@@ -29,6 +31,24 @@ paths:
       responses:
         '200':
           description: Successful upload
+  /health:
+    get:
+      tags:
+        - health
+      summary: Health check endpoint
+      description: Checks if the server is up and running
+      operationId: api.health.health_check
+      responses:
+        '200':
+          description: Service is up and running
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'ok'
 
 components:
   schemas:
@@ -37,4 +57,4 @@ components:
       properties:
         testdatetime:
           type: string
-          format: date-ti/TestResult
+          format: date-time
