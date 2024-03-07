@@ -37,8 +37,8 @@ struct QRCodeView: View {
                                             .foregroundColor(.black)
                                             .padding()
                                         
-                                        Text(qrCodeData.id)
-                                        Text(qrCodeData.key)
+                                        Text(qrCodeData.id).foregroundColor(.black)
+                                        Text(qrCodeData.key).foregroundColor(.black)
                                     }
                                 }
                             }
