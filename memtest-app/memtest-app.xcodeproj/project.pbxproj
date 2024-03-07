@@ -18,6 +18,14 @@
 		2ECA208D2B873EC3000F2790 /* memtest_appUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECA208C2B873EC3000F2790 /* memtest_appUITestsLaunchTests.swift */; };
 		2ECA209A2B873F36000F2790 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ECA20992B873F36000F2790 /* Launch Screen.storyboard */; };
 		2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */; };
+		2EF974972B99E19000EFFA46 /* memtest_server_client.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EF974962B99E19000EFFA46 /* memtest_server_client.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2EF9749A2B99E19000EFFA46 /* memtest_server_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF974942B99E19000EFFA46 /* memtest_server_client.framework */; };
+		2EF9749B2B99E19000EFFA46 /* memtest_server_client.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF974942B99E19000EFFA46 /* memtest_server_client.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2EF974A82B99E39C00EFFA46 /* OpenAPIRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF974A72B99E39C00EFFA46 /* OpenAPIRuntime */; };
+		2EF974AB2B99E3E300EFFA46 /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF974AA2B99E3E300EFFA46 /* OpenAPIURLSession */; };
+		2EF974AF2B99E42600EFFA46 /* openapi.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 2EF974AE2B99E42600EFFA46 /* openapi.yaml */; };
+		2EF974B12B99E7E700EFFA46 /* openapi-generator-config.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 2EF974B02B99E7E700EFFA46 /* openapi-generator-config.yaml */; };
+		2EF974B52B99E94500EFFA46 /* MemtestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF974B42B99E94500EFFA46 /* MemtestClient.swift */; };
 		C6190AE62B934C7A00633305 /* DataInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AE52B934C7A00633305 /* DataInputView.swift */; };
 		C6190AEF2B934E1300633305 /* TestExplinationDragDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AEE2B934E1300633305 /* TestExplinationDragDropView.swift */; };
 		C6190AF12B934E2700633305 /* TestExplinationTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AF02B934E2700633305 /* TestExplinationTipView.swift */; };
@@ -52,7 +60,28 @@
 			remoteGlobalIDString = 2ECA206A2B873EC2000F2790;
 			remoteInfo = "memtest-app";
 		};
+		2EF974982B99E19000EFFA46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2ECA20632B873EC2000F2790 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2EF974932B99E19000EFFA46;
+			remoteInfo = "memtest-server-client";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2EF9749F2B99E19000EFFA46 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2EF9749B2B99E19000EFFA46 /* memtest_server_client.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2EC57FD32B8D23F000091804 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
@@ -71,6 +100,11 @@
 		2ECA20992B873F36000F2790 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		2ECA20A42B87659C000F2790 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
+		2EF974942B99E19000EFFA46 /* memtest_server_client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = memtest_server_client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EF974962B99E19000EFFA46 /* memtest_server_client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memtest_server_client.h; sourceTree = "<group>"; };
+		2EF974AE2B99E42600EFFA46 /* openapi.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = openapi.yaml; sourceTree = "<group>"; };
+		2EF974B02B99E7E700EFFA46 /* openapi-generator-config.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "openapi-generator-config.yaml"; sourceTree = "<group>"; };
+		2EF974B42B99E94500EFFA46 /* MemtestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemtestClient.swift; sourceTree = "<group>"; };
 		C6190AE52B934C7A00633305 /* DataInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataInputView.swift; sourceTree = "<group>"; };
 		C6190AEE2B934E1300633305 /* TestExplinationDragDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExplinationDragDropView.swift; sourceTree = "<group>"; };
 		C6190AF02B934E2700633305 /* TestExplinationTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExplinationTipView.swift; sourceTree = "<group>"; };
@@ -95,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EF9749A2B99E19000EFFA46 /* memtest_server_client.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +147,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2EF974912B99E19000EFFA46 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2EF974AB2B99E3E300EFFA46 /* OpenAPIURLSession in Frameworks */,
+				2EF974A82B99E39C00EFFA46 /* OpenAPIRuntime in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -121,6 +165,7 @@
 				2ECA206D2B873EC2000F2790 /* memtest-app */,
 				2ECA207F2B873EC3000F2790 /* memtest-appTests */,
 				2ECA20892B873EC3000F2790 /* memtest-appUITests */,
+				2EF974952B99E19000EFFA46 /* memtest-server-client */,
 				2ECA206C2B873EC2000F2790 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -131,6 +176,7 @@
 				2ECA206B2B873EC2000F2790 /* memtest-app.app */,
 				2ECA207C2B873EC3000F2790 /* memtest-appTests.xctest */,
 				2ECA20862B873EC3000F2790 /* memtest-appUITests.xctest */,
+				2EF974942B99E19000EFFA46 /* memtest_server_client.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,6 +184,7 @@
 		2ECA206D2B873EC2000F2790 /* memtest-app */ = {
 			isa = PBXGroup;
 			children = (
+				2EF9748E2B99E0C700EFFA46 /* OpenApi */,
 				2ECA209F2B8740B0000F2790 /* Models */,
 				2ECA209D2B87408F000F2790 /* Services */,
 				2ECA209C2B874089000F2790 /* Util */,
@@ -228,6 +275,24 @@
 				2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */,
 			);
 			path = QRCode;
+			sourceTree = "<group>";
+		};
+		2EF9748E2B99E0C700EFFA46 /* OpenApi */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OpenApi;
+			sourceTree = "<group>";
+		};
+		2EF974952B99E19000EFFA46 /* memtest-server-client */ = {
+			isa = PBXGroup;
+			children = (
+				2EF974962B99E19000EFFA46 /* memtest_server_client.h */,
+				2EF974AE2B99E42600EFFA46 /* openapi.yaml */,
+				2EF974B02B99E7E700EFFA46 /* openapi-generator-config.yaml */,
+				2EF974B42B99E94500EFFA46 /* MemtestClient.swift */,
+			);
+			path = "memtest-server-client";
 			sourceTree = "<group>";
 		};
 		C6190AED2B934D7900633305 /* TestCalibration */ = {
@@ -324,6 +389,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		2EF9748F2B99E19000EFFA46 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2EF974972B99E19000EFFA46 /* memtest_server_client.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		2ECA206A2B873EC2000F2790 /* memtest-app */ = {
 			isa = PBXNativeTarget;
@@ -332,12 +408,16 @@
 				2ECA20672B873EC2000F2790 /* Sources */,
 				2ECA20682B873EC2000F2790 /* Frameworks */,
 				2ECA20692B873EC2000F2790 /* Resources */,
+				2EF9749F2B99E19000EFFA46 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2EF974992B99E19000EFFA46 /* PBXTargetDependency */,
 			);
 			name = "memtest-app";
+			packageProductDependencies = (
+			);
 			productName = "memtest-app";
 			productReference = 2ECA206B2B873EC2000F2790 /* memtest-app.app */;
 			productType = "com.apple.product-type.application";
@@ -378,6 +458,29 @@
 			productReference = 2ECA20862B873EC3000F2790 /* memtest-appUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		2EF974932B99E19000EFFA46 /* memtest-server-client */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2EF9749C2B99E19000EFFA46 /* Build configuration list for PBXNativeTarget "memtest-server-client" */;
+			buildPhases = (
+				2EF9748F2B99E19000EFFA46 /* Headers */,
+				2EF974902B99E19000EFFA46 /* Sources */,
+				2EF974912B99E19000EFFA46 /* Frameworks */,
+				2EF974922B99E19000EFFA46 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2EF974AD2B99E3FA00EFFA46 /* PBXTargetDependency */,
+			);
+			name = "memtest-server-client";
+			packageProductDependencies = (
+				2EF974A72B99E39C00EFFA46 /* OpenAPIRuntime */,
+				2EF974AA2B99E3E300EFFA46 /* OpenAPIURLSession */,
+			);
+			productName = "memtest-server-client";
+			productReference = 2EF974942B99E19000EFFA46 /* memtest_server_client.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -399,6 +502,10 @@
 						CreatedOnToolsVersion = 15.2;
 						TestTargetID = 2ECA206A2B873EC2000F2790;
 					};
+					2EF974932B99E19000EFFA46 = {
+						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 1520;
+					};
 				};
 			};
 			buildConfigurationList = 2ECA20662B873EC2000F2790 /* Build configuration list for PBXProject "memtest-app" */;
@@ -410,6 +517,11 @@
 				Base,
 			);
 			mainGroup = 2ECA20622B873EC2000F2790;
+			packageReferences = (
+				2EF974A52B99E39100EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */,
+				2EF974A62B99E39C00EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */,
+				2EF974A92B99E3E300EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */,
+			);
 			productRefGroup = 2ECA206C2B873EC2000F2790 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -417,6 +529,7 @@
 				2ECA206A2B873EC2000F2790 /* memtest-app */,
 				2ECA207B2B873EC3000F2790 /* memtest-appTests */,
 				2ECA20852B873EC3000F2790 /* memtest-appUITests */,
+				2EF974932B99E19000EFFA46 /* memtest-server-client */,
 			);
 		};
 /* End PBXProject section */
@@ -443,6 +556,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2EF974922B99E19000EFFA46 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2EF974AF2B99E42600EFFA46 /* openapi.yaml in Resources */,
+				2EF974B12B99E7E700EFFA46 /* openapi-generator-config.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +617,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2EF974902B99E19000EFFA46 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2EF974B52B99E94500EFFA46 /* MemtestClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -507,6 +637,15 @@
 			isa = PBXTargetDependency;
 			target = 2ECA206A2B873EC2000F2790 /* memtest-app */;
 			targetProxy = 2ECA20872B873EC3000F2790 /* PBXContainerItemProxy */;
+		};
+		2EF974992B99E19000EFFA46 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2EF974932B99E19000EFFA46 /* memtest-server-client */;
+			targetProxy = 2EF974982B99E19000EFFA46 /* PBXContainerItemProxy */;
+		};
+		2EF974AD2B99E3FA00EFFA46 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 2EF974AC2B99E3FA00EFFA46 /* OpenAPIGenerator */;
 		};
 /* End PBXTargetDependency section */
 
@@ -630,6 +769,7 @@
 		2ECA20912B873EC3000F2790 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "memtest-app/memtest_app.entitlements";
@@ -669,6 +809,7 @@
 		2ECA20922B873EC3000F2790 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "memtest-app/memtest_app.entitlements";
@@ -791,6 +932,82 @@
 			};
 			name = Release;
 		};
+		2EF9749D2B99E19000EFFA46 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4MQKZ58XNK;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_FILE[sdk=*]" = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.thnuernberg.memtest-server-client";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2EF9749E2B99E19000EFFA46 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4MQKZ58XNK;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_FILE[sdk=*]" = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.thnuernberg.memtest-server-client";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -830,7 +1047,61 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		2EF9749C2B99E19000EFFA46 /* Build configuration list for PBXNativeTarget "memtest-server-client" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2EF9749D2B99E19000EFFA46 /* Debug */,
+				2EF9749E2B99E19000EFFA46 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2EF974A52B99E39100EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-generator";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+		2EF974A62B99E39C00EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-runtime";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.2;
+			};
+		};
+		2EF974A92B99E3E300EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-urlsession";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2EF974A72B99E39C00EFFA46 /* OpenAPIRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2EF974A62B99E39C00EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */;
+			productName = OpenAPIRuntime;
+		};
+		2EF974AA2B99E3E300EFFA46 /* OpenAPIURLSession */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2EF974A92B99E3E300EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */;
+			productName = OpenAPIURLSession;
+		};
+		2EF974AC2B99E3FA00EFFA46 /* OpenAPIGenerator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2EF974A52B99E39100EFFA46 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */;
+			productName = "plugin:OpenAPIGenerator";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2ECA20632B873EC2000F2790 /* Project object */;
 }
