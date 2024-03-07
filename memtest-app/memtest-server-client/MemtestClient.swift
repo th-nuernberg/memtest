@@ -20,12 +20,22 @@ public struct MemtestClient {
         self.client = Client(serverURL: serverURL, transport: URLSessionTransport())
     }
     
+    public func checkHealth() async throws {
+        let response = try await client.api_period_health_period_health_check()
+        switch response {
+        case .ok:
+            return
+        default:
+            throw MemtestClientError.serverHealthCheckFailed
+        }
+    }
+    
     public func uploadTestResult(testResult: Components.Schemas.TestResult) async throws {
-        let response = try await client.uploadTestResult(.init(body: .json(testResult)))
+        let response = try await client.api_period_test_result_period_upload_test_result(.init(body: .json(testResult)))
         
         switch response {
         case .ok:
-            return 
+            return
         default:
             throw MemtestClientError.uploadFailed
         }
@@ -35,6 +45,7 @@ public struct MemtestClient {
 enum MemtestClientError: Error {
     case serverUrlNotFound
     case uploadFailed
+    case serverHealthCheckFailed
     
     var localizedDescription: String {
         switch self {
@@ -42,6 +53,8 @@ enum MemtestClientError: Error {
             return "Server URL konnte nicht gefunden werden."
         case .uploadFailed:
             return "Hochladen des Testergebnisses fehlgeschlagen."
+        case .serverHealthCheckFailed:
+            return "Der Server antwortet nicht. Ist eine Internetverbindung vorhanden?"
         }
     }
 }
