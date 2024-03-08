@@ -86,7 +86,6 @@ struct QRCodeView: View {
                         
                         }
                     }
-                    .background(Color.white)
                     .navigationBarTitle("Scan QR Code", displayMode: .inline)
                 }
                
