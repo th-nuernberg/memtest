@@ -8,15 +8,15 @@
 import Foundation
 
 public struct QRCodeData: Codable {
+    public var study_id: String
     public var id: String
-    public var publicKey: String
-    public var privateKey: String
+    public var key: String
     
     // Ein öffentlicher Initialisierer ist notwendig, wenn Sie Strukturen außerhalb ihres eigenen Moduls instanziieren möchten.
-    public init(id: String, publicKey: String, privateKey: String) {
+    public init(study_id: String, id: String, key: String) {
+        self.study_id = study_id
         self.id = id
-        self.publicKey = publicKey
-        self.privateKey = privateKey
+        self.key = key
     }
 }
 

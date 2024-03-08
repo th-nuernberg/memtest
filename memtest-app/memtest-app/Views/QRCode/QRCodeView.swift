@@ -32,10 +32,13 @@ struct QRCodeView: View {
                                 if let qrCodeData = $qrCodeData.wrappedValue { // Zugriff auf den Wert des Bindings
                                     if !qrCodeData.id.isEmpty { // Überprüfen, ob die ID leer ist
                                         
-                                        Text("Studien-ID: "+qrCodeData.id)
+                                        Text("Studien-ID: "+qrCodeData.study_id)
                                             .font(.title)
                                             .foregroundColor(.black)
                                             .padding()
+                                        
+                                        Text(qrCodeData.id).foregroundColor(.black)
+                                        Text(qrCodeData.key).foregroundColor(.black)
                                     }
                                 }
                             }
@@ -83,7 +86,6 @@ struct QRCodeView: View {
                         
                         }
                     }
-                    .background(Color.white)
                     .navigationBarTitle("Scan QR Code", displayMode: .inline)
                 }
                
