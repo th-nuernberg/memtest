@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
 		2EC57FD42B8D23F000091804 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC57FD32B8D23F000091804 /* QRCodeView.swift */; };
 		2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */; };
 		2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECA206E2B873EC2000F2790 /* memtest_appApp.swift */; };
@@ -83,6 +84,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
 		2EC57FD32B8D23F000091804 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUtils.swift; sourceTree = "<group>"; };
 		2ECA206B2B873EC2000F2790 /* memtest-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "memtest-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -317,6 +319,7 @@
 				C6190AFE2B93502A00633305 /* Test3_Learnphase */,
 				C6190AFC2B934FF300633305 /* Test2_Reproducing_Objects */,
 				C6190AFB2B934FAF00633305 /* Test1_Naming_Memorizing_Objects */,
+				2E472B962BA4546900CAC059 /* BaseTestView.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				C6190AF12B934E2700633305 /* TestExplinationTipView.swift in Sources */,
 				C6190B112B93515E00633305 /* Test5View.swift in Sources */,
 				2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */,
+				2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */,
 				C6190B072B93511000633305 /* FeedbackView.swift in Sources */,
 				C6190AE62B934C7A00633305 /* DataInputView.swift in Sources */,
 				C6190AF72B934E6100633305 /* TipCalibrationView.swift in Sources */,
