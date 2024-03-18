@@ -8,22 +8,12 @@
 import SwiftUI
 
 struct Test2View: View {
-    @State var showNextView: Bool = false
     var body: some View {
-        NavigationStack {
-            VStack{
-                Text("Das ist die Test2View")
-                Button{
-                    showNextView.toggle()
-                }label: {
-                    Text("Zur nächsten View")
-                }
-                .navigationDestination(isPresented: $showNextView) {
-                    Test3View()
-                }
-                .navigationBarBackButtonHidden(true)
-            }
-        }
+        BaseTestView(destination: Test3View(), content: {
+            Text("Das ist die Test2View")
+        }, explanationContent: {
+            Text("Hier sind einige Erklärungen.")
+        })
     }
 }
 
