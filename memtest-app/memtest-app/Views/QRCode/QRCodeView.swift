@@ -60,12 +60,12 @@ struct QRCodeView: View {
                                     Text(qrCodeData != nil ? "Erneut Scannen" : "Scan")
                                         .padding()
                                         .font(.title)
-                                        .background(qrCodeData != nil ? .lGray : .tBlue)
-                                        .foregroundColor(qrCodeData != nil ? .black : .white)
-                                        .background(.tBlue)
-                                        .cornerRadius(10)
+                                        
                                 }
-                                .padding(.horizontal)
+                                .frame(maxWidth: .infinity)
+                                .background(qrCodeData != nil ? .lGray : .tBlue)
+                                .foregroundColor(qrCodeData != nil ? .black : .white)
+                                .cornerRadius(10)
                                 
                                 if qrCodeData != nil {
                                     Button(action: {
@@ -74,13 +74,12 @@ struct QRCodeView: View {
                                         Text("Weiter")
                                             .padding()
                                             .font(.title)
-                                            .foregroundColor(.white)
-                                            .background(.tBlue)
-                                            .cornerRadius(10)
                                         
                                     }
                                     .frame(maxWidth: .infinity)
-                                    .padding(.horizontal)
+                                    .foregroundColor(.white)
+                                    .background(.tBlue)
+                                    .cornerRadius(10)
                                     .navigationDestination(isPresented: $showNextView) {
                                         DataInputView()
                                     }
@@ -92,13 +91,11 @@ struct QRCodeView: View {
                         
                         }
                     }
-                    .navigationBarTitle("Scan QR Code", displayMode: .inline)
+                    
                 }
                
                     
                 if isScanning {
-                    
-                    
                     ScannerView(onCodeScanned: { code in
                         print(code)
                         qrCodeData = code
@@ -106,7 +103,6 @@ struct QRCodeView: View {
                     }, onCancel: {
                         isScanning = false
                     })
-                        
                 }
                 
             }
