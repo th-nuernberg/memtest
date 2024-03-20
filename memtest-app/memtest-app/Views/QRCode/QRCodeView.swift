@@ -46,8 +46,9 @@ struct QRCodeView: View {
                             .cornerRadius(10)
                             
                             Spacer()
+                            
+                            
                         }
-                        
                         
                         VStack {
                             Spacer()
@@ -56,33 +57,38 @@ struct QRCodeView: View {
                                 Button(action: {
                                     isScanning = true
                                 }) {
-                                    Text(qrCodeData != nil ? "Erneut Scannen" : "Scan") // Dynamischer Button-Text
+                                    Text(qrCodeData != nil ? "Erneut Scannen" : "Scan")
+                                        .padding()
+                                        .font(.title)
+                                        .background(qrCodeData != nil ? .lGray : .tBlue)
+                                        .foregroundColor(qrCodeData != nil ? .black : .white)
+                                        .background(.tBlue)
+                                        .cornerRadius(10)
                                 }
-                                .padding()
-                                .font(.title)
-                                .foregroundColor(qrCodeData == nil ? .white : .black)
-                                .frame(maxWidth: .infinity)
-                                .background(qrCodeData == nil ? .tBlue : .lGray)
-                                .cornerRadius(30)
-                                .padding()
+                                .padding(.horizontal)
                                 
                                 if qrCodeData != nil {
-                                    Button("Weiter") {
+                                    Button(action: {
                                         showNextView.toggle()
+                                    }) {
+                                        Text("Weiter")
+                                            .padding()
+                                            .font(.title)
+                                            .foregroundColor(.white)
+                                            .background(.tBlue)
+                                            .cornerRadius(10)
+                                        
                                     }
-                                    .padding()
-                                    .font(.title)
-                                    .foregroundColor(.white)
                                     .frame(maxWidth: .infinity)
-                                    .background(.tBlue)
-                                    .cornerRadius(30)
-                                    .padding()
+                                    .padding(.horizontal)
                                     .navigationDestination(isPresented: $showNextView) {
                                         DataInputView()
                                     }
                                     .navigationBarBackButtonHidden(true)
+                                    
                                 }
                             }
+                            .padding()
                         
                         }
                     }
