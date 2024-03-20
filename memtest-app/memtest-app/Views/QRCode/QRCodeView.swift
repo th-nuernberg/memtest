@@ -46,8 +46,9 @@ struct QRCodeView: View {
                             .cornerRadius(10)
                             
                             Spacer()
+                            
+                            
                         }
-                        
                         
                         VStack {
                             Spacer()
@@ -56,47 +57,52 @@ struct QRCodeView: View {
                                 Button(action: {
                                     isScanning = true
                                 }) {
-                                    Text(qrCodeData != nil ? "Erneut Scannen" : "Scan") // Dynamischer Button-Text
+                                    Text(qrCodeData != nil ? "Erneut Scannen" : "Scan")
+                                        .padding()
+                                        .font(.title)
+                                        
                                 }
-                                .padding()
-                                .font(.title)
-                                .foregroundColor(qrCodeData == nil ? .white : .black)
                                 .frame(maxWidth: .infinity)
-                                .background(qrCodeData == nil ? .tBlue : .lGray)
-                                .cornerRadius(30)
-                                .padding()
+                                .background(qrCodeData != nil ? .lGray : .tBlue)
+                                .foregroundColor(qrCodeData != nil ? .black : .white)
+                                .cornerRadius(10)
                                 
                                 if qrCodeData != nil {
-                                    Button("Weiter") {
+                                    Button(action: {
                                         showNextView.toggle()
+                                    }) {
+                                        Text("Weiter")
+                                            .padding()
+                                            .font(.title)
+                                        
                                     }
-                                    .padding()
-                                    .font(.title)
-                                    .foregroundColor(.white)
                                     .frame(maxWidth: .infinity)
+                                    .foregroundColor(.white)
                                     .background(.tBlue)
-                                    .cornerRadius(30)
-                                    .padding()
+                                    .cornerRadius(10)
                                     .navigationDestination(isPresented: $showNextView) {
                                         DataInputView()
                                     }
                                     .navigationBarBackButtonHidden(true)
+                                    
                                 }
                             }
+                            .padding()
                         
                         }
                     }
-                    .navigationBarTitle("Scan QR Code", displayMode: .inline)
+                    
                 }
                
                     
                 if isScanning {
-                    QRCodeScannerView(qrCodeData: $qrCodeData, isScanning: $isScanning) // Binden des isScanning-Zustands
-                    .edgesIgnoringSafeArea(.all)
-                    .transition(.move(edge: .bottom))
-                    .onDisappear {
-                        isScanning = false // Setzt den Zustand zurück, wenn die Ansicht verschwindet
-                    }
+                    QRCodeScannerView(onCodeScanned: { code in
+                        print(code)
+                        qrCodeData = code
+                        isScanning = false
+                    }, onCancel: {
+                        isScanning = false
+                    })
                 }
                 
             }
