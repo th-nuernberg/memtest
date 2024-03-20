@@ -1,5 +1,6 @@
 # create uuid and aes key
 import json
+import os
 import secrets
 import uuid
 
@@ -35,6 +36,12 @@ for i in range(number_of_qr_codes):
     qr.make(fit=True)
 
     img = qr.make_image(fill_color="black", back_color="white")
+    # make study_id dir
+    try:
+        os.mkdir(study_id)
+    except FileExistsError:
+        pass
+
     img.save(f"{study_id}/qr_code_{i}.png")
 
 # show image
