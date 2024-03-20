@@ -97,12 +97,16 @@ struct QRCodeView: View {
                
                     
                 if isScanning {
-                    QRCodeScannerView(qrCodeData: $qrCodeData, isScanning: $isScanning) // Binden des isScanning-Zustands
-                    .edgesIgnoringSafeArea(.all)
-                    .transition(.move(edge: .bottom))
-                    .onDisappear {
-                        isScanning = false // Setzt den Zustand zurück, wenn die Ansicht verschwindet
-                    }
+                    
+                    
+                    ScannerView(onCodeScanned: { code in
+                        print(code)
+                        qrCodeData = code
+                        isScanning = false
+                    }, onCancel: {
+                        isScanning = false
+                    })
+                        
                 }
                 
             }
