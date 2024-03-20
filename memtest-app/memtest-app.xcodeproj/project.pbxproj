@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E0C6CB02BAB46A30006F9AB /* SwiftWhisper in Frameworks */ = {isa = PBXBuildFile; productRef = 2E0C6CAF2BAB46A30006F9AB /* SwiftWhisper */; };
+		2E0C6CB22BAB750E0006F9AB /* TranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C6CB12BAB750E0006F9AB /* TranscriptionService.swift */; };
+		2E0C6CB52BAB75460006F9AB /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E0C6CB42BAB75460006F9AB /* AudioKit */; };
+		2E0C6CB82BAB75940006F9AB /* models in Resources */ = {isa = PBXBuildFile; fileRef = 2E0C6CB72BAB75940006F9AB /* models */; };
+		2E0C6CBA2BAB767E0006F9AB /* samples in Resources */ = {isa = PBXBuildFile; fileRef = 2E0C6CB92BAB767E0006F9AB /* samples */; };
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
 		2EC57FD42B8D23F000091804 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC57FD32B8D23F000091804 /* QRCodeView.swift */; };
 		2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */; };
@@ -84,6 +89,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2E0C6CB12BAB750E0006F9AB /* TranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptionService.swift; sourceTree = "<group>"; };
+		2E0C6CB72BAB75940006F9AB /* models */ = {isa = PBXFileReference; lastKnownFileType = folder; path = models; sourceTree = "<group>"; };
+		2E0C6CB92BAB767E0006F9AB /* samples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = samples; sourceTree = "<group>"; };
 		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
 		2EC57FD32B8D23F000091804 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUtils.swift; sourceTree = "<group>"; };
@@ -129,7 +137,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E0C6CB52BAB75460006F9AB /* AudioKit in Frameworks */,
 				2EF9749A2B99E19000EFFA46 /* memtest_server_client.framework in Frameworks */,
+				2E0C6CB02BAB46A30006F9AB /* SwiftWhisper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +168,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E0C6CB62BAB75830006F9AB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2E0C6CB92BAB767E0006F9AB /* samples */,
+				2E0C6CB72BAB75940006F9AB /* models */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		2ECA20622B873EC2000F2790 = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +202,7 @@
 		2ECA206D2B873EC2000F2790 /* memtest-app */ = {
 			isa = PBXGroup;
 			children = (
+				2E0C6CB62BAB75830006F9AB /* Resources */,
 				2EF9748E2B99E0C700EFFA46 /* OpenApi */,
 				2ECA209F2B8740B0000F2790 /* Models */,
 				2ECA209D2B87408F000F2790 /* Services */,
@@ -248,6 +268,7 @@
 		2ECA209D2B87408F000F2790 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				2E0C6CB12BAB750E0006F9AB /* TranscriptionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -416,6 +437,8 @@
 			);
 			name = "memtest-app";
 			packageProductDependencies = (
+				2E0C6CAF2BAB46A30006F9AB /* SwiftWhisper */,
+				2E0C6CB42BAB75460006F9AB /* AudioKit */,
 			);
 			productName = "memtest-app";
 			productReference = 2ECA206B2B873EC2000F2790 /* memtest-app.app */;
@@ -519,6 +542,8 @@
 				2EEA580F2B9A763D00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */,
 				2EEA58102B9A764600CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */,
 				2EEA58122B9A773C00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */,
+				2E0C6CAE2BAB46A30006F9AB /* XCRemoteSwiftPackageReference "SwiftWhisper" */,
+				2E0C6CB32BAB75460006F9AB /* XCRemoteSwiftPackageReference "AudioKit" */,
 			);
 			productRefGroup = 2ECA206C2B873EC2000F2790 /* Products */;
 			projectDirPath = "";
@@ -539,6 +564,8 @@
 			files = (
 				2ECA209A2B873F36000F2790 /* Launch Screen.storyboard in Resources */,
 				2ECA20772B873EC3000F2790 /* Preview Assets.xcassets in Resources */,
+				2E0C6CBA2BAB767E0006F9AB /* samples in Resources */,
+				2E0C6CB82BAB75940006F9AB /* models in Resources */,
 				2ECA20732B873EC3000F2790 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -595,6 +622,7 @@
 				C6190B0B2B93513A00633305 /* Test2View.swift in Sources */,
 				C6190B172B93517A00633305 /* Test8View.swift in Sources */,
 				C6190B0D2B93514A00633305 /* Test3View.swift in Sources */,
+				2E0C6CB22BAB750E0006F9AB /* TranscriptionService.swift in Sources */,
 				C6190B152B93517100633305 /* Test7View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1068,6 +1096,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2E0C6CAE2BAB46A30006F9AB /* XCRemoteSwiftPackageReference "SwiftWhisper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exPHAT/SwiftWhisper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		2E0C6CB32BAB75460006F9AB /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.3;
+			};
+		};
 		2EEA580F2B9A763D00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-openapi-generator";
@@ -1103,6 +1147,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2E0C6CAF2BAB46A30006F9AB /* SwiftWhisper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E0C6CAE2BAB46A30006F9AB /* XCRemoteSwiftPackageReference "SwiftWhisper" */;
+			productName = SwiftWhisper;
+		};
+		2E0C6CB42BAB75460006F9AB /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E0C6CB32BAB75460006F9AB /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
 		2EEA58132B9A773C00CB2483 /* OpenAPIURLSession */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2EEA58122B9A773C00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */;
