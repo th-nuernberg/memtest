@@ -8,7 +8,7 @@
 import SwiftUI
 import AVFoundation
 
-class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     
@@ -174,18 +174,18 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
 }
 
-struct ScannerView: UIViewControllerRepresentable {
+struct QRCodeScannerView: UIViewControllerRepresentable {
     var onCodeScanned: (QRCodeData) -> Void
     var onCancel: () -> Void  // Add this line
 
-    func makeUIViewController(context: Context) -> ScannerViewController {
-        let controller = ScannerViewController()
+    func makeUIViewController(context: Context) -> QRCodeScannerViewController {
+        let controller = QRCodeScannerViewController()
         controller.onCodeScanned = onCodeScanned
         controller.onCancel = onCancel  // Set the closure
         return controller
     }
 
-    func updateUIViewController(_ uiViewController: ScannerViewController, context: Context) {
+    func updateUIViewController(_ uiViewController: QRCodeScannerViewController, context: Context) {
         // The closure is already set, nothing needed here for now.
     }
 }

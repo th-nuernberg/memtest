@@ -96,7 +96,7 @@ struct QRCodeView: View {
                
                     
                 if isScanning {
-                    ScannerView(onCodeScanned: { code in
+                    QRCodeScannerView(onCodeScanned: { code in
                         print(code)
                         qrCodeData = code
                         isScanning = false
