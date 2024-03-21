@@ -16,8 +16,8 @@ struct Test1View: View {
             
             VStack(spacing: 20) {
                 Text(manager.recognizedText.isEmpty ? "Recognition text will appear here" : manager.recognizedText)
-                                .padding()
-                                .border(Color.gray, width: 1)
+                    .padding()
+                    .border(Color.gray, width: 1)
                 
                 Button(action: {
                     self.startStopRecording()
@@ -33,17 +33,35 @@ struct Test1View: View {
     }
     
     private func startStopRecording() {
-           if isRecording {
-               SpeechRecognitionService.shared.stopRecording()
-           } else {
-               do {
-                   try SpeechRecognitionService.shared.startRecording()
-               } catch {
-                   print("Failed to start recording: \(error)")
-               }
-           }
-           isRecording.toggle()
-       }
+        if isRecording {
+            AudioService.shared.stopRecording {
+                listRecordedFiles()
+            }
+        } else {
+            do {
+                try AudioService.shared.startRecording(to: "test1")
+            } catch {
+                print("Failed to start recording: \(error)")
+            }
+        }
+        isRecording.toggle()
+    }
+
+    private func listRecordedFiles() {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil)
+            // Filter for specific file types if needed, e.g., .m4a
+            let audioFiles = fileURLs.filter { $0.pathExtension == "m4a" }
+            print("Recorded files:")
+            for file in audioFiles {
+                print(file.lastPathComponent)
+            }
+        } catch {
+            print("Error while enumerating files \(documentsDirectory.path): \(error.localizedDescription)")
+        }
+    }
+    
 }
 
 
