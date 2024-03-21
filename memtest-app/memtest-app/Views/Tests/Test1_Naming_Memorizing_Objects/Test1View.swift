@@ -8,28 +8,50 @@
 import SwiftUI
 
 struct Test1View: View {
-    @ObservedObject private var manager = SpeechRecognitionManager()
-    @State private var isRecording = false
+    
+    var columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 8),
+        GridItem(.flexible(), spacing: 8),
+        GridItem(.flexible(), spacing: 8),
+        GridItem(.flexible(), spacing: 8)
+    ]
     
     var body: some View {
-        BaseTestView(destination: Test2View(), content: {
-            
-            VStack(spacing: 20) {
-                Text(manager.recognizedText.isEmpty ? "Recognition text will appear here" : manager.recognizedText)
-                    .padding()
-                    .border(Color.gray, width: 1)
-                
-                Button(action: {
-                    self.startStopRecording()
-                }) {
-                    Text(isRecording ? "Stop Recording" : "Start Recording")
+        
+        ScrollView {
+            LazyVGrid(columns: columns) {
+                ForEach(1...12, id: \.self) { imageID in
+                    ZStack {
+                        Rectangle()
+                            .fill(Color.gray)
+                            .frame(height: 200)
+                            .frame(width: 200)
+                            .cornerRadius(20)
+                            .padding(.bottom, 20)
+                        
+                        let imageName = "Test1Icons/test1_" + String(imageID)
+                        
+                        Image(imageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 150, height: 150)
+                            .offset(x: 5, y: -5)
+                    }
                 }
             }
-            .padding()
-            
-        }, explanationContent: {
-            Text("Hier sind einige Erklärungen.")
-        })
+            .padding(.vertical)
+            .padding(.top, 70)
+        }
+        
+        
+        /*
+         BaseTestView(destination: Test2View(), content: {
+         
+         }, explanationContent: {
+         Text("Hier sind einige Erklärungen.")
+         })
+         */
+        
     }
     
     private func startStopRecording() {
