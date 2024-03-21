@@ -137,7 +137,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
 
 
 class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
-    @Published var recognizedText = ""
+    @Published var recognizedWords: [String] = []
     
     init() {
         AudioService.shared.delegate = self
@@ -145,11 +145,13 @@ class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
     
     func audioService(_ service: AudioService, didRecognizeText text: String) {
         DispatchQueue.main.async {
-            self.recognizedText = text
+            let words = text.split(separator: " ").map(String.init)
+            self.recognizedWords.append(contentsOf: words)
         }
     }
     
     func audioService(_ service: AudioService, didChangeAvailability isAvailable: Bool) {
-        // Availability change handling
+        // TODO
     }
 }
+

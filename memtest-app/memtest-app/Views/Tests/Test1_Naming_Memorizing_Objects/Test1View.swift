@@ -9,6 +9,11 @@ import SwiftUI
 
 struct Test1View: View {
     
+    @ObservedObject private var manager = SpeechRecognitionManager()
+    @State private var isRecording = false
+    
+    private var symbolList = TestSymbolList()
+    
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 8),
         GridItem(.flexible(), spacing: 8),
@@ -17,41 +22,39 @@ struct Test1View: View {
     ]
     
     var body: some View {
+        Text(manager.recognizedWords.last ?? "")
         
-        ScrollView {
-            LazyVGrid(columns: columns) {
-                ForEach(1...12, id: \.self) { imageID in
-                    ZStack {
-                        Rectangle()
-                            .fill(Color.gray)
-                            .frame(height: 200)
-                            .frame(width: 200)
-                            .cornerRadius(20)
-                            .padding(.bottom, 20)
-                        
-                        let imageName = "Test1Icons/test1_" + String(imageID)
-                        
-                        Image(imageName)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 150, height: 150)
-                            .offset(x: 5, y: -5)
-                    }
+        LazyVGrid(columns: columns) {
+            ForEach(symbolList.symbols, id: \.name) { symbol in
+                ZStack {
+                    Rectangle()
+                        .fill(self.isSymbolNameRecognized(symbol.name) ? Color.gray.opacity(0.5) : Color.gray) 
+                        .frame(height: 200)
+                        .frame(width: 200)
+                        .cornerRadius(20)
+                        .padding(.bottom, 20)
+                    
+                    Image(symbol.fileUrl)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 150, height: 150)
+                        .offset(x: 5, y: -5)
                 }
             }
-            .padding(.vertical)
-            .padding(.top, 70)
         }
-        
-        
-        /*
-         BaseTestView(destination: Test2View(), content: {
-         
-         }, explanationContent: {
-         Text("Hier sind einige Erklärungen.")
-         })
-         */
-        
+        .padding(.vertical)
+        .padding(.top, 70)
+        .onAppear(perform: {
+            do {
+                try AudioService.shared.startRecording(to: "test1")
+            } catch {
+                print("Failed to start recording: \(error)")
+            }
+        })
+    }
+    
+    private func isSymbolNameRecognized(_ name: String) -> Bool {
+        return manager.recognizedWords.contains { $0.lowercased().contains(name.lowercased()) }
     }
     
     private func startStopRecording() {
@@ -73,7 +76,6 @@ struct Test1View: View {
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         do {
             let fileURLs = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil)
-            // Filter for specific file types if needed, e.g., .m4a
             let audioFiles = fileURLs.filter { $0.pathExtension == "m4a" }
             print("Recorded files:")
             for file in audioFiles {
