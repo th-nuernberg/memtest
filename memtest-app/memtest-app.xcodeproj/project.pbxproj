@@ -43,6 +43,8 @@
 		C6190B132B93516800633305 /* Test6View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B122B93516800633305 /* Test6View.swift */; };
 		C6190B152B93517100633305 /* Test7View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B142B93517100633305 /* Test7View.swift */; };
 		C6190B172B93517A00633305 /* Test8View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B162B93517A00633305 /* Test8View.swift */; };
+		C62BE6D32BAC2B6600B111ED /* WelcomeStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62BE6D22BAC2B6600B111ED /* WelcomeStudyView.swift */; };
+		C65F98AA2BABB26E00DCBD41 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F98A92BABB26E00DCBD41 /* WelcomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +124,8 @@
 		C6190B122B93516800633305 /* Test6View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test6View.swift; sourceTree = "<group>"; };
 		C6190B142B93517100633305 /* Test7View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test7View.swift; sourceTree = "<group>"; };
 		C6190B162B93517A00633305 /* Test8View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test8View.swift; sourceTree = "<group>"; };
+		C62BE6D22BAC2B6600B111ED /* WelcomeStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeStudyView.swift; sourceTree = "<group>"; };
+		C65F98A92BABB26E00DCBD41 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,10 +233,11 @@
 				2EF974832B98C45C00EFFA46 /* QRCode */,
 				C6190AFA2B934FA000633305 /* Tests */,
 				C6190AED2B934D7900633305 /* TestCalibration */,
-				2ECA209E2B874099000F2790 /* Activities */,
 				C6190AE52B934C7A00633305 /* DataInputView.swift */,
 				C6190B042B93510100633305 /* TestEndView.swift */,
 				C6190B062B93511000633305 /* FeedbackView.swift */,
+				C65F98A92BABB26E00DCBD41 /* WelcomeView.swift */,
+				C62BE6D22BAC2B6600B111ED /* WelcomeStudyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -250,13 +255,6 @@
 			children = (
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		2ECA209E2B874099000F2790 /* Activities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Activities;
 			sourceTree = "<group>";
 		};
 		2ECA209F2B8740B0000F2790 /* Models */ = {
@@ -487,7 +485,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					2ECA206A2B873EC2000F2790 = {
 						CreatedOnToolsVersion = 15.2;
@@ -579,6 +577,7 @@
 				2ECA20712B873EC2000F2790 /* ContentView.swift in Sources */,
 				C6190AF12B934E2700633305 /* TestExplinationTipView.swift in Sources */,
 				C6190B112B93515E00633305 /* Test5View.swift in Sources */,
+				C62BE6D32BAC2B6600B111ED /* WelcomeStudyView.swift in Sources */,
 				2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */,
 				2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */,
 				C6190B072B93511000633305 /* FeedbackView.swift in Sources */,
@@ -592,6 +591,7 @@
 				2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */,
 				C6190AF32B934E3900633305 /* TestExplinationAudioView.swift in Sources */,
 				C6190B092B93512F00633305 /* Test1View.swift in Sources */,
+				C65F98AA2BABB26E00DCBD41 /* WelcomeView.swift in Sources */,
 				C6190B0B2B93513A00633305 /* Test2View.swift in Sources */,
 				C6190B172B93517A00633305 /* Test8View.swift in Sources */,
 				C6190B0D2B93514A00633305 /* Test3View.swift in Sources */,
@@ -683,6 +683,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -701,7 +702,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				"INFOPLIST_FILE[sdk=*]" = "memtest/memtest-app/memtest-app/Info.plist";
+				"INFOPLIST_FILE[sdk=*]" = memtest/Info.plist;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -745,6 +746,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -772,10 +774,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "memtest-app/memtest_app.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"memtest-app/Preview Content\"";
-				DEVELOPMENT_TEAM = 85QAQGXVGG;
+				DEVELOPMENT_TEAM = ERHEAA87CU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
@@ -813,10 +817,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "memtest-app/memtest_app.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"memtest-app/Preview Content\"";
-				DEVELOPMENT_TEAM = 85QAQGXVGG;
+				DEVELOPMENT_TEAM = ERHEAA87CU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
@@ -854,6 +860,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4MQKZ58XNK;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
@@ -878,6 +885,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4MQKZ58XNK;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
@@ -901,6 +909,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4MQKZ58XNK;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
@@ -924,6 +933,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4MQKZ58XNK;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
@@ -945,6 +955,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -983,6 +994,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
