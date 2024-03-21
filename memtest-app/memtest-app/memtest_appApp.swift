@@ -8,8 +8,8 @@
 import SwiftUI
 
 @main
-
 struct memtest_appApp: App {
+ 
     var body: some Scene {
         WindowGroup {
             ContentView()
