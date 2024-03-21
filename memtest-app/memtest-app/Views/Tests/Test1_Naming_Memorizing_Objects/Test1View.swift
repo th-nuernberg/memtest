@@ -22,34 +22,43 @@ struct Test1View: View {
     ]
     
     var body: some View {
-        Text(manager.recognizedWords.last ?? "")
-        
-        LazyVGrid(columns: columns) {
-            ForEach(symbolList.symbols, id: \.name) { symbol in
-                ZStack {
-                    Rectangle()
-                        .fill(self.isSymbolNameRecognized(symbol.name) ? Color.gray.opacity(0.5) : Color.gray) 
-                        .frame(height: 200)
-                        .frame(width: 200)
-                        .cornerRadius(20)
-                        .padding(.bottom, 20)
-                    
-                    Image(symbol.fileUrl)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 150, height: 150)
-                        .offset(x: 5, y: -5)
+        BaseTestView(destination: Test2View(), content: {
+            Text(manager.recognizedWords.last ?? "")
+            
+            LazyVGrid(columns: columns) {
+                ForEach(symbolList.symbols, id: \.name) { symbol in
+                    ZStack {
+                        Rectangle()
+                            .fill(self.isSymbolNameRecognized(symbol.name) ? Color.gray.opacity(0.5) : Color.gray)
+                            .frame(height: 200)
+                            .frame(width: 200)
+                            .cornerRadius(20)
+                            .padding(.bottom, 20)
+                        
+                        Image(symbol.fileUrl)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 150, height: 150)
+                            .offset(x: 5, y: -5)
+                    }
                 }
             }
-        }
-        .padding(.vertical)
-        .padding(.top, 70)
-        .onAppear(perform: {
-            do {
-                try AudioService.shared.startRecording(to: "test1")
-            } catch {
-                print("Failed to start recording: \(error)")
+            .padding(.vertical)
+            .padding(.top, 70)
+            .onAppear(perform: {
+                do {
+                    try AudioService.shared.startRecording(to: "test1")
+                } catch {
+                    print("Failed to start recording: \(error)")
+                }
+            })
+            .onTimerComplete(duration: 5) {
+                print("Timer completed")
+                
+                // TODO: route to Test2View
             }
+        }, explanationContent: {
+            
         })
     }
     
@@ -87,9 +96,6 @@ struct Test1View: View {
     }
     
 }
-
-
-
 
 
 #Preview {

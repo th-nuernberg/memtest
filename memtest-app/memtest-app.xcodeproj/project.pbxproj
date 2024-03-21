@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
+		2EBB95B72BACA86E00D8EA4C /* TimerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */; };
 		2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FC92BAC712700F983C0 /* AudioService.swift */; };
 		2EBE8FD42BAC793700F983C0 /* TestSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */; };
 		2EC57FD42B8D23F000091804 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC57FD32B8D23F000091804 /* QRCodeView.swift */; };
@@ -89,6 +90,7 @@
 
 /* Begin PBXFileReference section */
 		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
+		2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModifier.swift; sourceTree = "<group>"; };
 		2EBE8FC92BAC712700F983C0 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSymbol.swift; sourceTree = "<group>"; };
 		2EC57FD32B8D23F000091804 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */,
+				2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				C6190AF32B934E3900633305 /* TestExplinationAudioView.swift in Sources */,
 				C6190B092B93512F00633305 /* Test1View.swift in Sources */,
 				2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */,
+				2EBB95B72BACA86E00D8EA4C /* TimerModifier.swift in Sources */,
 				C65F98AA2BABB26E00DCBD41 /* WelcomeView.swift in Sources */,
 				C6190B0B2B93513A00633305 /* Test2View.swift in Sources */,
 				C6190B172B93517A00633305 /* Test8View.swift in Sources */,
