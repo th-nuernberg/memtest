@@ -18,7 +18,6 @@ struct BaseTestView<Destination: View, Content: View, ExplanationContent: View>:
         self.destination = destination
         self.content = content
         self.explanationContent = explanationContent
-        // Initialize showExplanation based on whether explanationContent is not nil
         self._showExplanation = State(initialValue: self.explanationContent() != nil)
     }
     
@@ -52,15 +51,18 @@ struct ExplanationView<Content: View>: View {
         VStack {
             content
             Spacer()
-            HStack {
+            VStack {
                 Spacer()
                 Button(action: onContinue) {
                     Text("Weiter")
-                        .padding()
-                        .background(.tBlue)
                         .foregroundColor(.white)
-                        .cornerRadius(10)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
                 }
+                .padding(.horizontal,50)
+                .background(Color.blue)
+                .cornerRadius(10)
+                .navigationBarBackButtonHidden(true)
             }
             .padding()
         }
