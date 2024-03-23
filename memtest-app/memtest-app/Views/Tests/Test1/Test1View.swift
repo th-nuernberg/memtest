@@ -58,6 +58,73 @@ struct Test1View: View {
                 // TODO: route to Test2View
             }
         }, explanationContent: {
+            HStack {
+                HStack {
+                    ForEach(0..<3) { index in
+                        ZStack {
+                            if index == 0 {
+                                Circle()
+                                    .foregroundColor(.blue)
+                                    .frame(width: 30, height: 30)
+                                Text("1")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                            } else {
+                                Circle()
+                                    .foregroundColor(.gray)
+                                    .frame(width: 30, height: 30)
+                            }
+                        }
+                        .padding(.trailing, 5)
+                    }
+                }
+                
+                Circle()
+                    .foregroundColor(.gray)
+                    .frame(width: 30, height: 30)
+                HStack {
+                    ForEach(0..<3) { _ in
+                        Circle()
+                            .foregroundColor(.gray)
+                            .frame(width: 30, height: 30)
+                            .padding(.leading, 5)
+                    }
+                }
+            }
+            
+            HStack {
+                Text("Aufgabenstellung 1")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            
+            
+            VStack{
+                Text("Ihre erste Aufgabe besteht darin, Bilder die")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("gezeigt werden zu benennen.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("Sie sehen zum Beispiel ein Bild eines Baums.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top,20)
+                
+                Text("Dann sagen sie deutlich das Wort Baum und das")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("jewewilige Bild wird als erfolgreich erkannt markiert")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+            }
+            .padding(.top,120)
             
         })
     }
@@ -80,7 +147,7 @@ struct Test1View: View {
         }
         isRecording.toggle()
     }
-
+    
     private func listRecordedFiles() {
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         do {

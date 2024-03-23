@@ -38,16 +38,16 @@
 		C6190AF92B934E7700633305 /* AudioCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AF82B934E7700633305 /* AudioCalibrationView.swift */; };
 		C6190B052B93510100633305 /* TestEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B042B93510100633305 /* TestEndView.swift */; };
 		C6190B072B93511000633305 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B062B93511000633305 /* FeedbackView.swift */; };
-		C6190B092B93512F00633305 /* Test1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B082B93512F00633305 /* Test1View.swift */; };
-		C6190B0B2B93513A00633305 /* Test2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B0A2B93513A00633305 /* Test2View.swift */; };
-		C6190B0D2B93514A00633305 /* Test3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B0C2B93514A00633305 /* Test3View.swift */; };
-		C6190B0F2B93515400633305 /* Test4View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B0E2B93515400633305 /* Test4View.swift */; };
-		C6190B112B93515E00633305 /* Test5View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B102B93515E00633305 /* Test5View.swift */; };
-		C6190B132B93516800633305 /* Test6View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B122B93516800633305 /* Test6View.swift */; };
-		C6190B152B93517100633305 /* Test7View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B142B93517100633305 /* Test7View.swift */; };
-		C6190B172B93517A00633305 /* Test8View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B162B93517A00633305 /* Test8View.swift */; };
 		C62BE6D32BAC2B6600B111ED /* WelcomeStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62BE6D22BAC2B6600B111ED /* WelcomeStudyView.swift */; };
 		C65F98AA2BABB26E00DCBD41 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F98A92BABB26E00DCBD41 /* WelcomeView.swift */; };
+		C66BB40C2BAF09B700ACC04F /* Test7View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB40B2BAF09B700ACC04F /* Test7View.swift */; };
+		C66BB4102BAF09ED00ACC04F /* Test6View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB40F2BAF09ED00ACC04F /* Test6View.swift */; };
+		C66BB4142BAF0A0B00ACC04F /* Test5View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB4132BAF0A0B00ACC04F /* Test5View.swift */; };
+		C66BB4182BAF0A2600ACC04F /* Test4View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB4172BAF0A2600ACC04F /* Test4View.swift */; };
+		C66BB41C2BAF0A4300ACC04F /* Test3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB41B2BAF0A4300ACC04F /* Test3View.swift */; };
+		C66BB41F2BAF0A6F00ACC04F /* LearnphaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB41E2BAF0A6F00ACC04F /* LearnphaseView.swift */; };
+		C66BB4222BAF0A8E00ACC04F /* Test2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB4212BAF0A8E00ACC04F /* Test2View.swift */; };
+		C66BB4262BAF0AB300ACC04F /* Test1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB4252BAF0AB300ACC04F /* Test1View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,16 +122,16 @@
 		C6190AF82B934E7700633305 /* AudioCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCalibrationView.swift; sourceTree = "<group>"; };
 		C6190B042B93510100633305 /* TestEndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEndView.swift; sourceTree = "<group>"; };
 		C6190B062B93511000633305 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
-		C6190B082B93512F00633305 /* Test1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test1View.swift; sourceTree = "<group>"; };
-		C6190B0A2B93513A00633305 /* Test2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2View.swift; sourceTree = "<group>"; };
-		C6190B0C2B93514A00633305 /* Test3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test3View.swift; sourceTree = "<group>"; };
-		C6190B0E2B93515400633305 /* Test4View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test4View.swift; sourceTree = "<group>"; };
-		C6190B102B93515E00633305 /* Test5View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test5View.swift; sourceTree = "<group>"; };
-		C6190B122B93516800633305 /* Test6View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test6View.swift; sourceTree = "<group>"; };
-		C6190B142B93517100633305 /* Test7View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test7View.swift; sourceTree = "<group>"; };
-		C6190B162B93517A00633305 /* Test8View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test8View.swift; sourceTree = "<group>"; };
 		C62BE6D22BAC2B6600B111ED /* WelcomeStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeStudyView.swift; sourceTree = "<group>"; };
 		C65F98A92BABB26E00DCBD41 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		C66BB40B2BAF09B700ACC04F /* Test7View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test7View.swift; sourceTree = "<group>"; };
+		C66BB40F2BAF09ED00ACC04F /* Test6View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test6View.swift; sourceTree = "<group>"; };
+		C66BB4132BAF0A0B00ACC04F /* Test5View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test5View.swift; sourceTree = "<group>"; };
+		C66BB4172BAF0A2600ACC04F /* Test4View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test4View.swift; sourceTree = "<group>"; };
+		C66BB41B2BAF0A4300ACC04F /* Test3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test3View.swift; sourceTree = "<group>"; };
+		C66BB41E2BAF0A6F00ACC04F /* LearnphaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnphaseView.swift; sourceTree = "<group>"; };
+		C66BB4212BAF0A8E00ACC04F /* Test2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2View.swift; sourceTree = "<group>"; };
+		C66BB4252BAF0AB300ACC04F /* Test1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test1View.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,81 +316,81 @@
 		C6190AFA2B934FA000633305 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C6190B032B9350C800633305 /* Test8_Recognize_Objects */,
-				C6190B022B9350A600633305 /* Test7_Reproduce_Objects */,
-				C6190B012B93509000633305 /* Test6_Count_Symbols */,
-				C6190B002B93505D00633305 /* Test5_Order_Numbers */,
-				C6190AFF2B93503E00633305 /* Test4_Reading_Numbers */,
-				C6190AFE2B93502A00633305 /* Test3_Learnphase */,
-				C6190AFC2B934FF300633305 /* Test2_Reproducing_Objects */,
-				C6190AFB2B934FAF00633305 /* Test1_Naming_Memorizing_Objects */,
+				C66BB4082BAF099100ACC04F /* Test7 */,
+				C66BB4052BAF098A00ACC04F /* Test6 */,
+				C66BB4032BAF098200ACC04F /* Test5 */,
+				C66BB4002BAF097B00ACC04F /* Test4 */,
+				C66BB3FA2BAF095900ACC04F /* Test3 */,
+				C66BB3FC2BAF096700ACC04F /* Learnphase */,
+				C66BB3F72BAF095100ACC04F /* Test2 */,
+				C66BB3F42BAF094800ACC04F /* Test1 */,
 				2E472B962BA4546900CAC059 /* BaseTestView.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		C6190AFB2B934FAF00633305 /* Test1_Naming_Memorizing_Objects */ = {
+		C66BB3F42BAF094800ACC04F /* Test1 */ = {
 			isa = PBXGroup;
 			children = (
-				C6190B082B93512F00633305 /* Test1View.swift */,
+				C66BB4252BAF0AB300ACC04F /* Test1View.swift */,
 			);
-			path = Test1_Naming_Memorizing_Objects;
+			path = Test1;
 			sourceTree = "<group>";
 		};
-		C6190AFC2B934FF300633305 /* Test2_Reproducing_Objects */ = {
+		C66BB3F72BAF095100ACC04F /* Test2 */ = {
 			isa = PBXGroup;
 			children = (
-				C6190B0A2B93513A00633305 /* Test2View.swift */,
+				C66BB4212BAF0A8E00ACC04F /* Test2View.swift */,
 			);
-			path = Test2_Reproducing_Objects;
+			path = Test2;
 			sourceTree = "<group>";
 		};
-		C6190AFE2B93502A00633305 /* Test3_Learnphase */ = {
+		C66BB3FA2BAF095900ACC04F /* Test3 */ = {
 			isa = PBXGroup;
 			children = (
-				C6190B0C2B93514A00633305 /* Test3View.swift */,
+				C66BB41B2BAF0A4300ACC04F /* Test3View.swift */,
 			);
-			path = Test3_Learnphase;
+			path = Test3;
 			sourceTree = "<group>";
 		};
-		C6190AFF2B93503E00633305 /* Test4_Reading_Numbers */ = {
+		C66BB3FC2BAF096700ACC04F /* Learnphase */ = {
 			isa = PBXGroup;
 			children = (
-				C6190B0E2B93515400633305 /* Test4View.swift */,
+				C66BB41E2BAF0A6F00ACC04F /* LearnphaseView.swift */,
 			);
-			path = Test4_Reading_Numbers;
+			path = Learnphase;
 			sourceTree = "<group>";
 		};
-		C6190B002B93505D00633305 /* Test5_Order_Numbers */ = {
+		C66BB4002BAF097B00ACC04F /* Test4 */ = {
 			isa = PBXGroup;
 			children = (
-				C6190B102B93515E00633305 /* Test5View.swift */,
+				C66BB4172BAF0A2600ACC04F /* Test4View.swift */,
 			);
-			path = Test5_Order_Numbers;
+			path = Test4;
 			sourceTree = "<group>";
 		};
-		C6190B012B93509000633305 /* Test6_Count_Symbols */ = {
+		C66BB4032BAF098200ACC04F /* Test5 */ = {
 			isa = PBXGroup;
 			children = (
-				C6190B122B93516800633305 /* Test6View.swift */,
+				C66BB4132BAF0A0B00ACC04F /* Test5View.swift */,
 			);
-			path = Test6_Count_Symbols;
+			path = Test5;
 			sourceTree = "<group>";
 		};
-		C6190B022B9350A600633305 /* Test7_Reproduce_Objects */ = {
+		C66BB4052BAF098A00ACC04F /* Test6 */ = {
 			isa = PBXGroup;
 			children = (
-				C6190B142B93517100633305 /* Test7View.swift */,
+				C66BB40F2BAF09ED00ACC04F /* Test6View.swift */,
 			);
-			path = Test7_Reproduce_Objects;
+			path = Test6;
 			sourceTree = "<group>";
 		};
-		C6190B032B9350C800633305 /* Test8_Recognize_Objects */ = {
+		C66BB4082BAF099100ACC04F /* Test7 */ = {
 			isa = PBXGroup;
 			children = (
-				C6190B162B93517A00633305 /* Test8View.swift */,
+				C66BB40B2BAF09B700ACC04F /* Test7View.swift */,
 			);
-			path = Test8_Recognize_Objects;
+			path = Test7;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -580,34 +580,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C66BB4262BAF0AB300ACC04F /* Test1View.swift in Sources */,
 				2EC57FD42B8D23F000091804 /* QRCodeView.swift in Sources */,
 				2EBE8FD42BAC793700F983C0 /* TestSymbol.swift in Sources */,
 				2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */,
 				C6190AF92B934E7700633305 /* AudioCalibrationView.swift in Sources */,
+				C66BB4222BAF0A8E00ACC04F /* Test2View.swift in Sources */,
 				2ECA20712B873EC2000F2790 /* ContentView.swift in Sources */,
 				C6190AF12B934E2700633305 /* TestExplinationTipView.swift in Sources */,
-				C6190B112B93515E00633305 /* Test5View.swift in Sources */,
 				C62BE6D32BAC2B6600B111ED /* WelcomeStudyView.swift in Sources */,
 				2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */,
 				2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */,
 				C6190B072B93511000633305 /* FeedbackView.swift in Sources */,
+				C66BB4102BAF09ED00ACC04F /* Test6View.swift in Sources */,
 				C6190AE62B934C7A00633305 /* DataInputView.swift in Sources */,
 				C6190AF72B934E6100633305 /* TipCalibrationView.swift in Sources */,
 				C6190B052B93510100633305 /* TestEndView.swift in Sources */,
-				C6190B0F2B93515400633305 /* Test4View.swift in Sources */,
 				C6190AEF2B934E1300633305 /* TestExplinationDragDropView.swift in Sources */,
+				C66BB40C2BAF09B700ACC04F /* Test7View.swift in Sources */,
+				C66BB4142BAF0A0B00ACC04F /* Test5View.swift in Sources */,
 				C6190AF52B934E4B00633305 /* DragDropCalibrationView.swift in Sources */,
-				C6190B132B93516800633305 /* Test6View.swift in Sources */,
 				2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */,
 				C6190AF32B934E3900633305 /* TestExplinationAudioView.swift in Sources */,
-				C6190B092B93512F00633305 /* Test1View.swift in Sources */,
+				C66BB41C2BAF0A4300ACC04F /* Test3View.swift in Sources */,
 				2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */,
 				2EBB95B72BACA86E00D8EA4C /* TimerModifier.swift in Sources */,
 				C65F98AA2BABB26E00DCBD41 /* WelcomeView.swift in Sources */,
-				C6190B0B2B93513A00633305 /* Test2View.swift in Sources */,
-				C6190B172B93517A00633305 /* Test8View.swift in Sources */,
-				C6190B0D2B93514A00633305 /* Test3View.swift in Sources */,
-				C6190B152B93517100633305 /* Test7View.swift in Sources */,
+				C66BB41F2BAF0A6F00ACC04F /* LearnphaseView.swift in Sources */,
+				C66BB4182BAF0A2600ACC04F /* Test4View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -791,7 +791,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"memtest-app/Preview Content\"";
-				DEVELOPMENT_TEAM = 85QAQGXVGG;
+				DEVELOPMENT_TEAM = ERHEAA87CU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
@@ -836,7 +836,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"memtest-app/Preview Content\"";
-				DEVELOPMENT_TEAM = 85QAQGXVGG;
+				DEVELOPMENT_TEAM = ERHEAA87CU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
