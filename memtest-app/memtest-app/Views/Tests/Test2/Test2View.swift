@@ -11,6 +11,7 @@ struct Test2View: View {
     
     @ObservedObject private var manager = SpeechRecognitionManager()
     @State private var isRecording = false
+    @State private var finished = false
     
     private var symbolList = TestSymbolList()
     
@@ -22,7 +23,7 @@ struct Test2View: View {
     ]
     
     var body: some View {
-        BaseTestView(destination: LearnphaseView(), content: {
+        BaseTestView(showCompletedView: $finished, destination: {LearnphaseView()}, content: {
             Text(manager.recognizedWords.last ?? "")
             
             LazyVGrid(columns: columns) {
@@ -55,6 +56,8 @@ struct Test2View: View {
             })
             .onTimerComplete(duration: 5) {
                 print("Timer completed")
+                finished = true
+                AudioService.shared.stopRecording()
                 
                 // TODO: route to Test2View
             }
@@ -130,6 +133,8 @@ struct Test2View: View {
                 
             }
             .padding(.top,120)
+        }, completedContent: {onContinue in
+            CompletedView(completedTasks: 2, onContinue: onContinue)
         })
     }
     

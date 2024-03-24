@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct Test6View: View {
+    
+    @State private var finished = false
+    
     var body: some View {
-        BaseTestView(destination: Test7View(), content: {
+        BaseTestView(showCompletedView: $finished, destination: {Test7View()}, content: {
             Text("Das ist die Test6View")
+                .onTimerComplete(duration: 5) {
+                    print("Timer completed")
+                    finished = true
+                }
         }, explanationContent: {
             HStack {
                 HStack {
@@ -89,6 +96,8 @@ struct Test6View: View {
                 
             }
             .padding(.top,120)
+        }, completedContent: {onContinue in
+            CompletedView(completedTasks: 6, onContinue: onContinue)
         })
     }
 }

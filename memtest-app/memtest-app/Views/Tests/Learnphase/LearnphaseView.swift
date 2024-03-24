@@ -9,6 +9,8 @@ import SwiftUI
 
 struct LearnphaseView: View {
     
+    @State private var finished = false
+    
     private var symbolList = TestSymbolList()
     
     var columns: [GridItem] = [
@@ -19,7 +21,7 @@ struct LearnphaseView: View {
     ]
     
     var body: some View {
-        BaseTestView(destination: Test3View(), content: {
+        BaseTestView(showCompletedView: $finished, destination: {Test3View()}, content: {
 
             LazyVGrid(columns: columns) {
                 ForEach(symbolList.symbols, id: \.name) { symbol in
@@ -43,8 +45,9 @@ struct LearnphaseView: View {
             .padding(.top, 70)
             .onTimerComplete(duration: 5) {
                 print("Timer completed")
+                finished = true
                 
-                // TODO: route to Test2View
+                // TODO: route to Test2View --> Trigger
             }
         }, explanationContent: {
             HStack {
@@ -77,6 +80,9 @@ struct LearnphaseView: View {
                     .foregroundStyle(Color(hex: "#5377A1"))
             }
             .padding(.top,200)
+        }, completedContent: { onContinue in
+            // hacky xD
+            Color.clear.onAppear(perform: onContinue)
         })
     }
 }

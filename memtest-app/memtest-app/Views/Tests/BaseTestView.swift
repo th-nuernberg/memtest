@@ -7,17 +7,19 @@
 
 import SwiftUI
 
+typealias ContinueHandler = () -> Void
+
 struct BaseTestView<Destination: View, Content: View, ExplanationContent: View, CompletedContent: View>: View {
     let destination: () -> Destination
     let content: () -> Content
     var explanationContent: () -> ExplanationContent?
-    var completedContent: () -> CompletedContent?
+    var completedContent: (@escaping ContinueHandler) -> CompletedContent?
     @Binding private var showCompletedView: Bool
     @State var showNextView: Bool = false
     @State private var showExplanation: Bool
     
     
-    init(showCompletedView: Binding<Bool>, destination: @escaping () -> Destination, @ViewBuilder content: @escaping () -> Content, @ViewBuilder explanationContent: @escaping () -> ExplanationContent? = { nil }, @ViewBuilder completedContent: @escaping () -> CompletedContent? = { nil }) {
+    init(showCompletedView: Binding<Bool>, destination: @escaping () -> Destination, @ViewBuilder content: @escaping () -> Content, @ViewBuilder explanationContent: @escaping () -> ExplanationContent? = { nil }, @ViewBuilder completedContent: @escaping (@escaping ContinueHandler) -> CompletedContent? = { _ in nil }) {
         self.destination = destination
         self.content = content
         self.explanationContent = explanationContent
@@ -37,12 +39,10 @@ struct BaseTestView<Destination: View, Content: View, ExplanationContent: View, 
                     if (showCompletedView == false) {
                         content()
                     } else {
-                        completedContent()
-                        // CompletedView
-                        Text("Completed")
-                        Button("Weiter") {
+                        // completedContent must have onContinue
+                        completedContent({
                             showNextView = true
-                        }
+                        })
                     }
                 }
                 .navigationDestination(isPresented: $showNextView, destination: destination)
@@ -91,6 +91,7 @@ struct ExplanationView<Content: View>: View {
 struct CompletedView: View {
     var numberOfTasks: Int = 7 // Total number of tasks
     var completedTasks: Int = 1 // Number of tasks completed
+    var onContinue: ContinueHandler
     
     var buttonText: String {
         if completedTasks == 1 {
@@ -135,14 +136,16 @@ struct CompletedView: View {
             
             Spacer()
             
-            NavigationLink(destination: Test2View()) {
+            Button(action: {
+                onContinue()
+            }, label:  {
                 Text("Zur \(buttonText) Aufgabe >")
                     .bold()
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.blue)
                     .cornerRadius(10)
-            }
+            })
             
             Spacer()
         }
@@ -157,7 +160,7 @@ struct CompletedView: View {
         Text("Das ist die Test1View")
     }, explanationContent: {
         Text("Hier sind einige Erklärungen.")
-    }, completedContent: {
-        Text("Completed")
+    }, completedContent: { onContinue in
+        CompletedView(numberOfTasks: 7, completedTasks: 3, onContinue: onContinue)
     })
 }

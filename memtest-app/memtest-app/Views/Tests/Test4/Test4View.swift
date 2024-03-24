@@ -8,9 +8,44 @@
 import SwiftUI
 
 struct Test4View: View {
+    
+    @State private var finished = false
+    
+    var columns: [GridItem] = [
+            GridItem(.flexible(), spacing: 0),
+            GridItem(.flexible(), spacing: 0),
+            GridItem(.flexible(), spacing: 0),
+            GridItem(.flexible(), spacing: 0),
+            GridItem(.flexible(), spacing: 0)
+        ]
+    
     var body: some View {
-        BaseTestView(destination: Test5View(), content: {
-            Text("Das ist die Test4View")
+        BaseTestView(showCompletedView: $finished, destination: {Test5View()}, content: {
+            
+            LazyVGrid(columns: columns) {
+                ForEach(1...20, id: \.self) { i in
+                    ZStack {
+                        Circle()
+                            .fill(.gray)
+                            .frame(height: 150)
+                            .frame(width: 150)
+                            .padding(.bottom, 20)
+                            .dropDestination(for: String.self) { droppedTasks, location in
+                                
+                                
+                                return true
+                            }
+                        
+                    }
+                }
+            }
+            .onTimerComplete(duration: 5) {
+                print("Timer completed")
+                finished = true
+            }
+
+            
+            
         }, explanationContent: {
             HStack {
                 HStack {
@@ -82,6 +117,8 @@ struct Test4View: View {
                 
             }
             .padding(.top,120)
+        }, completedContent: {onContinue in
+            CompletedView(completedTasks: 4, onContinue: onContinue)
         })
     }
 }
