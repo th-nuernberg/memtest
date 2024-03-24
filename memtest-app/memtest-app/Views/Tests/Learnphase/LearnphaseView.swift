@@ -8,9 +8,44 @@
 import SwiftUI
 
 struct LearnphaseView: View {
+    
+    private var symbolList = TestSymbolList()
+    
+    var columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 8),
+        GridItem(.flexible(), spacing: 8),
+        GridItem(.flexible(), spacing: 8),
+        GridItem(.flexible(), spacing: 8)
+    ]
+    
     var body: some View {
         BaseTestView(destination: Test3View(), content: {
-            Text("Das ist die LearnphaseView")
+
+            LazyVGrid(columns: columns) {
+                ForEach(symbolList.symbols, id: \.name) { symbol in
+                    ZStack {
+                        Rectangle()
+                            .fill(Color.gray)
+                            .frame(height: 200)
+                            .frame(width: 200)
+                            .cornerRadius(20)
+                            .padding(.bottom, 20)
+                        
+                        Image(symbol.fileUrl)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 150, height: 150)
+                            .offset(x: 5, y: -5)
+                    }
+                }
+            }
+            .padding(.vertical)
+            .padding(.top, 70)
+            .onTimerComplete(duration: 5) {
+                print("Timer completed")
+                
+                // TODO: route to Test2View
+            }
         }, explanationContent: {
             HStack {
                 Text("Lernphase")
