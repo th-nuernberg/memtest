@@ -7,18 +7,25 @@
 
 import SwiftUI
 
-struct BaseTestView<Destination: View, Content: View, ExplanationContent: View>: View {
-    let destination: Destination
+typealias ContinueHandler = () -> Void
+
+struct BaseTestView<Destination: View, Content: View, ExplanationContent: View, CompletedContent: View>: View {
+    let destination: () -> Destination
     let content: () -> Content
     var explanationContent: () -> ExplanationContent?
-    @State private var showNextView = false
+    var completedContent: (@escaping ContinueHandler) -> CompletedContent?
+    @Binding private var showCompletedView: Bool
+    @State var showNextView: Bool = false
     @State private var showExplanation: Bool
     
-    init(destination: Destination, @ViewBuilder content: @escaping () -> Content, @ViewBuilder explanationContent: @escaping () -> ExplanationContent? = { nil }) {
+    
+    init(showCompletedView: Binding<Bool>, destination: @escaping () -> Destination, @ViewBuilder content: @escaping () -> Content, @ViewBuilder explanationContent: @escaping () -> ExplanationContent? = { nil }, @ViewBuilder completedContent: @escaping (@escaping ContinueHandler) -> CompletedContent? = { _ in nil }) {
         self.destination = destination
         self.content = content
         self.explanationContent = explanationContent
+        self.completedContent = completedContent
         self._showExplanation = State(initialValue: self.explanationContent() != nil)
+        self._showCompletedView = showCompletedView
     }
     
     var body: some View {
@@ -29,13 +36,25 @@ struct BaseTestView<Destination: View, Content: View, ExplanationContent: View>:
                 })
             } else {
                 VStack {
-                    content()
-                }            }
+                    if (showCompletedView == false) {
+                        content()
+                    } else {
+                        // completedContent must have onContinue
+                        completedContent({
+                            showNextView = true
+                        })
+                    }
+                }
+                .navigationDestination(isPresented: $showNextView, destination: destination)
+                .navigationBarBackButtonHidden(true)
+            }
         }
-        .navigationBarBackButtonHidden(true)
+    }
+    
+    func navigateToDestination() {
+        showNextView = true
     }
 }
-
 
 
 struct ExplanationView<Content: View>: View {
@@ -69,11 +88,79 @@ struct ExplanationView<Content: View>: View {
     }
 }
 
+struct CompletedView: View {
+    var numberOfTasks: Int = 7 // Total number of tasks
+    var completedTasks: Int = 1 // Number of tasks completed
+    var onContinue: ContinueHandler
+    
+    var buttonText: String {
+        if completedTasks == 1 {
+            return "zweiten"
+        } else if completedTasks == 2 {
+            return "dritten"
+        } else if completedTasks == 3 {
+            return "vierten"
+        } else if  completedTasks == 4 {
+            return "fünften"
+        } else if  completedTasks == 5 {
+            return "sechsten"
+        } else if  completedTasks == 6 {
+            return "siebten"
+        } else {
+            return "nächsten"
+        }
+    }
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            
+            Text("Die Aufgabe ist abgeschlossen.\nMachen Sie eine kurze Pause.")
+                .font(.custom("SFProText-SemiBold", size: 40))
+                .foregroundStyle(Color(hex: "#958787"))
+                .padding(.top)
+                .padding(.leading)
+                .frame(maxWidth: .infinity)
+                .multilineTextAlignment(.center)
+            
+            HStack(spacing: 50) {
+                ForEach(0..<numberOfTasks) { index in
+                    Image(systemName: completedTasks > index ? "checkmark.circle.fill" : "circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 40, height: 40)
+                        .foregroundColor(completedTasks > index ? .green : .gray)
+                }
+            }
+            .padding()
+            
+            Spacer()
+            
+            Button(action: {
+                onContinue()
+            }, label:  {
+                Text("Zur \(buttonText) Aufgabe >")
+                    .bold()
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+            })
+            
+            Spacer()
+        }
+        .padding()
+    }
+}
+
+
 
 #Preview {
-    BaseTestView(destination: Test1View(), content: {
+    BaseTestView(showCompletedView: .constant(false) ,destination: {Test1View()}, content: {
         Text("Das ist die Test1View")
     }, explanationContent: {
         Text("Hier sind einige Erklärungen.")
+    }, completedContent: { onContinue in
+        CompletedView(numberOfTasks: 7, completedTasks: 3, onContinue: onContinue)
     })
 }

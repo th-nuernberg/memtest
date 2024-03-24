@@ -11,6 +11,7 @@ struct Test1View: View {
     
     @ObservedObject private var manager = SpeechRecognitionManager()
     @State private var isRecording = false
+    @State private var finished = false
     
     private var symbolList = TestSymbolList()
     
@@ -22,7 +23,7 @@ struct Test1View: View {
     ]
     
     var body: some View {
-        BaseTestView(destination: Test2View(), content: {
+        BaseTestView(showCompletedView: $finished, destination: {Test2View()}, content: {
             Text(manager.recognizedWords.last ?? "")
             
             LazyVGrid(columns: columns) {
@@ -52,10 +53,11 @@ struct Test1View: View {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration: 5) {
+            .onTimerComplete(duration: 1) {
                 print("Timer completed")
-                
-                // TODO: route to Test2View
+                finished = true
+                AudioService.shared.stopRecording()
+                // TODO: route to Test2View --> trigger navigateToDestination() in BaseTestView
             }
         }, explanationContent: {
             HStack {
@@ -126,6 +128,8 @@ struct Test1View: View {
             }
             .padding(.top,120)
             
+        }, completedContent: {onContinue in
+            CompletedView(completedTasks: 1, onContinue: onContinue)
         })
     }
     
