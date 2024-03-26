@@ -21,14 +21,16 @@ struct DragDropCalibrationView: View {
                     .fontWeight(.bold)
                     .padding(.top,10)
                     .padding(.horizontal)
+                Text("Sie müssen den Kreis in das Ziel bewegen um fortfahren zu können.")
                 Spacer()
             }
             HStack{
                 Spacer()
+                    .frame(width:100)
                 //Movable
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(.blue)
-                    .frame(width: 100, height: 100)
+                Circle()
+                    .foregroundColor(.blue.opacity(0.8))
+                    .frame(width: 150, height: 150)
                     .offset(offset)
                     .gesture(
                         DragGesture()
@@ -43,14 +45,15 @@ struct DragDropCalibrationView: View {
                 Spacer()
                 //Unmovable
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(.red)
-                    .frame(width: 100, height: 100)
+                    .foregroundColor(.red.opacity(0.8))
+                    .frame(width: 200, height: 200)
                     .overlay(
                         Text("Ziel")
                             .foregroundColor(.black)
                     )
                     .padding()
                 Spacer()
+                    .frame(width: 100)
             }
             VStack{
                 Spacer()
