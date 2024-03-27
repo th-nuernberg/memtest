@@ -6,18 +6,59 @@
 //
 
 import SwiftUI
+import Combine
+
 
 struct Test5View: View {
     
+    @StateObject private var viewModel = SymbolViewModel()
     @State private var finished = false
+    
+    @State private var userSymbolCount = ""
+    
     
     var body: some View {
         BaseTestView(showCompletedView: $finished, destination: {Test6View()}, content: {
-            Text("Das ist die Test5View")
-                .onTimerComplete(duration: 5) {
-                    print("Timer completed")
-                    finished = true
+            Text("Gesucht: ")
+            Spacer()
+            SymbolView(viewModel: viewModel)
+            Spacer()
+            Text("\(viewModel.symbolCounts["★"] ?? 0)")
+            
+            HStack{
+                TextField("Anzahl der Symbole:", text: $userSymbolCount)
+                    .keyboardType(.numberPad)
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10)
+                    .onReceive(Just(userSymbolCount)) { newValue in
+                        let filtered = String(newValue.filter { $0.isNumber })
+                        if let count = Int(filtered), count > 200 {
+                            userSymbolCount = String(filtered.prefix(filtered.count - 1))
+                        } else {
+                            userSymbolCount = filtered
+                        }
+                    }
+                    .padding(.trailing, 20)
+                
+                Button(action: {
+                    finished.toggle()
+                }) {
+                    Text("OK")
+                        .font(.custom("SFProText-SemiBold", size: 25))
+                        .foregroundStyle(.white)
                 }
+                .padding(13)
+                .background(.blue)
+                .cornerRadius(10)
+                //.padding(.top,70)
+                //.padding(.leading)
+                //.frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(20)
+            
+            
+            
         }, explanationContent: {
             HStack {
                 HStack {

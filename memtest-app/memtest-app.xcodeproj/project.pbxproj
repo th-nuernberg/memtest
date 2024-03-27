@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */; };
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
 		2EBB95B72BACA86E00D8EA4C /* TimerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */; };
 		2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FC92BAC712700F983C0 /* AudioService.swift */; };
@@ -88,6 +89,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
 		2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModifier.swift; sourceTree = "<group>"; };
 		2EBE8FC92BAC712700F983C0 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				C66BB4132BAF0A0B00ACC04F /* Test5View.swift */,
+				2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */,
 			);
 			path = Test5;
 			sourceTree = "<group>";
@@ -597,6 +600,7 @@
 				C66BB4142BAF0A0B00ACC04F /* Test5View.swift in Sources */,
 				C6190AF52B934E4B00633305 /* DragDropCalibrationView.swift in Sources */,
 				2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */,
+				2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */,
 				C6190AF32B934E3900633305 /* TestExplinationAudioView.swift in Sources */,
 				C66BB41C2BAF0A4300ACC04F /* Test3View.swift in Sources */,
 				2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */,
