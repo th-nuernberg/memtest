@@ -11,7 +11,6 @@
 		2EBB95B72BACA86E00D8EA4C /* TimerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */; };
 		2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FC92BAC712700F983C0 /* AudioService.swift */; };
 		2EBE8FD42BAC793700F983C0 /* TestSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */; };
-		2EC57FD42B8D23F000091804 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC57FD32B8D23F000091804 /* QRCodeView.swift */; };
 		2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */; };
 		2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECA206E2B873EC2000F2790 /* memtest_appApp.swift */; };
 		2ECA20712B873EC2000F2790 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECA20702B873EC2000F2790 /* ContentView.swift */; };
@@ -93,7 +92,6 @@
 		2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModifier.swift; sourceTree = "<group>"; };
 		2EBE8FC92BAC712700F983C0 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSymbol.swift; sourceTree = "<group>"; };
-		2EC57FD32B8D23F000091804 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUtils.swift; sourceTree = "<group>"; };
 		2ECA206B2B873EC2000F2790 /* memtest-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "memtest-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2ECA206E2B873EC2000F2790 /* memtest_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memtest_appApp.swift; sourceTree = "<group>"; };
@@ -276,7 +274,6 @@
 		2EF974832B98C45C00EFFA46 /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
-				2EC57FD32B8D23F000091804 /* QRCodeView.swift */,
 				2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */,
 			);
 			path = QRCode;
@@ -581,7 +578,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C66BB4262BAF0AB300ACC04F /* Test1View.swift in Sources */,
-				2EC57FD42B8D23F000091804 /* QRCodeView.swift in Sources */,
 				2EBE8FD42BAC793700F983C0 /* TestSymbol.swift in Sources */,
 				2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */,
 				C6190AF92B934E7700633305 /* AudioCalibrationView.swift in Sources */,
