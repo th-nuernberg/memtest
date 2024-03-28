@@ -15,8 +15,10 @@ struct SymbolPosition {
 
 struct SymbolView: View {
     private let symbols = ["★", "✻", "▢"]
-    private let numberOfSymbols = 170
+    private let numberOfSymbols = 117
     private let symbolSize: CGFloat = 30.0
+    private let symbolPadding: CGFloat = 20
+
     
     @ObservedObject var viewModel: SymbolViewModel
     
@@ -35,47 +37,44 @@ struct SymbolView: View {
             }
         }
         .onAppear {
-            print("appera")
             viewModel.initializeSymbolCounts(numberOfSymbols: numberOfSymbols)
-            generateSymbolsPositions(in: UIScreen.main.bounds)
+            let rect = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            generateSymbolsPositions(in: rect) // Hier kein 'using' Parameter mehr
             viewModel.selectedSymbol = symbols.randomElement()
         }
     }
     
     private func generateSymbolsPositions(in rect: CGRect) {
-        var generatedSymbols: [String] = []
+        let insetRect = rect.insetBy(dx: rect.size.width * 0.05, dy: rect.size.height * 0.25)
+        let quadtree = Quadtree<SymbolPosition>(boundary: insetRect, capacity: 1)
         
-        for symbol in symbols {
-            if let count = viewModel.symbolCounts[symbol] {
-                for _ in 0..<count {
-                    generatedSymbols.append(symbol)
+        for _ in 0..<numberOfSymbols {
+            let symbol = symbols.randomElement()!
+            var placed = false
+            while !placed {
+                let x = CGFloat.random(in: insetRect.minX...insetRect.maxX)
+                let y = CGFloat.random(in: insetRect.minY...insetRect.maxY)
+                let position = CGPoint(x: x, y: y)
+                
+                let safeZone = CGRect(x: position.x - (symbolSize + symbolPadding) / 2,
+                                       y: position.y - (symbolSize + symbolPadding) / 2,
+                                       width: symbolSize + symbolPadding,
+                                       height: symbolSize + symbolPadding)
+
+                
+                if !quadtree.query(in: safeZone) {
+                    let symbolPosition = SymbolPosition(symbol: symbol, position: position)
+                    placed = quadtree.insert(point: position, value: symbolPosition)
                 }
             }
         }
         
-        generatedSymbols.shuffle()
-        
-        print(generatedSymbols.count)
-        var newSymbolPositions: [SymbolPosition] = []
-        let insetRect = rect.insetBy(dx: rect.size.width * 0.05, dy: rect.size.height * 0.25)
-        
-        for symbol in generatedSymbols {
-            var potentialPosition: CGPoint
-            var positionFound = false
-            repeat {
-                potentialPosition = CGPoint(
-                    x: CGFloat.random(in: insetRect.minX...insetRect.maxX),
-                    y: CGFloat.random(in: insetRect.minY...insetRect.maxY)
-                )
-                let isOverlapping = false
-                positionFound = !isOverlapping
-            } while !positionFound
-            
-            newSymbolPositions.append(SymbolPosition(symbol: symbol, position: potentialPosition))
-        }
-        
-        symbolPositions = newSymbolPositions
-        print(symbolPositions.count)
+        symbolPositions = extractSymbolPositions(from: quadtree)
+    }
+    
+    private func extractSymbolPositions(from quadtree: Quadtree<SymbolPosition>) -> [SymbolPosition] {
+        let collectedPoints = quadtree.collect()
+        return collectedPoints.map { $0.value }
     }
 
 }
@@ -85,19 +84,14 @@ class SymbolViewModel: ObservableObject {
     @Published var selectedSymbol: String?
     
     func initializeSymbolCounts(numberOfSymbols: Int) {
-        // Diese Methode initialisiert `symbolCounts` mit zufälligen Werten,
-        // die sich zu `numberOfSymbols` summieren.
         let symbols = ["★", "✻", "▢"]
         var total = numberOfSymbols
         
-        // Zufällige Verteilung der Zahlen (einfaches Beispiel)
         for symbol in symbols {
             let count = total > 0 ? Int.random(in: 0...total) : 0
             symbolCounts[symbol] = count
             total -= count
         }
-        
-        // Stellen Sie sicher, dass die gesamte Zahl der Symbole genau numberOfSymbols entspricht
         if total > 0, let firstSymbol = symbols.first {
             symbolCounts[firstSymbol, default: 0] += total
         }
