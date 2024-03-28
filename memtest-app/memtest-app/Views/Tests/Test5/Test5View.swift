@@ -19,11 +19,13 @@ struct Test5View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished, destination: {Test6View()}, content: {
-            Text("Gesucht: ")
+            Text("Gesucht: \(viewModel.selectedSymbol ?? "")")
             Spacer()
             SymbolView(viewModel: viewModel)
             Spacer()
-            Text("\(viewModel.symbolCounts["★"] ?? 0)")
+            
+            //Text("Stern \(viewModel.symbolCounts["★"] ?? 0), Flocke \(viewModel.symbolCounts["✻"] ?? 0), Form \(viewModel.symbolCounts["▢"] ?? 0) ")
+            //Text("\(viewModel.selectedSymbolCount)")
             
             HStack{
                 TextField("Anzahl der Symbole:", text: $userSymbolCount)
@@ -51,9 +53,6 @@ struct Test5View: View {
                 .padding(13)
                 .background(.blue)
                 .cornerRadius(10)
-                //.padding(.top,70)
-                //.padding(.leading)
-                //.frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(20)
             

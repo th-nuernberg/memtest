@@ -7,43 +7,59 @@
 
 import SwiftUI
 
-import SwiftUI
+
+struct SymbolPosition {
+    let symbol: String
+    let position: CGPoint
+}
 
 struct SymbolView: View {
     private let symbols = ["★", "✻", "▢"]
-    private let numberOfSymbols = 117
+    private let numberOfSymbols = 170
     private let symbolSize: CGFloat = 30.0
     
     @ObservedObject var viewModel: SymbolViewModel
     
-    @State private var symbolPositions: [CGPoint] = []
+    @State private var symbolPositions: [SymbolPosition] = []
     
 
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                ForEach(Array(symbolPositions.enumerated()), id: \.offset) { index, position in
-                    Text(self.symbols[index % self.symbols.count])
+                ForEach(0..<symbolPositions.count, id: \.self) { index in
+                    let symbolPosition = symbolPositions[index]
+                    Text(symbolPosition.symbol)
                         .font(.title)
-                        .position(position)
+                        .position(symbolPosition.position)
                 }
             }
         }
         .onAppear {
+            print("appera")
+            viewModel.initializeSymbolCounts(numberOfSymbols: numberOfSymbols)
             generateSymbolsPositions(in: UIScreen.main.bounds)
+            viewModel.selectedSymbol = symbols.randomElement()
         }
     }
     
     private func generateSymbolsPositions(in rect: CGRect) {
-        var positions: [CGPoint] = []
-        // Reset the symbol counts
-        viewModel.symbolCounts = ["★": 0, "✻": 0, "▢": 0]
+        var generatedSymbols: [String] = []
         
-        // Define a smaller area for symbol generation, e.g., inset the current rect
+        for symbol in symbols {
+            if let count = viewModel.symbolCounts[symbol] {
+                for _ in 0..<count {
+                    generatedSymbols.append(symbol)
+                }
+            }
+        }
+        
+        generatedSymbols.shuffle()
+        
+        print(generatedSymbols.count)
+        var newSymbolPositions: [SymbolPosition] = []
         let insetRect = rect.insetBy(dx: rect.size.width * 0.05, dy: rect.size.height * 0.25)
-
-
-        for _ in 0..<numberOfSymbols {
+        
+        for symbol in generatedSymbols {
             var potentialPosition: CGPoint
             var positionFound = false
             repeat {
@@ -51,27 +67,49 @@ struct SymbolView: View {
                     x: CGFloat.random(in: insetRect.minX...insetRect.maxX),
                     y: CGFloat.random(in: insetRect.minY...insetRect.maxY)
                 )
-                let isOverlapping = positions.contains { existingPosition in
-                    let distance = sqrt(pow(existingPosition.x - potentialPosition.x, 2) +
-                                        pow(existingPosition.y - potentialPosition.y, 2))
-                    return distance < symbolSize * 1.5
-                }
+                let isOverlapping = false
                 positionFound = !isOverlapping
             } while !positionFound
             
-            // Add the new position
-            positions.append(potentialPosition)
-            // Randomly choose a symbol and update its count
-            let symbol = symbols.randomElement()!
-            viewModel.symbolCounts[symbol, default: 0] += 1
+            newSymbolPositions.append(SymbolPosition(symbol: symbol, position: potentialPosition))
         }
-
-        symbolPositions = positions
+        
+        symbolPositions = newSymbolPositions
+        print(symbolPositions.count)
     }
+
 }
 
 class SymbolViewModel: ObservableObject {
     @Published var symbolCounts: [String: Int] = ["★": 0, "✻": 0, "▢": 0]
+    @Published var selectedSymbol: String?
+    
+    func initializeSymbolCounts(numberOfSymbols: Int) {
+        // Diese Methode initialisiert `symbolCounts` mit zufälligen Werten,
+        // die sich zu `numberOfSymbols` summieren.
+        let symbols = ["★", "✻", "▢"]
+        var total = numberOfSymbols
+        
+        // Zufällige Verteilung der Zahlen (einfaches Beispiel)
+        for symbol in symbols {
+            let count = total > 0 ? Int.random(in: 0...total) : 0
+            symbolCounts[symbol] = count
+            total -= count
+        }
+        
+        // Stellen Sie sicher, dass die gesamte Zahl der Symbole genau numberOfSymbols entspricht
+        if total > 0, let firstSymbol = symbols.first {
+            symbolCounts[firstSymbol, default: 0] += total
+        }
+    }
+    
+    var selectedSymbolCount: Int {
+        if let selectedSymbol = selectedSymbol {
+            print(symbolCounts)
+            return symbolCounts[selectedSymbol] ?? 0
+        }
+        return 0
+    }
     
 }
 
