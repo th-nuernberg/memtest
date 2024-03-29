@@ -6,18 +6,81 @@
 //
 
 import SwiftUI
+import Combine
+
 
 struct Test5View: View {
-    
+    @StateObject private var viewModel = SymbolViewModel()
     @State private var finished = false
+    
+    @State private var userSymbolCount = ""
+    
     
     var body: some View {
         BaseTestView(showCompletedView: $finished, destination: {Test6View()}, content: {
-            Text("Das ist die Test5View")
-                .onTimerComplete(duration: 5) {
-                    print("Timer completed")
-                    finished = true
+            
+            VStack{
+                
+                AudioIndicatorView()
+                
+                VStack (spacing: 0){
+                    Text("Gesucht: \(viewModel.selectedSymbol ?? "")")
+                        .font(.custom("SFProText-Bold", size: 40))
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .padding()
+                    SymbolView(viewModel: viewModel)
                 }
+                
+                
+                
+                
+                //Text("Stern \(viewModel.symbolCounts["★"] ?? 0), Flocke \(viewModel.symbolCounts["✻"] ?? 0), Form \(viewModel.symbolCounts["▢"] ?? 0) ")
+                //Text("\(viewModel.selectedSymbolCount)")
+                
+                HStack{
+                    TextField("Anzahl der Symbole:", text: $userSymbolCount)
+                        .keyboardType(.numberPad)
+                        .padding()
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(10)
+                        .onReceive(Just(userSymbolCount)) { newValue in
+                            let filtered = String(newValue.filter { $0.isNumber })
+                            if let count = Int(filtered), count > 200 {
+                                userSymbolCount = String(filtered.prefix(filtered.count - 1))
+                            } else {
+                                userSymbolCount = filtered
+                            }
+                        }
+                        .padding(.trailing, 20)
+                    
+                    Button(action: {
+                        finished.toggle()
+                    }) {
+                        Text("OK")
+                            .font(.custom("SFProText-SemiBold", size: 25))
+                            .foregroundStyle(.white)
+                    }
+                    .padding(13)
+                    .background(.blue)
+                    .cornerRadius(10)
+                }
+                .padding(20)
+            }
+            .onAppear(perform: {
+                do {
+                    try AudioService.shared.startRecording(to: "test5")
+                    print("Recording started")
+                } catch {
+                    print("Failed to start recording: \(error)")
+                }
+            })
+            .onTimerComplete(duration: 60) {
+                print("Timer completed")
+                finished = true
+                AudioService.shared.stopRecording()
+            }
+            
+            
         }, explanationContent: {
             HStack {
                 HStack {
