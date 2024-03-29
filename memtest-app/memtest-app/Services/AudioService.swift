@@ -12,6 +12,8 @@ import AVFoundation
 protocol AudioServiceDelegate: AnyObject {
     func audioService(_ service: AudioService, didRecognizeText text: String)
     func audioService(_ service: AudioService, didChangeAvailability isAvailable: Bool)
+    
+    func audioService(_ service: AudioService, didUpdateInputLevel level: Float)
 }
 
 
@@ -24,6 +26,8 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
     private let audioEngine = AVAudioEngine()
     private var audioFile: AVAudioFile?
     weak var delegate: AudioServiceDelegate?
+    
+    private var inputLevelUpdateTimer: Timer?
     
     override init() {
         super.init()
@@ -119,11 +123,20 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         audioEngine.inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] (buffer, _) in
             self?.recognitionRequest?.append(buffer)
             self?.appendAudioToFile(buffer)
+            self?.updateInputLevel(buffer: buffer)
         }
         
         audioEngine.prepare()
         try audioEngine.start()
     }
+    
+    private func updateInputLevel(buffer: AVAudioPCMBuffer) {
+        let level = self.calculateAudioLevel(from: buffer)
+        DispatchQueue.main.async {
+            self.delegate?.audioService(self, didUpdateInputLevel: level)
+        }
+    }
+    
     
     private func appendAudioToFile(_ buffer: AVAudioPCMBuffer) {
         guard let audioFile = self.audioFile else { return }
@@ -133,11 +146,57 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
             print("Could not write to audio file: \(error)")
         }
     }
+    
+    func startInputLevelMonitoring() {
+        let inputNode = audioEngine.inputNode // 'inputNode' is not optional, so we don't use 'if let' or 'guard let'
+        let recordingFormat = inputNode.outputFormat(forBus: 0)
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] (buffer, _) in
+            self?.updateInputLevel(buffer: buffer)
+        }
+
+        do {
+            try audioEngine.start()
+        } catch {
+            print("AudioEngine couldn't start because of an error: \(error)")
+        }
+    }
+
+    // Call this function to stop monitoring the audio input level
+    func stopInputLevelMonitoring() {
+        audioEngine.stop()
+        audioEngine.inputNode.removeTap(onBus: 0)
+        inputLevelUpdateTimer?.invalidate()
+        inputLevelUpdateTimer = nil
+    }
+    
+    private func calculateAudioLevel(from buffer: AVAudioPCMBuffer) -> Float {
+        guard let channelData = buffer.floatChannelData else { return 0.0 }
+
+        // Calculate the sum of squares of each sample
+        let frameLength = Int(buffer.frameLength)
+        var sum: Float = 0
+        for i in 0..<frameLength {
+            let sample = channelData.pointee[i]
+            sum += sample * sample
+        }
+        
+        // Calculate the mean squared value
+        let meanSquare = sum / Float(frameLength)
+        
+        // Calculate the RMS value
+        let rms = sqrt(meanSquare)
+
+        // Normalize the RMS value
+        let normalizedLevel = min(1.0, rms * 60)
+        
+        return normalizedLevel
+    }
 }
 
 
 class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
     @Published var recognizedWords: [String] = []
+    @Published var inputLevel: Float = 0.0
     
     init() {
         AudioService.shared.delegate = self
@@ -152,6 +211,10 @@ class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
     
     func audioService(_ service: AudioService, didChangeAvailability isAvailable: Bool) {
         // TODO
+    }
+    
+    func audioService(_ service: AudioService, didUpdateInputLevel level: Float) {
+        self.inputLevel = level
     }
 }
 
