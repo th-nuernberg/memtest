@@ -1,4 +1,5 @@
 {
+  "originHash" : "84e6b351a277bf91ab6a4a07344af2e18b312828f04e8e7b71ec8b1793165a38",
   "pins" : [
     {
       "identity" : "openapikit",
@@ -91,5 +92,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

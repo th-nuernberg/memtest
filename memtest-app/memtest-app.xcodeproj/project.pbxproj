@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E1AAA8A2BB32C23009EA657 /* DragNDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA892BB32C23009EA657 /* DragNDropView.swift */; };
 		2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */; };
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
+		2EA41A4E2BB8A78800FDD5B4 /* DragDropExampleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA41A4D2BB8A78800FDD5B4 /* DragDropExampleScene.swift */; };
 		2EAE890F2BB5C6940022B4CD /* Quadtree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAE890E2BB5C6940022B4CD /* Quadtree.swift */; };
 		2EAE89122BB6FB2C0022B4CD /* AudioIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAE89112BB6FB2C0022B4CD /* AudioIndicatorView.swift */; };
 		2EBB95B72BACA86E00D8EA4C /* TimerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */; };
@@ -91,8 +93,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2E1AAA892BB32C23009EA657 /* DragNDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragNDropView.swift; sourceTree = "<group>"; };
 		2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
+		2EA41A4D2BB8A78800FDD5B4 /* DragDropExampleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDropExampleScene.swift; sourceTree = "<group>"; };
 		2EAE890E2BB5C6940022B4CD /* Quadtree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadtree.swift; sourceTree = "<group>"; };
 		2EAE89112BB6FB2C0022B4CD /* AudioIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioIndicatorView.swift; sourceTree = "<group>"; };
 		2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModifier.swift; sourceTree = "<group>"; };
@@ -172,6 +176,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2EA41A492BB874EA00FDD5B4 /* DragDropCalibration */ = {
+			isa = PBXGroup;
+			children = (
+				C6190AF42B934E4B00633305 /* DragDropCalibrationView.swift */,
+				2EA41A4D2BB8A78800FDD5B4 /* DragDropExampleScene.swift */,
+			);
+			path = DragDropCalibration;
+			sourceTree = "<group>";
+		};
 		2ECA20622B873EC2000F2790 = {
 			isa = PBXGroup;
 			children = (
@@ -308,10 +321,10 @@
 		C6190AED2B934D7900633305 /* TestCalibration */ = {
 			isa = PBXGroup;
 			children = (
+				2EA41A492BB874EA00FDD5B4 /* DragDropCalibration */,
 				C6190AEE2B934E1300633305 /* TestExplinationDragDropView.swift */,
 				C6190AF02B934E2700633305 /* TestExplinationTipView.swift */,
 				C6190AF22B934E3900633305 /* TestExplinationAudioView.swift */,
-				C6190AF42B934E4B00633305 /* DragDropCalibrationView.swift */,
 				C6190AF62B934E6100633305 /* TipCalibrationView.swift */,
 				C6190AF82B934E7700633305 /* AudioCalibrationView.swift */,
 			);
@@ -370,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				C66BB4172BAF0A2600ACC04F /* Test4View.swift */,
+				2E1AAA892BB32C23009EA657 /* DragNDropView.swift */,
 			);
 			path = Test4;
 			sourceTree = "<group>";
@@ -595,6 +609,7 @@
 				C6190AF12B934E2700633305 /* TestExplinationTipView.swift in Sources */,
 				C62BE6D32BAC2B6600B111ED /* WelcomeStudyView.swift in Sources */,
 				2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */,
+				2EA41A4E2BB8A78800FDD5B4 /* DragDropExampleScene.swift in Sources */,
 				2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */,
 				C6190B072B93511000633305 /* FeedbackView.swift in Sources */,
 				2EAE89122BB6FB2C0022B4CD /* AudioIndicatorView.swift in Sources */,
@@ -613,6 +628,7 @@
 				2EAE890F2BB5C6940022B4CD /* Quadtree.swift in Sources */,
 				2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */,
 				2EBB95B72BACA86E00D8EA4C /* TimerModifier.swift in Sources */,
+				2E1AAA8A2BB32C23009EA657 /* DragNDropView.swift in Sources */,
 				C65F98AA2BABB26E00DCBD41 /* WelcomeView.swift in Sources */,
 				C66BB41F2BAF0A6F00ACC04F /* LearnphaseView.swift in Sources */,
 				C66BB4182BAF0A2600ACC04F /* Test4View.swift in Sources */,
