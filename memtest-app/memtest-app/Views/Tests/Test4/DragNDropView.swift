@@ -20,7 +20,7 @@ struct OrderNumberSceneContainerView: UIViewRepresentable {
     // Once the view size is determined, update the scene's size
     func updateUIView(_ uiView: SKView, context: Context) {
         if uiView.scene == nil {
-            let scene = DragDropExampleScene(size: uiView.bounds.size) // Make sure this matches the view's size
+            let scene = OrderNumberScene(size: uiView.bounds.size) // Make sure this matches the view's size
             scene.scaleMode = .resizeFill
             scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the anchor point
             uiView.presentScene(scene)
