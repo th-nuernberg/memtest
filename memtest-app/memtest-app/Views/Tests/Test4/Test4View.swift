@@ -11,38 +11,15 @@ struct Test4View: View {
     
     @State private var finished = false
     
-    var columns: [GridItem] = [
-            GridItem(.flexible(), spacing: 0),
-            GridItem(.flexible(), spacing: 0),
-            GridItem(.flexible(), spacing: 0),
-            GridItem(.flexible(), spacing: 0),
-            GridItem(.flexible(), spacing: 0)
-        ]
-    
     var body: some View {
         BaseTestView(showCompletedView: $finished, destination: {Test5View()}, content: {
             
-            LazyVGrid(columns: columns) {
-                ForEach(1...20, id: \.self) { i in
-                    ZStack {
-                        Circle()
-                            .fill(.gray)
-                            .frame(height: 150)
-                            .frame(width: 150)
-                            .padding(.bottom, 20)
-                            .dropDestination(for: String.self) { droppedTasks, location in
-                                
-                                
-                                return true
-                            }
-                        
-                    }
-                }
-            }
+            OrderNumberSceneContainerView()
+            /*
             .onTimerComplete(duration: 5) {
                 print("Timer completed")
                 finished = true
-            }
+            } */
 
             
             
