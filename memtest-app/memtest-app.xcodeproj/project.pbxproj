@@ -170,6 +170,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2EA41A492BB874EA00FDD5B4 /* DragDropCalibration */ = {
+			isa = PBXGroup;
+			children = (
+				C6190AF42B934E4B00633305 /* DragDropCalibrationView.swift */,
+			);
+			path = DragDropCalibration;
+			sourceTree = "<group>";
+		};
 		2ECA20622B873EC2000F2790 = {
 			isa = PBXGroup;
 			children = (
@@ -305,10 +313,10 @@
 		C6190AED2B934D7900633305 /* TestCalibration */ = {
 			isa = PBXGroup;
 			children = (
+				2EA41A492BB874EA00FDD5B4 /* DragDropCalibration */,
 				C6190AEE2B934E1300633305 /* TestExplinationDragDropView.swift */,
 				C6190AF02B934E2700633305 /* TestExplinationTipView.swift */,
 				C6190AF22B934E3900633305 /* TestExplinationAudioView.swift */,
-				C6190AF42B934E4B00633305 /* DragDropCalibrationView.swift */,
 				C6190AF62B934E6100633305 /* TipCalibrationView.swift */,
 				C6190AF82B934E7700633305 /* AudioCalibrationView.swift */,
 			);
