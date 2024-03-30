@@ -59,7 +59,7 @@ struct AudioCalibrationView: View {
                 .padding()
                 .padding(.leading)
                 .navigationDestination(isPresented: $showNextView) {
-                    TipCalibrationView()
+                    Test1View()
                 }
                 .navigationBarBackButtonHidden(true)
             }
