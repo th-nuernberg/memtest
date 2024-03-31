@@ -7,14 +7,33 @@
 
 import SwiftUI
 
+struct NumberCircles {
+    var number: Int
+    var color: UIColor
+}
+
 struct Test4View: View {
     
     @State private var finished = false
     
+    let numberCircles = [
+            NumberCircles(number: 10, color: UIColor.red),
+            NumberCircles(number: 81, color: UIColor.green),
+            NumberCircles(number: 72, color: UIColor.cyan),
+            NumberCircles(number: 95, color: UIColor.purple),
+            NumberCircles(number: 84, color: UIColor.green),
+            NumberCircles(number: 73, color: UIColor.systemPink),
+            NumberCircles(number: 16, color: UIColor.orange),
+            NumberCircles(number: 13, color: UIColor.blue),
+            NumberCircles(number: 29, color: UIColor.brown),
+            NumberCircles(number: 40, color: UIColor.green),
+            // Add more NumberCircles as needed
+        ]
+    
     var body: some View {
         BaseTestView(showCompletedView: $finished, destination: {Test5View()}, content: {
             
-            OrderNumberSceneContainerView()
+            OrderNumberSceneContainerView(numberCircles: numberCircles)
             /*
             .onTimerComplete(duration: 5) {
                 print("Timer completed")

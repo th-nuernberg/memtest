@@ -9,20 +9,19 @@ import SpriteKit
 import SwiftUI
 
 struct OrderNumberSceneContainerView: UIViewRepresentable {
+    var numberCircles: [NumberCircles]
     
-    // Create the SKView without a scene initially
     func makeUIView(context: Context) -> SKView {
         let view = SKView()
         view.isMultipleTouchEnabled = false
         return view
     }
     
-    // Once the view size is determined, update the scene's size
     func updateUIView(_ uiView: SKView, context: Context) {
         if uiView.scene == nil {
-            let scene = OrderNumberScene(size: uiView.bounds.size) // Make sure this matches the view's size
+            let scene = OrderNumberScene(size: uiView.bounds.size, numberCircles: numberCircles) // Pass numberCircles to the scene
             scene.scaleMode = .resizeFill
-            scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the anchor point
+            scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             uiView.presentScene(scene)
         } else {
             // Ensure the scene's size is updated if the view's bounds change
@@ -32,6 +31,7 @@ struct OrderNumberSceneContainerView: UIViewRepresentable {
 }
 
 class OrderNumberScene: SKScene {
+    var numberCircles: [NumberCircles]
     var blueCircles: [SKShapeNode] = []
     var blueCircleStartingPositions: [CGPoint] = []
     var currentlyDraggingCircleNode: SKShapeNode?
@@ -39,6 +39,16 @@ class OrderNumberScene: SKScene {
     let columns = 5
     let spacing: CGFloat = 10
 
+    // Initialize OrderNumberScene with numberCircles
+    init(size: CGSize, numberCircles: [NumberCircles]) {
+        self.numberCircles = numberCircles
+        super.init(size: size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupScene()
@@ -90,14 +100,23 @@ class OrderNumberScene: SKScene {
         }
 
         // Now create ten blue circles using the stored positions
-        for i in 0..<10 {
-            let startPosition = blueCircleStartingPositions[i]
-            let blueCircle = SKShapeNode(circleOfRadius: targetSize / 4)
-            blueCircle.fillColor = .blue
-            blueCircle.position = startPosition
-            blueCircle.zPosition = 1 // Ensure blue circles are on top
-            self.addChild(blueCircle)
-            blueCircles.append(blueCircle)
+        for (index, numberCircle) in numberCircles.enumerated() {
+            let circle = SKShapeNode(circleOfRadius: 50) // Set your desired radius
+            circle.fillColor = numberCircle.color
+            circle.strokeColor = numberCircle.color
+            circle.position = blueCircleStartingPositions[index]
+            circle.zPosition = 1
+            circle.name = "circle\(numberCircle.number)"
+            
+            let label = SKLabelNode(text: "\(numberCircle.number)")
+            label.fontName = "SFProText-SemiBold"
+            label.fontColor = .black
+            label.fontSize = 40
+            label.verticalAlignmentMode = .center
+            label.horizontalAlignmentMode = .center
+            
+            circle.addChild(label)
+            self.addChild(circle)
         }
     }
 
@@ -150,27 +169,50 @@ class OrderNumberScene: SKScene {
 
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let pos = touch.location(in: self)
-            touchDown(atPoint: pos)
+        guard let touch = touches.first else { return }
+        let pos = touch.location(in: self)
+
+        self.children.forEach { node in
+            if let circleNode = node as? SKShapeNode, circleNode.name?.starts(with: "circle") ?? false, circleNode.contains(pos) {
+                currentlyDraggingCircleNode = circleNode
+                return // Exit loop once the correct node is found
+            }
         }
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let pos = touch.location(in: self)
-            touchMoved(toPoint: pos)
-        }
+        guard let touch = touches.first, let draggingCircle = currentlyDraggingCircleNode else { return }
+        let pos = touch.location(in: self)
+        draggingCircle.position = pos
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let pos = touch.location(in: self)
-            touchUp(atPoint: pos)
+        guard let draggingCircle = currentlyDraggingCircleNode else { return }
+        
+        var nearestDistance: CGFloat = .greatestFiniteMagnitude
+        var nearestGrayCircleNode: SKShapeNode?
+        
+        // Iterate over all child nodes to find the nearest gray circle
+        self.children.forEach { node in
+            if let grayCircle = node as? SKShapeNode, grayCircle.name?.contains("grayCircle") == true {
+                let distance = hypot(grayCircle.position.x - draggingCircle.position.x, grayCircle.position.y - draggingCircle.position.y)
+                if distance < nearestDistance {
+                    nearestDistance = distance
+                    nearestGrayCircleNode = grayCircle
+                }
+            }
         }
+        
+        // If a nearest gray circle is found, snap the dragging circle to it
+        if let nearestGrayCircle = nearestGrayCircleNode {
+            draggingCircle.position = nearestGrayCircle.position
+        }
+        
+        currentlyDraggingCircleNode = nil // Reset the dragging state
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         currentlyDraggingCircleNode = nil
     }
+
 }
