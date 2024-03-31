@@ -32,8 +32,9 @@ struct OrderNumberSceneContainerView: UIViewRepresentable {
 }
 
 class OrderNumberScene: SKScene {
-    var circleNode: SKShapeNode!
-    var isDraggingCircleNode = false
+    var blueCircles: [SKShapeNode] = []
+    var blueCircleStartingPositions: [CGPoint] = []
+    var currentlyDraggingCircleNode: SKShapeNode?
     let rows = 4
     let columns = 5
     let spacing: CGFloat = 10
@@ -45,86 +46,107 @@ class OrderNumberScene: SKScene {
     
     override func didChangeSize(_ oldSize: CGSize) {
         super.didChangeSize(oldSize)
-        if self.size.width > 0 && self.size.height > 0 {
-            setupScene() // Re-setup the scene to adjust for new size
+        if self.size.width > 0 && self.size.height > 0 && oldSize != self.size {
+            setupScene()
         }
     }
     
     func setupScene() {
+        guard self.size.width > 0 && self.size.height > 0 else {
+            print("Scene size is not valid yet.")
+            return
+        }
+        
         self.backgroundColor = .white
         self.removeAllChildren() // Clear existing nodes
 
-        // Determine sizes based on the current scene size
         let targetSize = min(self.size.width, self.size.height) / CGFloat(max(rows, columns)) - spacing
         let totalWidth = CGFloat(columns) * (targetSize + spacing) - spacing
-        let totalHeight = CGFloat(rows) * (targetSize + spacing) - spacing
 
         let startX = -totalWidth / 2 + targetSize / 2
-        let startY = totalHeight / 2 - targetSize / 2
+        let startY = (self.size.height / 2) - targetSize - spacing
 
-        // Create rows and columns of gray circles centered in the middle
+        // Create rows and columns of gray circles
         for row in 0..<rows {
             for column in 0..<columns {
-                let circleNode = SKShapeNode(circleOfRadius: targetSize / 2.1)
-                circleNode.fillColor = .gray
+                let grayCircleNode = SKShapeNode(circleOfRadius: targetSize / 2.1)
+                grayCircleNode.fillColor = .gray
                 let xPosition = startX + CGFloat(column) * (targetSize + spacing)
                 let yPosition = startY - CGFloat(row) * (targetSize + spacing)
-                circleNode.position = CGPoint(x: xPosition, y: yPosition)
-                circleNode.name = "grayCircle\(row)\(column)" // Assign a unique name
-                self.addChild(circleNode)
+                grayCircleNode.position = CGPoint(x: xPosition, y: yPosition)
+                grayCircleNode.name = "grayCircle\(row)\(column)"
+                self.addChild(grayCircleNode)
+                
+                // Store the position of the last row of gray circles
+                if row == 2 || row == 3{
+                    blueCircleStartingPositions.append(grayCircleNode.position)
+                }
             }
         }
-
-        // Setup or adjust the draggable blue circle
-        if circleNode == nil {
-            circleNode = SKShapeNode(circleOfRadius: targetSize / 4) // Smaller circle for dragging
-            circleNode.fillColor = .blue
-        } else {
-            circleNode.path = CGPath(ellipseIn: CGRect(x: -targetSize / 4, y: -targetSize / 4, width: targetSize / 2, height: targetSize / 2), transform: nil)
-        }
-        circleNode.position = CGPoint(x: 0, y: 0) // Start in center
-        self.addChild(circleNode)
-    }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        // Check if the circle was touched
-        if circleNode.contains(pos) {
-            isDraggingCircleNode = true
-            circleNode.position = pos
-        }
-    }
-
-    func touchMoved(toPoint pos : CGPoint) {
-        // Move the circle if dragging
-        if isDraggingCircleNode {
-            circleNode.position = pos
-        }
-    }
-
-    func touchUp(atPoint pos : CGPoint) {
-        // Reset dragging state
-        isDraggingCircleNode = false
         
-        var nearestDistance = CGFloat.greatestFiniteMagnitude
-        var nearestCircleNode: SKShapeNode?
+        // Make sure you have at least 10 positions
+        if blueCircleStartingPositions.count < 10 {
+            fatalError("Not enough positions for blue circles. Expected 10, got \(blueCircleStartingPositions.count).")
+        }
 
-        // Find the nearest gray circle
-        self.children.forEach { node in
-            if node.name?.contains("grayCircle") == true {
-                let distance = hypot(node.position.x - circleNode.position.x, node.position.y - circleNode.position.y)
-                if distance < nearestDistance {
-                    nearestDistance = distance
-                    nearestCircleNode = node as? SKShapeNode
+        // Now create ten blue circles using the stored positions
+        for i in 0..<10 {
+            let startPosition = blueCircleStartingPositions[i]
+            let blueCircle = SKShapeNode(circleOfRadius: targetSize / 4)
+            blueCircle.fillColor = .blue
+            blueCircle.position = startPosition
+            blueCircle.zPosition = 1 // Ensure blue circles are on top
+            self.addChild(blueCircle)
+            blueCircles.append(blueCircle)
+        }
+    }
+
+    
+    
+    func touchDown(atPoint pos: CGPoint) {
+            // Check if any blue circle was touched and set it as currently dragging
+            for blueCircle in blueCircles {
+                if blueCircle.contains(pos) {
+                    currentlyDraggingCircleNode = blueCircle
+                    blueCircle.position = pos
+                    break // Exit the loop after finding the touched circle
                 }
             }
         }
 
-        // Snap to the nearest gray circle
-        if let nearestCircle = nearestCircleNode {
-            circleNode.position = nearestCircle.position
+        func touchMoved(toPoint pos: CGPoint) {
+            // Move the circle that's being dragged
+            if let draggingCircle = currentlyDraggingCircleNode {
+                draggingCircle.position = pos
+            }
         }
-    }
+
+        func touchUp(atPoint pos: CGPoint) {
+            // Snap the circle to the nearest gray circle if one is being dragged
+            if let draggingCircle = currentlyDraggingCircleNode {
+                var nearestDistance = CGFloat.greatestFiniteMagnitude
+                var nearestCircleNode: SKShapeNode?
+
+                // Find the nearest gray circle
+                self.children.forEach { node in
+                    if let grayCircle = node as? SKShapeNode, grayCircle.name?.contains("grayCircle") == true {
+                        let distance = hypot(grayCircle.position.x - draggingCircle.position.x, grayCircle.position.y - draggingCircle.position.y)
+                        if distance < nearestDistance {
+                            nearestDistance = distance
+                            nearestCircleNode = grayCircle
+                        }
+                    }
+                }
+
+                // Snap to the nearest gray circle
+                if let nearestCircle = nearestCircleNode {
+                    draggingCircle.position = nearestCircle.position
+                }
+            }
+
+            // Reset dragging state
+            currentlyDraggingCircleNode = nil
+        }
 
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -149,6 +171,6 @@ class OrderNumberScene: SKScene {
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        isDraggingCircleNode = false // Reset dragging state
+        currentlyDraggingCircleNode = nil
     }
 }
