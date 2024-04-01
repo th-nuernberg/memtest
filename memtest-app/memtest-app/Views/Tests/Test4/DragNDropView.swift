@@ -111,11 +111,21 @@ class OrderNumberScene: SKScene {
         for row in 0..<rows {
             for column in 0..<columns {
                 let grayCircleNode = SKShapeNode(circleOfRadius: targetSize / 2.1)
-                grayCircleNode.fillColor = .gray
+                grayCircleNode.fillColor = UIColor(Color(hex: "#D9D9D9"))
                 let xPosition = startX + CGFloat(column) * (targetSize + spacing)
                 let yPosition = startY - CGFloat(row) * (targetSize + spacing)
                 grayCircleNode.position = CGPoint(x: xPosition, y: yPosition)
                 grayCircleNode.name = "grayCircle\(row)\(column)"
+                
+                
+                let shadowNode = SKShapeNode(circleOfRadius: targetSize / 2.1)
+                shadowNode.fillColor = UIColor.black.withAlphaComponent(0.5) // Adjust shadow color and alpha as needed
+                shadowNode.position = CGPoint(x: grayCircleNode.position.x, y: grayCircleNode.position.y - 3)
+                shadowNode.zPosition = grayCircleNode.zPosition - 1  // Ensure shadow is below the circle
+
+                // Add nodes to the scene
+                self.addChild(shadowNode)
+                
                 self.addChild(grayCircleNode)
                 
                 dropZonePositions.append(CGPoint(x: xPosition, y: yPosition))
