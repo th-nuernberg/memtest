@@ -35,6 +35,7 @@ class OrderNumberScene: SKScene {
     var blueCircles: [SKShapeNode] = []
     var blueCircleStartingPositions: [CGPoint] = []
     var currentlyDraggingCircleNode: SKShapeNode?
+    var originalPositionOfDraggingCircle: CGPoint?
     let rows = 4
     let columns = 5
     let spacing: CGFloat = 10
@@ -169,13 +170,16 @@ class OrderNumberScene: SKScene {
 
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        let pos = touch.location(in: self)
+        if let touch = touches.first {
+            let pos = touch.location(in: self)
 
-        self.children.forEach { node in
-            if let circleNode = node as? SKShapeNode, circleNode.name?.starts(with: "circle") ?? false, circleNode.contains(pos) {
-                currentlyDraggingCircleNode = circleNode
-                return // Exit loop once the correct node is found
+            self.children.forEach { node in
+                if let circleNode = node as? SKShapeNode, circleNode.name?.starts(with: "circle") ?? false, circleNode.contains(pos) {
+                    currentlyDraggingCircleNode = circleNode
+                    originalPositionOfDraggingCircle = circleNode.position // Store the original position
+                    circleNode.zPosition = 10 // Temporarily elevate the zPosition for visibility during dragging
+                    return // Exit loop once the correct node is found
+                }
             }
         }
     }
@@ -187,31 +191,45 @@ class OrderNumberScene: SKScene {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let draggingCircle = currentlyDraggingCircleNode else { return }
-        
-        var nearestDistance: CGFloat = .greatestFiniteMagnitude
-        var nearestGrayCircleNode: SKShapeNode?
-        
-        // Iterate over all child nodes to find the nearest gray circle
-        self.children.forEach { node in
-            if let grayCircle = node as? SKShapeNode, grayCircle.name?.contains("grayCircle") == true {
-                let distance = hypot(grayCircle.position.x - draggingCircle.position.x, grayCircle.position.y - draggingCircle.position.y)
-                if distance < nearestDistance {
-                    nearestDistance = distance
-                    nearestGrayCircleNode = grayCircle
-                }
+        guard let draggingCircle = currentlyDraggingCircleNode, let originalPosition = originalPositionOfDraggingCircle else { return }
+
+        // Attempt to find the nearest drop zone (grayCircle)
+        let potentialDropZones = self.children.compactMap { $0 as? SKShapeNode }.filter { $0.name?.contains("grayCircle") == true }
+
+        // Sort potential drop zones by distance to the dragging circle
+        let sortedDropZones = potentialDropZones.sorted {
+            let distance1 = hypot($0.position.x - draggingCircle.position.x, $0.position.y - draggingCircle.position.y)
+            let distance2 = hypot($1.position.x - draggingCircle.position.x, $1.position.y - draggingCircle.position.y)
+            return distance1 < distance2
+        }
+
+        for dropZone in sortedDropZones {
+            let occupyingCircle = self.children.compactMap { $0 as? SKShapeNode }.first(where: { otherCircle in
+                otherCircle != draggingCircle &&
+                otherCircle.name?.starts(with: "circle") ?? false &&
+                dropZone.position == otherCircle.position
+            })
+
+            if let occupyingCircle = occupyingCircle {
+                // Swap the positions
+                occupyingCircle.position = originalPosition // Move occupying circle to the original position of the dragged circle
+                draggingCircle.position = dropZone.position // Move the dragged circle to the drop zone
+                break
+            } else {
+                draggingCircle.position = dropZone.position
+                break
             }
         }
-        
-        // If a nearest gray circle is found, snap the dragging circle to it
-        if let nearestGrayCircle = nearestGrayCircleNode {
-            draggingCircle.position = nearestGrayCircle.position
-        }
-        
-        currentlyDraggingCircleNode = nil // Reset the dragging state
+
+        draggingCircle.zPosition = 1
+        currentlyDraggingCircleNode = nil
+        originalPositionOfDraggingCircle = nil // Reset for the next drag operation
     }
 
+
+
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        currentlyDraggingCircleNode?.zPosition = 1
         currentlyDraggingCircleNode = nil
     }
 
