@@ -11,6 +11,7 @@ import SwiftUI
 struct OrderNumberSceneContainerView: UIViewRepresentable {
     var numberCircles: [NumberCircles]
     var onPositionsChanged: ([(Int, Int)]) -> Void
+    var isDragEnabled: Bool = true // Default value is true to keep drag enabled unless specified otherwise.
     
     func makeUIView(context: Context) -> SKView {
         let view = SKView()
@@ -20,19 +21,25 @@ struct OrderNumberSceneContainerView: UIViewRepresentable {
     
     func updateUIView(_ uiView: SKView, context: Context) {
         if uiView.scene == nil {
-            let scene = OrderNumberScene(size: uiView.bounds.size, numberCircles: numberCircles, onPositionsChanged: onPositionsChanged)
+            let scene = OrderNumberScene(size: uiView.bounds.size, numberCircles: numberCircles, onPositionsChanged: onPositionsChanged, isDragEnabled: isDragEnabled) // Pass the flag to the scene.
             scene.scaleMode = .resizeFill
             scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             uiView.presentScene(scene)
         } else {
+            // Optionally, update the isDragEnabled property of the existing scene if needed.
+            if let scene = uiView.scene as? OrderNumberScene {
+                scene.isDragEnabled = isDragEnabled
+            }
             uiView.scene?.size = uiView.bounds.size
         }
     }
 }
 
+
 class OrderNumberScene: SKScene {
     var onPositionsChanged: ([(Int, Int)]) -> Void
     var numberCircles: [NumberCircles]
+    var isDragEnabled: Bool = true
     var draggableCircles: [SKShapeNode] = []
     var dropZonePositions: [CGPoint] = []
     var draggableCircleStartingPositions: [CGPoint] = []
@@ -42,9 +49,10 @@ class OrderNumberScene: SKScene {
     let columns = 5
     let spacing: CGFloat = 10
 
-    init(size: CGSize, numberCircles: [NumberCircles], onPositionsChanged: @escaping ([(Int, Int)]) -> Void) {
+    init(size: CGSize, numberCircles: [NumberCircles], onPositionsChanged: @escaping ([(Int, Int)]) -> Void, isDragEnabled: Bool) {
         self.onPositionsChanged = onPositionsChanged
         self.numberCircles = numberCircles
+        self.isDragEnabled = isDragEnabled 
         super.init(size: size)
     }
     
@@ -241,28 +249,27 @@ class OrderNumberScene: SKScene {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let pos = touch.location(in: self)
-
-            self.children.forEach { node in
-                if let circleNode = node as? SKShapeNode, circleNode.name?.starts(with: "circle") ?? false, circleNode.contains(pos) {
-                    currentlyDraggingCircleNode = circleNode
-                    originalPositionOfDraggingCircle = circleNode.position
-                    circleNode.zPosition = 10
-                    return
-                }
+        guard isDragEnabled, let touch = touches.first else { return }
+        
+        let pos = touch.location(in: self)
+        self.children.forEach { node in
+            if let circleNode = node as? SKShapeNode, circleNode.name?.starts(with: "circle") ?? false, circleNode.contains(pos) {
+                currentlyDraggingCircleNode = circleNode
+                originalPositionOfDraggingCircle = circleNode.position
+                circleNode.zPosition = 10
+                return
             }
         }
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first, let draggingCircle = currentlyDraggingCircleNode else { return }
+        guard isDragEnabled, let touch = touches.first, let draggingCircle = currentlyDraggingCircleNode else { return }
         let pos = touch.location(in: self)
         draggingCircle.position = pos
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let draggingCircle = currentlyDraggingCircleNode, let originalPosition = originalPositionOfDraggingCircle else { return }
+        guard isDragEnabled, let draggingCircle = currentlyDraggingCircleNode, let originalPosition = originalPositionOfDraggingCircle else { return }
         
         if let dropZone = findNearestDropZone(for: draggingCircle) {
             resolvePositionConflicts(for: draggingCircle, withDropZone: dropZone, originalPosition: originalPosition)
@@ -305,8 +312,10 @@ class OrderNumberScene: SKScene {
 
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        currentlyDraggingCircleNode?.zPosition = 1
-        currentlyDraggingCircleNode = nil
+        if isDragEnabled {
+            currentlyDraggingCircleNode?.zPosition = 1
+            currentlyDraggingCircleNode = nil
+        }
     }
 
 }
