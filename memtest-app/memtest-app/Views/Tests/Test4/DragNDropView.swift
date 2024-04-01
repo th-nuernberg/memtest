@@ -10,6 +10,7 @@ import SwiftUI
 
 struct OrderNumberSceneContainerView: UIViewRepresentable {
     var numberCircles: [NumberCircles]
+    var onPositionsChanged: ([(Int, Int)]) -> Void
     
     func makeUIView(context: Context) -> SKView {
         let view = SKView()
@@ -19,20 +20,21 @@ struct OrderNumberSceneContainerView: UIViewRepresentable {
     
     func updateUIView(_ uiView: SKView, context: Context) {
         if uiView.scene == nil {
-            let scene = OrderNumberScene(size: uiView.bounds.size, numberCircles: numberCircles) // Pass numberCircles to the scene
+            let scene = OrderNumberScene(size: uiView.bounds.size, numberCircles: numberCircles, onPositionsChanged: onPositionsChanged)
             scene.scaleMode = .resizeFill
             scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             uiView.presentScene(scene)
         } else {
-            // Ensure the scene's size is updated if the view's bounds change
             uiView.scene?.size = uiView.bounds.size
         }
     }
 }
 
 class OrderNumberScene: SKScene {
+    var onPositionsChanged: ([(Int, Int)]) -> Void
     var numberCircles: [NumberCircles]
     var blueCircles: [SKShapeNode] = []
+    var dropZonePositions: [CGPoint] = []
     var blueCircleStartingPositions: [CGPoint] = []
     var currentlyDraggingCircleNode: SKShapeNode?
     var originalPositionOfDraggingCircle: CGPoint?
@@ -40,11 +42,11 @@ class OrderNumberScene: SKScene {
     let columns = 5
     let spacing: CGFloat = 10
 
-    // Initialize OrderNumberScene with numberCircles
-    init(size: CGSize, numberCircles: [NumberCircles]) {
-        self.numberCircles = numberCircles
-        super.init(size: size)
-    }
+    init(size: CGSize, numberCircles: [NumberCircles], onPositionsChanged: @escaping ([(Int, Int)]) -> Void) {
+            self.onPositionsChanged = onPositionsChanged
+            self.numberCircles = numberCircles
+            super.init(size: size)
+        }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -53,6 +55,34 @@ class OrderNumberScene: SKScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupScene()
+        reportDropZoneIndices()
+    }
+    
+    func reportDropZoneIndices() {
+        var occupancyReport: [(Int, Int)] = []  // (Number, DropZoneIndex)
+        
+        self.children.forEach { node in
+            if let circleNode = node as? SKShapeNode,
+               let name = circleNode.name,
+               name.starts(with: "circle"),
+               let number = Int(name.replacingOccurrences(of: "circle", with: "")),
+               let dropZoneIndex = determineClosestDropZoneIndex(for: circleNode) {
+               
+                occupancyReport.append((number, dropZoneIndex))
+            }
+        }
+
+        occupancyReport.sort(by: { $0.1 < $1.1 })
+        onPositionsChanged(occupancyReport)
+    }
+    
+    private func determineClosestDropZoneIndex(for circle: SKShapeNode) -> Int? {
+        let distances = dropZonePositions.enumerated().map { (index, dropZonePosition) in
+            return (index: index, distance: hypot(dropZonePosition.x - circle.position.x, dropZonePosition.y - circle.position.y))
+        }
+        
+        guard let closest = distances.min(by: { $0.distance < $1.distance }) else { return nil }
+        return closest.index
     }
     
     override func didChangeSize(_ oldSize: CGSize) {
@@ -88,19 +118,18 @@ class OrderNumberScene: SKScene {
                 grayCircleNode.name = "grayCircle\(row)\(column)"
                 self.addChild(grayCircleNode)
                 
-                // Store the position of the last row of gray circles
+                dropZonePositions.append(CGPoint(x: xPosition, y: yPosition))
+                
                 if row == 2 || row == 3{
                     blueCircleStartingPositions.append(grayCircleNode.position)
                 }
             }
         }
         
-        // Make sure you have at least 10 positions
-        if blueCircleStartingPositions.count < 10 {
-            fatalError("Not enough positions for blue circles. Expected 10, got \(blueCircleStartingPositions.count).")
+        if blueCircleStartingPositions.count < numberCircles.count {
+            fatalError("Not enough positions for blue circles. Expected \(numberCircles.count), got \(blueCircleStartingPositions.count).")
         }
 
-        // Now create ten blue circles using the stored positions
         for (index, numberCircle) in numberCircles.enumerated() {
             let circle = SKShapeNode(circleOfRadius: 50) // Set your desired radius
             circle.fillColor = numberCircle.color
@@ -124,30 +153,26 @@ class OrderNumberScene: SKScene {
     
     
     func touchDown(atPoint pos: CGPoint) {
-            // Check if any blue circle was touched and set it as currently dragging
             for blueCircle in blueCircles {
                 if blueCircle.contains(pos) {
                     currentlyDraggingCircleNode = blueCircle
                     blueCircle.position = pos
-                    break // Exit the loop after finding the touched circle
+                    break
                 }
             }
         }
 
         func touchMoved(toPoint pos: CGPoint) {
-            // Move the circle that's being dragged
             if let draggingCircle = currentlyDraggingCircleNode {
                 draggingCircle.position = pos
             }
         }
 
         func touchUp(atPoint pos: CGPoint) {
-            // Snap the circle to the nearest gray circle if one is being dragged
             if let draggingCircle = currentlyDraggingCircleNode {
                 var nearestDistance = CGFloat.greatestFiniteMagnitude
                 var nearestCircleNode: SKShapeNode?
 
-                // Find the nearest gray circle
                 self.children.forEach { node in
                     if let grayCircle = node as? SKShapeNode, grayCircle.name?.contains("grayCircle") == true {
                         let distance = hypot(grayCircle.position.x - draggingCircle.position.x, grayCircle.position.y - draggingCircle.position.y)
@@ -158,13 +183,11 @@ class OrderNumberScene: SKScene {
                     }
                 }
 
-                // Snap to the nearest gray circle
                 if let nearestCircle = nearestCircleNode {
                     draggingCircle.position = nearestCircle.position
                 }
             }
 
-            // Reset dragging state
             currentlyDraggingCircleNode = nil
         }
 
@@ -176,9 +199,9 @@ class OrderNumberScene: SKScene {
             self.children.forEach { node in
                 if let circleNode = node as? SKShapeNode, circleNode.name?.starts(with: "circle") ?? false, circleNode.contains(pos) {
                     currentlyDraggingCircleNode = circleNode
-                    originalPositionOfDraggingCircle = circleNode.position // Store the original position
-                    circleNode.zPosition = 10 // Temporarily elevate the zPosition for visibility during dragging
-                    return // Exit loop once the correct node is found
+                    originalPositionOfDraggingCircle = circleNode.position
+                    circleNode.zPosition = 10
+                    return
                 }
             }
         }
@@ -192,38 +215,38 @@ class OrderNumberScene: SKScene {
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let draggingCircle = currentlyDraggingCircleNode, let originalPosition = originalPositionOfDraggingCircle else { return }
-
-        // Attempt to find the nearest drop zone (grayCircle)
+        
         let potentialDropZones = self.children.compactMap { $0 as? SKShapeNode }.filter { $0.name?.contains("grayCircle") == true }
-
-        // Sort potential drop zones by distance to the dragging circle
+        
         let sortedDropZones = potentialDropZones.sorted {
             let distance1 = hypot($0.position.x - draggingCircle.position.x, $0.position.y - draggingCircle.position.y)
             let distance2 = hypot($1.position.x - draggingCircle.position.x, $1.position.y - draggingCircle.position.y)
             return distance1 < distance2
         }
-
+        
         for dropZone in sortedDropZones {
             let occupyingCircle = self.children.compactMap { $0 as? SKShapeNode }.first(where: { otherCircle in
                 otherCircle != draggingCircle &&
                 otherCircle.name?.starts(with: "circle") ?? false &&
                 dropZone.position == otherCircle.position
             })
-
+            
             if let occupyingCircle = occupyingCircle {
                 // Swap the positions
-                occupyingCircle.position = originalPosition // Move occupying circle to the original position of the dragged circle
-                draggingCircle.position = dropZone.position // Move the dragged circle to the drop zone
+                occupyingCircle.position = originalPosition
+                draggingCircle.position = dropZone.position
                 break
             } else {
                 draggingCircle.position = dropZone.position
                 break
             }
         }
-
+        
         draggingCircle.zPosition = 1
         currentlyDraggingCircleNode = nil
-        originalPositionOfDraggingCircle = nil // Reset for the next drag operation
+        originalPositionOfDraggingCircle = nil
+            
+        reportDropZoneIndices()
     }
 
 
