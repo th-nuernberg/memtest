@@ -7,22 +7,39 @@
 
 import SwiftUI
 
+struct NumberCircles {
+    var number: Int
+    var color: UIColor
+}
+
 struct Test4View: View {
     
     @State private var finished = false
     
+    let numberCircles = [
+            NumberCircles(number: 10, color: UIColor(Color(hex: "#D10B0B"))),
+            NumberCircles(number: 81, color: UIColor(Color(hex: "#44FF57"))),
+            NumberCircles(number: 72, color: UIColor(Color(hex: "#32FFE6"))),
+            NumberCircles(number: 95, color: UIColor(Color(hex: "#9E70FF"))),
+            NumberCircles(number: 84, color: UIColor(Color(hex: "#BCE225"))),
+            NumberCircles(number: 73, color: UIColor(Color(hex: "#E78CFE"))),
+            NumberCircles(number: 16, color: UIColor(Color(hex: "#F5762F"))),
+            NumberCircles(number: 13, color: UIColor(Color(hex: "#4478FF"))),
+            NumberCircles(number: 29, color: UIColor(Color(hex: "#AC9725"))),
+            NumberCircles(number: 40, color: UIColor(Color(hex: "#2CBA76"))),
+        ]
+    
     var body: some View {
         BaseTestView(showCompletedView: $finished, destination: {Test5View()}, content: {
             
-            OrderNumberSceneContainerView()
-            /*
-            .onTimerComplete(duration: 5) {
+            OrderNumberSceneContainerView(numberCircles: numberCircles, onPositionsChanged: { positions in
+                print(positions)
+            })
+            .onTimerComplete(duration: 10) {
                 print("Timer completed")
                 finished = true
-            } */
-
-            
-            
+            }
+                        
         }, explanationContent: {
             HStack {
                 HStack {
