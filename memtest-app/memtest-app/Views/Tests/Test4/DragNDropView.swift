@@ -33,9 +33,9 @@ struct OrderNumberSceneContainerView: UIViewRepresentable {
 class OrderNumberScene: SKScene {
     var onPositionsChanged: ([(Int, Int)]) -> Void
     var numberCircles: [NumberCircles]
-    var blueCircles: [SKShapeNode] = []
+    var draggableCircles: [SKShapeNode] = []
     var dropZonePositions: [CGPoint] = []
-    var blueCircleStartingPositions: [CGPoint] = []
+    var draggableCircleStartingPositions: [CGPoint] = []
     var currentlyDraggingCircleNode: SKShapeNode?
     var originalPositionOfDraggingCircle: CGPoint?
     let rows = 4
@@ -110,41 +110,39 @@ class OrderNumberScene: SKScene {
         // Create rows and columns of gray circles
         for row in 0..<rows {
             for column in 0..<columns {
-                let grayCircleNode = SKShapeNode(circleOfRadius: targetSize / 2.1)
-                grayCircleNode.fillColor = UIColor(Color(hex: "#D9D9D9"))
+                let dropZoneNode = SKShapeNode(circleOfRadius: targetSize / 2.1)
+                dropZoneNode.fillColor = UIColor(Color(hex: "#D9D9D9"))
                 let xPosition = startX + CGFloat(column) * (targetSize + spacing)
                 let yPosition = startY - CGFloat(row) * (targetSize + spacing)
-                grayCircleNode.position = CGPoint(x: xPosition, y: yPosition)
-                grayCircleNode.name = "grayCircle\(row)\(column)"
+                dropZoneNode.position = CGPoint(x: xPosition, y: yPosition)
+                dropZoneNode.name = "grayCircle\(row)\(column)"
                 
                 
                 let shadowNode = SKShapeNode(circleOfRadius: targetSize / 2.1)
-                shadowNode.fillColor = UIColor.black.withAlphaComponent(0.5) // Adjust shadow color and alpha as needed
-                shadowNode.position = CGPoint(x: grayCircleNode.position.x, y: grayCircleNode.position.y - 3)
-                shadowNode.zPosition = grayCircleNode.zPosition - 1  // Ensure shadow is below the circle
+                shadowNode.fillColor = UIColor.black.withAlphaComponent(0.5)
+                shadowNode.position = CGPoint(x: dropZoneNode.position.x, y: dropZoneNode.position.y - 3)
+                shadowNode.zPosition = dropZoneNode.zPosition - 1
 
-                // Add nodes to the scene
                 self.addChild(shadowNode)
-                
-                self.addChild(grayCircleNode)
+                self.addChild(dropZoneNode)
                 
                 dropZonePositions.append(CGPoint(x: xPosition, y: yPosition))
                 
                 if row == 2 || row == 3{
-                    blueCircleStartingPositions.append(grayCircleNode.position)
+                    draggableCircleStartingPositions.append(dropZoneNode.position)
                 }
             }
         }
         
-        if blueCircleStartingPositions.count < numberCircles.count {
-            fatalError("Not enough positions for blue circles. Expected \(numberCircles.count), got \(blueCircleStartingPositions.count).")
+        if draggableCircleStartingPositions.count < numberCircles.count {
+            fatalError("Not enough positions for numberCircles. Expected \(numberCircles.count), got \(draggableCircleStartingPositions.count).")
         }
 
         for (index, numberCircle) in numberCircles.enumerated() {
-            let circle = SKShapeNode(circleOfRadius: 50) // Set your desired radius
+            let circle = SKShapeNode(circleOfRadius: targetSize / 2.1) // Set your desired radius
             circle.fillColor = numberCircle.color
             circle.strokeColor = numberCircle.color
-            circle.position = blueCircleStartingPositions[index]
+            circle.position = draggableCircleStartingPositions[index]
             circle.zPosition = 1
             circle.name = "circle\(numberCircle.number)"
             
@@ -163,7 +161,7 @@ class OrderNumberScene: SKScene {
     
     
     func touchDown(atPoint pos: CGPoint) {
-            for blueCircle in blueCircles {
+            for blueCircle in draggableCircles {
                 if blueCircle.contains(pos) {
                     currentlyDraggingCircleNode = blueCircle
                     blueCircle.position = pos

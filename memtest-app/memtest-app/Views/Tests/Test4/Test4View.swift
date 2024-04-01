@@ -12,28 +12,47 @@ struct NumberCircles {
     var color: UIColor
 }
 
+extension UIColor {
+    convenience init?(hex: String) {
+        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
+
+        var rgb: UInt64 = 0
+
+        Scanner(string: hexSanitized).scanHexInt64(&rgb)
+
+        let red = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
+        let blue = CGFloat(rgb & 0x0000FF) / 255.0
+
+        self.init(red: red, green: green, blue: blue, alpha: 1.0)
+    }
+}
+
 struct Test4View: View {
     
     @State private var finished = false
     
     let numberCircles = [
-            NumberCircles(number: 10, color: UIColor.red),
-            NumberCircles(number: 81, color: UIColor.green),
-            NumberCircles(number: 72, color: UIColor.cyan),
-            NumberCircles(number: 95, color: UIColor.purple),
-            NumberCircles(number: 84, color: UIColor.green),
-            NumberCircles(number: 73, color: UIColor.systemPink),
-            NumberCircles(number: 16, color: UIColor.orange),
-            NumberCircles(number: 13, color: UIColor.blue),
-            NumberCircles(number: 29, color: UIColor.brown),
-            NumberCircles(number: 40, color: UIColor.green),
+            NumberCircles(number: 10, color: UIColor(hex: "#D10B0B")!),
+            NumberCircles(number: 81, color: UIColor(hex: "#44FF57")!),
+            NumberCircles(number: 72, color: UIColor(hex: "#32FFE6")!),
+            NumberCircles(number: 95, color: UIColor(hex: "#9E70FF")!),
+            NumberCircles(number: 84, color: UIColor(hex: "#BCE225")!),
+            NumberCircles(number: 73, color: UIColor(hex: "#E78CFE")!),
+            NumberCircles(number: 16, color: UIColor(hex: "#F5762F")!),
+            NumberCircles(number: 13, color: UIColor(hex: "#4478FF")!),
+            NumberCircles(number: 29, color: UIColor(hex: "#AC9725")!),
+            NumberCircles(number: 40, color: UIColor(hex: "#2CBA76")!),
             // Add more NumberCircles as needed
         ]
     
     var body: some View {
         BaseTestView(showCompletedView: $finished, destination: {Test5View()}, content: {
             
-            OrderNumberSceneContainerView(numberCircles: numberCircles)
+            OrderNumberSceneContainerView(numberCircles: numberCircles, onPositionsChanged: { positions in
+                print(positions)
+            })
             /*
             .onTimerComplete(duration: 5) {
                 print("Timer completed")
