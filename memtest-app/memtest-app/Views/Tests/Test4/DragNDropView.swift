@@ -43,21 +43,23 @@ class OrderNumberScene: SKScene {
     let spacing: CGFloat = 10
 
     init(size: CGSize, numberCircles: [NumberCircles], onPositionsChanged: @escaping ([(Int, Int)]) -> Void) {
-            self.onPositionsChanged = onPositionsChanged
-            self.numberCircles = numberCircles
-            super.init(size: size)
-        }
+        self.onPositionsChanged = onPositionsChanged
+        self.numberCircles = numberCircles
+        super.init(size: size)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // Called when the scene is loaded
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupScene()
         reportDropZoneIndices()
     }
     
+    // reports the current indices of the numberCircles
     func reportDropZoneIndices() {
         var occupancyReport: [(Int, Int)] = []  // (Number, DropZoneIndex)
         
@@ -85,6 +87,7 @@ class OrderNumberScene: SKScene {
         return closest.index
     }
     
+    // sets and or updates the scene if the view size changed
     override func didChangeSize(_ oldSize: CGSize) {
         super.didChangeSize(oldSize)
         if self.size.width > 0 && self.size.height > 0 && oldSize != self.size {
@@ -92,113 +95,150 @@ class OrderNumberScene: SKScene {
         }
     }
     
+    // this functions generates all objects => circles and dropzones
     func setupScene() {
         guard self.size.width > 0 && self.size.height > 0 else {
             print("Scene size is not valid yet.")
             return
         }
-        
+
         self.backgroundColor = .white
-        self.removeAllChildren() // Clear existing nodes
+        self.removeAllChildren()
 
-        let targetSize = min(self.size.width, self.size.height) / CGFloat(max(rows, columns)) - spacing
+        configureDropZonesAndDraggableCircles()
+    }
+
+    private func configureDropZonesAndDraggableCircles() {
+        let targetSize = calculateTargetSize()
+        let (startX, startY) = calculateStartPositions(targetSize: targetSize)
+
+        createDropZones(startX: startX, startY: startY, targetSize: targetSize)
+        createDraggableCircles(targetSize: targetSize)
+    }
+
+    private func calculateTargetSize() -> CGFloat {
+        return min(self.size.width, self.size.height) / CGFloat(max(rows, columns)) - spacing
+    }
+
+    private func calculateStartPositions(targetSize: CGFloat) -> (CGFloat, CGFloat) {
         let totalWidth = CGFloat(columns) * (targetSize + spacing) - spacing
-
         let startX = -totalWidth / 2 + targetSize / 2
         let startY = (self.size.height / 2) - targetSize - spacing
+        return (startX, startY)
+    }
 
-        // Create rows and columns of gray circles
+    private func createDropZones(startX: CGFloat, startY: CGFloat, targetSize: CGFloat) {
         for row in 0..<rows {
             for column in 0..<columns {
-                let dropZoneNode = SKShapeNode(circleOfRadius: targetSize / 2.1)
-                dropZoneNode.fillColor = UIColor(Color(hex: "#D9D9D9"))
-                let xPosition = startX + CGFloat(column) * (targetSize + spacing)
-                let yPosition = startY - CGFloat(row) * (targetSize + spacing)
-                dropZoneNode.position = CGPoint(x: xPosition, y: yPosition)
-                dropZoneNode.name = "grayCircle\(row)\(column)"
-                
-                
-                let shadowNode = SKShapeNode(circleOfRadius: targetSize / 2.1)
-                shadowNode.fillColor = UIColor.black.withAlphaComponent(0.5)
-                shadowNode.position = CGPoint(x: dropZoneNode.position.x, y: dropZoneNode.position.y - 3)
-                shadowNode.zPosition = dropZoneNode.zPosition - 1
-
-                self.addChild(shadowNode)
-                self.addChild(dropZoneNode)
-                
-                dropZonePositions.append(CGPoint(x: xPosition, y: yPosition))
-                
-                if row == 2 || row == 3{
-                    draggableCircleStartingPositions.append(dropZoneNode.position)
-                }
+                createDropZone(row: row, column: column, startX: startX, startY: startY, targetSize: targetSize)
             }
         }
+    }
+
+    private func createDropZone(row: Int, column: Int, startX: CGFloat, startY: CGFloat, targetSize: CGFloat) {
+        let xPosition = startX + CGFloat(column) * (targetSize + spacing)
+        let yPosition = startY - CGFloat(row) * (targetSize + spacing)
+        let position = CGPoint(x: xPosition, y: yPosition)
+
+        let dropZoneNode = SKShapeNode(circleOfRadius: targetSize / 2.1)
+        dropZoneNode.fillColor = UIColor(Color(hex: "#D9D9D9"))
+        dropZoneNode.position = position
+        dropZoneNode.name = "grayCircle\(row)\(column)"
+        self.addChild(dropZoneNode)
+
+        // for the shadow effect
+        let shadowNode = createShadowNode(position: position, targetSize: targetSize)
+        self.addChild(shadowNode)
+
+        dropZonePositions.append(position)
         
+        // only sets the circles in the last 2 rows
+        if row == 2 || row == 3 {
+            draggableCircleStartingPositions.append(dropZoneNode.position)
+        }
+    }
+
+    private func createShadowNode(position: CGPoint, targetSize: CGFloat) -> SKShapeNode {
+        let shadowNode = SKShapeNode(circleOfRadius: targetSize / 2.1)
+        shadowNode.fillColor = UIColor.black.withAlphaComponent(0.5)
+        shadowNode.position = CGPoint(x: position.x, y: position.y - 3)
+        shadowNode.zPosition = -1
+        return shadowNode
+    }
+
+    private func createDraggableCircles(targetSize: CGFloat) {
         if draggableCircleStartingPositions.count < numberCircles.count {
             fatalError("Not enough positions for numberCircles. Expected \(numberCircles.count), got \(draggableCircleStartingPositions.count).")
         }
 
         for (index, numberCircle) in numberCircles.enumerated() {
-            let circle = SKShapeNode(circleOfRadius: targetSize / 2.1) // Set your desired radius
-            circle.fillColor = numberCircle.color
-            circle.strokeColor = numberCircle.color
-            circle.position = draggableCircleStartingPositions[index]
-            circle.zPosition = 1
-            circle.name = "circle\(numberCircle.number)"
-            
-            let label = SKLabelNode(text: "\(numberCircle.number)")
-            label.fontName = "SFProText-SemiBold"
-            label.fontColor = .black
-            label.fontSize = 40
-            label.verticalAlignmentMode = .center
-            label.horizontalAlignmentMode = .center
-            
-            circle.addChild(label)
-            self.addChild(circle)
+            let circleNode = createDraggableCircle(numberCircle: numberCircle, index: index, targetSize: targetSize)
+            self.addChild(circleNode)
         }
     }
 
-    
-    
+    private func createDraggableCircle(numberCircle: NumberCircles, index: Int, targetSize: CGFloat) -> SKShapeNode {
+        let circle = SKShapeNode(circleOfRadius: targetSize / 2.1)
+        circle.fillColor = numberCircle.color
+        circle.strokeColor = numberCircle.color
+        circle.position = draggableCircleStartingPositions[index]
+        circle.zPosition = 1
+        circle.name = "circle\(numberCircle.number)"
+        
+        let label = createCircleLabel(number: numberCircle.number)
+        circle.addChild(label)
+        
+        return circle
+    }
+
+    private func createCircleLabel(number: Int) -> SKLabelNode {
+        let label = SKLabelNode(text: "\(number)")
+        label.fontName = "SFProText-SemiBold"
+        label.fontColor = .black
+        label.fontSize = 40
+        label.verticalAlignmentMode = .center
+        label.horizontalAlignmentMode = .center
+        return label
+    }
+
     func touchDown(atPoint pos: CGPoint) {
-            for blueCircle in draggableCircles {
-                if blueCircle.contains(pos) {
-                    currentlyDraggingCircleNode = blueCircle
-                    blueCircle.position = pos
-                    break
-                }
+        for blueCircle in draggableCircles {
+            if blueCircle.contains(pos) {
+                currentlyDraggingCircleNode = blueCircle
+                blueCircle.position = pos
+                break
             }
         }
+    }
 
-        func touchMoved(toPoint pos: CGPoint) {
-            if let draggingCircle = currentlyDraggingCircleNode {
-                draggingCircle.position = pos
-            }
+    func touchMoved(toPoint pos: CGPoint) {
+        if let draggingCircle = currentlyDraggingCircleNode {
+            draggingCircle.position = pos
         }
+    }
 
-        func touchUp(atPoint pos: CGPoint) {
-            if let draggingCircle = currentlyDraggingCircleNode {
-                var nearestDistance = CGFloat.greatestFiniteMagnitude
-                var nearestCircleNode: SKShapeNode?
+    func touchUp(atPoint pos: CGPoint) {
+        if let draggingCircle = currentlyDraggingCircleNode {
+            var nearestDistance = CGFloat.greatestFiniteMagnitude
+            var nearestCircleNode: SKShapeNode?
 
-                self.children.forEach { node in
-                    if let grayCircle = node as? SKShapeNode, grayCircle.name?.contains("grayCircle") == true {
-                        let distance = hypot(grayCircle.position.x - draggingCircle.position.x, grayCircle.position.y - draggingCircle.position.y)
-                        if distance < nearestDistance {
-                            nearestDistance = distance
-                            nearestCircleNode = grayCircle
-                        }
+            self.children.forEach { node in
+                if let grayCircle = node as? SKShapeNode, grayCircle.name?.contains("grayCircle") == true {
+                    let distance = hypot(grayCircle.position.x - draggingCircle.position.x, grayCircle.position.y - draggingCircle.position.y)
+                    if distance < nearestDistance {
+                        nearestDistance = distance
+                        nearestCircleNode = grayCircle
                     }
                 }
-
-                if let nearestCircle = nearestCircleNode {
-                    draggingCircle.position = nearestCircle.position
-                }
             }
 
-            currentlyDraggingCircleNode = nil
+            if let nearestCircle = nearestCircleNode {
+                draggingCircle.position = nearestCircle.position
+            }
         }
 
+        currentlyDraggingCircleNode = nil
+    }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -224,39 +264,44 @@ class OrderNumberScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let draggingCircle = currentlyDraggingCircleNode, let originalPosition = originalPositionOfDraggingCircle else { return }
         
-        let potentialDropZones = self.children.compactMap { $0 as? SKShapeNode }.filter { $0.name?.contains("grayCircle") == true }
-        
-        let sortedDropZones = potentialDropZones.sorted {
-            let distance1 = hypot($0.position.x - draggingCircle.position.x, $0.position.y - draggingCircle.position.y)
-            let distance2 = hypot($1.position.x - draggingCircle.position.x, $1.position.y - draggingCircle.position.y)
-            return distance1 < distance2
+        if let dropZone = findNearestDropZone(for: draggingCircle) {
+            resolvePositionConflicts(for: draggingCircle, withDropZone: dropZone, originalPosition: originalPosition)
         }
         
-        for dropZone in sortedDropZones {
-            let occupyingCircle = self.children.compactMap { $0 as? SKShapeNode }.first(where: { otherCircle in
-                otherCircle != draggingCircle &&
-                otherCircle.name?.starts(with: "circle") ?? false &&
-                dropZone.position == otherCircle.position
-            })
-            
-            if let occupyingCircle = occupyingCircle {
-                // Swap the positions
-                occupyingCircle.position = originalPosition
-                draggingCircle.position = dropZone.position
-                break
-            } else {
-                draggingCircle.position = dropZone.position
-                break
-            }
-        }
-        
-        draggingCircle.zPosition = 1
-        currentlyDraggingCircleNode = nil
-        originalPositionOfDraggingCircle = nil
-            
+        finalizeDragOperation(for: draggingCircle)
         reportDropZoneIndices()
     }
 
+    private func findNearestDropZone(for circle: SKShapeNode) -> SKShapeNode? {
+        let potentialDropZones = self.children.compactMap { $0 as? SKShapeNode }.filter { $0.name?.contains("grayCircle") == true }
+        
+        let sortedDropZones = potentialDropZones.sorted {
+            hypot($0.position.x - circle.position.x, $0.position.y - circle.position.y) <
+            hypot($1.position.x - circle.position.x, $1.position.y - circle.position.y)
+        }
+        
+        return sortedDropZones.first
+    }
+
+    private func resolvePositionConflicts(for circle: SKShapeNode, withDropZone dropZone: SKShapeNode, originalPosition: CGPoint) {
+        let occupyingCircle = self.children.compactMap { $0 as? SKShapeNode }.first(where: { otherCircle in
+            otherCircle != circle &&
+            otherCircle.name?.starts(with: "circle") ?? false &&
+            dropZone.position == otherCircle.position
+        })
+        
+        if let occupyingCircle = occupyingCircle {
+            // swaps the positions
+            occupyingCircle.position = originalPosition
+        }
+        circle.position = dropZone.position
+    }
+
+    private func finalizeDragOperation(for circle: SKShapeNode) {
+        circle.zPosition = 1
+        currentlyDraggingCircleNode = nil
+        originalPositionOfDraggingCircle = nil
+    }
 
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
