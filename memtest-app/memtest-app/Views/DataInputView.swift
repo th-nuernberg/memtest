@@ -11,6 +11,7 @@ import Combine
 struct DataInputView: View {
     @State private var age = ""
     @State private var selectedDegree: EducationalQualification = .noDegree
+    @State private var selectedGender: Gender = .male
     @State var showNextView: Bool = false
     @State private var showAlert = false
     
@@ -19,8 +20,6 @@ struct DataInputView: View {
             Form {
                 Section(header: Text("Informationsabfrage").font(.system(size: 40))) {
                 }
-                
-                Spacer()
                 
                 Section(header: Text("Alter des Teilnehmers:").font(.title)){
                     HStack{
@@ -45,7 +44,7 @@ struct DataInputView: View {
                 Section(header: Text("Höchster Bildungsabschluss des Teilnehmers:").font(.title)) {
                     ForEach(EducationalQualification.allCases) { degree in
                         HStack {
-                            RadioButton(selectedDegree: $selectedDegree, degree: degree)
+                            RadioButtonDegree(selectedDegree: $selectedDegree, degree: degree)
                             Text(degree.rawValue)
                         }
                         .listRowSeparator(.hidden)
@@ -53,19 +52,31 @@ struct DataInputView: View {
                 }
                 .padding(.horizontal,20)
                 
-                
+                Section(header: Text("Geschlecht des Teilnehmers:").font(.title)) {
+                    ForEach(Gender.allCases) { gender in
+                        HStack {
+                            RadioButtonGender(selectedGender: $selectedGender, gender: gender)
+                            Text(gender.rawValue)
+                        }
+                        .listRowSeparator(.hidden)
+                    }
+                }
+                .padding(.horizontal,20)
                 
                 
             }
             .scrollContentBackground(Visibility.hidden)
+            
+            
             
             Button(action: {
                 if age.isEmpty {
                     showAlert = true
                 } else {
                     //TODO: add metaInformation(age/degree) to file
-                    print("Alter: \(age)")
-                    print("Abschluss: \(selectedDegree.rawValue)")
+                    // Alter --> age
+                    // Abschluss --> selectedDegree
+                    // Geschlecht --> selectedGender
                     showNextView.toggle()
                 }
             }) {
@@ -89,7 +100,7 @@ struct DataInputView: View {
     }
 }
 
-struct RadioButton: View {
+struct RadioButtonDegree: View {
     @Binding var selectedDegree: EducationalQualification
     let degree: EducationalQualification
     
@@ -103,6 +114,20 @@ struct RadioButton: View {
     }
 }
 
+struct RadioButtonGender: View {
+    @Binding var selectedGender: Gender
+    let gender: Gender
+    
+    var body: some View {
+        Circle()
+            .foregroundColor(selectedGender == gender ? .blue : .gray)
+            .frame(width: 20, height: 20)
+            .onTapGesture {
+                selectedGender = gender
+            }
+    }
+}
+
 enum EducationalQualification: String, Identifiable {
     case noDegree = "Kein Abschluss"
     case schoolOrApprenticeship = "Schulabschluss, Ausbildungsberuf"
@@ -110,6 +135,19 @@ enum EducationalQualification: String, Identifiable {
     
     static var allCases: [EducationalQualification] {
         return [.noDegree, .schoolOrApprenticeship, .technicianMasterOrUniversity]
+    }
+    
+    var id: String {
+        return rawValue
+    }
+}
+
+enum Gender: String, Identifiable {
+    case male = "Männlich"
+    case female = "Weiblich"
+    
+    static var allCases: [Gender] {
+        return [.male, .female]
     }
     
     var id: String {
