@@ -138,23 +138,9 @@ struct Test2View: View {
         })
     }
     
+    // TODO: implement germanet and similarity comparison
     private func isSymbolNameRecognized(_ name: String) -> Bool {
         return manager.recognizedWords.contains { $0.lowercased().contains(name.lowercased()) }
-    }
-    
-    private func startStopRecording() {
-        if isRecording {
-            AudioService.shared.stopRecording {
-                listRecordedFiles()
-            }
-        } else {
-            do {
-                try AudioService.shared.startRecording(to: "test1")
-            } catch {
-                print("Failed to start recording: \(error)")
-            }
-        }
-        isRecording.toggle()
     }
     
     private func listRecordedFiles() {

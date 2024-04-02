@@ -8,16 +8,59 @@
 import SwiftUI
 
 struct Test6View: View {
-    
+    @ObservedObject private var manager = SpeechRecognitionManager.shared
+    @State private var isRecording = false
     @State private var finished = false
+
+    private var symbolList = TestSymbolList()
+    
+    var columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 8),
+        GridItem(.flexible(), spacing: 8),
+        GridItem(.flexible(), spacing: 8),
+        GridItem(.flexible(), spacing: 8)
+    ]
     
     var body: some View {
         BaseTestView(showCompletedView: $finished, destination: {Test7View()}, content: {
-            Text("Das ist die Test6View")
-                .onTimerComplete(duration: 5) {
-                    print("Timer completed")
-                    finished = true
+            Text(manager.recognizedWords.last ?? "")
+            
+            LazyVGrid(columns: columns) {
+                ForEach(symbolList.symbols, id: \.name) { symbol in
+                    ZStack {
+                        Rectangle()
+                            .fill(Color.gray)
+                            .frame(height: 200)
+                            .frame(width: 200)
+                            .cornerRadius(20)
+                            .padding(.bottom, 20)
+                        
+                        
+                        if (self.isSymbolNameRecognized(symbol.name)) {
+                            Image(symbol.fileUrl)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 150, height: 150)
+                                .offset(x: 5, y: -5)
+                        }
+                    }
                 }
+            }
+            .padding(.vertical)
+            .padding(.top, 70)
+            .onAppear(perform: {
+                do {
+                    try AudioService.shared.startRecording(to: "test1")
+                } catch {
+                    print("Failed to start recording: \(error)")
+                }
+            })
+            .onTimerComplete(duration: 60) {
+                print("Timer completed")
+                finished = true
+                AudioService.shared.stopRecording()
+                // TODO: route to Test2View --> trigger navigateToDestination() in BaseTestView
+            }
         }, explanationContent: {
             HStack {
                 HStack {
@@ -100,7 +143,14 @@ struct Test6View: View {
             CompletedView(completedTasks: 6, onContinue: onContinue)
         })
     }
+    
+    // TODO: implement germanet and similarity comparison
+    private func isSymbolNameRecognized(_ name: String) -> Bool {
+        return manager.recognizedWords.contains { $0.lowercased().contains(name.lowercased()) }
+    }
 }
+
+
 
 #Preview {
     Test6View()
