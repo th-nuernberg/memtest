@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Test2View: View {
     
-    @ObservedObject private var manager = SpeechRecognitionManager()
+    @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
     @State private var finished = false
     

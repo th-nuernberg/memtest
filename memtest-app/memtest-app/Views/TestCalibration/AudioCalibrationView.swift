@@ -10,7 +10,7 @@ import SwiftUI
 struct AudioCalibrationView: View {
     @State var showNextView: Bool = false
     @State var testStarted: Bool = false
-    
+    @ObservedObject var speechRecognitionManager: SpeechRecognitionManager = SpeechRecognitionManager.shared
     var body: some View {
         NavigationStack {
             VStack{
@@ -44,7 +44,14 @@ struct AudioCalibrationView: View {
                         AudioService.shared.stopRecording()
                         showNextView.toggle()
                     } else {
-                        try? AudioService.shared.startRecording(to: "calibration")
+                        
+                        do {
+                            try AudioService.shared.startRecording(to: "calibration")
+                            print("Recording started")
+                        } catch {
+                            print("Failed to start recording: \(error)")
+                        }
+                        
                         testStarted.toggle()
                     }
                     

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AudioIndicatorView: View {
-    @ObservedObject var speechRecognitionManager: SpeechRecognitionManager = SpeechRecognitionManager()
+    @ObservedObject var speechRecognitionManager: SpeechRecognitionManager = SpeechRecognitionManager.shared
     
     var body: some View {
         GeometryReader { geometry in

@@ -195,12 +195,14 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
 
 
 class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
-    @Published var recognizedWords: [String] = []
-    @Published var inputLevel: Float = 0.0
-    
-    init() {
-        AudioService.shared.delegate = self
-    }
+    static let shared = SpeechRecognitionManager()
+       
+   @Published var recognizedWords: [String] = []
+   @Published var inputLevel: Float = 0.0
+
+   private init() {
+       AudioService.shared.delegate = self
+   }
     
     func audioService(_ service: AudioService, didRecognizeText text: String) {
         DispatchQueue.main.async {
