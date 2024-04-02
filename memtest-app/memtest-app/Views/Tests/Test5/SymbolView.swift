@@ -100,7 +100,6 @@ class SymbolViewModel: ObservableObject {
     
     var selectedSymbolCount: Int {
         if let selectedSymbol = selectedSymbol {
-            print(symbolCounts)
             return symbolCounts[selectedSymbol] ?? 0
         }
         return 0
