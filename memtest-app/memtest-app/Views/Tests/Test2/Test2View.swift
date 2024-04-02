@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Test2View: View {
     
-    @ObservedObject private var manager = SpeechRecognitionManager()
+    @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
     @State private var finished = false
     
@@ -49,7 +49,7 @@ struct Test2View: View {
             .padding(.top, 70)
             .onAppear(perform: {
                 do {
-                    try AudioService.shared.startRecording(to: "test1")
+                    try AudioService.shared.startRecording(to: "test2")
                 } catch {
                     print("Failed to start recording: \(error)")
                 }
@@ -138,23 +138,9 @@ struct Test2View: View {
         })
     }
     
+    // TODO: implement germanet and similarity comparison
     private func isSymbolNameRecognized(_ name: String) -> Bool {
         return manager.recognizedWords.contains { $0.lowercased().contains(name.lowercased()) }
-    }
-    
-    private func startStopRecording() {
-        if isRecording {
-            AudioService.shared.stopRecording {
-                listRecordedFiles()
-            }
-        } else {
-            do {
-                try AudioService.shared.startRecording(to: "test1")
-            } catch {
-                print("Failed to start recording: \(error)")
-            }
-        }
-        isRecording.toggle()
     }
     
     private func listRecordedFiles() {
