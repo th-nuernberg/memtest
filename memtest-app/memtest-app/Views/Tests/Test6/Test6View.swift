@@ -50,7 +50,7 @@ struct Test6View: View {
             .padding(.top, 70)
             .onAppear(perform: {
                 do {
-                    try AudioService.shared.startRecording(to: "test1")
+                    try AudioService.shared.startRecording(to: "test6")
                 } catch {
                     print("Failed to start recording: \(error)")
                 }
