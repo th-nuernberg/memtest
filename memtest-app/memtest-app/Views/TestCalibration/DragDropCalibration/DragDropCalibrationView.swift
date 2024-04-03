@@ -39,7 +39,7 @@ struct DragDropCalibrationView: View {
                 .padding()
                 .padding(.leading)
                 .navigationDestination(isPresented: $showNextView) {
-                    TipCalibrationView()
+                    TestExplinationTipView()
                 }
                 .navigationBarBackButtonHidden(true)
             }
