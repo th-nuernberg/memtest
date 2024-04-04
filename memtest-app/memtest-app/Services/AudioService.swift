@@ -120,6 +120,9 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         prepareRecordingDirectory(for: testName)
         
         let recordingFormat = audioEngine.inputNode.outputFormat(forBus: 0)
+        
+        audioEngine.inputNode.removeTap(onBus: 0)
+        
         audioEngine.inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] (buffer, _) in
             self?.recognitionRequest?.append(buffer)
             self?.appendAudioToFile(buffer)
