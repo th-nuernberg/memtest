@@ -54,13 +54,14 @@ struct Test7View: View {
                 .padding(.vertical)
                 .padding(.top, 70)
                 .onAppear(perform: {
+                    manager.recognizedWords = []
                     do {
                         try AudioService.shared.startRecording(to: "test7")
                     } catch {
                         print("Failed to start recording: \(error)")
                     }
                 })
-                .onTimerComplete(duration: 30) {
+                .onTimerComplete(duration: 10) {
                     print("Timer completed")
                     finished = true
                     AudioService.shared.stopRecording()

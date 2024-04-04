@@ -44,11 +44,9 @@ struct LearnphaseView: View {
             }
             .padding(.vertical)
             .padding(.top, 70)
-            .onTimerComplete(duration: 5) {
+            .onTimerComplete(duration: 10) {
                 print("Timer completed")
                 finished = true
-                
-                // TODO: route to Test2View --> Trigger
             }
         }, explanationContent: {
             HStack {

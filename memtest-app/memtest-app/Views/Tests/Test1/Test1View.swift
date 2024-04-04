@@ -25,7 +25,7 @@ struct Test1View: View {
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 0,
                      textOfCircle:"1", destination: {Test2View()}, content: {
-            Text(manager.recognizedWords.last ?? "")
+            //Text(manager.recognizedWords.last ?? "")
             
             LazyVGrid(columns: columns) {
                 ForEach(symbolList.symbols, id: \.name) { symbol in
@@ -48,17 +48,17 @@ struct Test1View: View {
             .padding(.vertical)
             .padding(.top, 70)
             .onAppear(perform: {
+                manager.recognizedWords = []
                 do {
                     try AudioService.shared.startRecording(to: "test1")
                 } catch {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration: 1) {
+            .onTimerComplete(duration: 10) {
                 print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()
-                // TODO: route to Test2View --> trigger navigateToDestination() in BaseTestView
             }
         }, explanationContent: {
             HStack {

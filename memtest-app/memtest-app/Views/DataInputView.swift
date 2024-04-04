@@ -91,7 +91,8 @@ struct DataInputView: View {
             .padding(.bottom,100)
             .navigationBarBackButtonHidden(true)
             .navigationDestination(isPresented: $showNextView) {
-                TestExplinationDragDropView()
+                DragDropCalibrationView()
+                //TestExplinationDragDropView()
             }
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Fehler"), message: Text("Bitte füllen Sie alle Felder aus."))
