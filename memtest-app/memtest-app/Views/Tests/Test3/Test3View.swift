@@ -26,7 +26,8 @@ struct Test3View: View {
     
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished, destination: {Test4View()}, content: {
+        BaseTestView(showCompletedView: $finished,indexOfCircle: 2,
+                     textOfCircle:"3", destination: {Test4View()}, content: {
       
             OrderNumberSceneContainerView(numberCircles: numberCircles, onPositionsChanged: { positions in
                 print(positions)
@@ -37,40 +38,6 @@ struct Test3View: View {
             }
             
         }, explanationContent: {
-            HStack {
-                HStack {
-                    ForEach(0..<3) { index in
-                        ZStack {
-                            if index == 2 {
-                                Circle()
-                                    .foregroundColor(.blue)
-                                    .frame(width: 30, height: 30)
-                                Text("3")
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                            } else {
-                                Circle()
-                                    .foregroundColor(.gray)
-                                    .frame(width: 30, height: 30)
-                            }
-                        }
-                        .padding(.trailing, 5)
-                    }
-                }
-                
-                Circle()
-                    .foregroundColor(.gray)
-                    .frame(width: 30, height: 30)
-                HStack {
-                    ForEach(0..<3) { _ in
-                        Circle()
-                            .foregroundColor(.gray)
-                            .frame(width: 30, height: 30)
-                            .padding(.leading, 5)
-                    }
-                }
-            }
-            
             HStack {
                 Text("Aufgabenstellung 3")
                     .font(.largeTitle)

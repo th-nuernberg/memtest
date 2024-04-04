@@ -23,7 +23,8 @@ struct Test2View: View {
     ]
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished, destination: {LearnphaseView()}, content: {
+        BaseTestView(showCompletedView: $finished,indexOfCircle: 1,
+                     textOfCircle:"2", destination: {LearnphaseView()}, content: {
             Text(manager.recognizedWords.last ?? "")
             
             LazyVGrid(columns: columns) {
@@ -62,40 +63,6 @@ struct Test2View: View {
                 // TODO: route to Test2View
             }
         }, explanationContent: {
-            HStack {
-                HStack {
-                    ForEach(0..<3) { index in
-                        ZStack {
-                            if index == 1 {
-                                Circle()
-                                    .foregroundColor(.blue)
-                                    .frame(width: 30, height: 30)
-                                Text("2")
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                            } else {
-                                Circle()
-                                    .foregroundColor(.gray)
-                                    .frame(width: 30, height: 30)
-                            }
-                        }
-                        .padding(.trailing, 5)
-                    }
-                }
-                
-                Circle()
-                    .foregroundColor(.gray)
-                    .frame(width: 30, height: 30)
-                HStack {
-                    ForEach(0..<3) { _ in
-                        Circle()
-                            .foregroundColor(.gray)
-                            .frame(width: 30, height: 30)
-                            .padding(.leading, 5)
-                    }
-                }
-            }
-            
             HStack {
                 Text("Aufgabenstellung 2")
                     .font(.largeTitle)

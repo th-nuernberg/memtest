@@ -28,7 +28,8 @@ struct Test7View: View {
             let columns = columns()
             let symbolSize = self.dynamicSymbolSize(forWidth: screenWidth, forHeight: screenHeight, numberOfColumns: columns.count, numberOfSymbols: symbols.count)
             
-            BaseTestView(showCompletedView: $finished, destination: {TestEndView()}, content: {
+            BaseTestView(showCompletedView: $finished,indexOfCircle: 6,
+                         textOfCircle:"7", destination: {TestEndView()}, content: {
             
                 //Text(manager.recognizedWords.last ?? "")
                 LazyVGrid(columns: columns, spacing: 10) { // Fügt etwas Abstand zwischen den Zellen hinzu
@@ -66,42 +67,6 @@ struct Test7View: View {
                 }
                 
             }, explanationContent: {
-                HStack {
-                    HStack {
-                        ForEach(0..<3) { index in
-                            ZStack {
-                                Circle()
-                                    .foregroundColor(.gray)
-                                    .frame(width: 30, height: 30)
-                            }
-                            .padding(.trailing, 5)
-                        }
-                    }
-                    
-                    Circle()
-                        .foregroundColor(.gray)
-                        .frame(width: 30, height: 30)
-                    HStack {
-                        ForEach(0..<3) { index in
-                            ZStack {
-                                if index == 2 {
-                                    Circle()
-                                        .foregroundColor(.blue)
-                                        .frame(width: 30, height: 30)
-                                    Text("7")
-                                        .font(.title)
-                                        .foregroundColor(.white)
-                                } else {
-                                    Circle()
-                                        .foregroundColor(.gray)
-                                        .frame(width: 30, height: 30)
-                                }
-                            }
-                            .padding(.trailing, 5)
-                        }
-                    }
-                }
-                
                 HStack {
                     Text("Aufgabenstellung 7")
                         .font(.largeTitle)

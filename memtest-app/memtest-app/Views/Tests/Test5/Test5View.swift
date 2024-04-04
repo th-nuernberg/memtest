@@ -17,7 +17,8 @@ struct Test5View: View {
     
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished, destination: {Test6View()}, content: {
+        BaseTestView(showCompletedView: $finished,indexOfCircle: 4,
+                     textOfCircle:"5", destination: {Test6View()}, content: {
             
             VStack{
                 AudioIndicatorView()
@@ -78,42 +79,6 @@ struct Test5View: View {
             
             
         }, explanationContent: {
-            HStack {
-                HStack {
-                    ForEach(0..<3) { index in
-                        ZStack {
-                            Circle()
-                                .foregroundColor(.gray)
-                                .frame(width: 30, height: 30)
-                        }
-                        .padding(.trailing, 5)
-                    }
-                }
-                
-                Circle()
-                    .foregroundColor(.gray)
-                    .frame(width: 30, height: 30)
-                HStack {
-                    ForEach(0..<3) { index in
-                        ZStack {
-                            if index == 0 {
-                                Circle()
-                                    .foregroundColor(.blue)
-                                    .frame(width: 30, height: 30)
-                                Text("5")
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                            } else {
-                                Circle()
-                                    .foregroundColor(.gray)
-                                    .frame(width: 30, height: 30)
-                            }
-                        }
-                        .padding(.trailing, 5)
-                    }
-                }
-            }
-            
             HStack {
                 Text("Aufgabenstellung 5")
                     .font(.largeTitle)
