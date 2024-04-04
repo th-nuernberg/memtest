@@ -51,7 +51,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         guard let recognitionRequest = recognitionRequest else { fatalError("Unable to create request.") }
         
         recognitionRequest.shouldReportPartialResults = true
-        recognitionRequest.requiresOnDeviceRecognition = true
+        recognitionRequest.requiresOnDeviceRecognition = false
         
         startRecognitionTask(using: recognitionRequest)
         try startAudioEngineRecording(to: testName)
