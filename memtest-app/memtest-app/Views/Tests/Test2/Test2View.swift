@@ -25,7 +25,8 @@ struct Test2View: View {
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 1,
                      textOfCircle:"2", destination: {LearnphaseView()}, content: {
-            Text(manager.recognizedWords.last ?? "")
+            
+            //Text(manager.recognizedWords.last ?? "")
             
             LazyVGrid(columns: columns) {
                 ForEach(symbolList.symbols, id: \.name) { symbol in
@@ -49,13 +50,14 @@ struct Test2View: View {
             .padding(.vertical)
             .padding(.top, 70)
             .onAppear(perform: {
+                manager.recognizedWords = []
                 do {
                     try AudioService.shared.startRecording(to: "test2")
                 } catch {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration: 5) {
+            .onTimerComplete(duration: 10) {
                 print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()

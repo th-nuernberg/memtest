@@ -27,9 +27,17 @@ struct FeedbackView: View {
             HorizontalRadioButtons(isSelected: $isSelected)
             
             if isSelected {
-                TextField("Beschreiben Sie den Fehler", text: $errorDescription)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.top, 10)
+                
+                TextEditor(text: $errorDescription)
+                            .frame(width: 1000, height: 300)
+                            .scrollContentBackground(.hidden)
+                            .cornerRadius(20)
+                            .background(.white)
+                            .overlay(
+                                     RoundedRectangle(cornerRadius: 10)
+                                       .stroke(Color(hex: "#CAD8E3"), lineWidth: 5)
+                                     )
+                            .padding()
             }
             
             Button(action: {
@@ -43,22 +51,19 @@ struct FeedbackView: View {
                     .cornerRadius(8)
             }
             .disabled(isSelected && errorDescription.isEmpty)
-            .padding(.top, 200)
+            .padding(.top, 30)
             
         }
         .padding(.leading, 100)
         
         .padding(.trailing, 70)
         .navigationDestination(isPresented: $showNextView) {
-            // next View
+            //TODO: Start Datatransfer to university server
+            EmptyView()
         }
         .navigationBarBackButtonHidden(true)
        
     }
-}
-
-#Preview {
-    FeedbackView()
 }
 
 struct HorizontalRadioButtons: View {
@@ -102,4 +107,10 @@ struct HorizontalRadioButtons: View {
         }
     }
 }
+
+
+#Preview {
+    FeedbackView()
+}
+
 

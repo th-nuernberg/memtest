@@ -58,7 +58,7 @@ struct Test8View: View {
                     }
                     .store(in: &cancellables)
             })
-            .onTimerComplete(duration: 60, onComplete: {
+            .onTimerComplete(duration: 10, onComplete: {
                 AudioService.shared.stopRecording()
                 finished = true
             })

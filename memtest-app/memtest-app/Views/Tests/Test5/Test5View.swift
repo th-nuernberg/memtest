@@ -29,7 +29,7 @@ struct Test5View: View {
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .padding()
                     SymbolView(viewModel: viewModel)
-                }                
+                }
                 
                 //Text("Stern \(viewModel.symbolCounts["★"] ?? 0), Flocke \(viewModel.symbolCounts["✻"] ?? 0), Form \(viewModel.symbolCounts["▢"] ?? 0) ")
                 //Text("\(viewModel.selectedSymbolCount)")
@@ -71,7 +71,7 @@ struct Test5View: View {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration:5) {
+            .onTimerComplete(duration:10) {
                 print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()

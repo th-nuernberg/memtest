@@ -19,7 +19,7 @@ struct Test9View: View {
     }
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 8, textOfCircle: "9", destination: { FeedbackView() }, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 8, textOfCircle: "9", destination: { Test10View() }, content: {
             
             AudioIndicatorView()
             
@@ -91,7 +91,7 @@ struct Test9View: View {
     }
 
     func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
             setNextImage()
         }
     }
