@@ -9,14 +9,34 @@ import SwiftUI
 
 struct Test9View: View {
     @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
-    
     @State private var finished = false
+    @State private var currentImage: String?
+    @State private var timer: Timer?
+    @State private var unusedImages: [String]
 
+    init() {
+        _unusedImages = State(initialValue: (1...15).map { "Test9Assets/\($0)" })
+    }
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 7, textOfCircle: "8", destination: { FeedbackView() }, content: {
-            
-            
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 8, textOfCircle: "9", destination: { FeedbackView() }, content: {
+        
+            VStack {
+                if let imageName = currentImage {
+                    Image(imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .transition(.opacity)
+                }
+            }
+            .onAppear(perform: {
+                setNextImage()
+                startTimer()
+            })
+            .onDisappear {
+                stopTimer()
+            }
             
         }, explanationContent: {
             VStack{
@@ -53,6 +73,28 @@ struct Test9View: View {
         }, completedContent: { onContinue in
             CompletedView(completedTasks: 9, onContinue: onContinue)
         })
+    }
+    
+    func setNextImage() {
+        if !unusedImages.isEmpty {
+            let randomIndex = Int.random(in: 0..<unusedImages.count)
+            currentImage = unusedImages[randomIndex]
+            unusedImages.remove(at: randomIndex)
+        } else {
+            finished = true
+            stopTimer()
+        }
+    }
+
+    func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
+            setNextImage()
+        }
+    }
+
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
     }
 }
 
