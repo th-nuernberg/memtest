@@ -22,7 +22,8 @@ struct Test6View: View {
     ]
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished, destination: {Test7View()}, content: {
+        BaseTestView(showCompletedView: $finished,indexOfCircle: 5,
+                     textOfCircle:"6", destination: {Test7View()}, content: {
             Text(manager.recognizedWords.last ?? "")
             
             LazyVGrid(columns: columns) {
@@ -62,42 +63,6 @@ struct Test6View: View {
                 // TODO: route to Test2View --> trigger navigateToDestination() in BaseTestView
             }
         }, explanationContent: {
-            HStack {
-                HStack {
-                    ForEach(0..<3) { index in
-                        ZStack {
-                            Circle()
-                                .foregroundColor(.gray)
-                                .frame(width: 30, height: 30)
-                        }
-                        .padding(.trailing, 5)
-                    }
-                }
-                
-                Circle()
-                    .foregroundColor(.gray)
-                    .frame(width: 30, height: 30)
-                HStack {
-                    ForEach(0..<3) { index in
-                        ZStack {
-                            if index == 1 {
-                                Circle()
-                                    .foregroundColor(.blue)
-                                    .frame(width: 30, height: 30)
-                                Text("6")
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                            } else {
-                                Circle()
-                                    .foregroundColor(.gray)
-                                    .frame(width: 30, height: 30)
-                            }
-                        }
-                        .padding(.trailing, 5)
-                    }
-                }
-            }
-            
             HStack {
                 Text("Aufgabenstellung 6")
                     .font(.largeTitle)

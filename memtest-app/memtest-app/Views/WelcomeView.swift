@@ -86,7 +86,6 @@ struct WelcomeView: View {
                     .navigationBarBackButtonHidden(true)
                     .navigationDestination(isPresented: $showNextView) {
                         WelcomeStudyView()
-                        //QRCodeView()
                     }
                 }
             } else {
