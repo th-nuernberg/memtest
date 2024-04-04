@@ -20,7 +20,9 @@ struct Test9View: View {
 
     var body: some View {
         BaseTestView(showCompletedView: $finished, indexOfCircle: 8, textOfCircle: "9", destination: { FeedbackView() }, content: {
-        
+            
+            AudioIndicatorView()
+            
             VStack {
                 if let imageName = currentImage {
                     Image(imageName)
@@ -31,10 +33,12 @@ struct Test9View: View {
                 }
             }
             .onAppear(perform: {
+                try! AudioService.shared.startRecording(to: "test9")
                 setNextImage()
                 startTimer()
             })
             .onDisappear {
+                AudioService.shared.stopRecording()
                 stopTimer()
             }
             
