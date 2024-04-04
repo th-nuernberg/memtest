@@ -60,7 +60,6 @@ struct Test6View: View {
                 print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()
-                // TODO: route to Test2View --> trigger navigateToDestination() in BaseTestView
             }
         }, explanationContent: {
             HStack {

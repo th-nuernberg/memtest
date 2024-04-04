@@ -27,6 +27,7 @@
 		2ECA209A2B873F36000F2790 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ECA20992B873F36000F2790 /* Launch Screen.storyboard */; };
 		2EEA58142B9A773C00CB2483 /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEA58132B9A773C00CB2483 /* OpenAPIURLSession */; };
 		2EEB2BC92BBECA20001EE0EF /* Test8View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB2BC82BBECA20001EE0EF /* Test8View.swift */; };
+		2EEB2BCF2BBEE655001EE0EF /* Test9View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB2BCE2BBEE655001EE0EF /* Test9View.swift */; };
 		2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */; };
 		2EF974972B99E19000EFFA46 /* memtest_server_client.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EF974962B99E19000EFFA46 /* memtest_server_client.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2EF9749A2B99E19000EFFA46 /* memtest_server_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF974942B99E19000EFFA46 /* memtest_server_client.framework */; };
@@ -118,6 +119,7 @@
 		2ECA208C2B873EC3000F2790 /* memtest_appUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memtest_appUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2ECA20992B873F36000F2790 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		2EEB2BC82BBECA20001EE0EF /* Test8View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test8View.swift; sourceTree = "<group>"; };
+		2EEB2BCE2BBEE655001EE0EF /* Test9View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test9View.swift; sourceTree = "<group>"; };
 		2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
 		2EF974942B99E19000EFFA46 /* memtest_server_client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = memtest_server_client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF974962B99E19000EFFA46 /* memtest_server_client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memtest_server_client.h; sourceTree = "<group>"; };
@@ -304,6 +306,14 @@
 			path = Test8;
 			sourceTree = "<group>";
 		};
+		2EEB2BCD2BBEE64B001EE0EF /* Test9 */ = {
+			isa = PBXGroup;
+			children = (
+				2EEB2BCE2BBEE655001EE0EF /* Test9View.swift */,
+			);
+			path = Test9;
+			sourceTree = "<group>";
+		};
 		2EF974832B98C45C00EFFA46 /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				C673BB762BBEE56700179A0F /* Test10 */,
+				2EEB2BCD2BBEE64B001EE0EF /* Test9 */,
 				2EEB2BC72BBECA0A001EE0EF /* Test8 */,
 				C66BB4082BAF099100ACC04F /* Test7 */,
 				C66BB4052BAF098A00ACC04F /* Test6 */,
@@ -624,6 +635,7 @@
 			files = (
 				C66BB4262BAF0AB300ACC04F /* Test1View.swift in Sources */,
 				2EEB2BC92BBECA20001EE0EF /* Test8View.swift in Sources */,
+				2EEB2BCF2BBEE655001EE0EF /* Test9View.swift in Sources */,
 				2EBE8FD42BAC793700F983C0 /* TestSymbol.swift in Sources */,
 				2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */,
 				C6190AF92B934E7700633305 /* AudioCalibrationView.swift in Sources */,
