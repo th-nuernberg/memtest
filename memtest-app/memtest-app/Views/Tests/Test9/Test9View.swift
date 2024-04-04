@@ -1,0 +1,61 @@
+//
+//  Test9View.swift
+//  memtest-app
+//
+//  Created by Christopher Witzl on 04.04.24.
+//
+
+import SwiftUI
+
+struct Test9View: View {
+    @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
+    
+    @State private var finished = false
+
+
+    var body: some View {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 7, textOfCircle: "8", destination: { FeedbackView() }, content: {
+            
+            
+            
+        }, explanationContent: {
+            VStack{
+                Text("Ihre neunte Aufgabe besteht darin, soviele ")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("Schwarz-/Weißbilder zu erkennen und zu benennen")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("wie möglich.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("Sehen sie zum Beispiel einen Baum,")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top,20)
+                
+                Text("sagen Sie laut und deutlich Baum.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("Ist das Bild erfolgreich benannt worden, wird")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("Ihnen automatisch das nächste Bild gezeigt werden.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+            }
+            .padding(.top,120)
+        }, completedContent: { onContinue in
+            CompletedView(completedTasks: 9, onContinue: onContinue)
+        })
+    }
+}
+
+#Preview {
+    Test9View()
+}
