@@ -89,7 +89,7 @@ struct ExplanationView<Content: View>: View {
 }
 
 struct CompletedView: View {
-    var numberOfTasks: Int = 7 // Total number of tasks
+    var numberOfTasks: Int = 10 // Total number of tasks
     var completedTasks: Int = 1 // Number of tasks completed
     var onContinue: ContinueHandler
     
@@ -106,7 +106,13 @@ struct CompletedView: View {
             return "sechsten"
         } else if  completedTasks == 6 {
             return "siebten"
-        } else {
+        } else if  completedTasks == 7 {
+            return "achten"
+        }else if  completedTasks == 8 {
+            return "neunten"
+        }else if  completedTasks == 9 {
+            return "zehnten"
+        }else {
             return "nächsten"
         }
     }
