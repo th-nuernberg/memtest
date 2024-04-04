@@ -17,21 +17,29 @@ struct BaseTestView<Destination: View, Content: View, ExplanationContent: View, 
     @Binding private var showCompletedView: Bool
     @State var showNextView: Bool = false
     @State private var showExplanation: Bool
+    private var circleText: String;
+    private var circleIndex: Int;
     
     
-    init(showCompletedView: Binding<Bool>, destination: @escaping () -> Destination, @ViewBuilder content: @escaping () -> Content, @ViewBuilder explanationContent: @escaping () -> ExplanationContent? = { nil }, @ViewBuilder completedContent: @escaping (@escaping ContinueHandler) -> CompletedContent? = { _ in nil }) {
+    
+    
+    init(showCompletedView: Binding<Bool>, indexOfCircle: Int,
+         textOfCircle: String, destination: @escaping () -> Destination, @ViewBuilder content: @escaping () -> Content,
+         @ViewBuilder explanationContent: @escaping () -> ExplanationContent? = { nil }, @ViewBuilder completedContent: @escaping (@escaping ContinueHandler) -> CompletedContent? = { _ in nil }) {
         self.destination = destination
         self.content = content
         self.explanationContent = explanationContent
         self.completedContent = completedContent
         self._showExplanation = State(initialValue: self.explanationContent() != nil)
         self._showCompletedView = showCompletedView
+        self.circleText = textOfCircle
+        self.circleIndex = indexOfCircle
     }
     
     var body: some View {
         NavigationStack {
             if showExplanation, let explanation = explanationContent() {
-                ExplanationView(content: { explanation }, onContinue: {
+                ExplanationView(circleIndex:circleIndex,circleText: circleText,content: { explanation }, onContinue: {
                     showExplanation = false
                 })
             } else {
@@ -61,12 +69,40 @@ struct ExplanationView<Content: View>: View {
     let content: Content
     var onContinue: () -> Void
     
-    init(@ViewBuilder content: () -> Content, onContinue: @escaping () -> Void) {
+    var circleIndex: Int
+    var circleText: String
+    
+    init(circleIndex: Int,
+         circleText: String,@ViewBuilder content: () -> Content, onContinue: @escaping () -> Void) {
         self.content = content()
         self.onContinue = onContinue
+        self.circleIndex = circleIndex
+        self.circleText = circleText
     }
     
     var body: some View {
+        HStack {
+            HStack {
+                ForEach(0..<10) { index in
+                    ZStack {
+                        if index == circleIndex {
+                            Circle()
+                                .foregroundColor(.blue)
+                                .frame(width: 30, height: 30)
+                            Text(circleText)
+                                .font(.title)
+                                .foregroundColor(.white)
+                        } else {
+                            Circle()
+                                .foregroundColor(.gray)
+                                .frame(width: 30, height: 30)
+                        }
+                    }
+                    .padding(.trailing, 5)
+                }
+            }
+        }
+        
         VStack {
             content
             Spacer()
@@ -156,7 +192,9 @@ struct CompletedView: View {
 
 
 #Preview {
-    BaseTestView(showCompletedView: .constant(false) ,destination: {Test1View()}, content: {
+    BaseTestView(showCompletedView: .constant(false),
+                 indexOfCircle: 0,
+                              textOfCircle:"1",destination: {Test1View()}, content: {
         Text("Das ist die Test1View")
     }, explanationContent: {
         Text("Hier sind einige Erklärungen.")

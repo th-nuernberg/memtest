@@ -21,7 +21,8 @@ struct LearnphaseView: View {
     ]
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished, destination: {Test3View()}, content: {
+        BaseTestView(showCompletedView: $finished,indexOfCircle: 2,
+                     textOfCircle:"", destination: {Test3View()}, content: {
 
             LazyVGrid(columns: columns) {
                 ForEach(symbolList.symbols, id: \.name) { symbol in
