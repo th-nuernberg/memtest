@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Test10View: View {
+struct Test11View: View {
     
     @State private var finished = false
     
@@ -74,5 +74,5 @@ struct Test10View: View {
 }
 
 #Preview {
-    Test10View()
+    Test11View()
 }
