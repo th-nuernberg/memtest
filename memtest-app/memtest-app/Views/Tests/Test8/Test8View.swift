@@ -28,8 +28,8 @@ struct Test8View: View {
             let columns = columns()
             let symbolSize = self.dynamicSymbolSize(forWidth: screenWidth, forHeight: screenHeight, numberOfColumns: columns.count, numberOfSymbols: symbols.count)
             
-            BaseTestView(showCompletedView: $finished,indexOfCircle: 6,
-                         textOfCircle:"7", destination: {Test9View()}, content: {
+            BaseTestView(showCompletedView: $finished,indexOfCircle: 7,
+                         textOfCircle:"8", destination: {Test9View()}, content: {
             
                 //Text(manager.recognizedWords.last ?? "")
                 LazyVGrid(columns: columns, spacing: 10) { // Fügt etwas Abstand zwischen den Zellen hinzu

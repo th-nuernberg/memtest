@@ -19,7 +19,7 @@ struct Test10View: View {
     }
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 8, textOfCircle: "9", destination: { Test11View() }, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 9, textOfCircle: "10", destination: { Test11View() }, content: {
             
             AudioIndicatorView()
             

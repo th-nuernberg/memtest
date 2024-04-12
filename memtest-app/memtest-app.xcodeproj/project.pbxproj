@@ -17,6 +17,7 @@
 		2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FC92BAC712700F983C0 /* AudioService.swift */; };
 		2EBE8FD42BAC793700F983C0 /* TestSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */; };
 		2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */; };
+		2EC8E0F02BC917B5003C163C /* Test7View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC8E0EF2BC917B5003C163C /* Test7View.swift */; };
 		2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECA206E2B873EC2000F2790 /* memtest_appApp.swift */; };
 		2ECA20712B873EC2000F2790 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECA20702B873EC2000F2790 /* ContentView.swift */; };
 		2ECA20732B873EC3000F2790 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2ECA20722B873EC3000F2790 /* Assets.xcassets */; };
@@ -106,6 +107,7 @@
 		2EBE8FC92BAC712700F983C0 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSymbol.swift; sourceTree = "<group>"; };
 		2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUtils.swift; sourceTree = "<group>"; };
+		2EC8E0EF2BC917B5003C163C /* Test7View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test7View.swift; sourceTree = "<group>"; };
 		2ECA206B2B873EC2000F2790 /* memtest-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "memtest-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2ECA206E2B873EC2000F2790 /* memtest_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memtest_appApp.swift; sourceTree = "<group>"; };
 		2ECA20702B873EC2000F2790 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -442,6 +444,7 @@
 		C66BB4082BAF099100ACC04F /* Test7 */ = {
 			isa = PBXGroup;
 			children = (
+				2EC8E0EF2BC917B5003C163C /* Test7View.swift */,
 			);
 			path = Test7;
 			sourceTree = "<group>";
@@ -649,6 +652,7 @@
 				C6190AF92B934E7700633305 /* AudioCalibrationView.swift in Sources */,
 				C66BB4222BAF0A8E00ACC04F /* Test2View.swift in Sources */,
 				2ECA20712B873EC2000F2790 /* ContentView.swift in Sources */,
+				2EC8E0F02BC917B5003C163C /* Test7View.swift in Sources */,
 				C6190AF12B934E2700633305 /* TestExplinationTipView.swift in Sources */,
 				C62BE6D32BAC2B6600B111ED /* WelcomeStudyView.swift in Sources */,
 				2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */,

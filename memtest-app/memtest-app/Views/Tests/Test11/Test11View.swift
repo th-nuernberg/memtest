@@ -13,8 +13,8 @@ struct Test11View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,
-                     indexOfCircle: 9,
-                     textOfCircle:"10",destination: {TestEndView()}, content: {
+                     indexOfCircle: 10,
+                     textOfCircle:"11",destination: {TestEndView()}, content: {
             VStack{
                 AudioIndicatorView()
                 GeometryReader { geometry in
