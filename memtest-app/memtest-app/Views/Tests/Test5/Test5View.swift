@@ -10,7 +10,7 @@ import Combine
 
 
 struct Test5View: View {
-    @StateObject private var viewModel = SymbolViewModel()
+    @StateObject private var viewModel: SymbolViewModel = SymbolViewModel()
     @State private var finished = false
     
     @State private var userSymbolCount = ""

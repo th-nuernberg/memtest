@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct SymbolPosition {
     let symbol: String
     let position: CGPoint
@@ -15,16 +14,11 @@ struct SymbolPosition {
 
 struct SymbolView: View {
     private let symbols = ["★", "✻", "▢"]
-    private let numberOfSymbols = 117
     private let symbolSize: CGFloat = 30.0
-    private let symbolPadding: CGFloat = 20
-
     
-    @ObservedObject var viewModel: SymbolViewModel
-    
+    @StateObject var viewModel: SymbolViewModel
     @State private var symbolPositions: [SymbolPosition] = []
     
-
     var body: some View {
         GeometryReader { geometry in
             let rect = CGRect(x: 0, y: 0, width: geometry.size.width, height: geometry.size.height)
@@ -37,36 +31,41 @@ struct SymbolView: View {
                 }
             }
             .onAppear {
-                generateSymbolsPositions(in: rect)
-                viewModel.initializeSymbolCounts(numberOfSymbols: numberOfSymbols)
-                viewModel.selectedSymbol = symbols.randomElement()
+                initializeView(rect: rect)
             }
         }
     }
     
+    private func initializeView(rect: CGRect) {
+        viewModel.initializeSymbolCounts(numberOfSymbols: viewModel.numberOfSymbols)
+        generateSymbolsPositions(in: rect)
+        viewModel.selectedSymbol = symbols.randomElement()
+    }
+    
     private func generateSymbolsPositions(in rect: CGRect) {
-        let columnWidth = rect.width / CGFloat(17) // Breite einer Spalte
-        let rowHeight = rect.height / CGFloat(7) // Höhe einer Reihe
-
+        let maxColumns = 17
+        let rowHeight = rect.height / CGFloat(7)
         var positions: [SymbolPosition] = []
-
+        
         for row in 0..<7 {
-            for column in 0..<17 {
-                let x = CGFloat(column) * columnWidth + columnWidth / 2 // Zentrum der Spalte
-                let y = CGFloat(row) * rowHeight + rowHeight / 2 // Zentrum der Reihe
-                let symbol = symbols.randomElement()! // Zufälliges Symbol
-                let position = CGPoint(x: x, y: y)
-                positions.append(SymbolPosition(symbol: symbol, position: position))
+            let columnsInRow = row == 0 ? 16 : 17
+            let columnWidth = rect.width / CGFloat(columnsInRow)
+            
+            for column in 0..<columnsInRow {
+                let x = CGFloat(column) * columnWidth + columnWidth / 2
+                let y = CGFloat(row) * rowHeight + rowHeight / 2
+                let symbol = symbols.randomElement()!
+                positions.append(SymbolPosition(symbol: symbol, position: CGPoint(x: x, y: y)))
             }
         }
         symbolPositions = positions
     }
-
 }
 
 class SymbolViewModel: ObservableObject {
     @Published var symbolCounts: [String: Int] = ["★": 0, "✻": 0, "▢": 0]
     @Published var selectedSymbol: String?
+    let numberOfSymbols = 117
     
     func initializeSymbolCounts(numberOfSymbols: Int) {
         let symbols = ["★", "✻", "▢"]
@@ -88,15 +87,9 @@ class SymbolViewModel: ObservableObject {
         }
         return 0
     }
-    
 }
 
 
-struct SymbolView_Previews: PreviewProvider {
-    static var previews: some View {
-        @StateObject var viewModel = SymbolViewModel()
-        SymbolView(viewModel: viewModel)
-    }
+#Preview {
+    Test5View()
 }
-
-
