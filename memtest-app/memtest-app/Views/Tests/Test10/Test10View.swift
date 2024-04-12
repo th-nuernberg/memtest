@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Test9View: View {
+struct Test10View: View {
     @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
     @State private var finished = false
     @State private var currentImage: String?
@@ -103,5 +103,5 @@ struct Test9View: View {
 }
 
 #Preview {
-    Test9View()
+    Test10View()
 }

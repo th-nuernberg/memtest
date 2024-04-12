@@ -18,7 +18,7 @@ struct Test8View: View {
 
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 7, textOfCircle: "8", destination: { Test9View() }, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 7, textOfCircle: "8", destination: { Test10View() }, content: {
             VStack {
                 AudioIndicatorView()
                 Spacer()
