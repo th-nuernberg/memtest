@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-struct Test8View: View {
+struct Test9View: View {
     @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
     
     @State private var cancellables = Set<AnyCancellable>()
@@ -110,5 +110,5 @@ struct Test8View: View {
 }
 
 #Preview {
-    Test8View()
+    Test9View()
 }
