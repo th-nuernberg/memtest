@@ -33,7 +33,7 @@ struct Test10View: View {
                 }
             }
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "test9")
+                try! AudioService.shared.startRecording(to: "test10")
                 setNextImage()
                 startTimer()
             })

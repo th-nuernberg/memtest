@@ -56,7 +56,7 @@ struct Test8View: View {
                 .onAppear(perform: {
                     manager.recognizedWords = []
                     do {
-                        try AudioService.shared.startRecording(to: "test7")
+                        try AudioService.shared.startRecording(to: "test8")
                     } catch {
                         print("Failed to start recording: \(error)")
                     }

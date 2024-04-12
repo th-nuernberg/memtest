@@ -51,7 +51,7 @@ struct Test9View: View {
             }
             .padding()
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "test8")
+                try! AudioService.shared.startRecording(to: "test9")
                 self.speechRecognitionManager.$recognizedWords
                     .sink { _ in
                         self.updateErkannteTiernamen()
