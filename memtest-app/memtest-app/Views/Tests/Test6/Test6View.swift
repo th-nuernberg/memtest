@@ -23,7 +23,7 @@ struct Test6View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 5,
-                     textOfCircle:"6", destination: {Test7View()}, content: {
+                     textOfCircle:"6", destination: {Test8View()}, content: {
             //Text(manager.recognizedWords.last ?? "")
             
             LazyVGrid(columns: columns) {

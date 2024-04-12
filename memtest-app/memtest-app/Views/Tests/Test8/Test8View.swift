@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Test7View: View {
+struct Test8View: View {
     @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
     @State private var finished = false
@@ -17,7 +17,7 @@ struct Test7View: View {
     private var symbolList = TestSymbolList()
     
     init() {
-       _symbols = State(initialValue: Test7View.initializeSymbols()) // Initialisiert die Symbole beim ersten Laden
+       _symbols = State(initialValue: Test8View.initializeSymbols()) // Initialisiert die Symbole beim ersten Laden
     }
     
     
@@ -144,5 +144,5 @@ struct Test7View: View {
 }
 
 #Preview {
-    Test7View()
+    Test8View()
 }
