@@ -44,6 +44,13 @@ struct Test11View: View {
                 AudioService.shared.stopRecording()
             }
         }, explanationContent: {
+            HStack {
+                Text("Aufgabenstellung 11")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
             VStack{
                 Text("Ihre zehnte Aufgabe besteht darin, ein Bild")
                     .font(.custom("SFProText-SemiBold", size: 40))

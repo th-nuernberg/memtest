@@ -43,6 +43,14 @@ struct Test10View: View {
             }
             
         }, explanationContent: {
+            
+            HStack {
+                Text("Aufgabenstellung 10")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
             VStack{
                 Text("Ihre neunte Aufgabe besteht darin, soviele ")
                     .font(.custom("SFProText-SemiBold", size: 40))

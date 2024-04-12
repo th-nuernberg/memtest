@@ -69,7 +69,7 @@ struct Test8View: View {
                 
             }, explanationContent: {
                 HStack {
-                    Text("Aufgabenstellung 7")
+                    Text("Aufgabenstellung 8")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .padding(.leading)
