@@ -26,56 +26,40 @@ struct SymbolView: View {
     
 
     var body: some View {
+        GeometryReader { geometry in
+            let rect = CGRect(x: 0, y: 0, width: geometry.size.width, height: geometry.size.height)
             ZStack {
                 ForEach(0..<symbolPositions.count, id: \.self) { index in
                     let symbolPosition = symbolPositions[index]
                     Text(symbolPosition.symbol)
-                        .font(.title)
+                        .font(.system(size: symbolSize))
                         .position(symbolPosition.position)
                 }
             }
-        .onAppear {
-            viewModel.initializeSymbolCounts(numberOfSymbols: numberOfSymbols)
-            let rect = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.7)
-            generateSymbolsPositions(in: rect) // Hier kein 'using' Parameter mehr
-            viewModel.selectedSymbol = symbols.randomElement()
+            .onAppear {
+                generateSymbolsPositions(in: rect)
+                viewModel.initializeSymbolCounts(numberOfSymbols: numberOfSymbols)
+                viewModel.selectedSymbol = symbols.randomElement()
+            }
         }
     }
     
     private func generateSymbolsPositions(in rect: CGRect) {
-        // Adjusting insets to account for symbol size and padding, ensuring symbols don't go outside the view
-        let adjustedInsetX = (symbolSize + symbolPadding) / 2
-        let adjustedInsetY = (symbolSize + symbolPadding) / 2
-        let insetRect = rect.insetBy(dx: adjustedInsetX, dy: adjustedInsetY)
-        let quadtree = Quadtree<SymbolPosition>(boundary: insetRect, capacity: 1)
+        let columnWidth = rect.width / CGFloat(17) // Breite einer Spalte
+        let rowHeight = rect.height / CGFloat(7) // Höhe einer Reihe
 
-        for _ in 0..<numberOfSymbols {
-            let symbol = symbols.randomElement()!
-            var placed = false
-            while !placed {
-                // Generating positions within the adjusted inset bounds
-                let x = CGFloat.random(in: insetRect.minX...insetRect.maxX)
-                let y = CGFloat.random(in: insetRect.minY...insetRect.maxY)
+        var positions: [SymbolPosition] = []
+
+        for row in 0..<7 {
+            for column in 0..<17 {
+                let x = CGFloat(column) * columnWidth + columnWidth / 2 // Zentrum der Spalte
+                let y = CGFloat(row) * rowHeight + rowHeight / 2 // Zentrum der Reihe
+                let symbol = symbols.randomElement()! // Zufälliges Symbol
                 let position = CGPoint(x: x, y: y)
-
-                let safeZone = CGRect(x: position.x - (symbolSize + symbolPadding) / 2,
-                                      y: position.y - (symbolSize + symbolPadding) / 2,
-                                      width: symbolSize + symbolPadding,
-                                      height: symbolSize + symbolPadding)
-
-                if !quadtree.query(in: safeZone) {
-                    let symbolPosition = SymbolPosition(symbol: symbol, position: position)
-                    placed = quadtree.insert(point: position, value: symbolPosition)
-                }
+                positions.append(SymbolPosition(symbol: symbol, position: position))
             }
         }
-
-        symbolPositions = extractSymbolPositions(from: quadtree)
-    }
-    
-    private func extractSymbolPositions(from quadtree: Quadtree<SymbolPosition>) -> [SymbolPosition] {
-        let collectedPoints = quadtree.collect()
-        return collectedPoints.map { $0.value }
+        symbolPositions = positions
     }
 
 }
