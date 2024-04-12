@@ -13,7 +13,34 @@ struct Test7View: View {
     var body: some View {
         
         BaseTestView(showCompletedView: $finished, indexOfCircle: 6, textOfCircle: "7", destination: { Test8View()}, content: {
-            Text("daükop")
+            VStack {
+                AudioIndicatorView()
+                Spacer()
+                
+                VStack {
+                    Text("ABBABA")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(.black)
+                        .padding(.bottom, 20)
+                        .underline()
+                    Text("A B A A B A B B A A B A B A B B A")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(.black)
+                    Text("A A B A B A B B B A B A A B A B A")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(.black)
+                }
+                
+                Spacer()
+                
+            }
+            .onAppear(perform: {
+                try! AudioService.shared.startRecording(to: "test6");
+            })
+            .onTimerComplete(duration: 60, onComplete: {
+                finished = true
+                AudioService.shared.stopRecording()
+            })
         }, explanationContent: {
             HStack {
                 Text("Aufgabenstellung 7")
