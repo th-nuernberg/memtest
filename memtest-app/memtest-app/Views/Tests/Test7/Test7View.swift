@@ -15,7 +15,28 @@ struct Test7View: View {
         BaseTestView(showCompletedView: $finished, indexOfCircle: 6, textOfCircle: "7", destination: { Test8View()}, content: {
             Text("daükop")
         }, explanationContent: {
-            Text("Expl")
+            HStack {
+                Text("Aufgabenstellung 7")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            
+            VStack{
+                Text("Ihre siebte Aufgabe besteht darin, die")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("für jedes A, B zu sprechen und für jedes B, A.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("Die Bichstaben sollen nach einander vorgelesen werden.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+            }
+            .padding(.top,120)
         },
         completedContent: { onContinue in
             
