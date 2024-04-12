@@ -51,7 +51,7 @@ struct Test7View: View {
             }
             
             VStack{
-                Text("Ihre siebte Aufgabe besteht darin, die")
+                Text("Die siebte Aufgabe besteht darin, die")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
@@ -59,7 +59,7 @@ struct Test7View: View {
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Die Bichstaben sollen nach einander vorgelesen werden.")
+                Text("Die Buchstaben sollen nacheinander vorgelesen werden.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
             }
