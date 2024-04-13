@@ -10,7 +10,7 @@ import Combine
 
 
 struct Test5View: View {
-    @StateObject private var viewModel = SymbolViewModel()
+    @StateObject private var viewModel: SymbolViewModel = SymbolViewModel()
     @State private var finished = false
     
     @State private var userSymbolCount = ""
@@ -29,6 +29,7 @@ struct Test5View: View {
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .padding()
                     SymbolView(viewModel: viewModel)
+                        .padding()
                 }
                 
                 //Text("Stern \(viewModel.symbolCounts["★"] ?? 0), Flocke \(viewModel.symbolCounts["✻"] ?? 0), Form \(viewModel.symbolCounts["▢"] ?? 0) ")
@@ -71,7 +72,7 @@ struct Test5View: View {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration:10) {
+            .onTimerComplete(duration:60) {
                 print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()

@@ -7,83 +7,57 @@
 
 import SwiftUI
 
-
-struct SymbolPosition {
+struct SymbolPosition: Identifiable {
+    let id: Int
     let symbol: String
-    let position: CGPoint
 }
+
 
 struct SymbolView: View {
-    private let symbols = ["★", "✻", "▢"]
-    private let numberOfSymbols = 117
-    private let symbolSize: CGFloat = 30.0
-    private let symbolPadding: CGFloat = 20
-
-    
-    @ObservedObject var viewModel: SymbolViewModel
-    
-    @State private var symbolPositions: [SymbolPosition] = []
-    
+    @StateObject var viewModel: SymbolViewModel
 
     var body: some View {
+        GeometryReader { geometry in
+            let rect = CGRect(x: 0, y: 0, width: geometry.size.width, height: geometry.size.height)
             ZStack {
-                ForEach(0..<symbolPositions.count, id: \.self) { index in
-                    let symbolPosition = symbolPositions[index]
-                    Text(symbolPosition.symbol)
-                        .font(.title)
-                        .position(symbolPosition.position)
+                ForEach(Array(zip(viewModel.symbolField.indices, viewModel.symbolField)), id: \.0) { index, symbol in
+                    Text(symbol)
+                        .font(.system(size: 30.0))
+                        .position(self.positionForSymbol(index: index, rect: rect, columns: 17, rows: 7))
+                        .onTapGesture {
+                            viewModel.registerTap(on: index, symbolType: symbol)
+                        }
                 }
             }
-        .onAppear {
-            viewModel.initializeSymbolCounts(numberOfSymbols: numberOfSymbols)
-            let rect = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.7)
-            generateSymbolsPositions(in: rect) // Hier kein 'using' Parameter mehr
-            viewModel.selectedSymbol = symbols.randomElement()
-        }
-    }
-    
-    private func generateSymbolsPositions(in rect: CGRect) {
-        // Adjusting insets to account for symbol size and padding, ensuring symbols don't go outside the view
-        let adjustedInsetX = (symbolSize + symbolPadding) / 2
-        let adjustedInsetY = (symbolSize + symbolPadding) / 2
-        let insetRect = rect.insetBy(dx: adjustedInsetX, dy: adjustedInsetY)
-        let quadtree = Quadtree<SymbolPosition>(boundary: insetRect, capacity: 1)
-
-        for _ in 0..<numberOfSymbols {
-            let symbol = symbols.randomElement()!
-            var placed = false
-            while !placed {
-                // Generating positions within the adjusted inset bounds
-                let x = CGFloat.random(in: insetRect.minX...insetRect.maxX)
-                let y = CGFloat.random(in: insetRect.minY...insetRect.maxY)
-                let position = CGPoint(x: x, y: y)
-
-                let safeZone = CGRect(x: position.x - (symbolSize + symbolPadding) / 2,
-                                      y: position.y - (symbolSize + symbolPadding) / 2,
-                                      width: symbolSize + symbolPadding,
-                                      height: symbolSize + symbolPadding)
-
-                if !quadtree.query(in: safeZone) {
-                    let symbolPosition = SymbolPosition(symbol: symbol, position: position)
-                    placed = quadtree.insert(point: position, value: symbolPosition)
-                }
+            .onAppear {
+                viewModel.generateSymbolField(numberOfSymbols: 119, symbols: ["★", "✻", "▢"])
             }
         }
-
-        symbolPositions = extractSymbolPositions(from: quadtree)
-    }
-    
-    private func extractSymbolPositions(from quadtree: Quadtree<SymbolPosition>) -> [SymbolPosition] {
-        let collectedPoints = quadtree.collect()
-        return collectedPoints.map { $0.value }
     }
 
+    private func positionForSymbol(index: Int, rect: CGRect, columns: Int, rows: Int) -> CGPoint {
+        let columnWidth = rect.width / CGFloat(columns)
+        let rowHeight = rect.height / CGFloat(rows)
+        let x = CGFloat(index % columns) * columnWidth + columnWidth / 2
+        let y = CGFloat(index / columns) * rowHeight + rowHeight / 2
+        return CGPoint(x: x, y: y)
+    }
 }
+
+
+
+
 
 class SymbolViewModel: ObservableObject {
     @Published var symbolCounts: [String: Int] = ["★": 0, "✻": 0, "▢": 0]
     @Published var selectedSymbol: String?
-    
+    @Published var symbolField: [String] = []
+    @Published var taps: [(Int, String)] = []
+
+    func registerTap(on symbolId: Int, symbolType: String) {
+        taps.append((symbolId, symbolType))
+    }
+
     func initializeSymbolCounts(numberOfSymbols: Int) {
         let symbols = ["★", "✻", "▢"]
         var total = numberOfSymbols
@@ -97,22 +71,15 @@ class SymbolViewModel: ObservableObject {
             symbolCounts[firstSymbol, default: 0] += total
         }
     }
-    
-    var selectedSymbolCount: Int {
-        if let selectedSymbol = selectedSymbol {
-            return symbolCounts[selectedSymbol] ?? 0
-        }
-        return 0
-    }
-    
-}
 
-
-struct SymbolView_Previews: PreviewProvider {
-    static var previews: some View {
-        @StateObject var viewModel = SymbolViewModel()
-        SymbolView(viewModel: viewModel)
+    func generateSymbolField(numberOfSymbols: Int, symbols: [String]) {
+        symbolField = (0..<numberOfSymbols).map { _ in symbols.randomElement()! }
     }
 }
 
 
+
+
+#Preview {
+    Test5View()
+}
