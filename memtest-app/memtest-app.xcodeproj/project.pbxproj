@@ -10,6 +10,10 @@
 		2E1AAA8A2BB32C23009EA657 /* DragNDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA892BB32C23009EA657 /* DragNDropView.swift */; };
 		2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */; };
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
+		2E5A90902BCABF5900804F19 /* ggml-medium-q5_0.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2E5A908E2BCABF5900804F19 /* ggml-medium-q5_0.bin */; };
+		2E5A90942BCAC04200804F19 /* ggml-medium-encoder.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = 2E5A90932BCAC04200804F19 /* ggml-medium-encoder.mlmodelc */; };
+		2E5A90972BCAC72B00804F19 /* AppleTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */; };
+		2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */; };
 		2EA41A4E2BB8A78800FDD5B4 /* DragDropExampleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA41A4D2BB8A78800FDD5B4 /* DragDropExampleScene.swift */; };
 		2EABC7DE2BC81159005F99F6 /* SwiftWhisper in Frameworks */ = {isa = PBXBuildFile; productRef = 2EABC7DD2BC81159005F99F6 /* SwiftWhisper */; };
 		2EABC7E72BC81B7B005F99F6 /* ggml-small-encoder.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = 2EABC7E52BC81B7B005F99F6 /* ggml-small-encoder.mlmodelc */; };
@@ -105,6 +109,10 @@
 		2E1AAA892BB32C23009EA657 /* DragNDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragNDropView.swift; sourceTree = "<group>"; };
 		2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
+		2E5A908E2BCABF5900804F19 /* ggml-medium-q5_0.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ggml-medium-q5_0.bin"; sourceTree = "<group>"; };
+		2E5A90932BCAC04200804F19 /* ggml-medium-encoder.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "ggml-medium-encoder.mlmodelc"; sourceTree = "<group>"; };
+		2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleTranscriptionService.swift; sourceTree = "<group>"; };
+		2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperTranscriptionService.swift; sourceTree = "<group>"; };
 		2EA41A4D2BB8A78800FDD5B4 /* DragDropExampleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDropExampleScene.swift; sourceTree = "<group>"; };
 		2EABC7E52BC81B7B005F99F6 /* ggml-small-encoder.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "ggml-small-encoder.mlmodelc"; sourceTree = "<group>"; };
 		2EABC7E62BC81B7B005F99F6 /* ggml-small.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ggml-small.bin"; sourceTree = "<group>"; };
@@ -299,6 +307,8 @@
 			isa = PBXGroup;
 			children = (
 				2EBE8FC92BAC712700F983C0 /* AudioService.swift */,
+				2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */,
+				2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -322,6 +332,8 @@
 		2ECA7B012BC6FE9B00C00693 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				2E5A90932BCAC04200804F19 /* ggml-medium-encoder.mlmodelc */,
+				2E5A908E2BCABF5900804F19 /* ggml-medium-q5_0.bin */,
 				2EABC7E52BC81B7B005F99F6 /* ggml-small-encoder.mlmodelc */,
 				2EABC7E62BC81B7B005F99F6 /* ggml-small.bin */,
 				2ECA7B0B2BC7029500C00693 /* ggml-tiny-encoder.mlmodelc */,
@@ -635,8 +647,10 @@
 			files = (
 				2ECA7B0C2BC7029500C00693 /* ggml-tiny-encoder.mlmodelc in Resources */,
 				2ECA209A2B873F36000F2790 /* Launch Screen.storyboard in Resources */,
+				2E5A90902BCABF5900804F19 /* ggml-medium-q5_0.bin in Resources */,
 				2EABC7E82BC81B7B005F99F6 /* ggml-small.bin in Resources */,
 				2ECA20772B873EC3000F2790 /* Preview Assets.xcassets in Resources */,
+				2E5A90942BCAC04200804F19 /* ggml-medium-encoder.mlmodelc in Resources */,
 				2EABC7E72BC81B7B005F99F6 /* ggml-small-encoder.mlmodelc in Resources */,
 				2ECA7B0A2BC7004D00C00693 /* ggml-tiny.bin in Resources */,
 				2ECA20732B873EC3000F2790 /* Assets.xcassets in Resources */,
@@ -686,6 +700,7 @@
 				2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */,
 				2EA41A4E2BB8A78800FDD5B4 /* DragDropExampleScene.swift in Sources */,
 				2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */,
+				2E5A90972BCAC72B00804F19 /* AppleTranscriptionService.swift in Sources */,
 				C6190B072B93511000633305 /* FeedbackView.swift in Sources */,
 				2EAE89122BB6FB2C0022B4CD /* AudioIndicatorView.swift in Sources */,
 				C66BB4102BAF09ED00ACC04F /* Test6View.swift in Sources */,
@@ -698,6 +713,7 @@
 				C6190AF52B934E4B00633305 /* DragDropCalibrationView.swift in Sources */,
 				2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */,
 				2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */,
+				2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */,
 				C6190AF32B934E3900633305 /* TestExplinationAudioView.swift in Sources */,
 				C673BB782BBEE57500179A0F /* Test10View.swift in Sources */,
 				C66BB41C2BAF0A4300ACC04F /* Test3View.swift in Sources */,

@@ -18,51 +18,49 @@ protocol AudioServiceDelegate: AnyObject {
 
 
 class AudioService: NSObject, SFSpeechRecognizerDelegate {
-    static let shared = AudioService()
+    static let shared = AudioService(concreteTranscriptionService: AppleTranscriptionService())
     
-    private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "de-DE"))!
-    private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
-    private var recognitionTask: SFSpeechRecognitionTask?
+    private var concreteTranscriptionService: TranscriptionService
+    
     private let audioEngine = AVAudioEngine()
     private var audioFile: AVAudioFile?
     weak var delegate: AudioServiceDelegate?
     
     private var inputLevelUpdateTimer: Timer?
     
-    override init() {
+    init(concreteTranscriptionService: TranscriptionService) {
+        self.concreteTranscriptionService = concreteTranscriptionService
+        
         super.init()
-        speechRecognizer.delegate = self
     }
     
-    func requestAuthorization(completion: @escaping (Bool) -> Void) {
-        SFSpeechRecognizer.requestAuthorization { status in
-            DispatchQueue.main.async {
-                completion(status == .authorized)
-            }
-        }
-    }
     
     func startRecording(to testName: String) throws {
         prepareRecordingDirectory(for: testName)
-        resetRecognitionTask()
         try configureAudioSession()
         
-        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-        guard let recognitionRequest = recognitionRequest else { fatalError("Unable to create request.") }
-        
-        recognitionRequest.shouldReportPartialResults = true
-        recognitionRequest.requiresOnDeviceRecognition = false
-        
-        startRecognitionTask(using: recognitionRequest)
         try startAudioEngineRecording(to: testName)
+        
+        
+        self.concreteTranscriptionService.onTranscriptionUpdate = { [weak self] updatedText in
+            DispatchQueue.main.async {
+                // Update UI or process text
+                print("New transcription result: \(updatedText)")
+                
+                
+                self?.delegate?.audioService(self!, didRecognizeText:updatedText)
+                
+            }
+        }
+
+        
+        concreteTranscriptionService.startTranscribing()
     }
     
     func stopRecording(completion: (() -> Void)? = nil) {
         audioEngine.stop()
         audioEngine.inputNode.removeTap(onBus: 0)
-        recognitionRequest?.endAudio()
-        recognitionTask?.cancel()
-        recognitionTask = nil
+        concreteTranscriptionService.stopTranscribing()
         audioFile = nil
         completion?()
     }
@@ -89,33 +87,12 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         self.audioFile = try? AVAudioFile(forWriting: filePath, settings: [:])
     }
     
-    private func resetRecognitionTask() {
-        if recognitionTask != nil {
-            recognitionTask?.cancel()
-            recognitionTask = nil
-        }
-    }
-    
     private func configureAudioSession() throws {
         let audioSession = AVAudioSession.sharedInstance()
         try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
         try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
     }
-    
-    private func startRecognitionTask(using request: SFSpeechAudioBufferRecognitionRequest) {
-        recognitionTask = speechRecognizer.recognitionTask(with: request) { [weak self] result, error in
-            var isFinal = false
-            if let result = result {
-                self?.delegate?.audioService(self!, didRecognizeText: result.bestTranscription.formattedString)
-                isFinal = result.isFinal
-            }
-            
-            if error != nil || isFinal {
-                self?.stopRecording()
-            }
-        }
-    }
-    
+
     private func startAudioEngineRecording(to testName: String) throws {
         prepareRecordingDirectory(for: testName)
         
@@ -124,7 +101,8 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         audioEngine.inputNode.removeTap(onBus: 0)
         
         audioEngine.inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] (buffer, _) in
-            self?.recognitionRequest?.append(buffer)
+            
+            print("append to file")
             self?.appendAudioToFile(buffer)
             self?.updateInputLevel(buffer: buffer)
         }
@@ -154,6 +132,8 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         let inputNode = audioEngine.inputNode // 'inputNode' is not optional, so we don't use 'if let' or 'guard let'
         let recordingFormat = inputNode.outputFormat(forBus: 0)
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] (buffer, _) in
+            
+            print("buffer")
             self?.updateInputLevel(buffer: buffer)
         }
 
@@ -194,6 +174,17 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         
         return normalizedLevel
     }
+}
+
+protocol TranscriptionService {
+    var isTranscribing: Bool { get }
+    var transcription: String { get set }
+    
+    var onTranscriptionUpdate: ((String) -> Void)? { get set }
+    
+    func startTranscribing()
+    func stopTranscribing()
+    func toggleTranscribing()
 }
 
 
