@@ -6,16 +6,20 @@
 //
 
 import SwiftUI
+import StringMetric
 
 struct Test10View: View {
     @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
     @State private var finished = false
-    @State private var currentImage: String?
+    @State private var currentImage: BNT_Picture?  // Use BNT_Picture instead of String
     @State private var timer: Timer?
-    @State private var unusedImages: [String]
-
+    @State private var unusedImages: [BNT_Picture]  // Store BNT_Picture objects
+    @State private var recognizedImages: [String] = []
+    
     init() {
-        _unusedImages = State(initialValue: (1...15).map { "Test9Assets/\($0)" })
+        // Initialize with BNT_Picture objects from BNTPictureList
+        let bntPictureList = BNTPictureList()
+        _unusedImages = State(initialValue: bntPictureList.pictures)
     }
 
     var body: some View {
@@ -24,8 +28,8 @@ struct Test10View: View {
             AudioIndicatorView()
             
             VStack {
-                if let imageName = currentImage {
-                    Image(imageName)
+                if let image = currentImage {  // Use currentImage of type BNT_Picture
+                    Image(image.file_name)  // Access file_name from BNT_Picture
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -35,15 +39,22 @@ struct Test10View: View {
             .onAppear(perform: {
                 try! AudioService.shared.startRecording(to: "test10")
                 setNextImage()
-                startTimer()
+                //startTimer()
             })
+            .onChange(of: speechRecognitionManager.recognizedWords) { words in
+                checkLastWord(words: words)
+            }
             .onDisappear {
                 AudioService.shared.stopRecording()
-                stopTimer()
+                //stopTimer()
             }
+            .onTimerComplete(duration: 60, onComplete: {
+                print(recognizedImages)
+                AudioService.shared.stopRecording()
+                finished.toggle()
+            })
             
         }, explanationContent: {
-            
             HStack {
                 Text("Aufgabenstellung 10")
                     .font(.largeTitle)
@@ -52,7 +63,7 @@ struct Test10View: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             VStack{
-                Text("Ihre neunte Aufgabe besteht darin, soviele ")
+                Text("Ihre zehnte Aufgabe besteht darin, soviele ")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
@@ -85,6 +96,16 @@ struct Test10View: View {
         }, completedContent: { onContinue in
             CompletedView(completedTasks: 9, onContinue: onContinue)
         })
+    }
+    
+    func checkLastWord(words: [String]) {
+        guard let lastWord = words.last, let currentName = currentImage?.name, let maxDistance = currentImage?.maxDistance else { return }
+        
+        if (lastWord.distanceLevenshtein(between: currentName) <= maxDistance) {
+            setNextImage()
+            speechRecognitionManager.removeLastWord()
+            recognizedImages.append(currentName)
+        }
     }
     
     func setNextImage() {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E187A0D2BCAAC060081DA0B /* BNTPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E187A0C2BCAAC060081DA0B /* BNTPicture.swift */; };
+		2E187A112BCAAFD30081DA0B /* StringMetric in Frameworks */ = {isa = PBXBuildFile; productRef = 2E187A102BCAAFD30081DA0B /* StringMetric */; };
 		2E1AAA8A2BB32C23009EA657 /* DragNDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA892BB32C23009EA657 /* DragNDropView.swift */; };
 		2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */; };
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
@@ -97,6 +99,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2E187A0C2BCAAC060081DA0B /* BNTPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BNTPicture.swift; sourceTree = "<group>"; };
 		2E1AAA892BB32C23009EA657 /* DragNDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragNDropView.swift; sourceTree = "<group>"; };
 		2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
@@ -156,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EF9749A2B99E19000EFFA46 /* memtest_server_client.framework in Frameworks */,
+				2E187A112BCAAFD30081DA0B /* StringMetric in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */,
+				2E187A0C2BCAAC060081DA0B /* BNTPicture.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -487,6 +492,7 @@
 			);
 			name = "memtest-app";
 			packageProductDependencies = (
+				2E187A102BCAAFD30081DA0B /* StringMetric */,
 			);
 			productName = "memtest-app";
 			productReference = 2ECA206B2B873EC2000F2790 /* memtest-app.app */;
@@ -590,6 +596,7 @@
 				2EEA580F2B9A763D00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */,
 				2EEA58102B9A764600CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */,
 				2EEA58122B9A773C00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */,
+				2E187A0F2BCAAFD30081DA0B /* XCRemoteSwiftPackageReference "StringMetric" */,
 			);
 			productRefGroup = 2ECA206C2B873EC2000F2790 /* Products */;
 			projectDirPath = "";
@@ -654,6 +661,7 @@
 				2ECA20712B873EC2000F2790 /* ContentView.swift in Sources */,
 				2EC8E0F02BC917B5003C163C /* Test7View.swift in Sources */,
 				C6190AF12B934E2700633305 /* TestExplinationTipView.swift in Sources */,
+				2E187A0D2BCAAC060081DA0B /* BNTPicture.swift in Sources */,
 				C62BE6D32BAC2B6600B111ED /* WelcomeStudyView.swift in Sources */,
 				2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */,
 				2EA41A4E2BB8A78800FDD5B4 /* DragDropExampleScene.swift in Sources */,
@@ -1168,6 +1176,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2E187A0F2BCAAFD30081DA0B /* XCRemoteSwiftPackageReference "StringMetric" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/autozimu/StringMetric.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.2;
+			};
+		};
 		2EEA580F2B9A763D00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-openapi-generator";
@@ -1203,6 +1219,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2E187A102BCAAFD30081DA0B /* StringMetric */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E187A0F2BCAAFD30081DA0B /* XCRemoteSwiftPackageReference "StringMetric" */;
+			productName = StringMetric;
+		};
 		2EEA58132B9A773C00CB2483 /* OpenAPIURLSession */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2EEA58122B9A773C00CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */;
