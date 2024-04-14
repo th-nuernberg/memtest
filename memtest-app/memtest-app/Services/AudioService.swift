@@ -30,10 +30,9 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
     
     init(concreteTranscriptionService: TranscriptionService) {
         self.concreteTranscriptionService = concreteTranscriptionService
-        
         super.init()
     }
-    
+
     
     func startRecording(to testName: String) throws {
         prepareRecordingDirectory(for: testName)
@@ -95,7 +94,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
 
     private func startAudioEngineRecording(to testName: String) throws {
         prepareRecordingDirectory(for: testName)
-        
+         
         let recordingFormat = audioEngine.inputNode.outputFormat(forBus: 0)
         
         audioEngine.inputNode.removeTap(onBus: 0)
@@ -126,30 +125,6 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         } catch {
             print("Could not write to audio file: \(error)")
         }
-    }
-    
-    func startInputLevelMonitoring() {
-        let inputNode = audioEngine.inputNode // 'inputNode' is not optional, so we don't use 'if let' or 'guard let'
-        let recordingFormat = inputNode.outputFormat(forBus: 0)
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] (buffer, _) in
-            
-            print("buffer")
-            self?.updateInputLevel(buffer: buffer)
-        }
-
-        do {
-            try audioEngine.start()
-        } catch {
-            print("AudioEngine couldn't start because of an error: \(error)")
-        }
-    }
-
-    // Call this function to stop monitoring the audio input level
-    func stopInputLevelMonitoring() {
-        audioEngine.stop()
-        audioEngine.inputNode.removeTap(onBus: 0)
-        inputLevelUpdateTimer?.invalidate()
-        inputLevelUpdateTimer = nil
     }
     
     private func calculateAudioLevel(from buffer: AVAudioPCMBuffer) -> Float {

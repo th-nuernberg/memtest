@@ -31,11 +31,14 @@ class WhisperTranscriptionService: TranscriptionService {
     
     init() {
         
-        let modelURL = Bundle.main.url(forResource: "ggml-tiny", withExtension: "bin")!
+        let modelURL = Bundle.main.url(forResource: "ggml-small", withExtension: "bin")!
     
         let whisper = Whisper(fromFileURL: modelURL)
         whisper.params.language = WhisperLanguage.german
         whisper.params.print_progress = false
+        whisper.params.no_context = false
+        
+        //hisper.params.max_tokens = 3
         //whisper.params.print_realtime = true
         
         self.whisper = whisper
@@ -113,7 +116,6 @@ class WhisperTranscriptionService: TranscriptionService {
                     
                     self?.onTranscriptionUpdate?(fullTranscription)
                     
-                    print("Transcription: \(self?.transcription)")
                 case .failure(let error):
                     self?.transcription = "Error transcribing audio: \(error.localizedDescription)"
                     print("Error transcribing audio: \(error)")

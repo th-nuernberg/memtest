@@ -34,14 +34,12 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
     }
     
     func startTranscribing() {
-        // Ensure there's no ongoing transcription task
         print("Start Apple Transcription")
         if recognitionTask != nil {
             recognitionTask?.cancel()
             recognitionTask = nil
         }
 
-        // Configure audio session for recording
         do {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
@@ -57,7 +55,6 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
             fatalError("Unable to create a new SFSpeechAudioBufferRecognitionRequest.")
         }
 
-        // Configure the recognition request
         recognitionRequest.shouldReportPartialResults = true
         recognitionRequest.requiresOnDeviceRecognition = false
 
@@ -78,14 +75,12 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
             }
         }
 
-        // Start audio input capture
         let inputNode = audioEngine.inputNode
         let recordingFormat = inputNode.outputFormat(forBus: 0)
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
             recognitionRequest.append(buffer)
         }
 
-        // Prepare and start the audio engine
         audioEngine.prepare()
         do {
             try audioEngine.start()
