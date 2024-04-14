@@ -21,12 +21,12 @@ class WhisperTranscriptionService: TranscriptionService {
     @Published var transcription = "Transcription will appear here"
     
     private var audioBuffer = [Float]()
-    private let sampleRate: Double = 16000
+    private let targetSampleRate: Double = 16000
     private var bufferCapacity: Int {
-        return Int(sampleRate * 2)
+        return Int(targetSampleRate * 2)
     }
     private var overlapCapacity: Int {
-        return Int(sampleRate * 0.1)
+        return Int(targetSampleRate * 0.1)
     }
     
     init() {
@@ -43,7 +43,7 @@ class WhisperTranscriptionService: TranscriptionService {
         
         self.whisper = whisper
     }
-
+    /*
     func startTranscribing() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
@@ -66,41 +66,76 @@ class WhisperTranscriptionService: TranscriptionService {
         try! audioEngine.start()
     }
     
+  
     func stopTranscribing() {
         audioEngine.inputNode.removeTap(onBus: 0)
         audioEngine.stop()
         audioBuffer.removeAll()
         isTranscribing = false
     }
+    */
+    func processAudioBuffer(_ buffer: AVAudioPCMBuffer, sampleRate: Int, bufferSize: Int) {
+        if isTranscribing {
+            accumulateAudioBuffer(buffer, sampleRate: sampleRate, bufferSize: bufferSize)
+        }
+    }
+    
+    func startTranscribing() {
+        isTranscribing = true
+    }
+    
+    func stopTranscribing() {
+        isTranscribing = false
+    }
     
     public func toggleTranscribing() {
         if (!isTranscribing) {
             startTranscribing()
-            isTranscribing = true
+            //startTranscribing()
         } else {
             stopTranscribing()
+            audioBuffer = []
+            //stopTranscribing()
         }
     }
     
-    private func accumulateAudioBuffer(_ buffer: AVAudioPCMBuffer) {
+    private func accumulateAudioBuffer(_ buffer: AVAudioPCMBuffer, sampleRate: Int, bufferSize: Int) {
         guard let floatChannelData = buffer.floatChannelData else {
             print("Audio buffer data is nil")
             return
         }
         
         let frameLength = Int(buffer.frameLength)
+    
         let channel = floatChannelData[0]
         
+        
+        var tmpBuffer: [Float] = [Float]()
+        
         for i in 0..<frameLength {
-            audioBuffer.append(channel[i])
+            tmpBuffer.append(channel[i])
         }
         
+        /*
+         Not currently used 
+        // Calculate the number of samples required for the targetSampleRate
+        let targetSampleCount = Int(Double(tmpBuffer.count) * (targetSampleRate / Double(sampleRate)))
+        
+        // Downsample the buffer
+        let downSampledBuffer = tmpBuffer.downSample(to: targetSampleCount)
+        
+        print(buffer.frameLength)
+        print(downSampledBuffer.count)
+         */
+        
+        audioBuffer.append(contentsOf: tmpBuffer)
+        
         if audioBuffer.count >= bufferCapacity {
-            processAudioBuffer()
+            transcribeAudioBuffer()
         }
     }
     
-    private func processAudioBuffer() {
+    private func transcribeAudioBuffer() {
         if audioBuffer.count > bufferCapacity {
             let extraBuffer = Array(audioBuffer.dropFirst(bufferCapacity))
             audioBuffer.removeSubrange(bufferCapacity...)

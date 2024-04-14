@@ -18,7 +18,7 @@ protocol AudioServiceDelegate: AnyObject {
 
 
 class AudioService: NSObject, SFSpeechRecognizerDelegate {
-    static let shared = AudioService(concreteTranscriptionService: AppleTranscriptionService())
+    static let shared = AudioService(concreteTranscriptionService: WhisperTranscriptionService())
     
     private var concreteTranscriptionService: TranscriptionService
     
@@ -42,11 +42,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         
         
         self.concreteTranscriptionService.onTranscriptionUpdate = { [weak self] updatedText in
-            DispatchQueue.main.async {
-                // Update UI or process text
-                print("New transcription result: \(updatedText)")
-                
-                
+            DispatchQueue.main.async {                
                 self?.delegate?.audioService(self!, didRecognizeText:updatedText)
                 
             }
@@ -94,16 +90,18 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
 
     private func startAudioEngineRecording(to testName: String) throws {
         prepareRecordingDirectory(for: testName)
-         
+        // TODO: use 48000 sample rate and downsample in service
+        try! AVAudioSession.sharedInstance().setPreferredSampleRate(16000)
+        print("Sample Rate: \(AVAudioSession.sharedInstance().sampleRate)")
         let recordingFormat = audioEngine.inputNode.outputFormat(forBus: 0)
         
         audioEngine.inputNode.removeTap(onBus: 0)
         
         audioEngine.inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] (buffer, _) in
             
-            print("append to file")
             self?.appendAudioToFile(buffer)
             self?.updateInputLevel(buffer: buffer)
+            self?.concreteTranscriptionService.processAudioBuffer(buffer, sampleRate: Int(AVAudioSession.sharedInstance().sampleRate), bufferSize: Int(buffer.frameLength))
         }
         
         audioEngine.prepare()
@@ -160,6 +158,7 @@ protocol TranscriptionService {
     func startTranscribing()
     func stopTranscribing()
     func toggleTranscribing()
+    func processAudioBuffer(_ buffer: AVAudioPCMBuffer, sampleRate: Int, bufferSize: Int)
 }
 
 

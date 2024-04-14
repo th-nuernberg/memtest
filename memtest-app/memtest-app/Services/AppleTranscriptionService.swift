@@ -111,4 +111,7 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
             startTranscribing()
         }
     }
+    func processAudioBuffer(_ buffer: AVAudioPCMBuffer, sampleRate: Int, bufferSize: Int) {
+        // DO NOTHING
+    }
 }
