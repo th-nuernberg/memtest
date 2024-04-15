@@ -136,7 +136,7 @@ struct Test8View: View {
     private static func initializeSymbols() -> [TestSymbol] {
        var symbols = TestSymbolList().symbols
        for i in 0...23 {
-           symbols.append(TestSymbol(name: "Fragezeichen\(i)", synonyms: [], fileUrl: "Test7Icons/test7_1"))
+           symbols.append(TestSymbol(name: "Fragezeichen\(i)", synonyms: [], fileUrl: "Test8Icons/test8_1"))
        }
        symbols.shuffle() // Mischen der Symbole nur einmal beim Initialisieren
        return symbols

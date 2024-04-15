@@ -11,10 +11,12 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-           WelcomeStudyView()
-            //WelcomeView()
+            VStack{
+                Test1View()
+            }
         }
     }
+   
 }
 
 extension Color {
