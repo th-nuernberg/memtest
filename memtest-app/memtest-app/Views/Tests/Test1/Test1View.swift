@@ -55,7 +55,7 @@ struct Test1View: View {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration: 1000) {
+            .onTimerComplete(duration: 60) {
                 print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()
