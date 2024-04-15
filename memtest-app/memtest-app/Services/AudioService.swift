@@ -179,6 +179,12 @@ class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
         }
     }
     
+    func removeLastWord() {
+        if !recognizedWords.isEmpty {
+            recognizedWords.removeLast()
+        }
+    }
+
     func audioService(_ service: AudioService, didChangeAvailability isAvailable: Bool) {
         // TODO
     }
