@@ -18,7 +18,7 @@ protocol AudioServiceDelegate: AnyObject {
 
 
 class AudioService: NSObject, SFSpeechRecognizerDelegate {
-    static let shared = AudioService(concreteTranscriptionService: WhisperTranscriptionService())
+    static let shared = AudioService(concreteTranscriptionService: AppleTranscriptionService())
     
     private var concreteTranscriptionService: TranscriptionService
     

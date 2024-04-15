@@ -23,7 +23,7 @@ struct Test9View: View {
                 AudioIndicatorView()
                 Spacer()
        
-                Text("Alle erkannten Tiere:")
+                Text("Alle genannten Tiere:")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
@@ -47,7 +47,7 @@ struct Test9View: View {
                 }
                 
                 Spacer()
-                Text("\(speechRecognitionManager.recognizedWords.last ?? "")")
+                //Text("\(speechRecognitionManager.recognizedWords.last ?? "")")
             }
             .padding()
             .onAppear(perform: {
@@ -58,7 +58,7 @@ struct Test9View: View {
                     }
                     .store(in: &cancellables)
             })
-            .onTimerComplete(duration: 10, onComplete: {
+            .onTimerComplete(duration: 60, onComplete: {
                 AudioService.shared.stopRecording()
                 finished = true
             })

@@ -22,7 +22,7 @@ struct Test11View: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            Image("Test10Assets/Cookie_Theft_Picture")
+                            Image("Test11Assets/Cookie_Theft_Picture")
                                 .resizable()
                                 .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.8)
                             Spacer()
