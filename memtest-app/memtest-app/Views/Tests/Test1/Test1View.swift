@@ -25,7 +25,7 @@ struct Test1View: View {
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 0,
                      textOfCircle:"1", destination: {Test2View()}, content: {
-            //Text(manager.recognizedWords.last ?? "")
+            AudioIndicatorView()
             
             LazyVGrid(columns: columns) {
                 ForEach(symbolList.symbols, id: \.name) { symbol in
@@ -55,7 +55,7 @@ struct Test1View: View {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration: 10) {
+            .onTimerComplete(duration: 1000) {
                 print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()
