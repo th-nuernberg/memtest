@@ -1239,6 +1239,11 @@
 		2E187A0F2BCAAFD30081DA0B /* XCRemoteSwiftPackageReference "StringMetric" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/autozimu/StringMetric.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.2;
+			};
+		};
 		2EABC7DC2BC81159005F99F6 /* XCRemoteSwiftPackageReference "SwiftWhisper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/exPHAT/SwiftWhisper";
@@ -1252,7 +1257,6 @@
 			repositoryURL = "https://github.com/AudioKit/AudioKit";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.2;
 				minimumVersion = 5.6.3;
 			};
 		};
@@ -1295,6 +1299,7 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2E187A0F2BCAAFD30081DA0B /* XCRemoteSwiftPackageReference "StringMetric" */;
 			productName = StringMetric;
+		};
 		2EABC7DD2BC81159005F99F6 /* SwiftWhisper */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2EABC7DC2BC81159005F99F6 /* XCRemoteSwiftPackageReference "SwiftWhisper" */;
