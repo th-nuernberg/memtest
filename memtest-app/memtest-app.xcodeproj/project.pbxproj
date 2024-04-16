@@ -12,8 +12,6 @@
 		2E1AAA8A2BB32C23009EA657 /* DragNDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA892BB32C23009EA657 /* DragNDropView.swift */; };
 		2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */; };
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
-		2E5A90902BCABF5900804F19 /* ggml-medium-q5_0.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2E5A908E2BCABF5900804F19 /* ggml-medium-q5_0.bin */; };
-		2E5A90942BCAC04200804F19 /* ggml-medium-encoder.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = 2E5A90932BCAC04200804F19 /* ggml-medium-encoder.mlmodelc */; };
 		2E5A90972BCAC72B00804F19 /* AppleTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */; };
 		2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */; };
 		2E9B76B72BCDAF3C00C5866B /* Test9View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9B76B62BCDAF3C00C5866B /* Test9View.swift */; };
@@ -41,6 +39,7 @@
 		2ECA7B0A2BC7004D00C00693 /* ggml-tiny.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2ECA7B092BC7004D00C00693 /* ggml-tiny.bin */; };
 		2ECA7B0C2BC7029500C00693 /* ggml-tiny-encoder.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = 2ECA7B0B2BC7029500C00693 /* ggml-tiny-encoder.mlmodelc */; };
 		2EEA58142B9A773C00CB2483 /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEA58132B9A773C00CB2483 /* OpenAPIURLSession */; };
+		2EED6D322BCED37400523CA3 /* HourglassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED6D312BCED37400523CA3 /* HourglassView.swift */; };
 		2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */; };
 		2EF974972B99E19000EFFA46 /* memtest_server_client.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EF974962B99E19000EFFA46 /* memtest_server_client.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2EF9749A2B99E19000EFFA46 /* memtest_server_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF974942B99E19000EFFA46 /* memtest_server_client.framework */; };
@@ -48,6 +47,7 @@
 		2EF974AF2B99E42600EFFA46 /* openapi.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 2EF974AE2B99E42600EFFA46 /* openapi.yaml */; };
 		2EF974B12B99E7E700EFFA46 /* openapi-generator-config.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 2EF974B02B99E7E700EFFA46 /* openapi-generator-config.yaml */; };
 		2EF974B52B99E94500EFFA46 /* MemtestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF974B42B99E94500EFFA46 /* MemtestClient.swift */; };
+		2EFBFEC12BCDC45200DB885E /* ggml-small-q5_1.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2EFBFEBE2BCDC45200DB885E /* ggml-small-q5_1.bin */; };
 		C6190AE62B934C7A00633305 /* DataInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AE52B934C7A00633305 /* DataInputView.swift */; };
 		C6190AEF2B934E1300633305 /* TestExplinationDragDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AEE2B934E1300633305 /* TestExplinationDragDropView.swift */; };
 		C6190AF12B934E2700633305 /* TestExplinationTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AF02B934E2700633305 /* TestExplinationTipView.swift */; };
@@ -113,8 +113,6 @@
 		2E1AAA892BB32C23009EA657 /* DragNDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragNDropView.swift; sourceTree = "<group>"; };
 		2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
-		2E5A908E2BCABF5900804F19 /* ggml-medium-q5_0.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ggml-medium-q5_0.bin"; sourceTree = "<group>"; };
-		2E5A90932BCAC04200804F19 /* ggml-medium-encoder.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "ggml-medium-encoder.mlmodelc"; sourceTree = "<group>"; };
 		2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleTranscriptionService.swift; sourceTree = "<group>"; };
 		2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperTranscriptionService.swift; sourceTree = "<group>"; };
 		2E9B76B62BCDAF3C00C5866B /* Test9View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test9View.swift; sourceTree = "<group>"; };
@@ -143,12 +141,14 @@
 		2ECA20992B873F36000F2790 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		2ECA7B092BC7004D00C00693 /* ggml-tiny.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ggml-tiny.bin"; sourceTree = "<group>"; };
 		2ECA7B0B2BC7029500C00693 /* ggml-tiny-encoder.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "ggml-tiny-encoder.mlmodelc"; sourceTree = "<group>"; };
+		2EED6D312BCED37400523CA3 /* HourglassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourglassView.swift; sourceTree = "<group>"; };
 		2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
 		2EF974942B99E19000EFFA46 /* memtest_server_client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = memtest_server_client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF974962B99E19000EFFA46 /* memtest_server_client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memtest_server_client.h; sourceTree = "<group>"; };
 		2EF974AE2B99E42600EFFA46 /* openapi.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = openapi.yaml; sourceTree = "<group>"; };
 		2EF974B02B99E7E700EFFA46 /* openapi-generator-config.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "openapi-generator-config.yaml"; sourceTree = "<group>"; };
 		2EF974B42B99E94500EFFA46 /* MemtestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemtestClient.swift; sourceTree = "<group>"; };
+		2EFBFEBE2BCDC45200DB885E /* ggml-small-q5_1.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ggml-small-q5_1.bin"; sourceTree = "<group>"; };
 		C6190AE52B934C7A00633305 /* DataInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataInputView.swift; sourceTree = "<group>"; };
 		C6190AEE2B934E1300633305 /* TestExplinationDragDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExplinationDragDropView.swift; sourceTree = "<group>"; };
 		C6190AF02B934E2700633305 /* TestExplinationTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExplinationTipView.swift; sourceTree = "<group>"; };
@@ -294,6 +294,7 @@
 		2ECA209B2B874080000F2790 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2EED6D302BCED35500523CA3 /* Shared */,
 				2EF974832B98C45C00EFFA46 /* QRCode */,
 				C6190AFA2B934FA000633305 /* Tests */,
 				C6190AED2B934D7900633305 /* TestCalibration */,
@@ -347,8 +348,7 @@
 		2ECA7B012BC6FE9B00C00693 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				2E5A90932BCAC04200804F19 /* ggml-medium-encoder.mlmodelc */,
-				2E5A908E2BCABF5900804F19 /* ggml-medium-q5_0.bin */,
+				2EFBFEBE2BCDC45200DB885E /* ggml-small-q5_1.bin */,
 				2EABC7E52BC81B7B005F99F6 /* ggml-small-encoder.mlmodelc */,
 				2EABC7E62BC81B7B005F99F6 /* ggml-small.bin */,
 				2ECA7B0B2BC7029500C00693 /* ggml-tiny-encoder.mlmodelc */,
@@ -371,6 +371,14 @@
 				2E9B76B62BCDAF3C00C5866B /* Test9View.swift */,
 			);
 			path = Test9;
+			sourceTree = "<group>";
+		};
+		2EED6D302BCED35500523CA3 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				2EED6D312BCED37400523CA3 /* HourglassView.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		2EF974832B98C45C00EFFA46 /* QRCode */ = {
@@ -663,12 +671,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EFBFEC12BCDC45200DB885E /* ggml-small-q5_1.bin in Resources */,
 				2ECA7B0C2BC7029500C00693 /* ggml-tiny-encoder.mlmodelc in Resources */,
 				2ECA209A2B873F36000F2790 /* Launch Screen.storyboard in Resources */,
-				2E5A90902BCABF5900804F19 /* ggml-medium-q5_0.bin in Resources */,
 				2EABC7E82BC81B7B005F99F6 /* ggml-small.bin in Resources */,
 				2ECA20772B873EC3000F2790 /* Preview Assets.xcassets in Resources */,
-				2E5A90942BCAC04200804F19 /* ggml-medium-encoder.mlmodelc in Resources */,
 				2EABC7E72BC81B7B005F99F6 /* ggml-small-encoder.mlmodelc in Resources */,
 				2ECA7B0A2BC7004D00C00693 /* ggml-tiny.bin in Resources */,
 				2ECA20732B873EC3000F2790 /* Assets.xcassets in Resources */,
@@ -730,6 +737,7 @@
 				C66BB40C2BAF09B700ACC04F /* Test8View.swift in Sources */,
 				C66BB4142BAF0A0B00ACC04F /* Test5View.swift in Sources */,
 				C6190AF52B934E4B00633305 /* DragDropCalibrationView.swift in Sources */,
+				2EED6D322BCED37400523CA3 /* HourglassView.swift in Sources */,
 				2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */,
 				2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */,
 				2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */,
@@ -856,7 +864,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -901,7 +909,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -913,7 +921,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Release;
 		};
@@ -931,6 +939,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"memtest-app/Preview Content\"";
 				DEVELOPMENT_TEAM = 85QAQGXVGG;
 				ENABLE_PREVIEWS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Die Kamera wird für das Scannen von QR-Codes verwendet.";
@@ -976,6 +985,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"memtest-app/Preview Content\"";
 				DEVELOPMENT_TEAM = 85QAQGXVGG;
 				ENABLE_PREVIEWS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Die Kamera wird für das Scannen von QR-Codes verwendet.";
