@@ -11,6 +11,8 @@ struct Test6View: View {
     @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
     @State private var finished = false
+    
+    private let testDuration = 60
 
     private var symbolList = TestSymbolList()
     
@@ -26,29 +28,18 @@ struct Test6View: View {
                      textOfCircle:"6", destination: {Test7View()}, content: {
             //Text(manager.recognizedWords.last ?? "")
             
-            LazyVGrid(columns: columns) {
-                ForEach(symbolList.symbols, id: \.name) { symbol in
-                    ZStack {
-                        Rectangle()
-                            .fill(Color.gray)
-                            .frame(height: 200)
-                            .frame(width: 200)
-                            .cornerRadius(20)
-                            .padding(.bottom, 20)
-                        
-                        
-                        if (self.isSymbolNameRecognized(symbol.name)) {
-                            Image(symbol.fileUrl)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 150, height: 150)
-                                .offset(x: 5, y: -5)
-                        }
-                    }
+            VStack{
+                AudioIndicatorView()
+                Spacer()
+                HStack {
+                    Spacer()
+                    AvatarView(gifName: "Avatar_Nicken")
+                    Spacer()
+                    HourglassView(size: 300, lineWidth: 15, duration: testDuration)
+                    Spacer()
                 }
+                Spacer()
             }
-            .padding(.vertical)
-            .padding(.top, 70)
             .onAppear(perform: {
                 manager.recognizedWords = []
                 do {
@@ -57,7 +48,7 @@ struct Test6View: View {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration: 10) {
+            .onTimerComplete(duration: testDuration) {
                 print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()
