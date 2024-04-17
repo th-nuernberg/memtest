@@ -1,8 +1,8 @@
 //
-//  Test7View.swift
+//  Test8View.swift
 //  memtest-app
 //
-//  Created by Maximilian Werzinger - TH on 02.03.24.
+//  Created by Christopher Witzl - TH on 17.04.24.
 //
 
 import SwiftUI
@@ -12,6 +12,7 @@ struct Test8View: View {
     @State private var isRecording = false
     @State private var finished = false
     @State private var symbols: [TestSymbol]
+    @State private var showingFirstSet = true
     private let testDuration = 60
 
     
@@ -27,34 +28,38 @@ struct Test8View: View {
             let screenWidth = geometry.size.width
             let screenHeight = geometry.size.height - 140 
             let columns = columns()
-            let symbolSize = self.dynamicSymbolSize(forWidth: screenWidth, forHeight: screenHeight, numberOfColumns: columns.count, numberOfSymbols: symbols.count)
+            let symbolSize = self.dynamicSymbolSize(forWidth: screenWidth, forHeight: screenHeight, numberOfColumns: columns.count, numberOfSymbols: symbols.count/2)
+            let (firstGroup, secondGroup) = splitSymbolsIntoGroups()
             
             BaseTestView(showCompletedView: $finished,indexOfCircle: 7,
                          textOfCircle:"8", destination: {Test9View()}, content: {
             
                 //Text(manager.recognizedWords.last ?? "")
-                
-                LazyVGrid(columns: columns, spacing: 10) {
-                    ForEach(symbols , id: \.name) { symbol in
-                        
-                        ZStack {
-                            Rectangle()
-                                .fill(self.isSymbolNameRecognized(symbol.name) ? Color.gray.opacity(0.5) : .gray)
-                                .frame(width: symbolSize, height: symbolSize)
-                                .cornerRadius(20)
-                            
-                            
-                            Image(symbol.fileUrl)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: symbolSize * 0.75, height: symbolSize * 0.75)
-                            
+                AudioIndicatorView()
+                Spacer()
+                VStack {
+                    LazyVGrid(columns: columns, spacing: 10) {
+                        ForEach(showingFirstSet ? firstGroup : secondGroup, id: \.name) { symbol in
+                            ZStack {
+                                Rectangle()
+                                  .fill(self.isSymbolNameRecognized(symbol.name) ? Color.gray.opacity(0.5) : .gray)
+                                  .frame(width: symbolSize, height: symbolSize)
+                                  .cornerRadius(20)
+
+
+                                Image(symbol.fileUrl)
+                                  .resizable()
+                                  .aspectRatio(contentMode: .fit)
+                                  .frame(width: symbolSize * 0.75, height: symbolSize * 0.75)
+
+                            }
+                            .padding(.bottom, 10)
+
                         }
-                        .padding(.bottom, 10)
                     }
                 }
                 .onAppear(perform: {
-                    manager.recognizedWords = []
+                    try! AudioService.shared.startRecording(to: "test8")
                 })
                 .onTimerComplete(duration: testDuration) {
                     print("Timer completed")
@@ -62,6 +67,19 @@ struct Test8View: View {
                     AudioService.shared.stopRecording()
                 }
                 
+                Spacer()
+                
+                Button(action: {
+                    showingFirstSet.toggle()
+                }) {
+                    Text("Wechseln")
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                }
+                .padding(.horizontal,50)
+                .background(Color.blue)
+                .cornerRadius(10)
                 
                 
             }, explanationContent: {
@@ -128,11 +146,17 @@ struct Test8View: View {
     // MARK: Static Methods
     private static func initializeSymbols() -> [TestSymbol] {
        var symbols = TestSymbolList().symbols
-       for i in 0...23 {
+       for i in 0...35 {
            symbols.append(TestSymbol(name: "Fragezeichen\(i)", synonyms: [], fileUrl: "Test8Icons/test8_1"))
        }
-       symbols.shuffle() // Mischen der Symbole nur einmal beim Initialisieren
+       symbols.shuffle()
        return symbols
+    }
+    private func splitSymbolsIntoGroups() -> ([TestSymbol], [TestSymbol]) {
+        let midIndex = symbols.count / 2
+        let firstGroup = Array(symbols[..<midIndex])
+        let secondGroup = Array(symbols[midIndex...])
+        return (firstGroup, secondGroup)
     }
 }
 
