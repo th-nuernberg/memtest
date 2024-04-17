@@ -16,8 +16,6 @@
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
 		2E5A90972BCAC72B00804F19 /* AppleTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */; };
 		2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */; };
-		2E6477C92BCFE188009F8F63 /* SwiftyGif in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6477C82BCFE188009F8F63 /* SwiftyGif */; };
-		2E6477CB2BCFE188009F8F63 /* SwiftyGif-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6477CA2BCFE188009F8F63 /* SwiftyGif-Dynamic */; };
 		2E6477D72BD01235009F8F63 /* Avatar_Nicken.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2E6477D62BD01235009F8F63 /* Avatar_Nicken.gif */; };
 		2E9B76B72BCDAF3C00C5866B /* Test9View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9B76B62BCDAF3C00C5866B /* Test9View.swift */; };
 		2E9B76B92BCDAF4900C5866B /* Test10View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9B76B82BCDAF4900C5866B /* Test10View.swift */; };
@@ -186,8 +184,6 @@
 				2EF9749A2B99E19000EFFA46 /* memtest_server_client.framework in Frameworks */,
 				2E187A112BCAAFD30081DA0B /* StringMetric in Frameworks */,
 				2EABC7DE2BC81159005F99F6 /* SwiftWhisper in Frameworks */,
-				2E6477C92BCFE188009F8F63 /* SwiftyGif in Frameworks */,
-				2E6477CB2BCFE188009F8F63 /* SwiftyGif-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,8 +561,6 @@
 				2E187A102BCAAFD30081DA0B /* StringMetric */,
 				2ECA7AF62BC6FDD000C00693 /* AudioKit */,
 				2EABC7DD2BC81159005F99F6 /* SwiftWhisper */,
-				2E6477C82BCFE188009F8F63 /* SwiftyGif */,
-				2E6477CA2BCFE188009F8F63 /* SwiftyGif-Dynamic */,
 			);
 			productName = "memtest-app";
 			productReference = 2ECA206B2B873EC2000F2790 /* memtest-app.app */;
@@ -673,7 +667,6 @@
 				2E187A0F2BCAAFD30081DA0B /* XCRemoteSwiftPackageReference "StringMetric" */,
 				2ECA7AF52BC6FDD000C00693 /* XCRemoteSwiftPackageReference "AudioKit" */,
 				2EABC7DC2BC81159005F99F6 /* XCRemoteSwiftPackageReference "SwiftWhisper" */,
-				2E6477C72BCFE188009F8F63 /* XCRemoteSwiftPackageReference "SwiftyGif" */,
 			);
 			productRefGroup = 2ECA206C2B873EC2000F2790 /* Products */;
 			projectDirPath = "";
@@ -1275,14 +1268,6 @@
 				minimumVersion = 0.3.2;
 			};
 		};
-		2E6477C72BCFE188009F8F63 /* XCRemoteSwiftPackageReference "SwiftyGif" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kirualex/SwiftyGif.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.4.5;
-			};
-		};
 		2EABC7DC2BC81159005F99F6 /* XCRemoteSwiftPackageReference "SwiftWhisper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/exPHAT/SwiftWhisper";
@@ -1338,16 +1323,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2E187A0F2BCAAFD30081DA0B /* XCRemoteSwiftPackageReference "StringMetric" */;
 			productName = StringMetric;
-		};
-		2E6477C82BCFE188009F8F63 /* SwiftyGif */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2E6477C72BCFE188009F8F63 /* XCRemoteSwiftPackageReference "SwiftyGif" */;
-			productName = SwiftyGif;
-		};
-		2E6477CA2BCFE188009F8F63 /* SwiftyGif-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2E6477C72BCFE188009F8F63 /* XCRemoteSwiftPackageReference "SwiftyGif" */;
-			productName = "SwiftyGif-Dynamic";
 		};
 		2EABC7DD2BC81159005F99F6 /* SwiftWhisper */ = {
 			isa = XCSwiftPackageProductDependency;
