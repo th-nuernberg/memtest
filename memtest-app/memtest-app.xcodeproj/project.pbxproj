@@ -11,6 +11,7 @@
 		2E187A112BCAAFD30081DA0B /* StringMetric in Frameworks */ = {isa = PBXBuildFile; productRef = 2E187A102BCAAFD30081DA0B /* StringMetric */; };
 		2E1AAA8A2BB32C23009EA657 /* DragNDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA892BB32C23009EA657 /* DragNDropView.swift */; };
 		2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */; };
+		2E3624B22BCEE54800368F7F /* HourglassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3624B12BCEE54800368F7F /* HourglassView.swift */; };
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
 		2E5A90972BCAC72B00804F19 /* AppleTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */; };
 		2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */; };
@@ -39,7 +40,6 @@
 		2ECA7B0A2BC7004D00C00693 /* ggml-tiny.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2ECA7B092BC7004D00C00693 /* ggml-tiny.bin */; };
 		2ECA7B0C2BC7029500C00693 /* ggml-tiny-encoder.mlmodelc in Resources */ = {isa = PBXBuildFile; fileRef = 2ECA7B0B2BC7029500C00693 /* ggml-tiny-encoder.mlmodelc */; };
 		2EEA58142B9A773C00CB2483 /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEA58132B9A773C00CB2483 /* OpenAPIURLSession */; };
-		2EED6D322BCED37400523CA3 /* HourglassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED6D312BCED37400523CA3 /* HourglassView.swift */; };
 		2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */; };
 		2EF974972B99E19000EFFA46 /* memtest_server_client.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EF974962B99E19000EFFA46 /* memtest_server_client.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2EF9749A2B99E19000EFFA46 /* memtest_server_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF974942B99E19000EFFA46 /* memtest_server_client.framework */; };
@@ -112,6 +112,7 @@
 		2E187A0C2BCAAC060081DA0B /* BNTPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BNTPicture.swift; sourceTree = "<group>"; };
 		2E1AAA892BB32C23009EA657 /* DragNDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragNDropView.swift; sourceTree = "<group>"; };
 		2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
+		2E3624B12BCEE54800368F7F /* HourglassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourglassView.swift; sourceTree = "<group>"; };
 		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
 		2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleTranscriptionService.swift; sourceTree = "<group>"; };
 		2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperTranscriptionService.swift; sourceTree = "<group>"; };
@@ -141,7 +142,6 @@
 		2ECA20992B873F36000F2790 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		2ECA7B092BC7004D00C00693 /* ggml-tiny.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "ggml-tiny.bin"; sourceTree = "<group>"; };
 		2ECA7B0B2BC7029500C00693 /* ggml-tiny-encoder.mlmodelc */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "ggml-tiny-encoder.mlmodelc"; sourceTree = "<group>"; };
-		2EED6D312BCED37400523CA3 /* HourglassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourglassView.swift; sourceTree = "<group>"; };
 		2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
 		2EF974942B99E19000EFFA46 /* memtest_server_client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = memtest_server_client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF974962B99E19000EFFA46 /* memtest_server_client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memtest_server_client.h; sourceTree = "<group>"; };
@@ -376,7 +376,7 @@
 		2EED6D302BCED35500523CA3 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				2EED6D312BCED37400523CA3 /* HourglassView.swift */,
+				2E3624B12BCEE54800368F7F /* HourglassView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -737,7 +737,7 @@
 				C66BB40C2BAF09B700ACC04F /* Test8View.swift in Sources */,
 				C66BB4142BAF0A0B00ACC04F /* Test5View.swift in Sources */,
 				C6190AF52B934E4B00633305 /* DragDropCalibrationView.swift in Sources */,
-				2EED6D322BCED37400523CA3 /* HourglassView.swift in Sources */,
+				2E3624B22BCEE54800368F7F /* HourglassView.swift in Sources */,
 				2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */,
 				2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */,
 				2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */,
