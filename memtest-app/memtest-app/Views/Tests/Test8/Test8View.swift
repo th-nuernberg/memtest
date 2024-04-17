@@ -12,6 +12,7 @@ struct Test8View: View {
     @State private var isRecording = false
     @State private var finished = false
     @State private var symbols: [TestSymbol] // Nutzt @State, um die Symbole zu speichern
+    private let testDuration = 60
 
     
     private var symbolList = TestSymbolList()
@@ -32,27 +33,20 @@ struct Test8View: View {
                          textOfCircle:"8", destination: {Test9View()}, content: {
             
                 //Text(manager.recognizedWords.last ?? "")
-                LazyVGrid(columns: columns, spacing: 10) { // Fügt etwas Abstand zwischen den Zellen hinzu
-                    ForEach(symbols , id: \.name) { symbol in
-                        
-                        ZStack {
-                            Rectangle()
-                                .fill(self.isSymbolNameRecognized(symbol.name) ? Color.gray.opacity(0.5) : .gray)
-                                .frame(width: symbolSize, height: symbolSize)
-                                .cornerRadius(20)
-                            
-                        
-                            Image(symbol.fileUrl)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: symbolSize * 0.75, height: symbolSize * 0.75)
-                           
-                        }
-                        .padding(.bottom, 10) // Fügt etwas Abstand zum unteren Rand hinzu
+                
+                
+                VStack{
+                    AudioIndicatorView()
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        AvatarView(gifName: "Avatar_Nicken")
+                        Spacer()
+                        HourglassView(size: 300, lineWidth: 15, duration: testDuration)
+                        Spacer()
                     }
+                    Spacer()
                 }
-                .padding(.vertical)
-                .padding(.top, 70)
                 .onAppear(perform: {
                     manager.recognizedWords = []
                     do {
@@ -61,10 +55,11 @@ struct Test8View: View {
                         print("Failed to start recording: \(error)")
                     }
                 })
-                .onTimerComplete(duration: 10) {
+                .onTimerComplete(duration: testDuration) {
                     print("Timer completed")
                     finished = true
                     AudioService.shared.stopRecording()
+                
                 }
                 
             }, explanationContent: {

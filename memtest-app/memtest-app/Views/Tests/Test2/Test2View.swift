@@ -34,7 +34,9 @@ struct Test2View: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    HourglassView(size: 200, duration: testDuration)
+                    AvatarView(gifName: "Avatar_Nicken")
+                    Spacer()
+                    HourglassView(size: 300, lineWidth: 15, duration: testDuration)
                     Spacer()
                 }
                 Spacer()
