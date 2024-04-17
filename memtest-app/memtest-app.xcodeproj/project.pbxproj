@@ -959,8 +959,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Die Kamera wird für das Scannen von QR-Codes verwendet.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = TEST;
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = TEST;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Das Mikrofon wird für die Sprachauswertung und Aufnahme genutzt";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Die Spracherkennung wird für die automatische Auswertung der Tests genutzt";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1005,8 +1005,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Die Kamera wird für das Scannen von QR-Codes verwendet.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = TEST;
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = TEST;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Das Mikrofon wird für die Sprachauswertung und Aufnahme genutzt";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Die Spracherkennung wird für die automatische Auswertung der Tests genutzt";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
