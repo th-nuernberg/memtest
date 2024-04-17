@@ -162,23 +162,66 @@ protocol TranscriptionService {
 }
 
 
+
+import NaturalLanguage
 class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
     static let shared = SpeechRecognitionManager()
        
-   @Published var recognizedWords: [String] = []
-   @Published var inputLevel: Float = 0.0
+    @Published var recognizedWords: [String] = []
+    @Published var inputLevel: Float = 0.0
+    @Published var shouldAnimateAvatar: Bool = false  
 
-   private init() {
-       AudioService.shared.delegate = self
-   }
+    private var lastNotificationTime: Date?
+    private let throttleInterval: TimeInterval = 4.0
     
+    private init() {
+       AudioService.shared.delegate = self
+    }
+
     func audioService(_ service: AudioService, didRecognizeText text: String) {
         DispatchQueue.main.async {
             let words = text.split(separator: " ").map(String.init)
             self.recognizedWords.append(contentsOf: words)
+            
+            let tokenizer = NLTokenizer(unit: .word)
+            tokenizer.string = text
+            
+            if self.isNounInText(text: text) {
+                self.throttleNotification()
+            }
         }
     }
+
+    private func isNounInText(text: String) -> Bool {
+        return true
+        /*
+        
+        let tagger = NLTagger(tagSchemes: [.lexicalClass])
+        tagger.string = text
+        let wholeText = text.startIndex..<text.endIndex
+        tagger.setLanguage(.german, range: wholeText)
+        let options: NLTagger.Options = [.omitWhitespace, .omitPunctuation]
+        var containsNoun = false
+        tagger.enumerateTags(in: wholeText, unit: .word, scheme: .lexicalClass, options: options) { tag, range in
+            if tag == .noun {
+                containsNoun = true
+                return false // Stop enumeration early since a noun is found
+            }
+            return true // Continue enumeration
+        }
+        return containsNoun */
+    }
     
+    private func throttleNotification() {
+        let now = Date()
+        if let lastTime = lastNotificationTime, now.timeIntervalSince(lastTime) < throttleInterval {
+            return
+        }
+
+        lastNotificationTime = now
+        NotificationCenter.default.post(name: .triggerAvatarAnimation, object: nil)
+    }
+
     func removeLastWord() {
         if !recognizedWords.isEmpty {
             recognizedWords.removeLast()
@@ -188,9 +231,14 @@ class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
     func audioService(_ service: AudioService, didChangeAvailability isAvailable: Bool) {
         // TODO
     }
-    
+
     func audioService(_ service: AudioService, didUpdateInputLevel level: Float) {
         self.inputLevel = level
     }
+}
+
+extension Notification.Name {
+    static let didRecognizeNoun = Notification.Name("didRecognizeNoun")
+    static let triggerAvatarAnimation = Notification.Name("triggerAvatarAnimation")
 }
 
