@@ -10,15 +10,17 @@ import SpriteKit
 
 struct HourglassView: View {
     var size = 130
+    var lineWidth = 6
     let duration: Int
     var body: some View {
-        Hourglass(hourglassSize: CGFloat(size), glassColor: .black, sandColor: Color(red: 0.96, green: 0.84, blue: 0.69), duration: Double(self.duration))
+        Hourglass(hourglassSize: CGFloat(size), lineWidth: CGFloat(lineWidth), glassColor: .black, sandColor: Color(red: 0.96, green: 0.84, blue: 0.69), duration: Double(self.duration))
     }
 }
 
 struct Hourglass: View {
     
     let hourglassSize: CGFloat
+    let lineWidth: CGFloat
     let glassColor: Color
     let sandColor: Color
     let duration: Double
@@ -64,7 +66,7 @@ struct Hourglass: View {
             )
             
             HourGlassShape()
-                .stroke(glassColor, style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round))
+                .stroke(glassColor, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
                 .frame(width: hourglassSize * 0.8, height: hourglassSize)
                 
         }
