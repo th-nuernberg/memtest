@@ -12,6 +12,7 @@ struct Test2View: View {
     @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
     @State private var finished = false
+    private let testDuration = 60
     
     private var symbolList = TestSymbolList()
     
@@ -28,27 +29,16 @@ struct Test2View: View {
             
             //Text(manager.recognizedWords.last ?? "")
             
-            LazyVGrid(columns: columns) {
-                ForEach(symbolList.symbols, id: \.name) { symbol in
-                    ZStack {
-                        Rectangle()
-                            .fill(Color.gray)
-                            .frame(height: 200)
-                            .frame(width: 200)
-                            .cornerRadius(20)
-                            .padding(.bottom, 20)
-                        
-                        Image(symbol.fileUrl)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 150, height: 150)
-                            .offset(x: 5, y: -5)
-                            .opacity(self.isSymbolNameRecognized(symbol.name) ? 1 :0)
-                    }
+            VStack{
+                AudioIndicatorView()
+                Spacer()
+                HStack {
+                    Spacer()
+                    HourglassView(size: 200, duration: testDuration)
+                    Spacer()
                 }
+                Spacer()
             }
-            .padding(.vertical)
-            .padding(.top, 70)
             .onAppear(perform: {
                 manager.recognizedWords = []
                 do {
@@ -57,7 +47,7 @@ struct Test2View: View {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration: 10) {
+            .onTimerComplete(duration: testDuration) {
                 print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()
