@@ -36,7 +36,7 @@ struct Test4View: View {
             OrderNumberSceneContainerView(numberCircles: numberCircles, onPositionsChanged: { positions in
                 print(positions)
             })
-            .onTimerComplete(duration: 10) {
+            .onTimerComplete(duration: 60) {
                 print("Timer completed")
                 finished = true
             }

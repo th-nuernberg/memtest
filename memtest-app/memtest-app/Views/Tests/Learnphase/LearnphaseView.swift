@@ -44,7 +44,7 @@ struct LearnphaseView: View {
             }
             .padding(.vertical)
             .padding(.top, 70)
-            .onTimerComplete(duration: 10) {
+            .onTimerComplete(duration: 60) {
                 print("Timer completed")
                 finished = true
             }
