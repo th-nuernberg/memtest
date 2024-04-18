@@ -85,11 +85,11 @@ struct ExplanationView<Content: View>: View {
             HStack {
                 ForEach(0..<12) { index in
                     ZStack {
-                        if index == circleIndex {
+                        if index <= circleIndex {
                             Circle()
                                 .foregroundColor(.blue)
                                 .frame(width: 30, height: 30)
-                            Text(circleText)
+                            Text(getTextForIndex(index: index+1))
                                 .font(.title)
                                 .foregroundColor(.white)
                         } else {
@@ -120,6 +120,37 @@ struct ExplanationView<Content: View>: View {
                 .navigationBarBackButtonHidden(true)
             }
             .padding()
+        }
+    }
+    
+    func getTextForIndex(index: Int) -> String {
+        switch index {
+        case 1:
+            return "1"
+        case 2:
+            return "2"
+        case 3:
+            return "L"
+        case 4:
+            return "3"
+        case 5:
+            return "4"
+        case 6:
+            return "5"
+        case 7:
+            return "6"
+        case 8:
+            return "7"
+        case 9:
+            return "8"
+        case 10:
+            return "9"
+        case 11:
+            return "10"
+        case 12:
+            return "11"
+        default:
+            return ""
         }
     }
 }
@@ -203,8 +234,8 @@ struct CompletedView: View {
 
 #Preview {
     BaseTestView(showCompletedView: .constant(false),
-                 indexOfCircle: 0,
-                              textOfCircle:"1",destination: {Test1View()}, content: {
+                 indexOfCircle: 7,
+                              textOfCircle:"6",destination: {Test1View()}, content: {
         Text("Das ist die Test1View")
     }, explanationContent: {
         Text("Hier sind einige Erklärungen.")
