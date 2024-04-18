@@ -28,14 +28,19 @@ struct Test3View: View {
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 3,
                      textOfCircle:"3", destination: {Test4View()}, content: {
-      
+            AudioIndicatorView()
+            Spacer()
             OrderNumberSceneContainerView(numberCircles: numberCircles, onPositionsChanged: { positions in
                 print(positions)
             }, isDragEnabled: false)
             .onTimerComplete(duration: 60) {
                 print("Timer completed")
                 finished = true
+                AudioService.shared.stopRecording()
             }
+            .onAppear(perform: {
+                try! AudioService.shared.startRecording(to: "test3")
+            })
             
         }, explanationContent: {
             HStack {
