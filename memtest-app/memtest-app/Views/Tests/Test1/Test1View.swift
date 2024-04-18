@@ -85,6 +85,9 @@ struct Test1View: View {
                     .padding(.top,20)
                 
                 Text("dann sagen Sie deutlich das Wort Baum.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top,20)
                 
             }
             .padding(.top,120)
