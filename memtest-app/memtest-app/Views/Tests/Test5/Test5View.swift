@@ -17,7 +17,7 @@ struct Test5View: View {
     
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 4,
+        BaseTestView(showCompletedView: $finished,indexOfCircle: 5,
                      textOfCircle:"5", destination: {Test6View()}, content: {
             
             VStack{

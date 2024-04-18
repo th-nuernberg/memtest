@@ -24,7 +24,7 @@ struct Test6View: View {
     ]
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 5,
+        BaseTestView(showCompletedView: $finished,indexOfCircle: 6,
                      textOfCircle:"6", destination: {Test7View()}, content: {
             //Text(manager.recognizedWords.last ?? "")
             

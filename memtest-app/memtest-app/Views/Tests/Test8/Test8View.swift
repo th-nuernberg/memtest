@@ -31,7 +31,7 @@ struct Test8View: View {
             let symbolSize = self.dynamicSymbolSize(forWidth: screenWidth, forHeight: screenHeight, numberOfColumns: columns.count, numberOfSymbols: symbols.count/2)
             let (firstGroup, secondGroup) = splitSymbolsIntoGroups()
             
-            BaseTestView(showCompletedView: $finished,indexOfCircle: 7,
+            BaseTestView(showCompletedView: $finished,indexOfCircle: 8,
                          textOfCircle:"8", destination: {Test9View()}, content: {
             
                 //Text(manager.recognizedWords.last ?? "")
