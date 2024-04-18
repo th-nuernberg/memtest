@@ -168,22 +168,20 @@ struct CompletedView: View {
         } else if completedTasks == 3 {
             return "Zur dritten Aufgabe ➔"
         } else if  completedTasks == 4 {
-            return "Zur vierten Aufgabe ➔"
-        } else if  completedTasks == 5 {
             return "Zur fünften Aufgabe ➔"
-        } else if  completedTasks == 6 {
+        } else if  completedTasks == 5 {
             return "Zur sechsten Aufgabe ➔"
-        } else if  completedTasks == 7 {
+        } else if  completedTasks == 6 {
             return "Zur siebten Aufgabe ➔"
-        }else if  completedTasks == 8 {
+        } else if  completedTasks == 7 {
             return "Zur achten Aufgabe ➔"
-        }else if  completedTasks == 9 {
+        }else if  completedTasks == 8 {
             return "Zur neunten Aufgabe ➔"
-        }else if  completedTasks == 10 {
+        }else if  completedTasks == 9 {
             return "Zur zehnten Aufgabe ➔"
-        }else  if  completedTasks == 10 {
+        }else if  completedTasks == 10 {
             return "Zur elften Aufgabe ➔"
-        }else {
+        } else {
             return "Beenden ➔"
         }
     }
