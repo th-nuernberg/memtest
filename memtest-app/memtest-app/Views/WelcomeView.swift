@@ -93,6 +93,8 @@ struct WelcomeView: View {
                     print(code)
                     qrCodeData = code
                     isScanning = false
+                    DataService.shared.setQRCodeData(qrCodeData: qrCodeData!)
+                    
                 }, onCancel: {
                     isScanning = false
                 })

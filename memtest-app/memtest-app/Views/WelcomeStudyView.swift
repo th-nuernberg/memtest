@@ -10,8 +10,8 @@ import SwiftUI
 struct WelcomeStudyView: View {
     
     @State var showNextView: Bool = false
-    @State private var studyID = "1234-7896"
-    @State private var studyResearchName = "Mustermann University"
+    @State private var studyID = ""
+    @State private var studyResearchName = "der TH Nürnberg"
     
     var body: some View {
         NavigationStack {
@@ -25,7 +25,7 @@ struct WelcomeStudyView: View {
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("von " + studyResearchName + " teilnehmen.")
+                Text("" + studyResearchName + " teilnehmen.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
@@ -47,6 +47,9 @@ struct WelcomeStudyView: View {
                 }
                     
             }
+            .onAppear(perform: {
+                studyID = DataService.shared.getStudyId()
+            })
         }
     }
 }

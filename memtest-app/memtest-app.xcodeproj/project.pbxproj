@@ -26,6 +26,7 @@
 		2EBB95B72BACA86E00D8EA4C /* TimerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */; };
 		2EBBA1C72BD11B46005F5642 /* AnimalNameChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBA1C62BD11B46005F5642 /* AnimalNameChecker.swift */; };
 		2EBBA1CA2BD11B83005F5642 /* animal_names_german.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2EBBA1C92BD11B83005F5642 /* animal_names_german.txt */; };
+		2EBBA1CC2BD12B67005F5642 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBA1CB2BD12B67005F5642 /* DataService.swift */; };
 		2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FC92BAC712700F983C0 /* AudioService.swift */; };
 		2EBE8FD42BAC793700F983C0 /* TestSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */; };
 		2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */; };
@@ -125,6 +126,7 @@
 		2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModifier.swift; sourceTree = "<group>"; };
 		2EBBA1C62BD11B46005F5642 /* AnimalNameChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalNameChecker.swift; sourceTree = "<group>"; };
 		2EBBA1C92BD11B83005F5642 /* animal_names_german.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = animal_names_german.txt; sourceTree = "<group>"; };
+		2EBBA1CB2BD12B67005F5642 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		2EBE8FC92BAC712700F983C0 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSymbol.swift; sourceTree = "<group>"; };
 		2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUtils.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */,
 				2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */,
 				2EBBA1C62BD11B46005F5642 /* AnimalNameChecker.swift */,
+				2EBBA1CB2BD12B67005F5642 /* DataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -735,6 +738,7 @@
 				C6190AE62B934C7A00633305 /* DataInputView.swift in Sources */,
 				C6190AF72B934E6100633305 /* TipCalibrationView.swift in Sources */,
 				C6190B052B93510100633305 /* TestEndView.swift in Sources */,
+				2EBBA1CC2BD12B67005F5642 /* DataService.swift in Sources */,
 				2E9B76B72BCDAF3C00C5866B /* Test9View.swift in Sources */,
 				2EBBA1C72BD11B46005F5642 /* AnimalNameChecker.swift in Sources */,
 				C6190AEF2B934E1300633305 /* TestExplinationDragDropView.swift in Sources */,
@@ -959,7 +963,8 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -1005,7 +1010,8 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
