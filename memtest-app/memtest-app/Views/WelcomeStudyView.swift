@@ -10,7 +10,7 @@ import SwiftUI
 struct WelcomeStudyView: View {
     
     @State var showNextView: Bool = false
-    @State private var studyID = "1234-7896"
+    @State private var studyID = ""
     @State private var studyResearchName = "Mustermann University"
     
     var body: some View {
@@ -47,6 +47,9 @@ struct WelcomeStudyView: View {
                 }
                     
             }
+            .onAppear(perform: {
+                studyID = DataService.shared.getStudyId()
+            })
         }
     }
 }
