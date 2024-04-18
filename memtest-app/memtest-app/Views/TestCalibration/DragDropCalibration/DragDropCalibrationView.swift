@@ -16,7 +16,7 @@ struct DragDropCalibrationView: View {
         NavigationStack {
             VStack(spacing: 12){
                 Spacer()
-                Text("Bitte verschieben sie den Punkt in das leere Rechteck.")
+                Text("Bitte verschieben Sie den Punkt in das leere Rechteck.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 Spacer()

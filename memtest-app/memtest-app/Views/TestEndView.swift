@@ -15,7 +15,7 @@ struct TestEndView: View {
                 .font(.custom("SFProText-SemiBold", size: 40))
                 .foregroundStyle(Color(hex: "#5377A1"))
 
-            Text("Sie haben alleAufgaben erfolgreich bearbeitet.")
+            Text("Sie haben alle Aufgaben erfolgreich bearbeitet.")
                 .font(.custom("SFProText-SemiBold", size: 40))
                 .foregroundStyle(Color(hex: "#5377A1"))
                 .padding(.top,20)

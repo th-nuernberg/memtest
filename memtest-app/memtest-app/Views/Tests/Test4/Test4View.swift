@@ -65,19 +65,11 @@ struct Test4View: View {
                     .foregroundStyle(Color(hex: "#5377A1"))
                     .padding(.top,20)
                 
-                Text("die sie ordnen wollen an die Stelle, an die nach")
+                Text("die Sie ordnen wollen an die Stelle, an die")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("die Zahl hingehört hin. Wenn Sie eine Zahl zwischen")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("zwei Zahlen ziehen, wird die linke Zahl links davon gesetzt")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("und die rechte Zahl rechts davon.")
+                Text("gewünschte Stelle.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 

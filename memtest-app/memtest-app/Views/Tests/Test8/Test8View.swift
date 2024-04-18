@@ -105,12 +105,12 @@ struct Test8View: View {
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                     
-                    Text("Sie sehen 2 Seiten des auf denen Symbole zu sehen sind")
+                    Text("Sie können zwischen 2 Seiten auf denen Symbole zu sehen sind")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                         .padding(.top,20)
                     
-                    Text("benennen sie die Bilder die sie sich merken konnten")
+                    Text("wechseln. Benennen Sie die Bilder die Sie sich merken konnten")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                     

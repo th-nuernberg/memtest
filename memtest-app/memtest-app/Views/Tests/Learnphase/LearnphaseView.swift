@@ -66,11 +66,11 @@ struct LearnphaseView: View {
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("eine kurze Phase in der wir Ihnen Bilder zeigen")
+                Text("eine kurze Phase in der wir Ihnen Bilder zeigen welche")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("sie Sie sich für eine spätere Aufgaben so gut wie möglich")
+                Text("Sie sich für eine spätere Aufgaben so gut wie möglich")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 

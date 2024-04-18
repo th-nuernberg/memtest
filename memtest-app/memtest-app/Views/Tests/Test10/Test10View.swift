@@ -88,7 +88,7 @@ struct Test10View: View {
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Ihnen automatisch das nächste Bild gezeigt werden.")
+                Text("Ihnen automatisch das nächste Bild gezeigt.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
             }
