@@ -83,7 +83,7 @@ struct ExplanationView<Content: View>: View {
     var body: some View {
         HStack {
             HStack {
-                ForEach(0..<10) { index in
+                ForEach(0..<12) { index in
                     ZStack {
                         if index == circleIndex {
                             Circle()
@@ -125,7 +125,7 @@ struct ExplanationView<Content: View>: View {
 }
 
 struct CompletedView: View {
-    var numberOfTasks: Int = 10 // Total number of tasks
+    var numberOfTasks: Int = 12 // Total number of tasks
     var completedTasks: Int = 1 // Number of tasks completed
     var onContinue: ContinueHandler
     
@@ -148,7 +148,9 @@ struct CompletedView: View {
             return "neunten"
         }else if  completedTasks == 9 {
             return "zehnten"
-        }else {
+        }else if  completedTasks == 10 {
+            return "elften"
+        }else{
             return "nächsten"
         }
     }

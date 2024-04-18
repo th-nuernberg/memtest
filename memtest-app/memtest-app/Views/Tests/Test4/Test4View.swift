@@ -30,7 +30,7 @@ struct Test4View: View {
         ]
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 3,
+        BaseTestView(showCompletedView: $finished,indexOfCircle: 4,
                      textOfCircle:"4", destination: {Test5View()}, content: {
             
             OrderNumberSceneContainerView(numberCircles: numberCircles, onPositionsChanged: { positions in

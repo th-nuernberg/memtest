@@ -13,7 +13,7 @@ struct Test11View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,
-                     indexOfCircle: 10,
+                     indexOfCircle: 11,
                      textOfCircle:"11",destination: {TestEndView()}, content: {
             VStack{
                 AudioIndicatorView()
@@ -52,7 +52,7 @@ struct Test11View: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             VStack{
-                Text("Ihre zehnte Aufgabe besteht darin, ein Bild")
+                Text("Ihre elfte Aufgabe besteht darin, ein Bild")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 

@@ -11,14 +11,14 @@ import Combine
 struct Test9View: View {
     @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
     
+    let wordChecker = AnimalNameChecker()
+    
     @State private var cancellables = Set<AnyCancellable>()
     @State private var finished = false
-    @State private var erkannteTiernamen: [String] = [] // Speichert erkannte Tiernamen
-    let tiernamen = ["Hund", "Katze", "Vogel", "Elefant", "Löwe", "Tiger", "Bär", "Giraffe"]
-
+    @State private var recognizedAnimalNames: [String] = []
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 8, textOfCircle: "9", destination: { Test10View() }, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 9, textOfCircle: "9", destination: { Test10View() }, content: {
             VStack {
                 AudioIndicatorView()
                 Spacer()
@@ -30,7 +30,7 @@ struct Test9View: View {
                 
                 ScrollView {
                    VStack(alignment: .leading, spacing: 10) {
-                       ForEach(erkannteTiernamen, id: \.self) { tiername in
+                       ForEach(recognizedAnimalNames, id: \.self) { tiername in
                            HStack {
                                RoundedRectangle(cornerRadius: 20)
                                    .fill(Color.gray.opacity(0.2))
@@ -71,7 +71,7 @@ struct Test9View: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             VStack{
-                Text("Ihre achte Aufgabe besteht darin, soviele")
+                Text("Ihre neunte Aufgabe besteht darin, soviele")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
@@ -104,12 +104,12 @@ struct Test9View: View {
     
     // temporär -> nutze germanet
     private func updateErkannteTiernamen() {
-        var tempSet = Set(erkannteTiernamen)
-        for wort in speechRecognitionManager.recognizedWords {
-            if let tiername = tiernamen.first(where: { wort.localizedCaseInsensitiveContains($0) }) {
-                let (inserted, _) = tempSet.insert(tiername)
+        var tempSet = Set(recognizedAnimalNames)
+        for word in speechRecognitionManager.recognizedWords {
+            if wordChecker.checkWord(word) {
+                let (inserted, _) = tempSet.insert(word)
                 if inserted {
-                    erkannteTiernamen.append(tiername)
+                    recognizedAnimalNames.append(word)
                 }
             }
         }

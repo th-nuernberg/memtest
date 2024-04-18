@@ -24,6 +24,8 @@
 		2EAE890F2BB5C6940022B4CD /* Quadtree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAE890E2BB5C6940022B4CD /* Quadtree.swift */; };
 		2EAE89122BB6FB2C0022B4CD /* AudioIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAE89112BB6FB2C0022B4CD /* AudioIndicatorView.swift */; };
 		2EBB95B72BACA86E00D8EA4C /* TimerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */; };
+		2EBBA1C72BD11B46005F5642 /* AnimalNameChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBA1C62BD11B46005F5642 /* AnimalNameChecker.swift */; };
+		2EBBA1CA2BD11B83005F5642 /* animal_names_german.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2EBBA1C92BD11B83005F5642 /* animal_names_german.txt */; };
 		2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FC92BAC712700F983C0 /* AudioService.swift */; };
 		2EBE8FD42BAC793700F983C0 /* TestSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */; };
 		2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */; };
@@ -121,6 +123,8 @@
 		2EAE890E2BB5C6940022B4CD /* Quadtree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadtree.swift; sourceTree = "<group>"; };
 		2EAE89112BB6FB2C0022B4CD /* AudioIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioIndicatorView.swift; sourceTree = "<group>"; };
 		2EBB95B62BACA86E00D8EA4C /* TimerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModifier.swift; sourceTree = "<group>"; };
+		2EBBA1C62BD11B46005F5642 /* AnimalNameChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalNameChecker.swift; sourceTree = "<group>"; };
+		2EBBA1C92BD11B83005F5642 /* animal_names_german.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = animal_names_german.txt; sourceTree = "<group>"; };
 		2EBE8FC92BAC712700F983C0 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSymbol.swift; sourceTree = "<group>"; };
 		2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUtils.swift; sourceTree = "<group>"; };
@@ -326,6 +330,7 @@
 				2EBE8FC92BAC712700F983C0 /* AudioService.swift */,
 				2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */,
 				2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */,
+				2EBBA1C62BD11B46005F5642 /* AnimalNameChecker.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -342,6 +347,7 @@
 		2ECA7AF92BC6FE1700C00693 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2EBBA1C92BD11B83005F5642 /* animal_names_german.txt */,
 				2E6477CD2BCFE416009F8F63 /* gifs */,
 				2ECA7B012BC6FE9B00C00693 /* models */,
 			);
@@ -672,6 +678,7 @@
 			files = (
 				2ECA209A2B873F36000F2790 /* Launch Screen.storyboard in Resources */,
 				2E6477D72BD01235009F8F63 /* Avatar_Nicken.gif in Resources */,
+				2EBBA1CA2BD11B83005F5642 /* animal_names_german.txt in Resources */,
 				2ECA20772B873EC3000F2790 /* Preview Assets.xcassets in Resources */,
 				2ECA20732B873EC3000F2790 /* Assets.xcassets in Resources */,
 			);
@@ -729,6 +736,7 @@
 				C6190AF72B934E6100633305 /* TipCalibrationView.swift in Sources */,
 				C6190B052B93510100633305 /* TestEndView.swift in Sources */,
 				2E9B76B72BCDAF3C00C5866B /* Test9View.swift in Sources */,
+				2EBBA1C72BD11B46005F5642 /* AnimalNameChecker.swift in Sources */,
 				C6190AEF2B934E1300633305 /* TestExplinationDragDropView.swift in Sources */,
 				C66BB40C2BAF09B700ACC04F /* Test8View.swift in Sources */,
 				C66BB4142BAF0A0B00ACC04F /* Test5View.swift in Sources */,
