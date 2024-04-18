@@ -91,7 +91,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
     private func startAudioEngineRecording(to testName: String) throws {
         prepareRecordingDirectory(for: testName)
         // TODO: use 16000 for whisper
-        // try! AVAudioSession.sharedInstance().setPreferredSampleRate(16000)
+        try! AVAudioSession.sharedInstance().setPreferredSampleRate(16000)
         
         print("Sample Rate: \(AVAudioSession.sharedInstance().sampleRate)")
         let recordingFormat = audioEngine.inputNode.outputFormat(forBus: 0)

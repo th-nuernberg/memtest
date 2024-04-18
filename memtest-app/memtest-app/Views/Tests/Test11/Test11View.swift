@@ -75,7 +75,7 @@ struct Test11View: View {
             }
             .padding(.top,120)
         }, completedContent: { onContinue in
-            CompletedView(completedTasks: 10, onContinue: onContinue)
+            CompletedView(completedTasks: 11, onContinue: onContinue)
         })
     }
 }

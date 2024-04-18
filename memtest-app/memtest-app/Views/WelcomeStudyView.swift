@@ -21,7 +21,7 @@ struct WelcomeStudyView: View {
                     .foregroundStyle(Color(hex: "#5377A1"))
                     .padding(.bottom,30)
                 
-                Text("Vielen Dank, das Sie an der Studie " + studyID)
+                Text("Vielen Dank, dass Sie an der Studie " + studyID)
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 

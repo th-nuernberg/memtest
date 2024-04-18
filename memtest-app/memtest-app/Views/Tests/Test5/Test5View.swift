@@ -52,6 +52,7 @@ struct Test5View: View {
                         .padding(.trailing, 20)
                     
                     Button(action: {
+                        AudioService.shared.stopRecording()
                         finished.toggle()
                     }) {
                         Text("OK")
