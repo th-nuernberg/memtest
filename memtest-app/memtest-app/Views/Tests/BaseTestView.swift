@@ -109,7 +109,7 @@ struct ExplanationView<Content: View>: View {
             VStack {
                 Spacer()
                 Button(action: onContinue) {
-                    Text("Weiter")
+                    Text("Weiter ➔")
                         .foregroundColor(.white)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
@@ -131,27 +131,29 @@ struct CompletedView: View {
     
     var buttonText: String {
         if completedTasks == 1 {
-            return "zweiten"
+            return "Zur zweiten Aufgabe ➔"
         } else if completedTasks == 2 {
-            return "dritten"
+            return "Zur Lernphase ➔"
         } else if completedTasks == 3 {
-            return "vierten"
+            return "Zur dritten Aufgabe ➔"
         } else if  completedTasks == 4 {
-            return "fünften"
+            return "Zur vierten Aufgabe ➔"
         } else if  completedTasks == 5 {
-            return "sechsten"
+            return "Zur fünften Aufgabe ➔"
         } else if  completedTasks == 6 {
-            return "siebten"
+            return "Zur sechsten Aufgabe ➔"
         } else if  completedTasks == 7 {
-            return "achten"
+            return "Zur siebten Aufgabe ➔"
         }else if  completedTasks == 8 {
-            return "neunten"
+            return "Zur achten Aufgabe ➔"
         }else if  completedTasks == 9 {
-            return "zehnten"
+            return "Zur neunten Aufgabe ➔"
         }else if  completedTasks == 10 {
-            return "elften"
-        }else{
-            return "nächsten"
+            return "Zur zehnten Aufgabe ➔"
+        }else  if  completedTasks == 10 {
+            return "Zur elften Aufgabe ➔"
+        }else {
+            return "Beenden ➔"
         }
     }
     
@@ -183,7 +185,7 @@ struct CompletedView: View {
             Button(action: {
                 onContinue()
             }, label:  {
-                Text("Zur \(buttonText) Aufgabe >")
+                Text("\(buttonText)")
                     .bold()
                     .foregroundColor(.white)
                     .padding()
