@@ -1,7 +1,13 @@
 # memtest
 
 
-### Test10 - BNT:
+## Notes for Demo:
+
+If it is desired to also demonstrate the QR code functionality, it is only necessary to uncomment one line and comment out another in the ContentView.swift file of the iOS app (the explanation is provided in the comments).
+
+Additionally, it is important to build in Release mode to use the -O2 optimization!
+
+### Test10 - BNT
 
 Currently the associated names to the pictures are:
 - Baum
