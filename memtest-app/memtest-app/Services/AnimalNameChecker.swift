@@ -7,30 +7,58 @@
 
 import Foundation
 
+class TrieNode {
+    var children: [Character: TrieNode] = [:]
+    var isWord: Bool = false
+    
+    func insert(word: String) {
+        guard !word.isEmpty else { return }
+        var current = self
+        for letter in word.lowercased() {
+            if current.children[letter] == nil {
+                current.children[letter] = TrieNode()
+            }
+            current = current.children[letter]!
+        }
+        current.isWord = true
+    }
+    
+    func search(_ word: String) -> Bool {
+        var current = self
+        for letter in word.lowercased() {
+            guard let nextNode = current.children[letter] else { return false }
+            current = nextNode
+        }
+        return current.isWord
+    }
+}
 
 class AnimalNameChecker {
-    var words: [String] = []
+    var trie = TrieNode()
     
     init() {
         loadWordsFromFile()
     }
     
     private func loadWordsFromFile() {
-        // Angenommen, die Datei heißt "words.txt" und befindet sich im Hauptbundle
+        // Assuming the file is named "animal_names_german.txt" and located in the main bundle
         if let filepath = Bundle.main.path(forResource: "animal_names_german", ofType: "txt") {
             do {
                 let contents = try String(contentsOfFile: filepath)
-                words = contents.components(separatedBy: .newlines) // Trennt den String in Zeilen
+                let words = contents.components(separatedBy: .newlines)
+                for word in words where !word.isEmpty {
+                    trie.insert(word: word)
+                }
             } catch {
-                // Fehlerbehandlung, falls die Datei nicht gelesen werden kann
-                print("Fehler beim Lesen der Datei: \(error)")
+                // Error handling if the file cannot be read
+                print("Error reading the file: \(error)")
             }
         } else {
-            print("Datei nicht gefunden!")
+            print("File not found!")
         }
     }
     
     func checkWord(_ word: String) -> Bool {
-        return words.contains(word)
+        return trie.search(word)
     }
 }

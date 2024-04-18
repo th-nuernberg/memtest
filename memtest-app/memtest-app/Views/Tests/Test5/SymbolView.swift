@@ -54,9 +54,12 @@ class SymbolViewModel: ObservableObject {
     @Published var symbolField: [String] = []
     @Published var taps: [(Int, String)] = []
 
+
+    
     func registerTap(on symbolId: Int, symbolType: String) {
         taps.append((symbolId, symbolType))
     }
+    /*
 
     func initializeSymbolCounts(numberOfSymbols: Int) {
         let symbols = ["★", "✻", "▢"]
@@ -67,13 +70,17 @@ class SymbolViewModel: ObservableObject {
             symbolCounts[symbol] = count
             total -= count
         }
+        selectedSymbol = symbols.first
+        print(selectedSymbol)
         if total > 0, let firstSymbol = symbols.first {
             symbolCounts[firstSymbol, default: 0] += total
         }
     }
+     */
 
     func generateSymbolField(numberOfSymbols: Int, symbols: [String]) {
         symbolField = (0..<numberOfSymbols).map { _ in symbols.randomElement()! }
+        selectedSymbol = symbolField[0]
     }
 }
 
