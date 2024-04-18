@@ -70,24 +70,11 @@ struct Test2View: View {
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("ihnen gerade gezeigt wurden, noch einmal")
+                Text("Ihnen gerade gezeigt wurden, noch einmal")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("noch einmal zu bennen.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Zum Beispiel haben wir ihnen vorhin ein Bild")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-                
-                Text("Baums gezeigt, dann sagen Sie jetzt Baum.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Das erkannte Objekte wird dann automatisch angezeigt.")
+                Text("zu bennenen.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 

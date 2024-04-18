@@ -79,18 +79,12 @@ struct Test1View: View {
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Sie sehen zum Beispiel ein Bild eines Baums.")
+                Text("Sie sehen zum Beispiel ein Bild eines Baums, ")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                     .padding(.top,20)
                 
-                Text("Dann sagen sie deutlich das Wort Baum und das")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("jewewilige Bild wird als erfolgreich erkannt markiert")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
+                Text("dann sagen Sie deutlich das Wort Baum.")
                 
             }
             .padding(.top,120)

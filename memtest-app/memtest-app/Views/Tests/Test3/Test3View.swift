@@ -52,7 +52,7 @@ struct Test3View: View {
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("ihnen gezeigten Zahlen zu lesen und zu bennenen.")
+                Text("Ihnen gezeigten Zahlen zu lesen und zu bennenen.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
@@ -62,14 +62,6 @@ struct Test3View: View {
                     .padding(.top,20)
                 
                 Text("sagen Sie laut und deutlich zwölf.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Die erkannte Zahl wird dann automatisch als")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("erfolgreich erkannt markiert.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 

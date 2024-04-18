@@ -29,7 +29,7 @@ struct AudioCalibrationView: View {
                         Text("Lautstärke in Grün. Sprechen Sie bitte stets laut")
                             .font(.custom("SFProText-SemiBold", size: 40))
                             .foregroundStyle(Color(hex: "#5377A1"))
-                        Text("und deutlich. Wenn Sie zu leise sprechen,")
+                        Text("und deutlich. Falls Sie zu leise sprechen,")
                             .font(.custom("SFProText-SemiBold", size: 40))
                             .foregroundStyle(Color(hex: "#5377A1"))
                         Text("bewegt sich der Lautsprecherpegel nicht.")

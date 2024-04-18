@@ -51,7 +51,7 @@ struct Test7View: View {
             }
             
             VStack{
-                Text("Die siebte Aufgabe besteht darin, die")
+                Text("Die siebte Aufgabe besteht darin,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
