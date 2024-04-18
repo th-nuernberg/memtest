@@ -1,6 +1,25 @@
 # memtest
 
 
+### Test10 - BNT:
+
+Currently the associated names to the pictures are:
+- Baum
+- Bett
+- Pfeife
+- Blume
+- Haus
+- Kajak
+- Zahnbürste
+- Vulkan
+- Maske
+- Kamel
+- Mundharmonika
+- Zange
+- Hängematte
+- Trichter
+- Dominos
+
 ### [Whisper.cpp](https://github.com/ggerganov/whisper.cpp/tree/master) Speech Recognition:
 For [whisper.cpp](https://github.com/ggerganov/whisper.cpp/tree/master) add the desired model`.bin` and model`-encoder.mlmodelc`to the `Resources/models` folder in the iOS XCode Project.\
 How to download an convert a model is explained [here](https://github.com/ggerganov/whisper.cpp/tree/master/models).
