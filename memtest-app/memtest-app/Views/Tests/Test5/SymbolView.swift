@@ -23,26 +23,37 @@ struct SymbolView: View {
                 ForEach(Array(zip(viewModel.symbolField.indices, viewModel.symbolField)), id: \.0) { index, symbol in
                     Text(symbol)
                         .font(.system(size: 30.0))
-                        .position(self.positionForSymbol(index: index, rect: rect, columns: 17, rows: 7))
+                        .position(self.positionForSymbol(index: index, rect: rect))
                         .onTapGesture {
                             viewModel.registerTap(on: index, symbolType: symbol)
                         }
                 }
             }
             .onAppear {
-                viewModel.generateSymbolField(numberOfSymbols: 119, symbols: ["★", "✻", "▢"])
+                viewModel.generateSymbolField(numberOfSymbols: 125, symbols: ["★", "✻", "▢"])
             }
         }
     }
 
-    private func positionForSymbol(index: Int, rect: CGRect, columns: Int, rows: Int) -> CGPoint {
-        let columnWidth = rect.width / CGFloat(columns)
+    private func positionForSymbol(index: Int, rect: CGRect) -> CGPoint {
+        let rows = 7
+        let firstRowColumns = 17
+        let otherRowsColumns = 18
+        let isFirstRow = index < firstRowColumns
+        let columns = isFirstRow ? firstRowColumns : otherRowsColumns
+
         let rowHeight = rect.height / CGFloat(rows)
-        let x = CGFloat(index % columns) * columnWidth + columnWidth / 2
-        let y = CGFloat(index / columns) * rowHeight + rowHeight / 2
+        let columnWidth = isFirstRow ? rect.width / CGFloat(firstRowColumns) : rect.width / CGFloat(otherRowsColumns)
+
+        let rowIndex = isFirstRow ? 0 : (index - firstRowColumns) / otherRowsColumns + 1
+        let columnIndex = isFirstRow ? index : (index - firstRowColumns) % otherRowsColumns
+
+        let x = CGFloat(columnIndex) * columnWidth + columnWidth / 2
+        let y = CGFloat(rowIndex) * rowHeight + rowHeight / 2
         return CGPoint(x: x, y: y)
     }
 }
+
 
 
 
@@ -59,29 +70,19 @@ class SymbolViewModel: ObservableObject {
     func registerTap(on symbolId: Int, symbolType: String) {
         taps.append((symbolId, symbolType))
     }
-    /*
-
-    func initializeSymbolCounts(numberOfSymbols: Int) {
-        let symbols = ["★", "✻", "▢"]
-        var total = numberOfSymbols
-        
-        for symbol in symbols {
-            let count = total > 0 ? Int.random(in: 0...total) : 0
-            symbolCounts[symbol] = count
-            total -= count
-        }
-        selectedSymbol = symbols.first
-        print(selectedSymbol)
-        if total > 0, let firstSymbol = symbols.first {
-            symbolCounts[firstSymbol, default: 0] += total
-        }
-    }
-     */
-
+    
     func generateSymbolField(numberOfSymbols: Int, symbols: [String]) {
         symbolField = (0..<numberOfSymbols).map { _ in symbols.randomElement()! }
         selectedSymbol = symbolField[0]
+
+        symbolCounts = symbols.reduce(into: [String: Int]()) { counts, symbol in counts[symbol] = 0 }
+
+        for symbol in symbolField {
+            symbolCounts[symbol, default: 0] += 1
+        }
+        print(symbolCounts)
     }
+
 }
 
 
