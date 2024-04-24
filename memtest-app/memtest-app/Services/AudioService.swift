@@ -173,7 +173,7 @@ class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
     @Published var shouldAnimateAvatar: Bool = false  
 
     private var lastNotificationTime: Date?
-    private let throttleInterval: TimeInterval = 4.0
+    private let throttleInterval: TimeInterval = 0.75
     
     private init() {
        AudioService.shared.delegate = self

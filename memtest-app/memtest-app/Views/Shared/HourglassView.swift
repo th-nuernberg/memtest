@@ -14,6 +14,8 @@ struct HourglassView: View {
     let duration: Int
     var body: some View {
         Hourglass(hourglassSize: CGFloat(size), lineWidth: CGFloat(lineWidth), glassColor: .black, sandColor: Color(red: 0.96, green: 0.84, blue: 0.69), duration: Double(self.duration))
+        
+        .shadow(color: .gray, radius: 10, x: 5, y: 5)
     }
 }
 
@@ -79,6 +81,7 @@ struct Hourglass: View {
     }
     
     func startAnimation() {
+        // Instead of this animation there should be a particle emitter emmiting sand particless
         withAnimation(Animation.linear(duration: 0.15)) {
             middleOffset = (hourglassSize / 4) - hourglassSize * 0.03
         }

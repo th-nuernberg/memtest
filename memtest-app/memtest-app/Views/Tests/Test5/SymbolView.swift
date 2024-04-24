@@ -22,7 +22,7 @@ struct SymbolView: View {
             ZStack {
                 ForEach(Array(zip(viewModel.symbolField.indices, viewModel.symbolField)), id: \.0) { index, symbol in
                     Text(symbol)
-                        .font(.system(size: 30.0))
+                        .font(.system(size: 50.0))
                         .position(self.positionForSymbol(index: index, rect: rect))
                         .onTapGesture {
                             viewModel.registerTap(on: index, symbolType: symbol)
