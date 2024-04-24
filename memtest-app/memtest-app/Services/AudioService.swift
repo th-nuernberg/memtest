@@ -127,9 +127,8 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
     }
     
     private func calculateAudioLevel(from buffer: AVAudioPCMBuffer) -> Float {
-        guard let channelData = buffer.floatChannelData else { return 0.0 }
+        guard let channelData = buffer.floatChannelData else { return 0.0 } 
 
-        // Calculate the sum of squares of each sample
         let frameLength = Int(buffer.frameLength)
         var sum: Float = 0
         for i in 0..<frameLength {
@@ -137,16 +136,18 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
             sum += sample * sample
         }
         
-        // Calculate the mean squared value
         let meanSquare = sum / Float(frameLength)
         
-        // Calculate the RMS value
         let rms = sqrt(meanSquare)
 
-        // Normalize the RMS value
-        let normalizedLevel = min(1.0, rms * 60)
+        if rms == 0 { return 0.0 }
+        let dB = 20 * log10(rms)
+
+        let normalizedDB = min(max(-60, dB), 0)
         
-        return normalizedLevel
+        let level = (normalizedDB + 60) / 60
+
+        return level
     }
 }
 
@@ -173,7 +174,7 @@ class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
     @Published var shouldAnimateAvatar: Bool = false  
 
     private var lastNotificationTime: Date?
-    private let throttleInterval: TimeInterval = 4.0
+    private let throttleInterval: TimeInterval = 0.75
     
     private init() {
        AudioService.shared.delegate = self

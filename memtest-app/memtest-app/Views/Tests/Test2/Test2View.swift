@@ -34,9 +34,11 @@ struct Test2View: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    AvatarView(gifName: "Avatar_Nicken")
+                    AvatarView(gifName: "Avatar_Nicken_fast")
                     Spacer()
                     HourglassView(size: 300, lineWidth: 15, duration: testDuration)
+                        .padding(.trailing, 150)
+                    
                     Spacer()
                 }
                 Spacer()

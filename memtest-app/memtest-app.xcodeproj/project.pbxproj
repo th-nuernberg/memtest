@@ -16,7 +16,6 @@
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
 		2E5A90972BCAC72B00804F19 /* AppleTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */; };
 		2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */; };
-		2E6477D72BD01235009F8F63 /* Avatar_Nicken.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2E6477D62BD01235009F8F63 /* Avatar_Nicken.gif */; };
 		2E9B76B72BCDAF3C00C5866B /* Test9View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9B76B62BCDAF3C00C5866B /* Test9View.swift */; };
 		2E9B76B92BCDAF4900C5866B /* Test10View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9B76B82BCDAF4900C5866B /* Test10View.swift */; };
 		2EA41A4E2BB8A78800FDD5B4 /* DragDropExampleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA41A4D2BB8A78800FDD5B4 /* DragDropExampleScene.swift */; };
@@ -29,6 +28,7 @@
 		2EBBA1CC2BD12B67005F5642 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBA1CB2BD12B67005F5642 /* DataService.swift */; };
 		2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FC92BAC712700F983C0 /* AudioService.swift */; };
 		2EBE8FD42BAC793700F983C0 /* TestSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */; };
+		2EC4425A2BD90AC4004E0A61 /* Avatar_Nicken_fast.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2EC442592BD90AC4004E0A61 /* Avatar_Nicken_fast.gif */; };
 		2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */; };
 		2EC8E0F02BC917B5003C163C /* Test7View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC8E0EF2BC917B5003C163C /* Test7View.swift */; };
 		2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECA206E2B873EC2000F2790 /* memtest_appApp.swift */; };
@@ -117,7 +117,6 @@
 		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
 		2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleTranscriptionService.swift; sourceTree = "<group>"; };
 		2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperTranscriptionService.swift; sourceTree = "<group>"; };
-		2E6477D62BD01235009F8F63 /* Avatar_Nicken.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Avatar_Nicken.gif; sourceTree = "<group>"; };
 		2E9B76B62BCDAF3C00C5866B /* Test9View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test9View.swift; sourceTree = "<group>"; };
 		2E9B76B82BCDAF4900C5866B /* Test10View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test10View.swift; sourceTree = "<group>"; };
 		2EA41A4D2BB8A78800FDD5B4 /* DragDropExampleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDropExampleScene.swift; sourceTree = "<group>"; };
@@ -129,6 +128,7 @@
 		2EBBA1CB2BD12B67005F5642 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		2EBE8FC92BAC712700F983C0 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSymbol.swift; sourceTree = "<group>"; };
+		2EC442592BD90AC4004E0A61 /* Avatar_Nicken_fast.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Avatar_Nicken_fast.gif; sourceTree = "<group>"; };
 		2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUtils.swift; sourceTree = "<group>"; };
 		2EC8E0EF2BC917B5003C163C /* Test7View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test7View.swift; sourceTree = "<group>"; };
 		2ECA206B2B873EC2000F2790 /* memtest-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "memtest-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,7 +211,7 @@
 		2E6477CD2BCFE416009F8F63 /* gifs */ = {
 			isa = PBXGroup;
 			children = (
-				2E6477D62BD01235009F8F63 /* Avatar_Nicken.gif */,
+				2EC442592BD90AC4004E0A61 /* Avatar_Nicken_fast.gif */,
 			);
 			path = gifs;
 			sourceTree = "<group>";
@@ -680,10 +680,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2ECA209A2B873F36000F2790 /* Launch Screen.storyboard in Resources */,
-				2E6477D72BD01235009F8F63 /* Avatar_Nicken.gif in Resources */,
 				2EBBA1CA2BD11B83005F5642 /* animal_names_german.txt in Resources */,
 				2ECA20772B873EC3000F2790 /* Preview Assets.xcassets in Resources */,
 				2ECA20732B873EC3000F2790 /* Assets.xcassets in Resources */,
+				2EC4425A2BD90AC4004E0A61 /* Avatar_Nicken_fast.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

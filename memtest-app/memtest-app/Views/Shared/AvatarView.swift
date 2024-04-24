@@ -31,7 +31,7 @@ struct AvatarView: View {
 
 
 #Preview {
-    AvatarView(gifName: "Avatar_Nicken")
+    AvatarView(gifName: "Avatar_Nicken_fast")
 }
 
 
@@ -85,7 +85,7 @@ struct GifImage: UIViewRepresentable {
         }
         
         uiView.animationImages = images
-        uiView.animationDuration = Double(images.count) * 0.02
+        uiView.animationDuration = Double(images.count) * 0.01
         uiView.animationRepeatCount = 1
         uiView.startAnimating()
     }

@@ -36,6 +36,7 @@ struct Test6View: View {
                     AvatarView(gifName: "Avatar_Nicken")
                     Spacer()
                     HourglassView(size: 300, lineWidth: 15, duration: testDuration)
+                        .padding(.trailing, 150)
                     Spacer()
                 }
                 Spacer()
