@@ -8,52 +8,39 @@
 import SwiftUI
 
 struct Test6View: View {
-    @ObservedObject private var manager = SpeechRecognitionManager.shared
-    @State private var isRecording = false
     @State private var finished = false
     
-    private let testDuration = 60
-
-    private var symbolList = TestSymbolList()
-    
-    var columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 8),
-        GridItem(.flexible(), spacing: 8),
-        GridItem(.flexible(), spacing: 8),
-        GridItem(.flexible(), spacing: 8)
-    ]
-    
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 6,
-                     textOfCircle:"6", destination: {Test7View()}, content: {
-            //Text(manager.recognizedWords.last ?? "")
-            
-            VStack{
+        
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 6, textOfCircle: "6", destination: { Test7View()}, content: {
+            VStack {
                 AudioIndicatorView()
                 Spacer()
-                HStack {
-                    Spacer()
-                    AvatarView(gifName: "Avatar_Nicken")
-                    Spacer()
-                    HourglassView(size: 300, lineWidth: 15, duration: testDuration)
-                        .padding(.trailing, 150)
-                    Spacer()
+                
+                VStack {
+                    Text("ABBABA")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(.black)
+                        .padding(.bottom, 20)
+                        .underline()
+                    Text("A B A A B A B B A A B A B A B B A")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(.black)
+                    Text("A A B A B A B B B A B A A B A B A")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(.black)
                 }
+                
                 Spacer()
+                
             }
             .onAppear(perform: {
-                manager.recognizedWords = []
-                do {
-                    try AudioService.shared.startRecording(to: "test6")
-                } catch {
-                    print("Failed to start recording: \(error)")
-                }
+                try! AudioService.shared.startRecording(to: "test6");
             })
-            .onTimerComplete(duration: testDuration) {
-                print("Timer completed")
+            .onTimerComplete(duration: 60, onComplete: {
                 finished = true
                 AudioService.shared.stopRecording()
-            }
+            })
         }, explanationContent: {
             HStack {
                 Text("Aufgabenstellung 6")
@@ -63,30 +50,27 @@ struct Test6View: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             
-            
             VStack{
-                Text("Ihre sechste Aufgabe besteht darin, die")
+                Text("Die sechste Aufgabe besteht darin,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Bilder aus der Lernphase jetzt noch")
+                Text("für jedes A, B zu sprechen und für jedes B, A.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("einmal zu bennenen.")
+                Text("Die Buchstaben sollen nacheinander vorgelesen werden.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
-                
             }
             .padding(.top,120)
-        }, completedContent: {onContinue in
-            CompletedView(completedTasks: 6, onContinue: onContinue)
+        },
+        completedContent: { onContinue in
+            
+            CompletedView( completedTasks: 6, onContinue: onContinue)
+            
         })
-    }
-    
-    // TODO: implement germanet and similarity comparison
-    private func isSymbolNameRecognized(_ name: String) -> Bool {
-        return manager.recognizedWords.contains { $0.lowercased().contains(name.lowercased()) }
+        
     }
 }
 

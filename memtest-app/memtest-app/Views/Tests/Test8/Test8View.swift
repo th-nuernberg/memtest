@@ -26,7 +26,7 @@ struct Test8View: View {
     var body: some View {
         GeometryReader { geometry in
             let screenWidth = geometry.size.width
-            let screenHeight = geometry.size.height - 140 
+            let screenHeight = geometry.size.height - 140
             let columns = columns()
             let symbolSize = self.dynamicSymbolSize(forWidth: screenWidth, forHeight: screenHeight, numberOfColumns: columns.count, numberOfSymbols: symbols.count/2)
             let (firstGroup, secondGroup) = splitSymbolsIntoGroups()
@@ -42,7 +42,7 @@ struct Test8View: View {
                         ForEach(showingFirstSet ? firstGroup : secondGroup, id: \.name) { symbol in
                             ZStack {
                                 Rectangle()
-                                  .fill(self.isSymbolNameRecognized(symbol.name) ? Color.gray.opacity(0.5) : .gray)
+                                  .fill(.gray)
                                   .frame(width: symbolSize, height: symbolSize)
                                   .cornerRadius(20)
 
