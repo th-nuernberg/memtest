@@ -28,7 +28,6 @@
 		2EBBA1CC2BD12B67005F5642 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBA1CB2BD12B67005F5642 /* DataService.swift */; };
 		2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FC92BAC712700F983C0 /* AudioService.swift */; };
 		2EBE8FD42BAC793700F983C0 /* TestSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */; };
-		2EC442572BD906FF004E0A61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EC442552BD906FF004E0A61 /* Assets.xcassets */; };
 		2EC4425A2BD90AC4004E0A61 /* Avatar_Nicken_fast.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2EC442592BD90AC4004E0A61 /* Avatar_Nicken_fast.gif */; };
 		2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */; };
 		2EC8E0F02BC917B5003C163C /* Test7View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC8E0EF2BC917B5003C163C /* Test7View.swift */; };
@@ -129,7 +128,6 @@
 		2EBBA1CB2BD12B67005F5642 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		2EBE8FC92BAC712700F983C0 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSymbol.swift; sourceTree = "<group>"; };
-		2EC442552BD906FF004E0A61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EC442592BD90AC4004E0A61 /* Avatar_Nicken_fast.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Avatar_Nicken_fast.gif; sourceTree = "<group>"; };
 		2EC57FD92B90EE7500091804 /* QRCodeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUtils.swift; sourceTree = "<group>"; };
 		2EC8E0EF2BC917B5003C163C /* Test7View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test7View.swift; sourceTree = "<group>"; };
@@ -355,7 +353,6 @@
 				2EBBA1C92BD11B83005F5642 /* animal_names_german.txt */,
 				2E6477CD2BCFE416009F8F63 /* gifs */,
 				2ECA7B012BC6FE9B00C00693 /* models */,
-				2EC442552BD906FF004E0A61 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -687,7 +684,6 @@
 				2ECA20772B873EC3000F2790 /* Preview Assets.xcassets in Resources */,
 				2ECA20732B873EC3000F2790 /* Assets.xcassets in Resources */,
 				2EC4425A2BD90AC4004E0A61 /* Avatar_Nicken_fast.gif in Resources */,
-				2EC442572BD906FF004E0A61 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
