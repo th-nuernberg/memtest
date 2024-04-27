@@ -70,7 +70,7 @@ struct AudioCalibrationView: View {
                     }
                     
                 }) {
-                    Text(testStarted ? "Weiter >" : "Sprachaufnahme testen >")
+                    Text(testStarted ? "Weiter ➔" : "Sprachaufnahme testen")
                         .font(.custom("SFProText-SemiBold", size: 25))
                         .foregroundStyle(.white)
                 }

@@ -127,7 +127,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
     }
     
     private func calculateAudioLevel(from buffer: AVAudioPCMBuffer) -> Float {
-        guard let channelData = buffer.floatChannelData else { return 0.0 } 
+        guard let channelData = buffer.floatChannelData else { return 0.0 }
 
         let frameLength = Int(buffer.frameLength)
         var sum: Float = 0
@@ -142,10 +142,13 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
 
         if rms == 0 { return 0.0 }
         let dB = 20 * log10(rms)
-
-        let normalizedDB = min(max(-60, dB), 0)
+        print(dB)
         
-        let level = (normalizedDB + 60) / 60
+        let minDB: Float = -70.0
+        
+        let normalizedDB = min(max(minDB, dB), 0)
+        
+        let level = pow((normalizedDB - minDB) / (-minDB), 1/2.0) // Using a square root to increase sensitivity
 
         return level
     }
@@ -188,30 +191,8 @@ class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
             let tokenizer = NLTokenizer(unit: .word)
             tokenizer.string = text
             
-            if self.isNounInText(text: text) {
-                self.throttleNotification()
-            }
+            self.throttleNotification()
         }
-    }
-
-    private func isNounInText(text: String) -> Bool {
-        return true
-        /*
-        
-        let tagger = NLTagger(tagSchemes: [.lexicalClass])
-        tagger.string = text
-        let wholeText = text.startIndex..<text.endIndex
-        tagger.setLanguage(.german, range: wholeText)
-        let options: NLTagger.Options = [.omitWhitespace, .omitPunctuation]
-        var containsNoun = false
-        tagger.enumerateTags(in: wholeText, unit: .word, scheme: .lexicalClass, options: options) { tag, range in
-            if tag == .noun {
-                containsNoun = true
-                return false // Stop enumeration early since a noun is found
-            }
-            return true // Continue enumeration
-        }
-        return containsNoun */
     }
     
     private func throttleNotification() {
