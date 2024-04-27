@@ -31,7 +31,7 @@ struct Test1View: View {
                 ForEach(symbolList.symbols, id: \.name) { symbol in
                     ZStack {
                         Rectangle()
-                            .fill(self.isSymbolNameRecognized(symbol.name) ? Color.gray.opacity(0.5) : Color.gray)
+                            .fill(Color.gray)
                             .frame(height: 200)
                             .frame(width: 200)
                             .cornerRadius(20)
@@ -95,10 +95,6 @@ struct Test1View: View {
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 1, onContinue: onContinue)
         })
-    }
-    
-    private func isSymbolNameRecognized(_ name: String) -> Bool {
-        return manager.recognizedWords.contains { $0.lowercased().contains(name.lowercased()) }
     }
     
     private func startStopRecording() {

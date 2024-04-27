@@ -81,6 +81,7 @@ struct Test8View: View {
                 .background(Color.blue)
                 .cornerRadius(10)
                 
+                Spacer()
                 
             }, explanationContent: {
                 HStack {
