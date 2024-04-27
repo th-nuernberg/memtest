@@ -27,6 +27,7 @@ struct DataInputView: View {
             
             if showSecondView {
                 Button(action: {
+                    // TODO: use DataService to save metadata
                     showNextView.toggle()
                 }) {
                     Text("Zur Einführung")

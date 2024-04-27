@@ -22,11 +22,11 @@ struct FirstDataInputView: View {
                         .padding()
                         .background(Color.gray.opacity(0.2))
                         .cornerRadius(10)
-                        .onReceive(Just(patientData.age)) { newValue in
-                            let filtered = String(newValue.filter { $0.isNumber })
+                        .onChange(of: patientData.age) { oldValue, newValue in
+                            let filtered = newValue.filter { $0.isNumber }
                             if let ageInt = Int(filtered), ageInt > 200 {
-                                patientData.age = String(filtered.prefix(filtered.count - 1))
-                            } else {
+                                patientData.age = String(filtered.dropLast()) // Removes the last character if over 200
+                            } else if patientData.age != filtered {
                                 patientData.age = filtered
                             }
                         }
