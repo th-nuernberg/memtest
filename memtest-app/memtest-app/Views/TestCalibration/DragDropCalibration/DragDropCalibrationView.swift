@@ -40,7 +40,6 @@ struct DragDropCalibrationView: View {
                 .padding(.leading)
                 .navigationDestination(isPresented: $showNextView) {
                     AudioCalibrationView()
-                    //TipCalibrationView()
                 }
                 .navigationBarBackButtonHidden(true)
             }

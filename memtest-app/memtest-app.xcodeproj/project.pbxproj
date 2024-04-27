@@ -49,11 +49,7 @@
 		2EF974B12B99E7E700EFFA46 /* openapi-generator-config.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 2EF974B02B99E7E700EFFA46 /* openapi-generator-config.yaml */; };
 		2EF974B52B99E94500EFFA46 /* MemtestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF974B42B99E94500EFFA46 /* MemtestClient.swift */; };
 		C6190AE62B934C7A00633305 /* DataInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AE52B934C7A00633305 /* DataInputView.swift */; };
-		C6190AEF2B934E1300633305 /* TestExplinationDragDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AEE2B934E1300633305 /* TestExplinationDragDropView.swift */; };
-		C6190AF12B934E2700633305 /* TestExplinationTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AF02B934E2700633305 /* TestExplinationTipView.swift */; };
-		C6190AF32B934E3900633305 /* TestExplinationAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AF22B934E3900633305 /* TestExplinationAudioView.swift */; };
 		C6190AF52B934E4B00633305 /* DragDropCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AF42B934E4B00633305 /* DragDropCalibrationView.swift */; };
-		C6190AF72B934E6100633305 /* TipCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AF62B934E6100633305 /* TipCalibrationView.swift */; };
 		C6190AF92B934E7700633305 /* AudioCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190AF82B934E7700633305 /* AudioCalibrationView.swift */; };
 		C6190B052B93510100633305 /* TestEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B042B93510100633305 /* TestEndView.swift */; };
 		C6190B072B93511000633305 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6190B062B93511000633305 /* FeedbackView.swift */; };
@@ -150,11 +146,7 @@
 		2EF974B02B99E7E700EFFA46 /* openapi-generator-config.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "openapi-generator-config.yaml"; sourceTree = "<group>"; };
 		2EF974B42B99E94500EFFA46 /* MemtestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemtestClient.swift; sourceTree = "<group>"; };
 		C6190AE52B934C7A00633305 /* DataInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataInputView.swift; sourceTree = "<group>"; };
-		C6190AEE2B934E1300633305 /* TestExplinationDragDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExplinationDragDropView.swift; sourceTree = "<group>"; };
-		C6190AF02B934E2700633305 /* TestExplinationTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExplinationTipView.swift; sourceTree = "<group>"; };
-		C6190AF22B934E3900633305 /* TestExplinationAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExplinationAudioView.swift; sourceTree = "<group>"; };
 		C6190AF42B934E4B00633305 /* DragDropCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDropCalibrationView.swift; sourceTree = "<group>"; };
-		C6190AF62B934E6100633305 /* TipCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCalibrationView.swift; sourceTree = "<group>"; };
 		C6190AF82B934E7700633305 /* AudioCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCalibrationView.swift; sourceTree = "<group>"; };
 		C6190B042B93510100633305 /* TestEndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEndView.swift; sourceTree = "<group>"; };
 		C6190B062B93511000633305 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
@@ -419,10 +411,6 @@
 			isa = PBXGroup;
 			children = (
 				2EA41A492BB874EA00FDD5B4 /* DragDropCalibration */,
-				C6190AEE2B934E1300633305 /* TestExplinationDragDropView.swift */,
-				C6190AF02B934E2700633305 /* TestExplinationTipView.swift */,
-				C6190AF22B934E3900633305 /* TestExplinationAudioView.swift */,
-				C6190AF62B934E6100633305 /* TipCalibrationView.swift */,
 				C6190AF82B934E7700633305 /* AudioCalibrationView.swift */,
 			);
 			path = TestCalibration;
@@ -724,7 +712,6 @@
 				C66BB4222BAF0A8E00ACC04F /* Test2View.swift in Sources */,
 				2ECA20712B873EC2000F2790 /* ContentView.swift in Sources */,
 				2EC8E0F02BC917B5003C163C /* Test7View.swift in Sources */,
-				C6190AF12B934E2700633305 /* TestExplinationTipView.swift in Sources */,
 				2E187A0D2BCAAC060081DA0B /* BNTPicture.swift in Sources */,
 				C62BE6D32BAC2B6600B111ED /* WelcomeStudyView.swift in Sources */,
 				2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */,
@@ -736,12 +723,10 @@
 				2EAE89122BB6FB2C0022B4CD /* AudioIndicatorView.swift in Sources */,
 				C66BB4102BAF09ED00ACC04F /* Test6View.swift in Sources */,
 				C6190AE62B934C7A00633305 /* DataInputView.swift in Sources */,
-				C6190AF72B934E6100633305 /* TipCalibrationView.swift in Sources */,
 				C6190B052B93510100633305 /* TestEndView.swift in Sources */,
 				2EBBA1CC2BD12B67005F5642 /* DataService.swift in Sources */,
 				2E9B76B72BCDAF3C00C5866B /* Test9View.swift in Sources */,
 				2EBBA1C72BD11B46005F5642 /* AnimalNameChecker.swift in Sources */,
-				C6190AEF2B934E1300633305 /* TestExplinationDragDropView.swift in Sources */,
 				C66BB40C2BAF09B700ACC04F /* Test8View.swift in Sources */,
 				C66BB4142BAF0A0B00ACC04F /* Test5View.swift in Sources */,
 				C6190AF52B934E4B00633305 /* DragDropCalibrationView.swift in Sources */,
@@ -749,7 +734,6 @@
 				2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */,
 				2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */,
 				2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */,
-				C6190AF32B934E3900633305 /* TestExplinationAudioView.swift in Sources */,
 				C673BB782BBEE57500179A0F /* Test11View.swift in Sources */,
 				C66BB41C2BAF0A4300ACC04F /* Test3View.swift in Sources */,
 				2EAE890F2BB5C6940022B4CD /* Quadtree.swift in Sources */,
