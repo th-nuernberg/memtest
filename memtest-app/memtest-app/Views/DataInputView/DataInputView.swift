@@ -22,29 +22,24 @@ struct DataInputView: View {
                     self.showSecondView = true
                 }
             } else {
-                SecondDataInputView(patientData: patientData)
+                SecondDataInputView(patientData: patientData){
+                    // TODO: use DataService to save metadata
+                    showNextView.toggle()
+                }
             }
             
             if showSecondView {
                 Button(action: {
-                    // TODO: use DataService to save metadata
-                    showNextView.toggle()
                 }) {
-                    Text("Zur Einführung")
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 10)
+                    
                 }
-                .padding(10)
-                .background(patientData.age.isEmpty ? Color.gray : Color.blue)
-                .cornerRadius(10)
-                .padding(.bottom,100)
                 .navigationBarBackButtonHidden(true)
                 .navigationDestination(isPresented: $showNextView) {
                     DragDropCalibrationView()
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
