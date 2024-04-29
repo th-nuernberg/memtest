@@ -32,7 +32,7 @@ struct Test8View: View {
             let (firstGroup, secondGroup) = splitSymbolsIntoGroups()
             
             BaseTestView(showCompletedView: $finished,indexOfCircle: 8,
-                         textOfCircle:"8", destination: {Test9View()}, content: {
+                         textOfCircle:"8", destination: {Test10View()}, content: {
             
                 //Text(manager.recognizedWords.last ?? "")
                 AudioIndicatorView()

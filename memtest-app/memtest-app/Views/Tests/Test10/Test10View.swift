@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-struct Test9View: View {
+struct Test10View: View {
     @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
     
     let wordChecker = AnimalNameChecker()
@@ -19,7 +19,7 @@ struct Test9View: View {
     private let testDuration = 60
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 9, textOfCircle: "9", destination: { Test11View() }, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 10, textOfCircle: "10", destination: { Test11View() }, content: {
             VStack {
                 AudioIndicatorView()
                 Spacer()
@@ -35,7 +35,7 @@ struct Test9View: View {
             }
             .padding()
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "test9")
+                try! AudioService.shared.startRecording(to: "test10")
                 self.speechRecognitionManager.$recognizedWords
                     .sink { _ in
                         self.updateErkannteTiernamen()
@@ -49,14 +49,14 @@ struct Test9View: View {
             })
         }, explanationContent: {
             HStack {
-                Text("Aufgabenstellung 9")
+                Text("Aufgabenstellung 10")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             VStack{
-                Text("Ihre neunte Aufgabe besteht darin, soviele")
+                Text("Ihre zehnte Aufgabe besteht darin, soviele")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
@@ -83,7 +83,7 @@ struct Test9View: View {
             }
             .padding(.top,120)
         }, completedContent: { onContinue in
-            CompletedView(completedTasks: 9, onContinue: onContinue)
+            CompletedView(completedTasks: 10, onContinue: onContinue)
         })
     }
     
@@ -102,5 +102,5 @@ struct Test9View: View {
 }
 
 #Preview {
-    Test9View()
+    Test10View()
 }
