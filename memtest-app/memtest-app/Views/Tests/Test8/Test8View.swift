@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Test7View: View {
+struct Test8View: View {
     @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
     @State private var finished = false
@@ -24,8 +24,8 @@ struct Test7View: View {
     ]
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 7,
-                     textOfCircle:"7", destination: {Test9View()}, content: {
+        BaseTestView(showCompletedView: $finished,indexOfCircle: 8,
+                     textOfCircle:"8", destination: {Test9View()}, content: {
             //Text(manager.recognizedWords.last ?? "")
             
             VStack{
@@ -44,7 +44,7 @@ struct Test7View: View {
             .onAppear(perform: {
                 manager.recognizedWords = []
                 do {
-                    try AudioService.shared.startRecording(to: "test6")
+                    try AudioService.shared.startRecording(to: "test8")
                 } catch {
                     print("Failed to start recording: \(error)")
                 }
@@ -56,7 +56,7 @@ struct Test7View: View {
             }
         }, explanationContent: {
             HStack {
-                Text("Aufgabenstellung 7")
+                Text("Aufgabenstellung 8")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.leading)
@@ -65,7 +65,7 @@ struct Test7View: View {
             
             
             VStack{
-                Text("Ihre siebte Aufgabe besteht darin, die")
+                Text("Ihre achte Aufgabe besteht darin, die")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
@@ -80,7 +80,7 @@ struct Test7View: View {
             }
             .padding(.top,120)
         }, completedContent: {onContinue in
-            CompletedView(completedTasks: 7, onContinue: onContinue)
+            CompletedView(completedTasks: 8, onContinue: onContinue)
         })
     }
     
@@ -91,5 +91,5 @@ struct Test7View: View {
 }
 
 #Preview {
-    Test7View()
+    Test8View()
 }
