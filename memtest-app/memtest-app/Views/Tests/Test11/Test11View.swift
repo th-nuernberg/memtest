@@ -8,7 +8,7 @@
 import SwiftUI
 import StringMetric
 
-struct Test10View: View {
+struct Test11View: View {
     @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
     @State private var finished = false
     @State private var currentImage: BNT_Picture?  // Use BNT_Picture instead of String
@@ -23,7 +23,7 @@ struct Test10View: View {
     }
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 10, textOfCircle: "10", destination: { Test12View() }, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 11, textOfCircle: "11", destination: { Test12View() }, content: {
             
             AudioIndicatorView()
             
@@ -37,7 +37,7 @@ struct Test10View: View {
                 }
             }
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "test10")
+                try! AudioService.shared.startRecording(to: "test11")
                 setNextImage()
                 //startTimer()
             })
@@ -56,14 +56,14 @@ struct Test10View: View {
             
         }, explanationContent: {
             HStack {
-                Text("Aufgabenstellung 10")
+                Text("Aufgabenstellung 11")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             VStack{
-                Text("Ihre zehnte Aufgabe besteht darin, soviele ")
+                Text("Ihre elfte Aufgabe besteht darin, soviele ")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
@@ -94,7 +94,7 @@ struct Test10View: View {
             }
             .padding(.top,120)
         }, completedContent: { onContinue in
-            CompletedView(completedTasks: 10, onContinue: onContinue)
+            CompletedView(completedTasks: 11, onContinue: onContinue)
         })
     }
     
@@ -132,5 +132,5 @@ struct Test10View: View {
 }
 
 #Preview {
-    Test10View()
+    Test11View()
 }

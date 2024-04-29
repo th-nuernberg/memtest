@@ -19,7 +19,7 @@ struct Test9View: View {
     private let testDuration = 60
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 9, textOfCircle: "9", destination: { Test10View() }, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 9, textOfCircle: "9", destination: { Test11View() }, content: {
             VStack {
                 AudioIndicatorView()
                 Spacer()
