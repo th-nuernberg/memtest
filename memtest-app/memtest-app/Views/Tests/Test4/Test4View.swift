@@ -31,7 +31,7 @@ struct Test4View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 4,
-                     textOfCircle:"4", destination: {Test5View()}, content: {
+                     textOfCircle:"4", destination: {Test6View()}, content: {
             
             OrderNumberSceneContainerView(numberCircles: numberCircles, onPositionsChanged: { positions in
                 print(positions)

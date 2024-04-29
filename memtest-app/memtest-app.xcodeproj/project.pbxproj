@@ -62,7 +62,7 @@
 		C65F98AA2BABB26E00DCBD41 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F98A92BABB26E00DCBD41 /* WelcomeView.swift */; };
 		C66BB40C2BAF09B700ACC04F /* Test9View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB40B2BAF09B700ACC04F /* Test9View.swift */; };
 		C66BB4102BAF09ED00ACC04F /* Test7View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB40F2BAF09ED00ACC04F /* Test7View.swift */; };
-		C66BB4142BAF0A0B00ACC04F /* Test5View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB4132BAF0A0B00ACC04F /* Test5View.swift */; };
+		C66BB4142BAF0A0B00ACC04F /* Test6View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB4132BAF0A0B00ACC04F /* Test6View.swift */; };
 		C66BB4182BAF0A2600ACC04F /* Test4View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB4172BAF0A2600ACC04F /* Test4View.swift */; };
 		C66BB41C2BAF0A4300ACC04F /* Test3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB41B2BAF0A4300ACC04F /* Test3View.swift */; };
 		C66BB41F2BAF0A6F00ACC04F /* LearnphaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66BB41E2BAF0A6F00ACC04F /* LearnphaseView.swift */; };
@@ -164,7 +164,7 @@
 		C65F98A92BABB26E00DCBD41 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		C66BB40B2BAF09B700ACC04F /* Test9View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test9View.swift; sourceTree = "<group>"; };
 		C66BB40F2BAF09ED00ACC04F /* Test7View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test7View.swift; sourceTree = "<group>"; };
-		C66BB4132BAF0A0B00ACC04F /* Test5View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test5View.swift; sourceTree = "<group>"; };
+		C66BB4132BAF0A0B00ACC04F /* Test6View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test6View.swift; sourceTree = "<group>"; };
 		C66BB4172BAF0A2600ACC04F /* Test4View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test4View.swift; sourceTree = "<group>"; };
 		C66BB41B2BAF0A4300ACC04F /* Test3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test3View.swift; sourceTree = "<group>"; };
 		C66BB41E2BAF0A6F00ACC04F /* LearnphaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnphaseView.swift; sourceTree = "<group>"; };
@@ -512,8 +512,6 @@
 		C66BB4032BAF098200ACC04F /* Test5 */ = {
 			isa = PBXGroup;
 			children = (
-				C66BB4132BAF0A0B00ACC04F /* Test5View.swift */,
-				2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */,
 			);
 			path = Test5;
 			sourceTree = "<group>";
@@ -521,6 +519,8 @@
 		C66BB4052BAF098A00ACC04F /* Test6 */ = {
 			isa = PBXGroup;
 			children = (
+				C66BB4132BAF0A0B00ACC04F /* Test6View.swift */,
+				2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */,
 			);
 			path = Test6;
 			sourceTree = "<group>";
@@ -762,7 +762,7 @@
 				2E9B76B72BCDAF3C00C5866B /* Test10View.swift in Sources */,
 				2EBBA1C72BD11B46005F5642 /* AnimalNameChecker.swift in Sources */,
 				C66BB40C2BAF09B700ACC04F /* Test9View.swift in Sources */,
-				C66BB4142BAF0A0B00ACC04F /* Test5View.swift in Sources */,
+				C66BB4142BAF0A0B00ACC04F /* Test6View.swift in Sources */,
 				C6190AF52B934E4B00633305 /* DragDropCalibrationView.swift in Sources */,
 				2E3624B22BCEE54800368F7F /* HourglassView.swift in Sources */,
 				2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */,

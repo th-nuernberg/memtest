@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 
-struct Test5View: View {
+struct Test6View: View {
     @StateObject private var viewModel: SymbolViewModel = SymbolViewModel()
     @State private var finished = false
     
@@ -17,8 +17,8 @@ struct Test5View: View {
     
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 5,
-                     textOfCircle:"5", destination: {Test7View()}, content: {
+        BaseTestView(showCompletedView: $finished,indexOfCircle: 6,
+                     textOfCircle:"6", destination: {Test7View()}, content: {
             
             VStack{
                 AudioIndicatorView()
@@ -67,7 +67,7 @@ struct Test5View: View {
             }
             .onAppear(perform: {
                 do {
-                    try AudioService.shared.startRecording(to: "test5")
+                    try AudioService.shared.startRecording(to: "test6")
                     print("Recording started")
                 } catch {
                     print("Failed to start recording: \(error)")
@@ -82,7 +82,7 @@ struct Test5View: View {
             
         }, explanationContent: {
             HStack {
-                Text("Aufgabenstellung 5")
+                Text("Aufgabenstellung 6")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.leading)
@@ -91,7 +91,7 @@ struct Test5View: View {
             
             
             VStack{
-                Text("Ihre fünfte Aufgabe besteht darin, das")
+                Text("Ihre sechste Aufgabe besteht darin, das")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
@@ -127,11 +127,11 @@ struct Test5View: View {
             }
             .padding(.top,120)
         }, completedContent: {onContinue in
-            CompletedView(completedTasks: 5, onContinue: onContinue)
+            CompletedView(completedTasks: 6, onContinue: onContinue)
         })
     }
 }
 
 #Preview {
-    Test5View()
+    Test6View()
 }

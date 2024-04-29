@@ -89,5 +89,5 @@ class SymbolViewModel: ObservableObject {
 
 
 #Preview {
-    Test5View()
+    Test6View()
 }
