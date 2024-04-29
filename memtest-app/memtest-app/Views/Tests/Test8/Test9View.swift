@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Test8View: View {
+struct Test9View: View {
     @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
     @State private var finished = false
@@ -19,7 +19,7 @@ struct Test8View: View {
     private var symbolList = TestSymbolList()
     
     init() {
-       _symbols = State(initialValue: Test8View.initializeSymbols())
+       _symbols = State(initialValue: Test9View.initializeSymbols())
     }
     
     
@@ -31,8 +31,8 @@ struct Test8View: View {
             let symbolSize = self.dynamicSymbolSize(forWidth: screenWidth, forHeight: screenHeight, numberOfColumns: columns.count, numberOfSymbols: symbols.count/2)
             let (firstGroup, secondGroup) = splitSymbolsIntoGroups()
             
-            BaseTestView(showCompletedView: $finished,indexOfCircle: 8,
-                         textOfCircle:"8", destination: {Test10View()}, content: {
+            BaseTestView(showCompletedView: $finished,indexOfCircle: 9,
+                         textOfCircle:"9", destination: {Test10View()}, content: {
             
                 //Text(manager.recognizedWords.last ?? "")
                 AudioIndicatorView()
@@ -59,7 +59,7 @@ struct Test8View: View {
                     }
                 }
                 .onAppear(perform: {
-                    try! AudioService.shared.startRecording(to: "test8")
+                    try! AudioService.shared.startRecording(to: "test9")
                 })
                 .onTimerComplete(duration: testDuration) {
                     print("Timer completed")
@@ -85,7 +85,7 @@ struct Test8View: View {
                 
             }, explanationContent: {
                 HStack {
-                    Text("Aufgabenstellung 8")
+                    Text("Aufgabenstellung 9")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .padding(.leading)
@@ -94,7 +94,7 @@ struct Test8View: View {
                 
                 
                 VStack{
-                    Text("Ihre achte Aufgabe besteht darin, wie")
+                    Text("Ihre neunte Aufgabe besteht darin, wie")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                     
@@ -118,7 +118,7 @@ struct Test8View: View {
                 }
                 .padding(.top,120)
             }, completedContent: {onContinue in
-                CompletedView(completedTasks: 8, onContinue: onContinue)
+                CompletedView(completedTasks: 9, onContinue: onContinue)
             })
         }
     }
@@ -148,7 +148,7 @@ struct Test8View: View {
     private static func initializeSymbols() -> [TestSymbol] {
        var symbols = TestSymbolList().symbols
        for i in 0...35 {
-           symbols.append(TestSymbol(name: "Fragezeichen\(i)", synonyms: [], fileUrl: "Test8Icons/test8_1"))
+           symbols.append(TestSymbol(name: "Fragezeichen\(i)", synonyms: [], fileUrl: "Test9Icons/test9_1"))
        }
        symbols.shuffle()
        return symbols
@@ -162,5 +162,5 @@ struct Test8View: View {
 }
 
 #Preview {
-    Test8View()
+    Test9View()
 }
