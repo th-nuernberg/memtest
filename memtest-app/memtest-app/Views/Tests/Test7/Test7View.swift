@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct Test6View: View {
+struct Test7View: View {
     @State private var finished = false
     
     var body: some View {
         
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 6, textOfCircle: "6", destination: { Test8View()}, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 7, textOfCircle: "7", destination: { Test8View()}, content: {
             VStack {
                 AudioIndicatorView()
                 Spacer()
@@ -35,7 +35,7 @@ struct Test6View: View {
                 
             }
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "test6");
+                try! AudioService.shared.startRecording(to: "test7");
             })
             .onTimerComplete(duration: 60, onComplete: {
                 finished = true
@@ -43,7 +43,7 @@ struct Test6View: View {
             })
         }, explanationContent: {
             HStack {
-                Text("Aufgabenstellung 6")
+                Text("Aufgabenstellung 7")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.leading)
@@ -51,7 +51,7 @@ struct Test6View: View {
             }
             
             VStack{
-                Text("Die sechste Aufgabe besteht darin,")
+                Text("Die siebte Aufgabe besteht darin,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
@@ -67,7 +67,7 @@ struct Test6View: View {
         },
         completedContent: { onContinue in
             
-            CompletedView( completedTasks: 6, onContinue: onContinue)
+            CompletedView( completedTasks: 7, onContinue: onContinue)
             
         })
         
@@ -77,5 +77,5 @@ struct Test6View: View {
 
 
 #Preview {
-    Test6View()
+    Test7View()
 }
