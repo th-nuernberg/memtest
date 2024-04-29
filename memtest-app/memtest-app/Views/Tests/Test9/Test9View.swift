@@ -16,37 +16,21 @@ struct Test9View: View {
     @State private var cancellables = Set<AnyCancellable>()
     @State private var finished = false
     @State private var recognizedAnimalNames: [String] = []
+    private let testDuration = 60
 
     var body: some View {
         BaseTestView(showCompletedView: $finished, indexOfCircle: 9, textOfCircle: "9", destination: { Test10View() }, content: {
             VStack {
                 AudioIndicatorView()
                 Spacer()
-       
-                Text("Alle genannten Tiere:")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                
-                ScrollView {
-                   VStack(alignment: .leading, spacing: 10) {
-                       ForEach(recognizedAnimalNames, id: \.self) { tiername in
-                           HStack {
-                               RoundedRectangle(cornerRadius: 20)
-                                   .fill(Color.gray.opacity(0.2))
-                                   .frame(height: 50)
-                                   .overlay(
-                                       Text(tiername)
-                                           .foregroundColor(Color.black)
-                                   )
-                               Spacer()
-                           }.padding(.horizontal)
-                       }
-                   }
-                   .padding(.top)
+                HStack {
+                    Spacer()
+                    AvatarView(gifName: "Avatar_Nicken_fast")
+                    Spacer()
+                    HourglassView(size: 300, lineWidth: 15, duration: testDuration)
+                        .padding(.trailing, 150)
+                    
                 }
-                
-                Spacer()
                 //Text("\(speechRecognitionManager.recognizedWords.last ?? "")")
             }
             .padding()
@@ -58,7 +42,8 @@ struct Test9View: View {
                     }
                     .store(in: &cancellables)
             })
-            .onTimerComplete(duration: 60, onComplete: {
+            .onTimerComplete(duration: testDuration, onComplete: {
+                // TODO: save recognizedAnimalNames
                 AudioService.shared.stopRecording()
                 finished = true
             })
