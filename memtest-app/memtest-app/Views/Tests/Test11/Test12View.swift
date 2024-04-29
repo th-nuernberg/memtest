@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct Test11View: View {
+struct Test12View: View {
     
     @State private var finished = false
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,
-                     indexOfCircle: 11,
-                     textOfCircle:"11",destination: {TestEndView()}, content: {
+                     indexOfCircle: 12,
+                     textOfCircle:"12",destination: {TestEndView()}, content: {
             VStack{
                 AudioIndicatorView()
                 GeometryReader { geometry in
@@ -22,7 +22,7 @@ struct Test11View: View {
                         Spacer()
                         HStack {
                             Spacer()
-                            Image("Test11Assets/Cookie_Theft_Picture")
+                            Image("Test12Assets/Cookie_Theft_Picture")
                                 .resizable()
                                 .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.8)
                             Spacer()
@@ -32,7 +32,7 @@ struct Test11View: View {
                 }
             }.onAppear(perform: {
                 do {
-                    try AudioService.shared.startRecording(to: "test11")
+                    try AudioService.shared.startRecording(to: "test12")
                     print("Recording started")
                 } catch {
                     print("Failed to start recording: \(error)")
@@ -45,14 +45,14 @@ struct Test11View: View {
             }
         }, explanationContent: {
             HStack {
-                Text("Aufgabenstellung 11")
+                Text("Aufgabenstellung 12")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             VStack{
-                Text("Ihre elfte Aufgabe besteht darin, ein Bild")
+                Text("Ihre zwölfte Aufgabe besteht darin, ein Bild")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
@@ -75,11 +75,11 @@ struct Test11View: View {
             }
             .padding(.top,120)
         }, completedContent: { onContinue in
-            CompletedView(completedTasks: 11, onContinue: onContinue)
+            CompletedView(completedTasks: 12, onContinue: onContinue)
         })
     }
 }
 
 #Preview {
-    Test11View()
+    Test12View()
 }
