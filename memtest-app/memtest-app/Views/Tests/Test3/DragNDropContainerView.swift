@@ -107,6 +107,7 @@ class DragNDropScene: SKScene {
     
         // Create DropZones and Add DragElements
         createDropZones(startX: startX, startY: startY, targetSize: targetSize)
+        createDragElements(targetSize: targetSize)
     }
     
     private func calculateStartPositions(targetSize: CGFloat) -> (CGFloat, CGFloat) {
@@ -179,6 +180,27 @@ class DragNDropScene: SKScene {
         shadowNode.position = CGPoint(x: position.x, y: position.y - 3)
         shadowNode.zPosition = -1
         return shadowNode
+    }
+    
+    private func createDragElements(targetSize: CGFloat) {
+        for (index, dragElement) in dragElements.enumerated() {
+            let circleNode = createDragElement(dragElement: dragElement, index: index, targetSize: targetSize)
+            self.addChild(circleNode)
+        }
+    }
+    
+    private func createDragElement(dragElement: DragElement, index: Int, targetSize: CGFloat) -> SKShapeNode {
+        let circle = SKShapeNode(circleOfRadius: targetSize / 2.1)
+        circle.fillColor = dragElement.color
+        circle.strokeColor = dragElement.color
+        circle.position = draggableElementPositions[index]
+        circle.zPosition = 1
+        circle.name = "circle\(dragElement.label ?? "")"
+        
+        let label = createLabelNode(label: dragElement.label ?? "")
+        circle.addChild(label)
+        
+        return circle
     }
 }
 
