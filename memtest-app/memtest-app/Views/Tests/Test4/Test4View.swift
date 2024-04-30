@@ -12,6 +12,10 @@ struct NumberCircles {
     var color: UIColor
 }
 
+struct DropZoneCircle {
+    var number: Int?
+}
+
 struct Test4View: View {
     
     @State private var finished = false
@@ -27,7 +31,29 @@ struct Test4View: View {
             NumberCircles(number: 13, color: UIColor(Color(hex: "#4478FF"))),
             NumberCircles(number: 29, color: UIColor(Color(hex: "#AC9725"))),
             NumberCircles(number: 40, color: UIColor(Color(hex: "#2CBA76"))),
-        ]
+    ]
+    let dropZoneCircles = [
+        DropZoneCircle(),
+        DropZoneCircle(),
+        DropZoneCircle(),
+        DropZoneCircle(),
+        DropZoneCircle(),
+        DropZoneCircle(),
+        DropZoneCircle(),
+        DropZoneCircle(),
+        DropZoneCircle(),
+        DropZoneCircle(),
+        DropZoneCircle(number: 10),
+        DropZoneCircle(number: 81),
+        DropZoneCircle(number: 72),
+        DropZoneCircle(number: 95),
+        DropZoneCircle(number: 84),
+        DropZoneCircle(number: 73),
+        DropZoneCircle(number: 16),
+        DropZoneCircle(number: 13),
+        DropZoneCircle(number: 29),
+        DropZoneCircle(number: 40)
+    ]
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 4,
