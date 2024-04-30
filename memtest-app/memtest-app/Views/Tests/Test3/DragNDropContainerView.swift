@@ -24,7 +24,7 @@ struct DragNDropContainerView: UIViewRepresentable {
     var dropZones: [DropZone]
     var columns = 5
     var isDragEnabled: Bool = true
-    // Callback
+    // Callback TODO: instead of [(number, position)] it should be sorted [DragElement] with according indices
     var onPositionsChanged: ([(Int, Int)]) -> Void
     
     func makeUIView(context: Context) -> SKView {
@@ -56,6 +56,9 @@ class DragNDropScene: SKScene {
     // For the active displaying
     var dropZonePositions: [CGPoint] = []
     var draggableElementPositions: [CGPoint] = []
+    // For dragging
+    var currentlyDraggedNode: SKShapeNode?
+    var originalPositionOfDraggedNode: CGPoint?
     // Callback
     var onPositionsChanged: ([(Int, Int)]) -> Void
     
@@ -145,7 +148,6 @@ class DragNDropScene: SKScene {
         let indicesToAddDragElement = self.dragElements.map({ dragElement in
             return dragElement.posIndex
         })
-        print(indicesToAddDragElement)
         
         if indicesToAddDragElement.contains(dropZoneIndex) {
             draggableElementPositions.append(dropZoneNode.position)
@@ -155,7 +157,7 @@ class DragNDropScene: SKScene {
         let dropZoneNode = SKShapeNode(circleOfRadius: targetSize / 2.1)
         dropZoneNode.fillColor = UIColor(Color(hex: "#D9D9D9"))
         dropZoneNode.position = position
-        dropZoneNode.name = "\(dropZoneIndex)"
+        dropZoneNode.name = "dropZone\(dropZoneIndex)"
         
         if (self.dropZones[dropZoneIndex].label != nil){
             dropZoneNode.addChild(createLabelNode(label: self.dropZones[dropZoneIndex].label!))
@@ -195,12 +197,104 @@ class DragNDropScene: SKScene {
         circle.strokeColor = dragElement.color
         circle.position = draggableElementPositions[index]
         circle.zPosition = 1
-        circle.name = "circle\(dragElement.label ?? "")"
+        circle.name = "dragNode\(dragElement.label ?? "")"
         
         let label = createLabelNode(label: dragElement.label ?? "")
         circle.addChild(label)
         
         return circle
+    }
+    
+    // MARK: all gesture stuff
+   
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard isDragEnabled, let touch = touches.first else { return }
+        
+        let pos = touch.location(in: self)
+        self.children.forEach { node in
+            if let dragNode = node as? SKShapeNode, dragNode.name?.starts(with: "dragNode") ?? false, dragNode.contains(pos) {
+                currentlyDraggedNode = dragNode
+                originalPositionOfDraggedNode = dragNode.position
+                dragNode.zPosition = 10
+                return
+            }
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard isDragEnabled, let touch = touches.first, let draggedNode = currentlyDraggedNode else { return }
+        let pos = touch.location(in: self)
+        draggedNode.position = pos
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard isDragEnabled, let draggedNode = currentlyDraggedNode, let originalPosition = originalPositionOfDraggedNode else { return }
+        
+        if let dropZone = findNearestDropZone(for: draggedNode) {
+            resolvePositionConflicts(for: draggedNode, withDropZone: dropZone, originalPosition: originalPosition)
+        }
+        
+        finalizeDragOperation(for: draggedNode)
+        reportDropZoneIndices()
+    }
+    
+    private func findNearestDropZone(for circle: SKShapeNode) -> SKShapeNode? {
+        let potentialDropZones = self.children.compactMap { $0 as? SKShapeNode }.filter { $0.name?.contains("dropZone") == true }
+        
+        let sortedDropZones = potentialDropZones.sorted {
+            hypot($0.position.x - circle.position.x, $0.position.y - circle.position.y) <
+            hypot($1.position.x - circle.position.x, $1.position.y - circle.position.y)
+        }
+        
+        return sortedDropZones.first
+    }
+    
+    private func resolvePositionConflicts(for circle: SKShapeNode, withDropZone dropZone: SKShapeNode, originalPosition: CGPoint) {
+        let occupyingCircle = self.children.compactMap { $0 as? SKShapeNode }.first(where: { otherCircle in
+            otherCircle != circle &&
+            otherCircle.name?.starts(with: "dragNode") ?? false &&
+            dropZone.position == otherCircle.position
+        })
+        
+        if let occupyingCircle = occupyingCircle {
+            // swaps the positions
+            occupyingCircle.position = originalPosition
+        }
+        circle.position = dropZone.position
+    }
+    
+    private func finalizeDragOperation(for circle: SKShapeNode) {
+        circle.zPosition = 1
+        currentlyDraggedNode = nil
+        originalPositionOfDraggedNode = nil
+    }
+    
+    // reports the current indices of the numberCircles
+    func reportDropZoneIndices() {
+        var occupancyReport: [(Int, Int)] = []  // (Number, DropZoneIndex)
+        
+        self.children.forEach { node in
+            if let dragNode = node as? SKShapeNode,
+               let name = dragNode.name,
+               name.starts(with: "dragNode"),
+               let number = Int(name.replacingOccurrences(of: "dragNode", with: "")),
+               let dropZoneIndex = determineClosestDropZoneIndex(for: dragNode) {
+               
+                occupancyReport.append((number, dropZoneIndex))
+            }
+        }
+
+        occupancyReport.sort(by: { $0.1 < $1.1 })
+        onPositionsChanged(occupancyReport)
+    }
+    
+    private func determineClosestDropZoneIndex(for circle: SKShapeNode) -> Int? {
+        let distances = dropZonePositions.enumerated().map { (index, dropZonePosition) in
+            return (index: index, distance: hypot(dropZonePosition.x - circle.position.x, dropZonePosition.y - circle.position.y))
+        }
+        
+        guard let closest = distances.min(by: { $0.distance < $1.distance }) else { return nil }
+        return closest.index
     }
 }
 
