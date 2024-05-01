@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2E187A0D2BCAAC060081DA0B /* BNTPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E187A0C2BCAAC060081DA0B /* BNTPicture.swift */; };
 		2E187A112BCAAFD30081DA0B /* StringMetric in Frameworks */ = {isa = PBXBuildFile; productRef = 2E187A102BCAAFD30081DA0B /* StringMetric */; };
-		2E1AAA8A2BB32C23009EA657 /* DragNDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA892BB32C23009EA657 /* DragNDropView.swift */; };
 		2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */; };
 		2E2E39EB2BE0DCD800CB5055 /* DragNDropContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2E39EA2BE0DCD800CB5055 /* DragNDropContainerView.swift */; };
 		2E3241AF2BE018F900F68B91 /* Test5View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3241AE2BE018F900F68B91 /* Test5View.swift */; };
@@ -114,7 +113,6 @@
 
 /* Begin PBXFileReference section */
 		2E187A0C2BCAAC060081DA0B /* BNTPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BNTPicture.swift; sourceTree = "<group>"; };
-		2E1AAA892BB32C23009EA657 /* DragNDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragNDropView.swift; sourceTree = "<group>"; };
 		2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		2E2E39EA2BE0DCD800CB5055 /* DragNDropContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragNDropContainerView.swift; sourceTree = "<group>"; };
 		2E3241AE2BE018F900F68B91 /* Test5View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test5View.swift; sourceTree = "<group>"; };
@@ -512,7 +510,6 @@
 			isa = PBXGroup;
 			children = (
 				C66BB4172BAF0A2600ACC04F /* Test4View.swift */,
-				2E1AAA892BB32C23009EA657 /* DragNDropView.swift */,
 			);
 			path = Test4;
 			sourceTree = "<group>";
@@ -785,7 +782,6 @@
 				2EAE890F2BB5C6940022B4CD /* Quadtree.swift in Sources */,
 				2EBE8FCA2BAC712700F983C0 /* AudioService.swift in Sources */,
 				2EBB95B72BACA86E00D8EA4C /* TimerModifier.swift in Sources */,
-				2E1AAA8A2BB32C23009EA657 /* DragNDropView.swift in Sources */,
 				2E89142A2BDD2BF7008E68EE /* PatientData.swift in Sources */,
 				C65F98AA2BABB26E00DCBD41 /* WelcomeView.swift in Sources */,
 				C66BB41F2BAF0A6F00ACC04F /* LearnphaseView.swift in Sources */,
