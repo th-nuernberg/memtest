@@ -15,6 +15,7 @@
 		2E3241AF2BE018F900F68B91 /* Test5View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3241AE2BE018F900F68B91 /* Test5View.swift */; };
 		2E3624B22BCEE54800368F7F /* HourglassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3624B12BCEE54800368F7F /* HourglassView.swift */; };
 		2E3624B52BCFDC0800368F7F /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3624B42BCFDC0800368F7F /* AvatarView.swift */; };
+		2E4176422BE277C7009B0790 /* OrderNumberTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4176412BE277C7009B0790 /* OrderNumberTestService.swift */; };
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
 		2E5A90972BCAC72B00804F19 /* AppleTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */; };
 		2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */; };
@@ -119,6 +120,7 @@
 		2E3241AE2BE018F900F68B91 /* Test5View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test5View.swift; sourceTree = "<group>"; };
 		2E3624B12BCEE54800368F7F /* HourglassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourglassView.swift; sourceTree = "<group>"; };
 		2E3624B42BCFDC0800368F7F /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		2E4176412BE277C7009B0790 /* OrderNumberTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderNumberTestService.swift; sourceTree = "<group>"; };
 		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
 		2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleTranscriptionService.swift; sourceTree = "<group>"; };
 		2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperTranscriptionService.swift; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 				2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */,
 				2EBBA1C62BD11B46005F5642 /* AnimalNameChecker.swift */,
 				2EBBA1CB2BD12B67005F5642 /* DataService.swift */,
+				2E4176412BE277C7009B0790 /* OrderNumberTestService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				2EAE89122BB6FB2C0022B4CD /* AudioIndicatorView.swift in Sources */,
 				2E8914282BDD2BCB008E68EE /* FirstDataInputView.swift in Sources */,
 				C66BB4102BAF09ED00ACC04F /* Test7View.swift in Sources */,
+				2E4176422BE277C7009B0790 /* OrderNumberTestService.swift in Sources */,
 				C6190AE62B934C7A00633305 /* DataInputView.swift in Sources */,
 				2E2E39EB2BE0DCD800CB5055 /* DragNDropContainerView.swift in Sources */,
 				2E3241AF2BE018F900F68B91 /* Test5View.swift in Sources */,

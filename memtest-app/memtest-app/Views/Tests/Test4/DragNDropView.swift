@@ -210,6 +210,7 @@ class OrderNumberScene: SKScene {
     }
 
     func touchDown(atPoint pos: CGPoint) {
+        print("oof")
         for blueCircle in draggableCircles {
             if blueCircle.contains(pos) {
                 currentlyDraggingCircleNode = blueCircle
@@ -220,6 +221,7 @@ class OrderNumberScene: SKScene {
     }
 
     func touchMoved(toPoint pos: CGPoint) {
+        print("oof2")
         if let draggingCircle = currentlyDraggingCircleNode {
             draggingCircle.position = pos
         }

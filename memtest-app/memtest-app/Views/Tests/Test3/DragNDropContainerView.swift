@@ -283,7 +283,6 @@ class DragNDropScene: SKScene {
                 // This is never reached
                 if let index = self.dragElements.firstIndex(where: { $0.label == number }) {
                     let updatedElement = DragElement(posIndex: dropZoneIndex, label: number, color: dragNode.fillColor)
-                    print(updatedElement)
                     updatedDragElements.append(updatedElement)
                 }
             }

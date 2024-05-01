@@ -23,44 +23,20 @@ struct Test3View: View {
         DragElement(posIndex: 18, label: "29", color: UIColor(Color(hex: "#AC9725"))),
         DragElement(posIndex: 19, label: "40", color: UIColor(Color(hex: "#2CBA76"))),
     ]
-    
-    let dropZones: [DropZone] = [
-        DropZone(),
-        DropZone(),
-        DropZone(),
-        DropZone(),
-        DropZone(),
-        DropZone(),
-        DropZone(),
-        DropZone(),
-        DropZone(),
-        DropZone(),
-        DropZone(label: "10"),
-        DropZone(label: "81"),
-        DropZone(label: "72"),
-        DropZone(label: "95"),
-        DropZone(label: "84"),
-        DropZone(label: "73"),
-        DropZone(label: "16"),
-        DropZone(label: "13"),
-        DropZone(label: "29"),
-        DropZone(label: "40"),
-
-    ]
-    
+        
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 3,
                      textOfCircle:"3", destination: {Test4View()}, content: {
             AudioIndicatorView()
             Spacer()
             
-            DragNDropContainerView(dragElements: dragElements, dropZones: dropZones, isDragEnabled: false, onPositionsChanged: { positions in
+            DragNDropContainerView(dragElements: dragElements, dropZones: OrderNumberTestService.shared.getDropZones(), isDragEnabled: false, onPositionsChanged: { positions in
                 
             })
             .onTimerComplete(duration: 60) {
                 print("Timer completed")
-                finished = true
-                AudioService.shared.stopRecording()
+                
+                onComplete()
             }
             .onAppear(perform: {
                 try! AudioService.shared.startRecording(to: "test3")
@@ -99,6 +75,12 @@ struct Test3View: View {
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 3, onContinue: onContinue)
         })
+    }
+    
+    private func onComplete(){
+        
+        finished = true
+        AudioService.shared.stopRecording()
     }
 }
 

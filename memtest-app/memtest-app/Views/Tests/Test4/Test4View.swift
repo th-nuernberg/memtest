@@ -20,51 +20,27 @@ struct Test4View: View {
     
     @State private var finished = false
     
-    let numberCircles = [
-            NumberCircles(number: 10, color: UIColor(Color(hex: "#D10B0B"))),
-            NumberCircles(number: 81, color: UIColor(Color(hex: "#44FF57"))),
-            NumberCircles(number: 72, color: UIColor(Color(hex: "#32FFE6"))),
-            NumberCircles(number: 95, color: UIColor(Color(hex: "#9E70FF"))),
-            NumberCircles(number: 84, color: UIColor(Color(hex: "#BCE225"))),
-            NumberCircles(number: 73, color: UIColor(Color(hex: "#E78CFE"))),
-            NumberCircles(number: 16, color: UIColor(Color(hex: "#F5762F"))),
-            NumberCircles(number: 13, color: UIColor(Color(hex: "#4478FF"))),
-            NumberCircles(number: 29, color: UIColor(Color(hex: "#AC9725"))),
-            NumberCircles(number: 40, color: UIColor(Color(hex: "#2CBA76"))),
+    let dragElements: [DragElement] = [
+        DragElement(posIndex: 10, label: "10", color: UIColor(Color(hex: "#D10B0B"))),
+        DragElement(posIndex: 11, label: "81", color: UIColor(Color(hex: "#44FF57"))),
+        DragElement(posIndex: 12, label: "72", color: UIColor(Color(hex: "#32FFE6"))),
+        DragElement(posIndex: 13, label: "95", color: UIColor(Color(hex: "#9E70FF"))),
+        DragElement(posIndex: 14, label: "84", color: UIColor(Color(hex: "#BCE225"))),
+        DragElement(posIndex: 15, label: "73", color: UIColor(Color(hex: "#E78CFE"))),
+        DragElement(posIndex: 16, label: "16", color: UIColor(Color(hex: "#F5762F"))),
+        DragElement(posIndex: 17, label: "13", color: UIColor(Color(hex: "#4478FF"))),
+        DragElement(posIndex: 18, label: "29", color: UIColor(Color(hex: "#AC9725"))),
+        DragElement(posIndex: 19, label: "40", color: UIColor(Color(hex: "#2CBA76"))),
     ]
-    let dropZoneCircles = [
-        DropZoneCircle(),
-        DropZoneCircle(),
-        DropZoneCircle(),
-        DropZoneCircle(),
-        DropZoneCircle(),
-        DropZoneCircle(),
-        DropZoneCircle(),
-        DropZoneCircle(),
-        DropZoneCircle(),
-        DropZoneCircle(),
-        DropZoneCircle(number: 10),
-        DropZoneCircle(number: 81),
-        DropZoneCircle(number: 72),
-        DropZoneCircle(number: 95),
-        DropZoneCircle(number: 84),
-        DropZoneCircle(number: 73),
-        DropZoneCircle(number: 16),
-        DropZoneCircle(number: 13),
-        DropZoneCircle(number: 29),
-        DropZoneCircle(number: 40)
-    ]
-    
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 4,
                      textOfCircle:"4", destination: {Test5View()}, content: {
-            
-            OrderNumberSceneContainerView(numberCircles: numberCircles, onPositionsChanged: { positions in
-                print(positions)
+            DragNDropContainerView(dragElements: dragElements, dropZones: OrderNumberTestService.shared.getDropZones(), onPositionsChanged: { updatedDragElements in
+                OrderNumberTestService.shared.setDragElements(dragElements: updatedDragElements)
             })
             .onTimerComplete(duration: 60) {
                 print("Timer completed")
-                finished = true
+                onComplete()
             }
                         
         }, explanationContent: {
@@ -104,6 +80,11 @@ struct Test4View: View {
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 4, onContinue: onContinue)
         })
+    }
+    
+    private func onComplete() {
+        // TODO: save currentDragElements in json
+        finished = true
     }
 }
 
