@@ -14,7 +14,7 @@ class BNT_Picture: Identifiable {
     
     init(name: String, file_name: String, maxDistance: Int) {
         self.name = name
-        self.file_name = "Test10Assets/\(file_name)"
+        self.file_name = "Test11Assets/\(file_name)"
         self.maxDistance = maxDistance
     }
 }

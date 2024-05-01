@@ -142,7 +142,6 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
 
         if rms == 0 { return 0.0 }
         let dB = 20 * log10(rms)
-        print(dB)
         
         let minDB: Float = -70.0
         

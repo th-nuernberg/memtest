@@ -1,46 +1,85 @@
 //
-//  Test6View.swift
+//  Test5View.swift
 //  memtest-app
 //
 //  Created by Maximilian Werzinger - TH on 02.03.24.
 //
 
 import SwiftUI
+import Combine
+
 
 struct Test6View: View {
+    @StateObject private var viewModel: SymbolViewModel = SymbolViewModel()
     @State private var finished = false
     
+    @State private var userSymbolCount = ""
+    
+    
     var body: some View {
-        
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 6, textOfCircle: "6", destination: { Test7View()}, content: {
-            VStack {
+        BaseTestView(showCompletedView: $finished,indexOfCircle: 6,
+                     textOfCircle:"6", destination: {Test7View()}, content: {
+            
+            VStack{
                 AudioIndicatorView()
-                Spacer()
                 
-                VStack {
-                    Text("ABBABA")
-                        .font(.custom("SFProText-SemiBold", size: 40))
-                        .foregroundStyle(.black)
-                        .padding(.bottom, 20)
-                        .underline()
-                    Text("A B A A B A B B A A B A B A B B A")
-                        .font(.custom("SFProText-SemiBold", size: 40))
-                        .foregroundStyle(.black)
-                    Text("A A B A B A B B B A B A A B A B A")
-                        .font(.custom("SFProText-SemiBold", size: 40))
-                        .foregroundStyle(.black)
+                VStack (spacing: 0){
+                    Text("Gesucht: \(viewModel.selectedSymbol ?? "")")
+                        .font(.custom("SFProText-Bold", size: 40))
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .padding()
+                    SymbolView(viewModel: viewModel)
+                        .padding()
                 }
                 
-                Spacer()
+                //Text("Stern \(viewModel.symbolCounts["★"] ?? 0), Flocke \(viewModel.symbolCounts["✻"] ?? 0), Form \(viewModel.symbolCounts["▢"] ?? 0) ")
+                //Text("\(viewModel.selectedSymbolCount)")
                 
+                HStack{
+                    TextField("Anzahl der Symbole:", text: $userSymbolCount)
+                        .keyboardType(.numberPad)
+                        .padding()
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(10)
+                        .onReceive(Just(userSymbolCount)) { newValue in
+                            let filtered = String(newValue.filter { $0.isNumber })
+                            if let count = Int(filtered), count > 200 {
+                                userSymbolCount = String(filtered.prefix(filtered.count - 1))
+                            } else {
+                                userSymbolCount = filtered
+                            }
+                        }
+                        .padding(.trailing, 20)
+                    
+                    Button(action: {
+                        AudioService.shared.stopRecording()
+                        finished.toggle()
+                    }) {
+                        Text("OK")
+                            .font(.custom("SFProText-SemiBold", size: 25))
+                            .foregroundStyle(.white)
+                    }
+                    .padding(13)
+                    .background(.blue)
+                    .cornerRadius(10)
+                }
+                .padding(20)
             }
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "test6");
+                do {
+                    try AudioService.shared.startRecording(to: "test6")
+                    print("Recording started")
+                } catch {
+                    print("Failed to start recording: \(error)")
+                }
             })
-            .onTimerComplete(duration: 60, onComplete: {
+            .onTimerComplete(duration:60) {
+                print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()
-            })
+            }
+            
+            
         }, explanationContent: {
             HStack {
                 Text("Aufgabenstellung 6")
@@ -50,31 +89,48 @@ struct Test6View: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             
+            
             VStack{
-                Text("Die sechste Aufgabe besteht darin,")
+                Text("Ihre sechste Aufgabe besteht darin, das")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("für jedes A, B zu sprechen und für jedes B, A.")
+                Text("gesuchte Symbol zu zählen und als Antwort")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Die Buchstaben sollen nacheinander vorgelesen werden.")
+                Text("zurück zu geben wie oft Sie dieses gefunden haben.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("Sie werden gleich eine große Anzahl an Symbolen sehen.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top,20)
+                
+                Text("Oben rechts wird Ihnen immer angezeigt, was das gesuchte")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("Smybol ist. Diese zählen Sie und geben es entweder unten")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("in das Eingabefeld ein oder sagen es laut und deutlich.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("Sind Sie fertig drücken Sie auf den OK Knopf.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
             }
             .padding(.top,120)
-        },
-        completedContent: { onContinue in
-            
-            CompletedView( completedTasks: 6, onContinue: onContinue)
-            
+        }, completedContent: {onContinue in
+            CompletedView(completedTasks: 6, onContinue: onContinue)
         })
-        
     }
 }
-
-
 
 #Preview {
     Test6View()
