@@ -25,7 +25,7 @@ struct DragNDropContainerView: UIViewRepresentable {
     var columns = 5
     var isDragEnabled: Bool = true
     // Callback TODO: instead of [(number, position)] it should be sorted [DragElement] with according indices
-    var onPositionsChanged: ([(Int, Int)]) -> Void
+    var onPositionsChanged: ([DragElement]) -> Void
     
     func makeUIView(context: Context) -> SKView {
         let view = SKView()
@@ -60,9 +60,9 @@ class DragNDropScene: SKScene {
     var currentlyDraggedNode: SKShapeNode?
     var originalPositionOfDraggedNode: CGPoint?
     // Callback
-    var onPositionsChanged: ([(Int, Int)]) -> Void
+    var onPositionsChanged: ([DragElement]) -> Void
     
-    init(size: CGSize, dragElements: [DragElement], dropZones: [DropZone], columns: Int, isDragEnabled: Bool, onPositionsChanged: @escaping ([(Int, Int)]) -> Void) {
+    init(size: CGSize, dragElements: [DragElement], dropZones: [DropZone], columns: Int, isDragEnabled: Bool, onPositionsChanged: @escaping ([DragElement]) -> Void) {
         self.dropZones = dropZones
         self.dragElements = dragElements
         self.isDragEnabled = isDragEnabled
@@ -271,21 +271,33 @@ class DragNDropScene: SKScene {
     
     // reports the current indices of the numberCircles
     func reportDropZoneIndices() {
-        var occupancyReport: [(Int, Int)] = []  // (Number, DropZoneIndex)
-        
+        var updatedDragElements: [DragElement] = []
+
         self.children.forEach { node in
             if let dragNode = node as? SKShapeNode,
                let name = dragNode.name,
                name.starts(with: "dragNode"),
-               let number = Int(name.replacingOccurrences(of: "dragNode", with: "")),
                let dropZoneIndex = determineClosestDropZoneIndex(for: dragNode) {
-               
-                occupancyReport.append((number, dropZoneIndex))
+                
+                let number = name.replacingOccurrences(of: "dragNode", with: "")
+                // This is never reached
+                if let index = self.dragElements.firstIndex(where: { $0.label == number }) {
+                    let updatedElement = DragElement(posIndex: dropZoneIndex, label: number, color: dragNode.fillColor)
+                    print(updatedElement)
+                    updatedDragElements.append(updatedElement)
+                }
             }
         }
 
-        occupancyReport.sort(by: { $0.1 < $1.1 })
-        onPositionsChanged(occupancyReport)
+        // Ensure all elements are returned, including those not updated
+        for element in dragElements {
+            if !updatedDragElements.contains(where: { $0.label == element.label }) {
+                updatedDragElements.append(element)
+            }
+        }
+
+        updatedDragElements.sort(by: { $0.posIndex < $1.posIndex })
+        onPositionsChanged(updatedDragElements)
     }
     
     private func determineClosestDropZoneIndex(for circle: SKShapeNode) -> Int? {
