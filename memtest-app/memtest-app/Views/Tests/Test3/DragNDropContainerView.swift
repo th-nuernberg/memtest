@@ -8,7 +8,7 @@
 import SwiftUI
 import SpriteKit
 
-struct DragElement {
+struct DragElement: Equatable {
     var posIndex: Int;
     var label: String?
     var color: UIColor

@@ -37,6 +37,8 @@ struct Test4View: View {
                      textOfCircle:"4", destination: {Test5View()}, content: {
             DragNDropContainerView(dragElements: dragElements, dropZones: OrderNumberTestService.shared.getDropZones(), onPositionsChanged: { updatedDragElements in
                 OrderNumberTestService.shared.setDragElements(dragElements: updatedDragElements)
+                // if the updatedDragElements are in an ascending order regarding the label and the lowest label number element is on posIndex 0 and the highest label number is on posIndex (dragElements.count - ), the onComplete function is called
+                checkOrderAndComplete(dragElements: updatedDragElements)
             })
             .onTimerComplete(duration: 60) {
                 print("Timer completed")
@@ -80,6 +82,15 @@ struct Test4View: View {
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 4, onContinue: onContinue)
         })
+    }
+    
+    private func checkOrderAndComplete(dragElements: [DragElement]) {
+        let sortedByLabel = dragElements.sorted(by: { Int($0.label ?? "") ?? 0 < Int($1.label ?? "") ?? 0 })
+        let sortedByPosition = sortedByLabel.sorted(by: { $0.posIndex < $1.posIndex })
+        
+        if sortedByLabel == sortedByPosition && sortedByLabel.first?.posIndex == 0 && dragElements.last?.posIndex == (dragElements.count - 1) {
+            onComplete()
+        }
     }
     
     private func onComplete() {
