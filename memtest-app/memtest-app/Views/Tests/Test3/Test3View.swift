@@ -61,10 +61,14 @@ struct Test3View: View {
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Als erstes lesen Sie bitte die Zahlen laut vor,")
+                Text("Als erstes lesen Sie bitte die Zahlen,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                     .padding(.top,20)
+                
+                Text("von links nach rechts, laut vor,")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
                 
                 Text("so schnell Sie können.")
                     .font(.custom("SFProText-SemiBold", size: 40))

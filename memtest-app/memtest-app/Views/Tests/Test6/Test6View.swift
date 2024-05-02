@@ -116,6 +116,10 @@ struct Test6View: View {
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
+                Text("von links nach rechts,")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
                 Text("indem Sie mit dem Zeigefinger auf jedes Symbol deuten.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
@@ -123,9 +127,10 @@ struct Test6View: View {
                 Text("Sind Sie fertig drücken Sie auf den OK Knopf.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top,20)
                 
             }
-            .padding(.top,120)
+            .padding(.top,60)
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 6, onContinue: onContinue)
         })

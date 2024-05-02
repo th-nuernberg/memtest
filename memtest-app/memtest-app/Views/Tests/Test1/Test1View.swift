@@ -76,37 +76,36 @@ struct Test1View: View {
                 Text("Es werden Ihnen nun Bilder von Gegenständen gezeigt,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top, 8)
                 
                 Text(" die Sie alle schon einmal gesehen haben,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top, 8)
                 
                 Text("die Ihnen also bekannt sind.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top, 8)
 
-                Text("Es kommt jetzt darauf an, dass Sie, so schnell Sie können,  ")
+                Text("Es kommt jetzt darauf an, dass Sie, so schnell Sie können,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top, 8)
+                    .padding(.top, 20)
                 
-                Text("sagen, wie man die Gegenstände benennt oder wie sie heißen")
+                Text("von links nach rechts sagen,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top, 8)
+                
+                Text("wie man die Gegenstände benennt oder wie sie heißen")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
                 
                 Text("und dass Sie sich die Gegenstände gleichzeitig auch einprägen.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top, 8)
 
                 Text("Sie werden nämlich später noch einmal nach diesen gefragt.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top, 8)
+                    .padding(.top,20)
             }
             .padding(.top, 40)
             
