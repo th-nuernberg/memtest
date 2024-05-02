@@ -91,32 +91,32 @@ struct Test6View: View {
             
             
             VStack{
-                Text("Ihre sechste Aufgabe besteht darin, das")
+                Text("Sie sehen hier auf dieser Tafel verschiedene Symbole:")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("gesuchte Symbol zu zählen und als Antwort")
+                Text("Vierecke, Sterne und Blumen.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("zurück zu geben wie oft Sie dieses gefunden haben.")
+                Text("Wichtig sind nur die gesuchten Symbole.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Sie werden gleich eine große Anzahl an Symbolen sehen.")
+                Text("Zählen Sie bitte laut und so schnell Sie können")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                     .padding(.top,20)
                 
-                Text("Oben rechts wird Ihnen immer angezeigt, was das gesuchte")
+                Text("alle gesuchten Symbole, die zu sehen sind.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Smybol ist. Diese zählen Sie und geben es entweder unten")
+                Text("Bitte zählen Sie die gesuchten Symbole Zeile für Zeile,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("in das Eingabefeld ein oder sagen es laut und deutlich.")
+                Text("indem Sie mit dem Zeigefinger auf jedes Symbol deuten.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 

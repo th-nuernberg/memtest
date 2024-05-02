@@ -56,24 +56,37 @@ struct Test4View: View {
             
             
             VStack{
-                Text("Ihre vierte Aufgabe besteht darin, die")
+                Text("Wie Sie sehen, sind die Zahlen nicht geordnet.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("angezeigten Zahlen zu ordnen.")
+                Text("Kleine und große Zahlen sind durcheinander gemischt.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Sie ziehen dabei mit ihrem Finger die Zahl")
+                Text("Bitte ordnen Sie jetzt, so schnell Sie können,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                     .padding(.top,20)
                 
-                Text("die Sie ordnen wollen an die Stelle, an die")
+                Text("die Zahlen der Größe nach.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("gewünschte Stelle.")
+                Text("Dazu suchen Sie die kleinste Zahl ")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top,20)
+                
+                Text("und ziehen sie auf das erste Feld links oben.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("Dann suchen Sie die nächstgrößere Zahl")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text(" und ziehen Sie daneben und so weiter.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 

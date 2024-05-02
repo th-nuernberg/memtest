@@ -65,17 +65,23 @@ struct Test8View: View {
             
             
             VStack{
-                Text("Ihre achte Aufgabe besteht darin, die")
+                Text("Jetzt kommen wir noch einmal zu den Gegenständen,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Bilder aus der Lernphase jetzt noch")
+                Text(" die Sie am Anfang gesehen haben.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("einmal zu bennenen.")
+                Text("An welche können Sie sich jetzt noch erinnern?")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top, 20)
+                
+                Text("Was war auf dem Bildschirm, den Sie zu Beginn gesehen haben?")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top, 20)
                 
             }
             .padding(.top,120)

@@ -53,22 +53,28 @@ struct Test3View: View {
             
             
             VStack{
-                Text("Ihre dritte Aufgabe besteht darin, die")
+                Text("Sie sehen nun ein Spielbrett mit bunten Spielsteinen,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Ihnen gezeigten Zahlen zu lesen und zu bennenen.")
+                Text("auf denen Zahlen stehen.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Zum Beispiel sehen Sie die Zahl 12, dann")
+                Text("Als erstes lesen Sie bitte die Zahlen laut vor,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                     .padding(.top,20)
                 
-                Text("sagen Sie laut und deutlich zwölf.")
+                Text("so schnell Sie können.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("Sie brauchen sich die Zahlen nicht zu merken.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top,20)
+                
                 
             }
             .padding(.top,120)
