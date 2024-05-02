@@ -18,6 +18,9 @@ struct Test5View: View {
             
             DragNDropContainerView(dragElements: OrderNumberTestService.shared.getDragElements(), dropZones: OrderNumberTestService.shared.getDropZones(), onPositionsChanged: { updatedDragElements in
                 self.dragElements = updatedDragElements
+                // if the updatedDragElements are on the there starting positions, the onComplete function should be called
+                // the right place is defined by if the dragElement.label is the same as the dropZone.label on the same index
+                checkElementsPosition(updatedDragElements: updatedDragElements)
             })
             
             Text("test5")
@@ -55,6 +58,36 @@ struct Test5View: View {
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 5, onContinue: onContinue)
         })
+    }
+    
+    private func checkElementsPosition(updatedDragElements: [DragElement]) {
+        let dropZones = OrderNumberTestService.shared.getDropZones()
+        
+        print(dropZones[10..<dropZones.count].map({ $0.label}))
+        print(updatedDragElements.map({$0.label}))
+        
+        for updatedDragElement in updatedDragElements {
+            let el_index = updatedDragElement.posIndex
+            
+            if dropZones[el_index].label == updatedDragElement.label {
+                
+            }
+        }
+        
+        // Check if all elements are in their starting positions
+        let mispositionedElements = updatedDragElements.filter { element in
+            // check if dropZone has a lable if not, the drop Position is not valid
+            guard let label = element.label, let dropZoneLabel = dropZones[element.posIndex].label, element.posIndex < dropZones.count else {
+                return true // Include if there's any issue with index conversion or range
+            }
+            // if the dragElement.label and the dropZoneLabel are the same return false
+            return !(dropZones[element.posIndex].label!.contains(label) || label.contains(dropZones[element.posIndex].label!))
+        }
+        
+        // complete the test if the dragElements are in their starting positions
+        if mispositionedElements.isEmpty {
+            onComplete()
+        }
     }
     
     private func onComplete() {
