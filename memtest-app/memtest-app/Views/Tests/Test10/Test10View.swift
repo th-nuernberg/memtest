@@ -56,28 +56,24 @@ struct Test10View: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             VStack{
-                Text("Ihre zehnte Aufgabe besteht darin, soviele")
+                Text("Ihnen wird gleich eine Kategorie genannt")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Tiere wie möglich zu benennen.")
+                Text("und Sie sollen so schnell wie möglich alle Dinge aufzählen,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("")
+                Text("die in diese Kategorie gehören.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Sagen sie zum Beispiel Hund,")
+                Text("Wenn die Kategorie Kleidungsstücke' lautet,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                     .padding(.top,20)
                 
-                Text("die App wird dann automatisch das Wort erkennen")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("und das Wort Hund wird angezeigt.")
+                Text("können Sie 'Hemd', 'Krawatte' oder 'Hut', usw. aufzählen.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
             }

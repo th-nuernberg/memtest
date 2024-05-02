@@ -68,15 +68,15 @@ struct Test2View: View {
             
             
             VStack{
-                Text("Ihre zweite Aufgabe besteht darin, die Bilder die")
+                Text("Sagen Sie bitte jetzt,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Ihnen gerade gezeigt wurden, noch einmal")
+                Text("welche Gegenstände Sie gerade gesehen haben. ")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("zu bennenen.")
+                Text("An welche können Sie sich noch erinnern?")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 

@@ -70,27 +70,46 @@ struct Test1View: View {
             }
             
             
+            
+            Spacer()
             VStack{
-                Text("Ihre erste Aufgabe besteht darin, Bilder die")
+                Text("Es werden Ihnen nun Bilder von Gegenständen gezeigt,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("gezeigt werden zu benennen.")
+                Text(" die Sie alle schon einmal gesehen haben,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Sie sehen zum Beispiel ein Bild eines Baums, ")
+                Text("die Ihnen also bekannt sind.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+
+                Text("Es kommt jetzt darauf an, dass Sie, so schnell Sie können,")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top, 20)
+                
+                Text("von links nach rechts sagen,")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("wie man die Gegenstände benennt oder wie sie heißen")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Text("und dass Sie sich die Gegenstände gleichzeitig auch einprägen.")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+
+                Text("Sie werden nämlich später noch einmal nach diesen gefragt.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                     .padding(.top,20)
-                
-                Text("dann sagen Sie deutlich das Wort Baum.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-                
             }
-            .padding(.top,120)
+            .padding(.top, 40)
+            
+            Spacer()
             
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 1, onContinue: onContinue)

@@ -58,23 +58,15 @@ struct LearnphaseView: View {
             }
             
             VStack{
-                Text("In der Lernphase geht es nicht um eine Aufgabe")
+                Text("Ihnen werden die Gegenstände noch einmal ganz kurz gezeigt.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("die Sie bearbeiten sollen, sondern um")
+                Text("Bitte prägen Sie sich die Gegenstände gut ein;")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("eine kurze Phase in der wir Ihnen Bilder zeigen welche")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Sie sich für eine spätere Aufgaben so gut wie möglich")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("merken sollen.")
+                Text("später werden Sie nach diesen nochmal gefragt")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
             }

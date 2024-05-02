@@ -52,26 +52,14 @@ struct Test12View: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             VStack{
-                Text("Ihre zwölfte Aufgabe besteht darin, ein Bild")
+                Text("Ihnen wird gleich ein Bild gezeigt.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("und das was Sie dort sehen zu beschreiben.")
+                Text("Bitte beschreiben Sie was auf diesem zu sehen ist.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Beschreiben Sie zum Beispiel was Personen")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-                
-                Text("in Ihrem Bild machen oder welche Objekte Sie")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("sehen und erkennen können.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top, 20)
             }
             .padding(.top,120)
         }, completedContent: { onContinue in

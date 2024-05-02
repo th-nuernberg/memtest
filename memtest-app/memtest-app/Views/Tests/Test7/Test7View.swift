@@ -51,15 +51,29 @@ struct Test7View: View {
             }
             
             VStack{
-                Text("Die siebte Aufgabe besteht darin,")
+                Text("Sie sehen hier zwei Zeilen mit den Buchstaben A und B,")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+            
+                Text("darüber eine unterstrichene Übungszeile.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("für jedes A, B zu sprechen und für jedes B, A.")
+                Text("Sie sollen jetzt für jedes A, das Sie sehen, „B“ sagen")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top, 20)
+                
+                Text("und umgekehrt für jedes B,„A“.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("Die Buchstaben sollen nacheinander vorgelesen werden.")
+                Text("Also immer genau den anderen,")
+                    .font(.custom("SFProText-SemiBold", size: 40))
+                    .foregroundStyle(Color(hex: "#5377A1"))
+                    .padding(.top, 20)
+                
+                Text("„verkehrten“ Buchstaben laut sagen.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
             }

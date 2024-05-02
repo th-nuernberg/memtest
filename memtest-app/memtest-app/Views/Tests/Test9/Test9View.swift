@@ -94,29 +94,51 @@ struct Test9View: View {
                 
                 
                 VStack{
-                    Text("Ihre neunte Aufgabe besteht darin, wie")
+                    Text("Um es Ihnen leichter zu machen,")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                     
-                    Text("bei einem Test davor, die gezeigten Objeke zu erkennen")
+                    Text("sich an die Gegenstände zu erinnern,")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                     
-                    Text("und diese zu bennenen.")
+                    Text("sehen Sie gleich viele Gegenstände auf dem Bildschirm.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                     
-                    Text("Sie können zwischen 2 Seiten auf denen Symbole zu sehen sind")
+                    Text("Unter diesen befinden sich auch diejenigen,")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                         .padding(.top,20)
                     
-                    Text("wechseln. Benennen Sie die Bilder die Sie sich merken konnten")
+                    Text("die Sie vorhin gesehen haben.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                     
+                    Text("Suchen Sie diese bitte Zeile für Zeile heraus.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Deuten Sie bitte mit dem Finger darauf")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top,20)
+                    
+                    Text("und sagen Sie nochmals laut,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text(" was auf dem Bild dargestellt ist.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Mit dem Knopf können Sie zur nächsten Seite wechseln. ")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top,20)
+                    
                 }
-                .padding(.top,120)
+                .padding(.top,30)
             }, completedContent: {onContinue in
                 CompletedView(completedTasks: 9, onContinue: onContinue)
             })

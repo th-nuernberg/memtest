@@ -40,15 +40,15 @@ struct Test5View: View {
             
             
             VStack{
-                Text("Ihre fünfte Aufgabe besteht darin, die")
+                Text("Stellen Sie jetzt bitte, so schnell Sie können,")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("angezeigten Zahlen auf ihre .")
+                Text(" die Spielsteine wieder auf ihren alten Platz zurück.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("ursprüngliche Position zurückzulegen")
+                Text("Die Zahl 17 also auf das Feld Nummer 17 usw.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
                     .padding(.top,20)
@@ -62,17 +62,6 @@ struct Test5View: View {
     
     private func checkElementsPosition(updatedDragElements: [DragElement]) {
         let dropZones = OrderNumberTestService.shared.getDropZones()
-        
-        print(dropZones[10..<dropZones.count].map({ $0.label}))
-        print(updatedDragElements.map({$0.label}))
-        
-        for updatedDragElement in updatedDragElements {
-            let el_index = updatedDragElement.posIndex
-            
-            if dropZones[el_index].label == updatedDragElement.label {
-                
-            }
-        }
         
         // Check if all elements are in their starting positions
         let mispositionedElements = updatedDragElements.filter { element in
