@@ -21,20 +21,40 @@ enum VisibleView: Equatable {
 struct RoutingView: View {
     var dataService: DataService = DataService.shared
     @State var visibleView: VisibleView = .home
-    @State var nextView: VisibleView = .feedback
+    @State var nextViews: [VisibleView] =  []
     
     var body: some View {
         switch visibleView {
         case .home:
             HomeView(){ nextView in
-                routeToView(view: nextView)
+                
+                if (nextView == .skt || nextView == .vft || nextView == .bnt || nextView == .pdt) && dataService.hasQRCodeScanned() && dataService.hasMetadataBeenCollected() {
+                    self.visibleView = nextView
+                } else if !dataService.hasQRCodeScanned() {
+                    
+                    if !dataService.hasMetadataBeenCollected() {
+                        nextViews.append(.metadata)
+                        nextViews.append(nextView)
+                    }
+                    
+                    self.visibleView = .welcome
+                    
+                } else if !dataService.hasMetadataBeenCollected() {
+                    if !dataService.hasQRCodeScanned() {
+                        nextViews.append(.welcome)
+                        nextViews.append(nextView)
+                    }
+                    self.visibleView = .metadata
+                }
             }
         case .welcome:
             WelcomeRoutingView() {
-                self.visibleView = self.nextView
+                self.visibleView = self.nextViews.removeFirst()
             }
         case .metadata:
-            DataInputView()
+            DataInputView() {
+                self.visibleView = self.nextViews.removeFirst()
+            }
         case .skt:
             Test1View()
         case .vft:
@@ -48,16 +68,6 @@ struct RoutingView: View {
         }
     }
     
-    func routeToView(view: VisibleView) {
-        if (view == .skt || view == .vft || view == .bnt || view == .pdt) && dataService.hasQRCodeScanned() {
-            self.visibleView = view
-        } else if (dataService.hasMetadataBeenCollected()) {
-            
-        } else  {
-            self.visibleView = .welcome
-            self.nextView = view
-        }
-    }
 }
 
 #Preview {

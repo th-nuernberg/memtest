@@ -28,8 +28,6 @@ struct WelcomeRoutingView: View {
             }
         }
     }
-    
-    
 }
 
 #Preview {

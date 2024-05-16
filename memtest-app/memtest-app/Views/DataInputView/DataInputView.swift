@@ -15,6 +15,7 @@ struct DataInputView: View {
     @State var showSecondView = false
     @State var showNextView: Bool = false
     @State private var showAlert = false
+    var onNextView: (() -> Void)?
     
     var body: some View {
         NavigationStack{
@@ -26,6 +27,7 @@ struct DataInputView: View {
                 SecondDataInputView(patientData: patientData){
                     // TODO: use DataService to save metadata
                     dataService.setPatientData(patientData: self.patientData)
+                    onNextView?()
                     showNextView.toggle()
                 }
             }
