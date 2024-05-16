@@ -14,6 +14,13 @@ class DataService {
     private var uuid: String = ""
     private var aes_key: String = ""
     
+    private var patientData: PatientData?
+    
+    
+    
+    private init() {
+        
+    }
     
     func setQRCodeData(qrCodeData: QRCodeData){
         study_id = qrCodeData.study_id
@@ -21,8 +28,19 @@ class DataService {
         aes_key = qrCodeData.key
     }
     
+    func setPatientData(patientData: PatientData) {
+        self.patientData = patientData
+    }
+    
     func getStudyId() -> String {
         return self.study_id
     }
     
+    func hasQRCodeScanned() -> Bool {
+        return (uuid != "" && aes_key != "" )
+    }
+    
+    func hasMetadataBeenCollected() -> Bool {
+        return (patientData != nil)
+    }
 }

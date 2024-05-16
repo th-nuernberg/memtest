@@ -11,6 +11,8 @@ struct WelcomeView: View {
     @State var showNextView: Bool = false
     @State private var qrCodeData: QRCodeData?
     @State private var isScanning = false
+    var onNextView: ((_ nextView: WelcomeViewEnum) -> Void)?
+    
     
     var body: some View {
         NavigationStack {
@@ -71,6 +73,7 @@ struct WelcomeView: View {
                             isScanning = true
                         } else {
                             showNextView = true
+                            onNextView?(.welcomeStudy)
                         }
                     }) {
                         Text(qrCodeData != nil ? "Weiter": "QR-Code scannen")

@@ -13,6 +13,8 @@ struct WelcomeStudyView: View {
     @State private var studyID = ""
     @State private var studyResearchName = "der TH Nürnberg"
     
+    var onNextView: ((_ nextView: WelcomeViewEnum) -> Void)?
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -31,6 +33,7 @@ struct WelcomeStudyView: View {
                 
                 Button(action: {
                     showNextView.toggle()
+                    onNextView?(.next)
                 }) {
                     Text("Gerät überreichen")
                         .font(.custom("SFProText-SemiBold", size: 25))

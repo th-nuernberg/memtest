@@ -10,6 +10,7 @@ import Combine
 
 struct DataInputView: View {
     
+    var dataService: DataService = DataService.shared
     @StateObject private var patientData = PatientData()
     @State var showSecondView = false
     @State var showNextView: Bool = false
@@ -24,6 +25,7 @@ struct DataInputView: View {
             } else {
                 SecondDataInputView(patientData: patientData){
                     // TODO: use DataService to save metadata
+                    dataService.setPatientData(patientData: self.patientData)
                     showNextView.toggle()
                 }
             }
