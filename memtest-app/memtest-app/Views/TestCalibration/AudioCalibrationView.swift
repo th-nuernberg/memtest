@@ -80,7 +80,7 @@ struct AudioCalibrationView: View {
                 .padding()
                 .padding(.leading)
                 .navigationDestination(isPresented: $showNextView) {
-                    Test1View()
+                    Test1View(currentView: .constant(.skt1))
                 }
                 .navigationBarBackButtonHidden(true)
             }

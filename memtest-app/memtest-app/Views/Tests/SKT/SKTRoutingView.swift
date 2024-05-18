@@ -23,12 +23,12 @@ enum SKTViewEnum {
 struct SKTRoutingView: View {
     @State var currentView: SKTViewEnum = .skt1
     
-    @State private var skt1Finished: Bool = false
+    var onNextView: (() -> Void)?
     
     var body: some View {
         switch currentView {
         case .skt1:
-            Test1View()
+            Test1View(currentView: $currentView)
         case .skt2:
             Test2View()
         case .learningphase:

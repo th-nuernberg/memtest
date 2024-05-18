@@ -51,6 +51,7 @@
 		2EEA58142B9A773C00CB2483 /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEA58132B9A773C00CB2483 /* OpenAPIURLSession */; };
 		2EEBF6102BDD361100594070 /* SecondDataInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEBF60F2BDD361100594070 /* SecondDataInputView.swift */; };
 		2EEBF6162BDD38C500594070 /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEBF6152BDD38C500594070 /* RadioButtonView.swift */; };
+		2EECBA482BF8CA35005F91CA /* SKTRoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EECBA462BF8CA35005F91CA /* SKTRoutingView.swift */; };
 		2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */; };
 		2EF974972B99E19000EFFA46 /* memtest_server_client.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EF974962B99E19000EFFA46 /* memtest_server_client.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2EF9749A2B99E19000EFFA46 /* memtest_server_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF974942B99E19000EFFA46 /* memtest_server_client.framework */; };
@@ -159,6 +160,7 @@
 		2ECA20992B873F36000F2790 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		2EEBF60F2BDD361100594070 /* SecondDataInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondDataInputView.swift; sourceTree = "<group>"; };
 		2EEBF6152BDD38C500594070 /* RadioButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonView.swift; sourceTree = "<group>"; };
+		2EECBA462BF8CA35005F91CA /* SKTRoutingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTRoutingView.swift; sourceTree = "<group>"; };
 		2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
 		2EF974942B99E19000EFFA46 /* memtest_server_client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = memtest_server_client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF974962B99E19000EFFA46 /* memtest_server_client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memtest_server_client.h; sourceTree = "<group>"; };
@@ -423,6 +425,14 @@
 			path = Test9;
 			sourceTree = "<group>";
 		};
+		2EECBA472BF8CA35005F91CA /* SKT */ = {
+			isa = PBXGroup;
+			children = (
+				2EECBA462BF8CA35005F91CA /* SKTRoutingView.swift */,
+			);
+			path = SKT;
+			sourceTree = "<group>";
+		};
 		2EED6D302BCED35500523CA3 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +482,7 @@
 		C6190AFA2B934FA000633305 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				2EECBA472BF8CA35005F91CA /* SKT */,
 				2E3241A02BE0122300F68B91 /* Test12 */,
 				2EC8E0EB2BC9167C003C163C /* Test11 */,
 				C673BB762BBEE56700179A0F /* Test10 */,
@@ -783,6 +794,7 @@
 				C6190AE62B934C7A00633305 /* DataInputView.swift in Sources */,
 				2E60DB512BF4E6AD00554E7E /* WelcomeRoutingView.swift in Sources */,
 				2E2E39EB2BE0DCD800CB5055 /* DragNDropContainerView.swift in Sources */,
+				2EECBA482BF8CA35005F91CA /* SKTRoutingView.swift in Sources */,
 				2E3241AF2BE018F900F68B91 /* Test5View.swift in Sources */,
 				C6190B052B93510100633305 /* TestEndView.swift in Sources */,
 				2EBBA1CC2BD12B67005F5642 /* DataService.swift in Sources */,

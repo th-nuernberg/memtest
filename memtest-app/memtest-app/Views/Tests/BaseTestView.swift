@@ -47,9 +47,8 @@ struct BaseTestView<Destination: View, Content: View, ExplanationContent: View, 
                     if (showCompletedView == false) {
                         content()
                     } else {
-                        // completedContent must have onContinue
                         completedContent({
-                            showNextView = true
+                            //showNextView = true
                         })
                     }
                 }
@@ -235,7 +234,7 @@ struct CompletedView: View {
 #Preview {
     BaseTestView(showCompletedView: .constant(false),
                  indexOfCircle: 7,
-                              textOfCircle:"6",destination: {Test1View()}, content: {
+                 textOfCircle:"6",destination: {Test1View(currentView: .constant(.skt1))}, content: {
         Text("Das ist die Test1View")
     }, explanationContent: {
         Text("Hier sind einige Erklärungen.")

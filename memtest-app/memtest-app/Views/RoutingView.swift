@@ -56,7 +56,9 @@ struct RoutingView: View {
                 self.visibleView = self.nextViews.removeFirst()
             }
         case .skt:
-            Test1View() 
+            SKTRoutingView() {
+                
+            }
         case .vft:
             Test10View()
         case .bnt:
