@@ -11,6 +11,7 @@ enum VisibleView: Equatable {
     case home
     case welcome
     case metadata
+    case calibration
     case skt
     case vft
     case bnt
@@ -26,33 +27,41 @@ struct RoutingView: View {
     var body: some View {
         switch visibleView {
         case .home:
-            HomeView(){ nextView in
-                
-                if (nextView == .skt || nextView == .vft || nextView == .bnt || nextView == .pdt) && dataService.hasQRCodeScanned() && dataService.hasMetadataBeenCollected() {
-                    self.visibleView = nextView
-                } else if !dataService.hasQRCodeScanned() {
-                    
-                    if !dataService.hasMetadataBeenCollected() {
-                        nextViews.append(.metadata)
-                        nextViews.append(nextView)
-                    }
-                    
-                    self.visibleView = .welcome
-                    
-                } else if !dataService.hasMetadataBeenCollected() {
-                    if !dataService.hasQRCodeScanned() {
-                        nextViews.append(.welcome)
-                        nextViews.append(nextView)
-                    }
-                    self.visibleView = .metadata
-                }
-            }
+            HomeView { nextView in
+                   if (nextView == .skt || nextView == .vft || nextView == .bnt || nextView == .pdt) && dataService.hasQRCodeScanned() && dataService.hasMetadataBeenCollected() && dataService.hasCalibrated() {
+                       self.visibleView = nextView
+                   } else if !dataService.hasQRCodeScanned() {
+                       if !dataService.hasMetadataBeenCollected() {
+                           nextViews.append(.metadata)
+                           nextViews.append(.calibration)
+                           nextViews.append(nextView)
+                       }
+                       self.visibleView = .welcome
+                   } else if !dataService.hasMetadataBeenCollected() {
+                       if !dataService.hasQRCodeScanned() {
+                           nextViews.append(.welcome)
+                           nextViews.append(.calibration)
+                           nextViews.append(nextView)
+                       } else {
+                           nextViews.append(.calibration)
+                           nextViews.append(nextView)
+                       }
+                       self.visibleView = .metadata
+                   } else if !dataService.hasCalibrated() {
+                       nextViews.append(nextView)
+                       self.visibleView = .calibration
+                   }
+               }
         case .welcome:
             WelcomeRoutingView() {
                 self.visibleView = self.nextViews.removeFirst()
             }
         case .metadata:
             DataInputView() {
+                self.visibleView = self.nextViews.removeFirst()
+            }
+        case .calibration:
+            CalibrationRoutingView() {
                 self.visibleView = self.nextViews.removeFirst()
             }
         case .skt:

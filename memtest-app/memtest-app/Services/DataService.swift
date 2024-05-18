@@ -16,7 +16,7 @@ class DataService {
     
     private var patientData: PatientData?
     
-    
+    private var calibrated: Bool = false
     
     private init() {
         
@@ -42,5 +42,13 @@ class DataService {
     
     func hasMetadataBeenCollected() -> Bool {
         return (patientData != nil)
+    }
+    
+    func setCalibrated(calibrated: Bool) {
+        self.calibrated = calibrated
+    }
+    
+    func hasCalibrated() -> Bool {
+        return self.calibrated
     }
 }

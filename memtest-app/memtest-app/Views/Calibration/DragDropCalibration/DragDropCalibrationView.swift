@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct DragDropCalibrationView: View {
-    @State var showNextView: Bool = false
+    var onNextView: (() -> Void)?
+    
     @State var calibrationComplete = false
     
     var body: some View {
@@ -26,7 +27,7 @@ struct DragDropCalibrationView: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 Button(action: {
-                    showNextView.toggle()
+                    self.onNextView?()
                 }) {
                     Text("Weiter")
                         .font(.custom("SFProText-SemiBold", size: 25))
@@ -38,10 +39,6 @@ struct DragDropCalibrationView: View {
                 .cornerRadius(10)
                 .padding()
                 .padding(.leading)
-                .navigationDestination(isPresented: $showNextView) {
-                    AudioCalibrationView()
-                }
-                .navigationBarBackButtonHidden(true)
             }
         }
         

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AudioCalibrationView: View {
-    @State var showNextView: Bool = false
+    var onNextView: (() -> Void)?
+    
     @State var testStarted: Bool = false
     @ObservedObject var speechRecognitionManager: SpeechRecognitionManager = SpeechRecognitionManager.shared
     var body: some View {
@@ -56,7 +57,7 @@ struct AudioCalibrationView: View {
                     
                     if (testStarted) {
                         AudioService.shared.stopRecording()
-                        showNextView.toggle()
+                        self.onNextView?()
                     } else {
                         
                         do {
@@ -79,10 +80,6 @@ struct AudioCalibrationView: View {
                 .cornerRadius(10)
                 .padding()
                 .padding(.leading)
-                .navigationDestination(isPresented: $showNextView) {
-                    Test1View(currentView: .constant(.skt1))
-                }
-                .navigationBarBackButtonHidden(true)
             }
         }
     }
