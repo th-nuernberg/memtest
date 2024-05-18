@@ -226,6 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				2E60DB502BF4E6AD00554E7E /* WelcomeRoutingView.swift */,
+				C65F98A92BABB26E00DCBD41 /* WelcomeView.swift */,
+				C62BE6D22BAC2B6600B111ED /* WelcomeStudyView.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -335,9 +337,6 @@
 				C6190AED2B934D7900633305 /* TestCalibration */,
 				C6190B042B93510100633305 /* TestEndView.swift */,
 				C6190B062B93511000633305 /* FeedbackView.swift */,
-				C65F98A92BABB26E00DCBD41 /* WelcomeView.swift */,
-				C62BE6D22BAC2B6600B111ED /* WelcomeStudyView.swift */,
-				2EAE89112BB6FB2C0022B4CD /* AudioIndicatorView.swift */,
 				2EA3E7A92BF23DFD006A6B01 /* HomeView.swift */,
 				2E60DB472BF2547E00554E7E /* RoutingView.swift */,
 			);
@@ -430,6 +429,7 @@
 		2EED6D302BCED35500523CA3 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				2EAE89112BB6FB2C0022B4CD /* AudioIndicatorView.swift */,
 				2E3624B12BCEE54800368F7F /* HourglassView.swift */,
 				2E3624B42BCFDC0800368F7F /* AvatarView.swift */,
 				2EEBF6152BDD38C500594070 /* RadioButtonView.swift */,
