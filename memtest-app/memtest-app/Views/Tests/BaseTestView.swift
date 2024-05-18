@@ -1,32 +1,19 @@
-//
-//  BaseTestView.swift
-//  memtest-app
-//
-//  Created by Christopher Witzl on 15.03.24.
-//
-
 import SwiftUI
 
 typealias ContinueHandler = () -> Void
 
-struct BaseTestView<Destination: View, Content: View, ExplanationContent: View, CompletedContent: View>: View {
-    let destination: () -> Destination
+struct BaseTestView<Content: View, ExplanationContent: View, CompletedContent: View>: View {
     let content: () -> Content
     var explanationContent: () -> ExplanationContent?
     var completedContent: (@escaping ContinueHandler) -> CompletedContent?
     @Binding private var showCompletedView: Bool
-    @State var showNextView: Bool = false
     @State private var showExplanation: Bool
-    private var circleText: String;
-    private var circleIndex: Int;
-    
-    
-    
-    
+    private var circleText: String
+    private var circleIndex: Int
+
     init(showCompletedView: Binding<Bool>, indexOfCircle: Int,
-         textOfCircle: String, destination: @escaping () -> Destination, @ViewBuilder content: @escaping () -> Content,
+         textOfCircle: String, @ViewBuilder content: @escaping () -> Content,
          @ViewBuilder explanationContent: @escaping () -> ExplanationContent? = { nil }, @ViewBuilder completedContent: @escaping (@escaping ContinueHandler) -> CompletedContent? = { _ in nil }) {
-        self.destination = destination
         self.content = content
         self.explanationContent = explanationContent
         self.completedContent = completedContent
@@ -35,50 +22,41 @@ struct BaseTestView<Destination: View, Content: View, ExplanationContent: View, 
         self.circleText = textOfCircle
         self.circleIndex = indexOfCircle
     }
-    
+
     var body: some View {
-        NavigationStack {
+        VStack {
             if showExplanation, let explanation = explanationContent() {
-                ExplanationView(circleIndex:circleIndex,circleText: circleText,content: { explanation }, onContinue: {
+                ExplanationView(circleIndex: circleIndex, circleText: circleText, content: { explanation }, onContinue: {
                     showExplanation = false
                 })
             } else {
-                VStack {
-                    if (showCompletedView == false) {
-                        content()
-                    } else {
-                        completedContent({
-                            //showNextView = true
-                        })
-                    }
+                if showCompletedView == false {
+                    content()
+                } else {
+                    completedContent({
+                        // Handle what happens when continue is pressed in completed view
+                    })
                 }
-                .navigationDestination(isPresented: $showNextView, destination: destination)
-                .navigationBarBackButtonHidden(true)
             }
         }
     }
-    
-    func navigateToDestination() {
-        showNextView = true
-    }
 }
-
 
 struct ExplanationView<Content: View>: View {
     let content: Content
     var onContinue: () -> Void
-    
+
     var circleIndex: Int
     var circleText: String
-    
+
     init(circleIndex: Int,
-         circleText: String,@ViewBuilder content: () -> Content, onContinue: @escaping () -> Void) {
+         circleText: String, @ViewBuilder content: () -> Content, onContinue: @escaping () -> Void) {
         self.content = content()
         self.onContinue = onContinue
         self.circleIndex = circleIndex
         self.circleText = circleText
     }
-    
+
     var body: some View {
         HStack {
             HStack {
@@ -88,7 +66,7 @@ struct ExplanationView<Content: View>: View {
                             Circle()
                                 .foregroundColor(.blue)
                                 .frame(width: 30, height: 30)
-                            Text(getTextForIndex(index: index+1))
+                            Text(getTextForIndex(index: index + 1))
                                 .font(.title)
                                 .foregroundColor(.white)
                         } else {
@@ -101,7 +79,7 @@ struct ExplanationView<Content: View>: View {
                 }
             }
         }
-        
+
         VStack {
             content
             Spacer()
@@ -113,7 +91,7 @@ struct ExplanationView<Content: View>: View {
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
                 }
-                .padding(.horizontal,50)
+                .padding(.horizontal, 50)
                 .background(Color.blue)
                 .cornerRadius(10)
                 .navigationBarBackButtonHidden(true)
@@ -121,7 +99,7 @@ struct ExplanationView<Content: View>: View {
             .padding()
         }
     }
-    
+
     func getTextForIndex(index: Int) -> String {
         switch index {
         case 1:
@@ -158,7 +136,7 @@ struct CompletedView: View {
     var numberOfTasks: Int = 13 // Total number of tasks
     var completedTasks: Int = 1 // Number of tasks completed
     var onContinue: ContinueHandler
-    
+
     var buttonText: String {
         if completedTasks == 1 {
             return "Zur zweiten Aufgabe ➔"
@@ -166,31 +144,31 @@ struct CompletedView: View {
             return "Zur Lernphase ➔"
         } else if completedTasks == 3 {
             return "Zur dritten Aufgabe ➔"
-        } else if  completedTasks == 4 {
+        } else if completedTasks == 4 {
             return "Zur fünften Aufgabe ➔"
-        } else if  completedTasks == 5 {
+        } else if completedTasks == 5 {
             return "Zur sechsten Aufgabe ➔"
-        } else if  completedTasks == 6 {
+        } else if completedTasks == 6 {
             return "Zur siebten Aufgabe ➔"
-        } else if  completedTasks == 7 {
+        } else if completedTasks == 7 {
             return "Zur achten Aufgabe ➔"
-        } else if  completedTasks == 8 {
+        } else if completedTasks == 8 {
             return "Zur neunten Aufgabe ➔"
-        } else if  completedTasks == 9 {
+        } else if completedTasks == 9 {
             return "Zur zehnten Aufgabe ➔"
-        } else if  completedTasks == 10 {
+        } else if completedTasks == 10 {
             return "Zur elften Aufgabe ➔"
-        } else if  completedTasks == 11 {
+        } else if completedTasks == 11 {
             return "Zur zwölften Aufgabe ➔"
         } else {
             return "Beenden ➔"
         }
     }
-    
+
     var body: some View {
         VStack {
             Spacer()
-            
+
             Text("Die Aufgabe ist abgeschlossen.\nMachen Sie eine kurze Pause.")
                 .font(.custom("SFProText-SemiBold", size: 40))
                 .foregroundStyle(Color(hex: "#958787"))
@@ -198,7 +176,7 @@ struct CompletedView: View {
                 .padding(.leading)
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
-            
+
             HStack(spacing: 50) {
                 ForEach(0..<numberOfTasks) { index in
                     Image(systemName: completedTasks > index ? "checkmark.circle.fill" : "circle")
@@ -209,9 +187,9 @@ struct CompletedView: View {
                 }
             }
             .padding()
-            
+
             Spacer()
-            
+
             Button(action: {
                 onContinue()
             }, label:  {
@@ -222,19 +200,17 @@ struct CompletedView: View {
                     .background(Color.blue)
                     .cornerRadius(10)
             })
-            
+
             Spacer()
         }
         .padding()
     }
 }
 
-
-
 #Preview {
     BaseTestView(showCompletedView: .constant(false),
                  indexOfCircle: 7,
-                 textOfCircle:"6",destination: {Test1View(currentView: .constant(.skt1))}, content: {
+                 textOfCircle:"6", content: {
         Text("Das ist die Test1View")
     }, explanationContent: {
         Text("Hier sind einige Erklärungen.")

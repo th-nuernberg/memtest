@@ -34,7 +34,7 @@ struct Test9View: View {
             let (firstGroup, secondGroup) = splitSymbolsIntoGroups()
             
             BaseTestView(showCompletedView: $finished,indexOfCircle: 9,
-                         textOfCircle:"9", destination: {VFTView()}, content: {
+                         textOfCircle:"9", content: {
             
                 //Text(manager.recognizedWords.last ?? "")
                 AudioIndicatorView()

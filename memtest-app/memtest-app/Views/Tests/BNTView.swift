@@ -26,7 +26,7 @@ struct BNTView: View {
     }
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 11, textOfCircle: "11", destination: { PDTView() }, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 11, textOfCircle: "11", content: {
             
             AudioIndicatorView()
             

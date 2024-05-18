@@ -31,7 +31,7 @@ struct Test3View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 3,
-                     textOfCircle:"3", destination: {Test4View(currentView: .constant(.skt4))}, content: {
+                     textOfCircle:"3", content: {
             AudioIndicatorView()
             Spacer()
             

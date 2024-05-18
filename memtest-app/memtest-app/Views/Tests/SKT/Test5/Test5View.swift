@@ -20,7 +20,7 @@ struct Test5View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 5,
-                     textOfCircle:"5", destination: {Test6View(currentView: .constant(.skt6))}, content: {
+                     textOfCircle:"5", content: {
             
             DragNDropContainerView(dragElements: OrderNumberTestService.shared.getDragElements(), dropZones: OrderNumberTestService.shared.getDropZones(), onPositionsChanged: { updatedDragElements in
                 self.dragElements = updatedDragElements

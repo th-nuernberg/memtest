@@ -23,7 +23,7 @@ struct Test6View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 6,
-                     textOfCircle:"6", destination: {Test7View(currentView: .constant(.skt7))}, content: {
+                     textOfCircle:"6", content: {
             
             VStack{
                 AudioIndicatorView()

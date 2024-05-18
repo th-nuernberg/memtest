@@ -15,7 +15,7 @@ struct PDTView: View {
     var body: some View {
         BaseTestView(showCompletedView: $finished,
                      indexOfCircle: 12,
-                     textOfCircle:"12",destination: {TestEndView()}, content: {
+                     textOfCircle:"12", content: {
             VStack{
                 AudioIndicatorView()
                 GeometryReader { geometry in

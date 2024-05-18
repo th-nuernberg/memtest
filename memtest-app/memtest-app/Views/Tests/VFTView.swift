@@ -22,7 +22,7 @@ struct VFTView: View {
     private let testDuration = 60
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 10, textOfCircle: "10", destination: { BNTView(){} }, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 10, textOfCircle: "10", content: {
             VStack {
                 AudioIndicatorView()
                 Spacer()

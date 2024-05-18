@@ -31,7 +31,7 @@ struct Test8View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 8,
-                     textOfCircle:"8", destination: {Test9View(currentView: .constant(.skt9))}, content: {
+                     textOfCircle:"8", content: {
             //Text(manager.recognizedWords.last ?? "")
             
             VStack{
