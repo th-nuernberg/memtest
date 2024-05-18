@@ -9,6 +9,8 @@ import SwiftUI
 import StringMetric
 
 struct Test11View: View {
+    var onNextView: (() -> Void)?
+    
     @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
     @State private var finished = false
     @State private var currentImage: BNT_Picture?  // Use BNT_Picture instead of String
@@ -16,7 +18,8 @@ struct Test11View: View {
     @State private var unusedImages: [BNT_Picture]  // Store BNT_Picture objects
     @State private var recognizedImages: [String] = []
     
-    init() {
+    init(onNextView: (() -> Void)?) {
+        self.onNextView = onNextView
         // Initialize with BNT_Picture objects from BNTPictureList
         let bntPictureList = BNTPictureList()
         _unusedImages = State(initialValue: bntPictureList.pictures)
@@ -74,7 +77,10 @@ struct Test11View: View {
             }
             .padding(.top,120)
         }, completedContent: { onContinue in
-            CompletedView(completedTasks: 11, onContinue: onContinue)
+            CompletedView(completedTasks: 11, onContinue: {
+                onNextView?()
+                onContinue()
+            })
         })
     }
     
@@ -112,5 +118,7 @@ struct Test11View: View {
 }
 
 #Preview {
-    Test11View()
+    Test11View(){
+         
+    }
 }

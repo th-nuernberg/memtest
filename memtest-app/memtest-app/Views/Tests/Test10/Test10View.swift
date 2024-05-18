@@ -9,6 +9,9 @@ import SwiftUI
 import Combine
 
 struct Test10View: View {
+    
+    var onNextView: (() -> Void)?
+    
     @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
     
     let wordChecker = AnimalNameChecker()
@@ -19,7 +22,7 @@ struct Test10View: View {
     private let testDuration = 60
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 10, textOfCircle: "10", destination: { Test11View() }, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 10, textOfCircle: "10", destination: { Test11View(){} }, content: {
             VStack {
                 AudioIndicatorView()
                 Spacer()
@@ -79,7 +82,10 @@ struct Test10View: View {
             }
             .padding(.top,120)
         }, completedContent: { onContinue in
-            CompletedView(completedTasks: 10, onContinue: onContinue)
+            CompletedView(completedTasks: 10, onContinue: {
+                onNextView?()
+                onContinue()
+            })
         })
     }
     

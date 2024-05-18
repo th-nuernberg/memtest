@@ -20,7 +20,7 @@ enum VisibleView: Equatable {
 
 struct RoutingView: View {
     var dataService: DataService = DataService.shared
-    @State var visibleView: VisibleView = .skt
+    @State var visibleView: VisibleView = .vft
     @State var nextViews: [VisibleView] =  []
     
     var body: some View {
@@ -60,11 +60,17 @@ struct RoutingView: View {
                 self.visibleView = .home
             }
         case .vft:
-            Test10View()
+            Test10View(){
+                self.visibleView = .home
+            }
         case .bnt:
-            Test11View()
+            Test11View(){
+                self.visibleView = .home
+            }
         case .pdt:
-            Test12View()
+            Test12View(){
+                self.visibleView = .home
+            }
         case .feedback:
             FeedbackView()
         }

@@ -22,7 +22,7 @@ enum SKTViewEnum {
 }
 
 struct SKTRoutingView: View {
-    @State var currentView: SKTViewEnum = .skt9
+    @State var currentView: SKTViewEnum = .skt1
     
     var onNextView: (() -> Void)?
     

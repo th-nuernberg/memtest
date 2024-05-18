@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Test12View: View {
+    var onNextView: (() -> Void)?
     
     @State private var finished = false
     
@@ -63,7 +64,10 @@ struct Test12View: View {
             }
             .padding(.top,120)
         }, completedContent: { onContinue in
-            CompletedView(completedTasks: 12, onContinue: onContinue)
+            CompletedView(completedTasks: 12, onContinue: {
+                onNextView?()
+                onContinue()
+            })
         })
     }
 }
