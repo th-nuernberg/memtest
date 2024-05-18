@@ -30,7 +30,7 @@ struct SKTRoutingView: View {
         case .skt1:
             Test1View(currentView: $currentView)
         case .skt2:
-            Test2View()
+            Test2View(currentView: $currentView)
         case .learningphase:
             LearnphaseView()
         case .skt3:

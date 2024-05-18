@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Test2View: View {
+    @Binding var currentView: SKTViewEnum
     
     @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
@@ -22,6 +23,11 @@ struct Test2View: View {
         GridItem(.flexible(), spacing: 8),
         GridItem(.flexible(), spacing: 8)
     ]
+    
+    public init(currentView: Binding<SKTViewEnum>) {
+        self._currentView = currentView
+    }
+    
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 1,
@@ -83,7 +89,11 @@ struct Test2View: View {
             }
             .padding(.top,120)
         }, completedContent: {onContinue in
-            CompletedView(completedTasks: 2, onContinue: onContinue)
+            CompletedView(completedTasks: 2, onContinue:  {
+                currentView = .learningphase
+                print(currentView)
+                onContinue()
+            })
         })
     }
     
@@ -110,5 +120,5 @@ struct Test2View: View {
 }
 
 #Preview {
-    Test2View()
+    Test2View(currentView: .constant(.skt2))
 }
