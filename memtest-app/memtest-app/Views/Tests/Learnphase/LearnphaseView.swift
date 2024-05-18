@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LearnphaseView: View {
+    @Binding var currentView: SKTViewEnum
     
     @State private var finished = false
     
@@ -19,6 +20,10 @@ struct LearnphaseView: View {
         GridItem(.flexible(), spacing: 8),
         GridItem(.flexible(), spacing: 8)
     ]
+    
+    public init(currentView: Binding<SKTViewEnum>) {
+        self._currentView = currentView
+    }
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 2,
@@ -72,12 +77,14 @@ struct LearnphaseView: View {
             }
             .padding(.top,200)
         }, completedContent: { onContinue in
-            // hacky xD
-            Color.clear.onAppear(perform: onContinue)
+            CompletedView(completedTasks: 3, onContinue: {
+                currentView = .skt3
+                onContinue()
+            })
         })
     }
 }
 
 #Preview {
-    LearnphaseView()
+    LearnphaseView(currentView: .constant(.learningphase))
 }
