@@ -8,7 +8,7 @@
 import SwiftUI
 import StringMetric
 
-struct Test11View: View {
+struct BNTView: View {
     var onNextView: (() -> Void)?
     
     @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
@@ -26,7 +26,7 @@ struct Test11View: View {
     }
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 11, textOfCircle: "11", destination: { Test12View() }, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 11, textOfCircle: "11", destination: { PDTView() }, content: {
             
             AudioIndicatorView()
             
@@ -118,7 +118,7 @@ struct Test11View: View {
 }
 
 #Preview {
-    Test11View(){
+    BNTView(){
          
     }
 }

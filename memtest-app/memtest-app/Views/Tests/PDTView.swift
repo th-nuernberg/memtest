@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Test12View: View {
+struct PDTView: View {
     var onNextView: (() -> Void)?
     
     @State private var finished = false
@@ -73,5 +73,5 @@ struct Test12View: View {
 }
 
 #Preview {
-    Test12View()
+    PDTView()
 }

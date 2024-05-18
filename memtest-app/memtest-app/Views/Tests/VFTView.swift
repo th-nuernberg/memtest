@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-struct Test10View: View {
+struct VFTView: View {
     
     var onNextView: (() -> Void)?
     
@@ -22,7 +22,7 @@ struct Test10View: View {
     private let testDuration = 60
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 10, textOfCircle: "10", destination: { Test11View(){} }, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 10, textOfCircle: "10", destination: { BNTView(){} }, content: {
             VStack {
                 AudioIndicatorView()
                 Spacer()
@@ -104,5 +104,5 @@ struct Test10View: View {
 }
 
 #Preview {
-    Test10View()
+    VFTView()
 }
