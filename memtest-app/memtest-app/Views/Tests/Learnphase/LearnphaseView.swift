@@ -27,7 +27,7 @@ struct LearnphaseView: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 2,
-                     textOfCircle:"L", destination: {Test3View()}, content: {
+                     textOfCircle:"L", destination: {Test3View(currentView: .constant(.skt3))}, content: {
 
             LazyVGrid(columns: columns) {
                 ForEach(symbolList.symbols, id: \.name) { symbol in
