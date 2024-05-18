@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Test3View: View {
+    @Binding var currentView: SKTViewEnum
     
     @State private var finished = false
     
@@ -24,9 +25,13 @@ struct Test3View: View {
         DragElement(posIndex: 19, label: "40", color: UIColor(Color(hex: "#2CBA76"))),
     ]
         
+    public init(currentView: Binding<SKTViewEnum>) {
+        self._currentView = currentView
+    }
+    
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 3,
-                     textOfCircle:"3", destination: {Test4View()}, content: {
+                     textOfCircle:"3", destination: {Test4View(currentView: .constant(.skt4))}, content: {
             AudioIndicatorView()
             Spacer()
             
@@ -83,7 +88,10 @@ struct Test3View: View {
             }
             .padding(.top,120)
         }, completedContent: {onContinue in
-            CompletedView(completedTasks: 3, onContinue: onContinue)
+            CompletedView(completedTasks: 3, onContinue: {
+                currentView = .skt4
+                onContinue()
+            })
         })
     }
     
@@ -95,5 +103,5 @@ struct Test3View: View {
 }
 
 #Preview {
-    Test3View()
+    Test3View(currentView: .constant(.skt3))
 }

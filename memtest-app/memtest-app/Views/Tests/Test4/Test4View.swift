@@ -17,6 +17,7 @@ struct DropZoneCircle {
 }
 
 struct Test4View: View {
+    @Binding var currentView: SKTViewEnum
     
     @State private var finished = false
     
@@ -32,9 +33,14 @@ struct Test4View: View {
         DragElement(posIndex: 18, label: "29", color: UIColor(Color(hex: "#AC9725"))),
         DragElement(posIndex: 19, label: "40", color: UIColor(Color(hex: "#2CBA76"))),
     ]
+    
+    public init(currentView: Binding<SKTViewEnum>) {
+        self._currentView = currentView
+    }
+    
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 4,
-                     textOfCircle:"4", destination: {Test5View()}, content: {
+                     textOfCircle:"4", destination: {Test5View(currentView: .constant(.skt5))}, content: {
             DragNDropContainerView(dragElements: dragElements, dropZones: OrderNumberTestService.shared.getDropZones(), onPositionsChanged: { updatedDragElements in
                 OrderNumberTestService.shared.setDragElements(dragElements: updatedDragElements)
                 // if the updatedDragElements are in an ascending order regarding the label and the lowest label number element is on posIndex 0 and the highest label number is on posIndex (dragElements.count - ), the onComplete function is called
@@ -93,7 +99,10 @@ struct Test4View: View {
             }
             .padding(.top,120)
         }, completedContent: {onContinue in
-            CompletedView(completedTasks: 4, onContinue: onContinue)
+            CompletedView(completedTasks: 4, onContinue: {
+                currentView = .skt5
+                onContinue()
+            })
         })
     }
     
@@ -113,5 +122,5 @@ struct Test4View: View {
 }
 
 #Preview {
-    Test4View()
+    Test4View(currentView: .constant(.skt4))
 }

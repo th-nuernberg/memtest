@@ -57,7 +57,7 @@ struct RoutingView: View {
             }
         case .skt:
             SKTRoutingView() {
-                
+                self.visibleView = .home
             }
         case .vft:
             Test10View()

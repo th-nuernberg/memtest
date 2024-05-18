@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct Test7View: View {
+    @Binding var currentView: SKTViewEnum
+    
     @State private var finished = false
+
+    public init(currentView: Binding<SKTViewEnum>) {
+        self._currentView = currentView
+    }
     
     var body: some View {
         
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 7, textOfCircle: "7", destination: { Test8View()}, content: {
+        BaseTestView(showCompletedView: $finished, indexOfCircle: 7, textOfCircle: "7", destination: { Test8View(currentView: .constant(.skt8))}, content: {
             VStack {
                 AudioIndicatorView()
                 Spacer()
@@ -81,7 +87,10 @@ struct Test7View: View {
         },
         completedContent: { onContinue in
             
-            CompletedView( completedTasks: 7, onContinue: onContinue)
+            CompletedView( completedTasks: 7, onContinue: {
+                currentView = .skt8
+                onContinue()
+            })
             
         })
         
@@ -91,5 +100,5 @@ struct Test7View: View {
 
 
 #Preview {
-    Test7View()
+    Test7View(currentView: .constant(.skt7))
 }

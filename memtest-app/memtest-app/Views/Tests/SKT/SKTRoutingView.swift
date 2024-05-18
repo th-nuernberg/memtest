@@ -18,10 +18,11 @@ enum SKTViewEnum {
     case skt7
     case skt8
     case skt9
+    case finished
 }
 
 struct SKTRoutingView: View {
-    @State var currentView: SKTViewEnum = .skt1
+    @State var currentView: SKTViewEnum = .skt9
     
     var onNextView: (() -> Void)?
     
@@ -34,19 +35,24 @@ struct SKTRoutingView: View {
         case .learningphase:
             LearnphaseView(currentView: $currentView)
         case .skt3:
-            Test3View()
+            Test3View(currentView: $currentView)
         case .skt4:
-            Test4View()
+            Test4View(currentView: $currentView)
         case .skt5:
-            Test5View()
+            Test5View(currentView: $currentView)
         case .skt6:
-            Test6View()
+            Test6View(currentView: $currentView)
         case .skt7:
-            Test7View()
+            Test7View(currentView: $currentView)
         case .skt8:
-            Test9View()
+            Test8View(currentView: $currentView)
         case .skt9:
-            Test9View()
+            Test9View(currentView: $currentView)
+        case .finished:
+            Text("")
+                .onAppear(perform: {
+                    onNextView?()
+                })
         }
     }
 }

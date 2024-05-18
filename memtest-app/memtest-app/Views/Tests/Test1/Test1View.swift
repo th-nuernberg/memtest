@@ -29,7 +29,7 @@ struct Test1View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 0,
-                     textOfCircle:"1", destination: {Test2View()}, content: {
+                     textOfCircle:"1", destination: {Test2View(currentView: .constant(.skt2))}, content: {
             AudioIndicatorView()
             
             LazyVGrid(columns: columns) {

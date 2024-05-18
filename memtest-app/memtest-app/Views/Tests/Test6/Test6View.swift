@@ -10,15 +10,20 @@ import Combine
 
 
 struct Test6View: View {
+    @Binding var currentView: SKTViewEnum
+    
     @StateObject private var viewModel: SymbolViewModel = SymbolViewModel()
     @State private var finished = false
     
     @State private var userSymbolCount = ""
     
+    public init(currentView: Binding<SKTViewEnum>) {
+        self._currentView = currentView
+    }
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 6,
-                     textOfCircle:"6", destination: {Test7View()}, content: {
+                     textOfCircle:"6", destination: {Test7View(currentView: .constant(.skt7))}, content: {
             
             VStack{
                 AudioIndicatorView()
@@ -132,11 +137,14 @@ struct Test6View: View {
             }
             .padding(.top,60)
         }, completedContent: {onContinue in
-            CompletedView(completedTasks: 6, onContinue: onContinue)
+            CompletedView(completedTasks: 6, onContinue: {
+                currentView = .skt7
+                onContinue()
+            })
         })
     }
 }
 
 #Preview {
-    Test6View()
+    Test6View(currentView: .constant(.skt6))
 }

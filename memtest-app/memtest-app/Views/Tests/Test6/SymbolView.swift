@@ -89,5 +89,5 @@ class SymbolViewModel: ObservableObject {
 
 
 #Preview {
-    Test6View()
+    Test6View(currentView: .constant(.skt6))
 }

@@ -8,13 +8,19 @@
 import SwiftUI
 
 struct Test5View: View {
+    @Binding var currentView: SKTViewEnum
     @State private var finished = false
     
     @State private var dragElements: [DragElement] = []
     
+    
+    public init(currentView: Binding<SKTViewEnum>) {
+        self._currentView = currentView
+    }
+    
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 5,
-                     textOfCircle:"5", destination: {Test6View()}, content: {
+                     textOfCircle:"5", destination: {Test6View(currentView: .constant(.skt6))}, content: {
             
             DragNDropContainerView(dragElements: OrderNumberTestService.shared.getDragElements(), dropZones: OrderNumberTestService.shared.getDropZones(), onPositionsChanged: { updatedDragElements in
                 self.dragElements = updatedDragElements
@@ -56,7 +62,10 @@ struct Test5View: View {
             }
             .padding(.top,120)
         }, completedContent: {onContinue in
-            CompletedView(completedTasks: 5, onContinue: onContinue)
+            CompletedView(completedTasks: 5, onContinue: {
+                currentView = .skt6
+                onContinue()
+            })
         })
     }
     
@@ -87,5 +96,5 @@ struct Test5View: View {
 }
 
 #Preview {
-    Test5View()
+    Test5View(currentView: .constant(.skt5))
 }

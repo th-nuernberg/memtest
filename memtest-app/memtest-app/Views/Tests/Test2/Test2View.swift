@@ -31,7 +31,7 @@ struct Test2View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,indexOfCircle: 1,
-                     textOfCircle:"2", destination: {LearnphaseView()}, content: {
+                     textOfCircle:"2", destination: {LearnphaseView(currentView: .constant(.learningphase))}, content: {
             
             //Text(manager.recognizedWords.last ?? "")
             

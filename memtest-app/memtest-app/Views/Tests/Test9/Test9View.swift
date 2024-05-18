@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Test9View: View {
+    @Binding var currentView: SKTViewEnum
+    
     @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
     @State private var finished = false
@@ -18,10 +20,10 @@ struct Test9View: View {
     
     private var symbolList = TestSymbolList()
     
-    init() {
-       _symbols = State(initialValue: Test9View.initializeSymbols())
+    public init(currentView: Binding<SKTViewEnum>) {
+        _symbols = State(initialValue: Test9View.initializeSymbols())
+        self._currentView = currentView
     }
-    
     
     var body: some View {
         GeometryReader { geometry in
@@ -140,7 +142,10 @@ struct Test9View: View {
                 }
                 .padding(.top,30)
             }, completedContent: {onContinue in
-                CompletedView(completedTasks: 9, onContinue: onContinue)
+                CompletedView(completedTasks: 9, onContinue: {
+                    currentView = .finished
+                    onContinue()
+                })
             })
         }
     }
@@ -184,5 +189,5 @@ struct Test9View: View {
 }
 
 #Preview {
-    Test9View()
+    Test9View(currentView: .constant(.skt9))
 }
