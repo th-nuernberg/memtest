@@ -52,6 +52,7 @@
 		2EEBF6102BDD361100594070 /* SecondDataInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEBF60F2BDD361100594070 /* SecondDataInputView.swift */; };
 		2EEBF6162BDD38C500594070 /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEBF6152BDD38C500594070 /* RadioButtonView.swift */; };
 		2EECBA482BF8CA35005F91CA /* SKTRoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EECBA462BF8CA35005F91CA /* SKTRoutingView.swift */; };
+		2EECBA522BF8FC75005F91CA /* CalibrationRoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EECBA512BF8FC75005F91CA /* CalibrationRoutingView.swift */; };
 		2EF974852B98C47900EFFA46 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */; };
 		2EF974972B99E19000EFFA46 /* memtest_server_client.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EF974962B99E19000EFFA46 /* memtest_server_client.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2EF9749A2B99E19000EFFA46 /* memtest_server_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF974942B99E19000EFFA46 /* memtest_server_client.framework */; };
@@ -161,6 +162,7 @@
 		2EEBF60F2BDD361100594070 /* SecondDataInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondDataInputView.swift; sourceTree = "<group>"; };
 		2EEBF6152BDD38C500594070 /* RadioButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonView.swift; sourceTree = "<group>"; };
 		2EECBA462BF8CA35005F91CA /* SKTRoutingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTRoutingView.swift; sourceTree = "<group>"; };
+		2EECBA512BF8FC75005F91CA /* CalibrationRoutingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationRoutingView.swift; sourceTree = "<group>"; };
 		2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
 		2EF974942B99E19000EFFA46 /* memtest_server_client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = memtest_server_client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF974962B99E19000EFFA46 /* memtest_server_client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memtest_server_client.h; sourceTree = "<group>"; };
@@ -329,12 +331,12 @@
 		2ECA209B2B874080000F2790 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2EECBA4C2BF8FC04005F91CA /* Calibration */,
 				2E60DB4A2BF4E57E00554E7E /* Welcome */,
 				2E8914242BDD2B9C008E68EE /* DataInputView */,
 				2EED6D302BCED35500523CA3 /* Shared */,
 				2EF974832B98C45C00EFFA46 /* QRCode */,
 				C6190AFA2B934FA000633305 /* Tests */,
-				C6190AED2B934D7900633305 /* TestCalibration */,
 				C6190B042B93510100633305 /* TestEndView.swift */,
 				C6190B062B93511000633305 /* FeedbackView.swift */,
 				2EA3E7A92BF23DFD006A6B01 /* HomeView.swift */,
@@ -426,6 +428,16 @@
 			path = SKT;
 			sourceTree = "<group>";
 		};
+		2EECBA4C2BF8FC04005F91CA /* Calibration */ = {
+			isa = PBXGroup;
+			children = (
+				C6190AF82B934E7700633305 /* AudioCalibrationView.swift */,
+				2EA41A492BB874EA00FDD5B4 /* DragDropCalibration */,
+				2EECBA512BF8FC75005F91CA /* CalibrationRoutingView.swift */,
+			);
+			path = Calibration;
+			sourceTree = "<group>";
+		};
 		2EED6D302BCED35500523CA3 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,15 +474,6 @@
 				2EF974B42B99E94500EFFA46 /* MemtestClient.swift */,
 			);
 			path = "memtest-server-client";
-			sourceTree = "<group>";
-		};
-		C6190AED2B934D7900633305 /* TestCalibration */ = {
-			isa = PBXGroup;
-			children = (
-				2EA41A492BB874EA00FDD5B4 /* DragDropCalibration */,
-				C6190AF82B934E7700633305 /* AudioCalibrationView.swift */,
-			);
-			path = TestCalibration;
 			sourceTree = "<group>";
 		};
 		C6190AFA2B934FA000633305 /* Tests */ = {
@@ -761,6 +764,7 @@
 				2E3624B52BCFDC0800368F7F /* AvatarView.swift in Sources */,
 				2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */,
 				2E5A90972BCAC72B00804F19 /* AppleTranscriptionService.swift in Sources */,
+				2EECBA522BF8FC75005F91CA /* CalibrationRoutingView.swift in Sources */,
 				2E60DB482BF2547E00554E7E /* RoutingView.swift in Sources */,
 				C6190B072B93511000633305 /* FeedbackView.swift in Sources */,
 				2EAE89122BB6FB2C0022B4CD /* AudioIndicatorView.swift in Sources */,
