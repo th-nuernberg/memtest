@@ -47,7 +47,7 @@ struct VFTView: View {
                     .store(in: &cancellables)
             })
             .onTimerComplete(duration: testDuration, onComplete: {
-                // TODO: save recognizedAnimalNames
+                DataService.shared.setRecognizedAnimalNames(names: self.recognizedAnimalNames)
                 AudioService.shared.stopRecording()
                 finished = true
             })
@@ -57,6 +57,13 @@ struct VFTView: View {
                 showExplanation.toggle()
             }, showProgressCircles: false, content: {
                 HStack {
+                    Spacer()
+                    Button(action: {
+                        self.onNextView?()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title)
+                    }
                     Text("Aufgabenstellung VFT")
                         .font(.largeTitle)
                         .fontWeight(.bold)
