@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PDTView: View {
+    
     var onNextView: (() -> Void)?
     
     @State private var finished = false
@@ -52,6 +53,13 @@ struct PDTView: View {
                 showExplanation.toggle()
             }, showProgressCircles: false, content: {
                 HStack {
+                    Spacer()
+                    Button(action: {
+                        self.onNextView?()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title)
+                    }
                     Text("Aufgabenstellung PDT")
                         .font(.largeTitle)
                         .fontWeight(.bold)

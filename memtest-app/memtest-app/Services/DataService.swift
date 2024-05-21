@@ -28,6 +28,8 @@ class DataService {
     // BNT-Data
     private var bntFinished: Bool = false
     private var recognizedObjectNames: [String] = []
+    // PDT-Data
+    private var pdtFinished: Bool = false
     
     private init() {
         
@@ -65,6 +67,10 @@ class DataService {
         self.bntFinished = true
         self.recognizedObjectNames = names
     }
+    // PDT
+    func setPDTFinished() {
+        self.pdtFinished = true
+    }
     
     // MARK: CHECKS
     //Metadata
@@ -94,5 +100,9 @@ class DataService {
     // BNT
     func hasBNTFinished() -> Bool {
         return self.bntFinished
+    }
+    // PDT
+    func hasPDTFinished() -> Bool {
+        return self.pdtFinished
     }
 }
