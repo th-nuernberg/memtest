@@ -9,6 +9,7 @@ import SwiftUI
 import StringMetric
 
 struct BNTView: View {
+    
     var onNextView: (() -> Void)?
     
     @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
@@ -53,7 +54,7 @@ struct BNTView: View {
                 //stopTimer()
             }
             .onTimerComplete(duration: 60, onComplete: {
-                print(recognizedImages)
+                DataService.shared.setRecognizedObjectNames(names: self.recognizedImages)
                 AudioService.shared.stopRecording()
                 finished.toggle()
             })
@@ -64,6 +65,13 @@ struct BNTView: View {
                 showExplanation.toggle()
             }, showProgressCircles: false, content: {
                 HStack {
+                    Spacer()
+                    Button(action: {
+                        self.onNextView?()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title)
+                    }
                     Text("Aufgabenstellung BNT")
                         .font(.largeTitle)
                         .fontWeight(.bold)
