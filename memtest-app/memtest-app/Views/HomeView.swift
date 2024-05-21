@@ -7,64 +7,94 @@
 
 import SwiftUI
 
-struct HomeView: View{
-    
+struct HomeView: View {
     var nextView: ((_ nextView: VisibleView) -> Void)
     
     var body: some View {
         VStack {
             Spacer()
-            HStack {
-                Button(action: {
+            
+            
+            HStack(spacing: 20) {
+                navigationButton(title: "SKT", color: .blue, action: {
                     nextView(.skt)
-                }) {
-                    Text("SKT")
-                        .font(.largeTitle)
-                        .frame(width: 150, height: 150)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                Button(action: {
+                })
+                navigationButton(title: "VFT", color: .blue, action: {
                     nextView(.vft)
-                }) {
-                    Text("VFT")
-                        .font(.largeTitle)
-                        .frame(width: 150, height: 150)
-                        .background(Color.red)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
+                })
             }
-            HStack {
-                Button(action: {
+            .padding(.bottom, 20)
+            
+            HStack(spacing: 20) {
+                navigationButton(title: "BNT", color: .blue, action: {
                     nextView(.bnt)
-                }) {
-                    Text("BNT")
-                        .font(.largeTitle)
-                        .frame(width: 150, height: 150)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                Button(action: {
+                })
+                navigationButton(title: "PDT", color: .blue, action: {
                     nextView(.pdt)
-                }) {
-                    Text("PDT")
-                        .font(.largeTitle)
-                        .frame(width: 150, height: 150)
-                        .background(Color.orange)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
+                })
             }
+            
             Spacer()
+            
+            HStack {
+                
+                Button(action: {
+                    // TODO: add uploading functionality
+                }) {
+                    HStack {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .font(.title)
+                        Text("Upload")
+                            .fontWeight(.semibold)
+                    }
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(.blue)
+                    .cornerRadius(10)
+                }
+                .padding()
+                
+                
+                Button(action: {
+                    // TODO: add functionality to end the test
+                }) {
+                    HStack {
+                        Image(systemName: "stop.fill")
+                            .font(.title)
+                        Text("Test Beenden")
+                            .fontWeight(.semibold)
+                    }
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(.blue)
+                    .cornerRadius(10)
+                }
+                .padding()
+            }
+        }
+        .padding()
+        .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private func navigationButton(title: String, color: Color, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title)
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .frame(width: 150, height: 150)
+                .background(color)
+                .cornerRadius(10)
         }
     }
 }
 
 #Preview {
-    HomeView() { nextView in
+    HomeView() {nextView in 
         
     }
 }
+
+
+
+
