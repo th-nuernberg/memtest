@@ -145,7 +145,7 @@ struct ExplanationView<Content: View>: View {
 }
 
 struct CompletedView: View {
-    var numberOfTasks: Int = 13 // Total number of tasks
+    var numberOfTasks: Int = 10 // Total number of tasks
     var completedTasks: Int = 1 // Number of tasks completed
     var onContinue: ContinueHandler
     var customButtonText: String? // Optional custom button text
@@ -155,7 +155,7 @@ struct CompletedView: View {
             return customText
         } else if completedTasks == 2 {
             return "Zur Lernphase ➔"
-        } else if completedTasks > 11 {
+        } else if completedTasks < 9 {
             return "Zur nächsten Aufgabe ➔"
         } else {
             return "Beenden ➔"

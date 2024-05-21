@@ -52,7 +52,7 @@ struct Test3View: View {
             
             ExplanationView(onNext: {
                 showExplanation.toggle()
-            },circleIndex: 4, circleText: "3", showProgressCircles: true, content: {
+            },circleIndex: 3, circleText: "3", showProgressCircles: true, content: {
                 HStack {
                     Text("Aufgabenstellung 3")
                         .font(.largeTitle)

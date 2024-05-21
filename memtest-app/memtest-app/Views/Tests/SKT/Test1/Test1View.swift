@@ -61,7 +61,7 @@ struct Test1View: View {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration: 60) {
+            .onTimerComplete(duration: 6) {
                 print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()
@@ -71,7 +71,7 @@ struct Test1View: View {
             ExplanationView(onNext: {
                 print("next")
                 showExplanation = false
-            },circleIndex: 1, circleText: "1", showProgressCircles: true, content: {
+            },circleIndex: 0, circleText: "1", showProgressCircles: true, content: {
                 HStack {
                     Text("Aufgabenstellung 1")
                         .font(.largeTitle)

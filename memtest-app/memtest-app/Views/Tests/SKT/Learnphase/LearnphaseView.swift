@@ -58,7 +58,7 @@ struct LearnphaseView: View {
             
             ExplanationView(onNext: {
                 showExplanation.toggle()
-            }, circleIndex: 3, circleText: "L", showProgressCircles: true, content: {
+            }, circleIndex: 2, circleText: "L", showProgressCircles: true, content: {
                 HStack {
                     Text("Lernphase")
                         .font(.largeTitle)
