@@ -10,6 +10,9 @@ import Foundation
 class DataService {
     static let shared = DataService()
     
+    // APP - Settings
+    private var debugMode = false
+    
     // Metadata
     private var study_id: String = ""
     private var uuid: String = ""
@@ -36,6 +39,13 @@ class DataService {
     }
     
     // MARK: Setting data
+    
+    // App - Settings
+    func setDebugMode(debugMode: Bool) {
+        self.debugMode = debugMode
+    }
+    
+    // Metadata
     
     func setQRCodeData(qrCodeData: QRCodeData){
         study_id = qrCodeData.study_id
@@ -73,17 +83,25 @@ class DataService {
     }
     
     // MARK: CHECKS
+    // App - Settings
+    func isDebugMode() -> Bool {
+        return self.debugMode
+    }
+    
     //Metadata
     
     func hasQRCodeScanned() -> Bool {
+        return true
         return (uuid != "" && aes_key != "" )
     }
     
     func hasMetadataBeenCollected() -> Bool {
+        return true
         return (patientData != nil)
     }
     
     func hasCalibrated() -> Bool {
+        return true
         return self.calibrated
     }
     

@@ -8,12 +8,32 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var isAdminMode = false
     var nextView: ((_ nextView: VisibleView) -> Void)
     
     var body: some View {
         VStack {
-            Spacer()
+            HStack {
+                Spacer()
+                
+                Button(action: {
+                    isAdminMode.toggle()
+                }) {
+                    HStack {
+                        Image(systemName: "ladybug.fill")
+                            .font(.title)
+                        Text(isAdminMode ? "Admin On" : "Admin Off")
+                            .fontWeight(.semibold)
+                    }
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(isAdminMode ? Color.red : Color.gray)
+                    .cornerRadius(10)
+                }
+                .padding()
+            }
             
+            Spacer()
             
             HStack(spacing: 20) {
                 navigationButton(title: "SKT", color: .blue, action: {
@@ -37,7 +57,6 @@ struct HomeView: View {
             Spacer()
             
             HStack {
-                
                 Button(action: {
                     // TODO: add uploading functionality
                 }) {
@@ -53,7 +72,6 @@ struct HomeView: View {
                     .cornerRadius(10)
                 }
                 .padding()
-                
                 
                 Button(action: {
                     // TODO: add functionality to end the test
@@ -90,11 +108,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView() {nextView in 
-        
-    }
+    HomeView() {nextView in }
 }
-
-
-
-
