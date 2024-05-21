@@ -76,17 +76,14 @@ class DataService {
     //Metadata
     
     func hasQRCodeScanned() -> Bool {
-        return true
         return (uuid != "" && aes_key != "" )
     }
     
     func hasMetadataBeenCollected() -> Bool {
-        return true
         return (patientData != nil)
     }
     
     func hasCalibrated() -> Bool {
-        return true
         return self.calibrated
     }
     
