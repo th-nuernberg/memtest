@@ -11,6 +11,7 @@ struct Test3View: View {
     @Binding var currentView: SKTViewEnum
     
     @State private var finished = false
+    @State private var showExplanation = true
     
     let dragElements: [DragElement] = [
         DragElement(posIndex: 10, label: "10", color: UIColor(Color(hex: "#D10B0B"))),
@@ -30,7 +31,7 @@ struct Test3View: View {
     }
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 3,
+        BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 3,
                      textOfCircle:"3", content: {
             AudioIndicatorView()
             Spacer()
@@ -47,46 +48,52 @@ struct Test3View: View {
                 try! AudioService.shared.startRecording(to: "test3")
             })
             
-        }, explanationContent: {
-            HStack {
-                Text("Aufgabenstellung 3")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
+        }, explanationContent: { onContinue in
             
+            ExplanationView(onNext: {
+                showExplanation.toggle()
+            },circleIndex: 4, circleText: "3", showProgressCircles: true, content: {
+                HStack {
+                    Text("Aufgabenstellung 3")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                
+                VStack{
+                    Text("Sie sehen nun ein Spielbrett mit bunten Spielsteinen,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("auf denen Zahlen stehen.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Als erstes lesen Sie bitte die Zahlen,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top,20)
+                    
+                    Text("von links nach rechts, laut vor,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("so schnell Sie können.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Sie brauchen sich die Zahlen nicht zu merken.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top,20)
+                    
+                    
+                }
+                .padding(.top,120)
+            })
             
-            VStack{
-                Text("Sie sehen nun ein Spielbrett mit bunten Spielsteinen,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("auf denen Zahlen stehen.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Als erstes lesen Sie bitte die Zahlen,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-                
-                Text("von links nach rechts, laut vor,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("so schnell Sie können.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Sie brauchen sich die Zahlen nicht zu merken.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-                
-                
-            }
-            .padding(.top,120)
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 3, onContinue: {
                 currentView = .skt4

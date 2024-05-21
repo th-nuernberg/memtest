@@ -11,6 +11,7 @@ struct Test7View: View {
     @Binding var currentView: SKTViewEnum
     
     @State private var finished = false
+    @State private var showExplanation = true
 
     public init(currentView: Binding<SKTViewEnum>) {
         self._currentView = currentView
@@ -18,7 +19,7 @@ struct Test7View: View {
     
     var body: some View {
         
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 7, textOfCircle: "7", content: {
+        BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 7, textOfCircle: "7", content: {
             VStack {
                 AudioIndicatorView()
                 Spacer()
@@ -47,43 +48,49 @@ struct Test7View: View {
                 finished = true
                 AudioService.shared.stopRecording()
             })
-        }, explanationContent: {
-            HStack {
-                Text("Aufgabenstellung 7")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
+        }, explanationContent: {onContinue in
             
-            VStack{
-                Text("Sie sehen hier zwei Zeilen mit den Buchstaben A und B,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
+            ExplanationView(onNext: {
+                showExplanation.toggle()
+            }, circleIndex: 8, circleText: "7", showProgressCircles: true, content: {
+                HStack {
+                    Text("Aufgabenstellung 7")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                VStack{
+                    Text("Sie sehen hier zwei Zeilen mit den Buchstaben A und B,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                
+                    Text("darüber eine unterstrichene Übungszeile.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Sie sollen jetzt für jedes A, das Sie sehen, „B“ sagen")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top, 20)
+                    
+                    Text("und umgekehrt für jedes B,„A“.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Also immer genau den anderen,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top, 20)
+                    
+                    Text("„verkehrten“ Buchstaben laut sagen.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                }
+                .padding(.top,120)
+            })
             
-                Text("darüber eine unterstrichene Übungszeile.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Sie sollen jetzt für jedes A, das Sie sehen, „B“ sagen")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top, 20)
-                
-                Text("und umgekehrt für jedes B,„A“.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Also immer genau den anderen,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top, 20)
-                
-                Text("„verkehrten“ Buchstaben laut sagen.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-            }
-            .padding(.top,120)
         },
         completedContent: { onContinue in
             

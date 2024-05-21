@@ -13,6 +13,7 @@ struct Test2View: View {
     @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
     @State private var finished = false
+    @State private var showExplanation = true
     private let testDuration = 60
     
     private var symbolList = TestSymbolList()
@@ -30,7 +31,7 @@ struct Test2View: View {
     
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 1,
+        BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 1,
                      textOfCircle:"2", content: {
             
             //Text(manager.recognizedWords.last ?? "")
@@ -63,31 +64,37 @@ struct Test2View: View {
                 AudioService.shared.stopRecording()
             
             }
-        }, explanationContent: {
-            HStack {
-                Text("Aufgabenstellung 2")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
+        }, explanationContent: {onContinue in
             
+            ExplanationView(onNext: {
+                showExplanation.toggle()
+            },circleIndex: 2, circleText: "2", showProgressCircles: true, content: {
+                HStack {
+                    Text("Aufgabenstellung 2")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                
+                VStack{
+                    Text("Sagen Sie bitte jetzt,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("welche Gegenstände Sie gerade gesehen haben. ")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("An welche können Sie sich noch erinnern?")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                }
+                .padding(.top,120)
+            })
             
-            VStack{
-                Text("Sagen Sie bitte jetzt,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("welche Gegenstände Sie gerade gesehen haben. ")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("An welche können Sie sich noch erinnern?")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-            }
-            .padding(.top,120)
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 2, onContinue:  {
                 currentView = .learningphase

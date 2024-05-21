@@ -18,11 +18,12 @@ struct VFTView: View {
     
     @State private var cancellables = Set<AnyCancellable>()
     @State private var finished = false
+    @State private var showExplanation = true
     @State private var recognizedAnimalNames: [String] = []
-    private let testDuration = 60
+    private let testDuration = 6
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 10, textOfCircle: "10", content: {
+        BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 10, textOfCircle: "10", content: {
             VStack {
                 AudioIndicatorView()
                 Spacer()
@@ -50,42 +51,49 @@ struct VFTView: View {
                 AudioService.shared.stopRecording()
                 finished = true
             })
-        }, explanationContent: {
-            HStack {
-                Text("Aufgabenstellung 10")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            VStack{
-                Text("Ihnen wird gleich eine Kategorie genannt")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("und Sie sollen so schnell wie möglich alle Dinge aufzählen,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("die in diese Kategorie gehören.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Wenn die Kategorie Kleidungsstücke' lautet,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-                
-                Text("können Sie 'Hemd', 'Krawatte' oder 'Hut', usw. aufzählen.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-            }
-            .padding(.top,120)
+        }, explanationContent: { onContinue in
+            
+            ExplanationView(onNext: {
+                showExplanation.toggle()
+            }, showProgressCircles: false, content: {
+                HStack {
+                    Text("Aufgabenstellung VFT")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                VStack{
+                    Text("Ihnen wird gleich eine Kategorie genannt")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("und Sie sollen so schnell wie möglich alle Dinge aufzählen,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("die in diese Kategorie gehören.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Wenn die Kategorie Kleidungsstücke' lautet,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top,20)
+                    
+                    Text("können Sie 'Hemd', 'Krawatte' oder 'Hut', usw. aufzählen.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                }
+                .padding(.top,120)
+            })
+            
+            
         }, completedContent: { onContinue in
-            CompletedView(completedTasks: 10, onContinue: {
+            CompletedView(numberOfTasks: 1, completedTasks: 1, onContinue: {
                 onNextView?()
                 onContinue()
-            })
+            }, customButtonText: "Beenden ➔")
         })
     }
     

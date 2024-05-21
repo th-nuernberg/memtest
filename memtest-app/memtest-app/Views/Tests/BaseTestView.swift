@@ -4,30 +4,30 @@ typealias ContinueHandler = () -> Void
 
 struct BaseTestView<Content: View, ExplanationContent: View, CompletedContent: View>: View {
     let content: () -> Content
-    var explanationContent: () -> ExplanationContent?
+    var explanationContent: (@escaping ContinueHandler) -> ExplanationContent?
     var completedContent: (@escaping ContinueHandler) -> CompletedContent?
     @Binding private var showCompletedView: Bool
-    @State private var showExplanation: Bool
+    @Binding private var showExplanationView: Bool
     private var circleText: String
     private var circleIndex: Int
 
-    init(showCompletedView: Binding<Bool>, indexOfCircle: Int,
+    init(showCompletedView: Binding<Bool>, showExplanationView: Binding<Bool>,
+         indexOfCircle: Int,
          textOfCircle: String, @ViewBuilder content: @escaping () -> Content,
-         @ViewBuilder explanationContent: @escaping () -> ExplanationContent? = { nil }, @ViewBuilder completedContent: @escaping (@escaping ContinueHandler) -> CompletedContent? = { _ in nil }) {
+         @ViewBuilder explanationContent: @escaping (@escaping ContinueHandler) -> ExplanationContent? = { _ in nil }, @ViewBuilder completedContent: @escaping (@escaping ContinueHandler) -> CompletedContent? = { _ in nil }) {
         self.content = content
         self.explanationContent = explanationContent
         self.completedContent = completedContent
-        self._showExplanation = State(initialValue: self.explanationContent() != nil)
         self._showCompletedView = showCompletedView
+        self._showExplanationView = showExplanationView
         self.circleText = textOfCircle
         self.circleIndex = indexOfCircle
     }
 
     var body: some View {
         VStack {
-            if showExplanation, let explanation = explanationContent() {
-                ExplanationView(circleIndex: circleIndex, circleText: circleText, content: { explanation }, onContinue: {
-                    showExplanation = false
+            if showExplanationView == true {
+                explanationContent({
                 })
             } else {
                 if showCompletedView == false {
@@ -43,39 +43,49 @@ struct BaseTestView<Content: View, ExplanationContent: View, CompletedContent: V
 }
 
 struct ExplanationView<Content: View>: View {
+    var onNext: (() -> Void)
+    
     let content: Content
-    var onContinue: () -> Void
+    var circleIndex: Int = 1
+    var circleText: String = "1"
+    var showProgressCircles: Bool
 
-    var circleIndex: Int
-    var circleText: String
-
-    init(circleIndex: Int,
-         circleText: String, @ViewBuilder content: () -> Content, onContinue: @escaping () -> Void) {
+    init(onNext: @escaping (() -> Void), circleIndex: Int,
+         circleText: String, showProgressCircles: Bool, @ViewBuilder content: () -> Content) {
+        self.onNext = onNext
         self.content = content()
-        self.onContinue = onContinue
         self.circleIndex = circleIndex
         self.circleText = circleText
+        self.showProgressCircles = showProgressCircles
+    }
+    
+    init(onNext: @escaping (() -> Void), showProgressCircles: Bool, @ViewBuilder content: () -> Content) {
+        self.onNext = onNext
+        self.content = content()
+        self.showProgressCircles = showProgressCircles
     }
 
     var body: some View {
-        HStack {
+        if showProgressCircles {
             HStack {
-                ForEach(0..<12) { index in
-                    ZStack {
-                        if index <= circleIndex {
-                            Circle()
-                                .foregroundColor(.blue)
-                                .frame(width: 30, height: 30)
-                            Text(getTextForIndex(index: index + 1))
-                                .font(.title)
-                                .foregroundColor(.white)
-                        } else {
-                            Circle()
-                                .foregroundColor(.gray)
-                                .frame(width: 30, height: 30)
+                HStack {
+                    ForEach(0..<10) { index in
+                        ZStack {
+                            if index <= circleIndex {
+                                Circle()
+                                    .foregroundColor(.blue)
+                                    .frame(width: 30, height: 30)
+                                Text(getTextForIndex(index: index + 1))
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                            } else {
+                                Circle()
+                                    .foregroundColor(.gray)
+                                    .frame(width: 30, height: 30)
+                            }
                         }
+                        .padding(.trailing, 5)
                     }
-                    .padding(.trailing, 5)
                 }
             }
         }
@@ -85,7 +95,9 @@ struct ExplanationView<Content: View>: View {
             Spacer()
             VStack {
                 Spacer()
-                Button(action: onContinue) {
+                Button(action: {
+                    onNext()
+                }) {
                     Text("Weiter ➔")
                         .foregroundColor(.white)
                         .padding(.horizontal, 20)
@@ -136,30 +148,15 @@ struct CompletedView: View {
     var numberOfTasks: Int = 13 // Total number of tasks
     var completedTasks: Int = 1 // Number of tasks completed
     var onContinue: ContinueHandler
+    var customButtonText: String? // Optional custom button text
 
     var buttonText: String {
-        if completedTasks == 1 {
-            return "Zur zweiten Aufgabe ➔"
+        if let customText = customButtonText {
+            return customText
         } else if completedTasks == 2 {
             return "Zur Lernphase ➔"
-        } else if completedTasks == 3 {
-            return "Zur dritten Aufgabe ➔"
-        } else if completedTasks == 4 {
-            return "Zur fünften Aufgabe ➔"
-        } else if completedTasks == 5 {
-            return "Zur sechsten Aufgabe ➔"
-        } else if completedTasks == 6 {
-            return "Zur siebten Aufgabe ➔"
-        } else if completedTasks == 7 {
-            return "Zur achten Aufgabe ➔"
-        } else if completedTasks == 8 {
-            return "Zur neunten Aufgabe ➔"
-        } else if completedTasks == 9 {
-            return "Zur zehnten Aufgabe ➔"
-        } else if completedTasks == 10 {
-            return "Zur elften Aufgabe ➔"
-        } else if completedTasks == 11 {
-            return "Zur zwölften Aufgabe ➔"
+        } else if completedTasks > 11 {
+            return "Zur nächsten Aufgabe ➔"
         } else {
             return "Beenden ➔"
         }
@@ -192,7 +189,7 @@ struct CompletedView: View {
 
             Button(action: {
                 onContinue()
-            }, label:  {
+            }, label: {
                 Text("\(buttonText)")
                     .bold()
                     .foregroundColor(.white)
@@ -208,13 +205,15 @@ struct CompletedView: View {
 }
 
 #Preview {
-    BaseTestView(showCompletedView: .constant(false),
+    BaseTestView(showCompletedView: .constant(false), showExplanationView: .constant(true),
                  indexOfCircle: 7,
-                 textOfCircle:"6", content: {
+                 textOfCircle: "6", content: {
         Text("Das ist die Test1View")
-    }, explanationContent: {
-        Text("Hier sind einige Erklärungen.")
+    }, explanationContent: { onContinue in
+        ExplanationView(onNext: {}, circleIndex: 7, circleText: "6", showProgressCircles: true, content: {
+            Text("Hier sind einige Erklärungen.")
+        })
     }, completedContent: { onContinue in
-        CompletedView(numberOfTasks: 7, completedTasks: 3, onContinue: onContinue)
+        CompletedView(numberOfTasks: 7, completedTasks: 3, onContinue: onContinue, customButtonText: "Weiter zur nächsten Aufgabe ➔")
     })
 }

@@ -20,6 +20,7 @@ struct Test4View: View {
     @Binding var currentView: SKTViewEnum
     
     @State private var finished = false
+    @State private var showExplanation = true
     
     let dragElements: [DragElement] = [
         DragElement(posIndex: 10, label: "10", color: UIColor(Color(hex: "#D10B0B"))),
@@ -39,7 +40,7 @@ struct Test4View: View {
     }
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 4,
+        BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 4,
                      textOfCircle:"4", content: {
             DragNDropContainerView(dragElements: dragElements, dropZones: OrderNumberTestService.shared.getDropZones(), onPositionsChanged: { updatedDragElements in
                 OrderNumberTestService.shared.setDragElements(dragElements: updatedDragElements)
@@ -51,53 +52,59 @@ struct Test4View: View {
                 onComplete()
             }
                         
-        }, explanationContent: {
-            HStack {
-                Text("Aufgabenstellung 4")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
+        }, explanationContent: {onContinue in
             
+            ExplanationView(onNext: {
+                showExplanation.toggle()
+            },circleIndex: 5, circleText: "4", showProgressCircles: true, content: {
+                HStack {
+                    Text("Aufgabenstellung 4")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                
+                VStack{
+                    Text("Wie Sie sehen, sind die Zahlen nicht geordnet.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Kleine und große Zahlen sind durcheinander gemischt.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Bitte ordnen Sie jetzt, so schnell Sie können,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top,20)
+                    
+                    Text("die Zahlen der Größe nach.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Dazu suchen Sie die kleinste Zahl ")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top,20)
+                    
+                    Text("und ziehen sie auf das erste Feld links oben.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Dann suchen Sie die nächstgrößere Zahl")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text(" und ziehen Sie daneben und so weiter.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                }
+                .padding(.top,120)
+            })
             
-            VStack{
-                Text("Wie Sie sehen, sind die Zahlen nicht geordnet.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Kleine und große Zahlen sind durcheinander gemischt.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Bitte ordnen Sie jetzt, so schnell Sie können,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-                
-                Text("die Zahlen der Größe nach.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Dazu suchen Sie die kleinste Zahl ")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-                
-                Text("und ziehen sie auf das erste Feld links oben.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Dann suchen Sie die nächstgrößere Zahl")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text(" und ziehen Sie daneben und so weiter.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-            }
-            .padding(.top,120)
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 4, onContinue: {
                 currentView = .skt5

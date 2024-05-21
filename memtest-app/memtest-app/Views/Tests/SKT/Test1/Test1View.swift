@@ -13,6 +13,7 @@ struct Test1View: View {
     @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
     @State private var finished = false
+    @State private var showExplanation = true
     
     private var symbolList = TestSymbolList()
     
@@ -28,7 +29,7 @@ struct Test1View: View {
     }
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 0,
+        BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 0,
                      textOfCircle:"1", content: {
             AudioIndicatorView()
             
@@ -65,57 +66,62 @@ struct Test1View: View {
                 finished = true
                 AudioService.shared.stopRecording()
             }
-        }, explanationContent: {
-            HStack {
-                Text("Aufgabenstellung 1")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
+        }, explanationContent: { onContinue in
             
-            
-            
-            Spacer()
-            VStack{
-                Text("Es werden Ihnen nun Bilder von Gegenständen gezeigt,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
+            ExplanationView(onNext: {
+                print("next")
+                showExplanation = false
+            },circleIndex: 1, circleText: "1", showProgressCircles: true, content: {
+                HStack {
+                    Text("Aufgabenstellung 1")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
                 
-                Text(" die Sie alle schon einmal gesehen haben,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
                 
-                Text("die Ihnen also bekannt sind.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
+                
+                Spacer()
+                VStack{
+                    Text("Es werden Ihnen nun Bilder von Gegenständen gezeigt,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text(" die Sie alle schon einmal gesehen haben,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("die Ihnen also bekannt sind.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
 
-                Text("Es kommt jetzt darauf an, dass Sie, so schnell Sie können,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top, 20)
-                
-                Text("von links nach rechts sagen,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("wie man die Gegenstände benennt oder wie sie heißen")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("und dass Sie sich die Gegenstände gleichzeitig auch einprägen.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
+                    Text("Es kommt jetzt darauf an, dass Sie, so schnell Sie können,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top, 20)
+                    
+                    Text("von links nach rechts sagen,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("wie man die Gegenstände benennt oder wie sie heißen")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("und dass Sie sich die Gegenstände gleichzeitig auch einprägen.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
 
-                Text("Sie werden nämlich später noch einmal nach diesen gefragt.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-            }
-            .padding(.top, 40)
-            
-            Spacer()
-            
+                    Text("Sie werden nämlich später noch einmal nach diesen gefragt.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top,20)
+                }
+                .padding(.top, 40)
+                
+                Spacer()
+            })
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 1, onContinue: {
                 currentView = .skt2

@@ -14,6 +14,7 @@ struct Test6View: View {
     
     @StateObject private var viewModel: SymbolViewModel = SymbolViewModel()
     @State private var finished = false
+    @State private var showExplanation = true
     
     @State private var userSymbolCount = ""
     
@@ -22,7 +23,7 @@ struct Test6View: View {
     }
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 6,
+        BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 6,
                      textOfCircle:"6", content: {
             
             VStack{
@@ -85,57 +86,63 @@ struct Test6View: View {
             }
             
             
-        }, explanationContent: {
-            HStack {
-                Text("Aufgabenstellung 6")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
+        }, explanationContent: {onContinue in
             
+            ExplanationView(onNext: {
+                showExplanation.toggle()
+            }, circleIndex: 7, circleText: "6", showProgressCircles: true, content: {
+                HStack {
+                    Text("Aufgabenstellung 6")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                
+                VStack{
+                    Text("Sie sehen hier auf dieser Tafel verschiedene Symbole:")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Vierecke, Sterne und Blumen.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Wichtig sind nur die gesuchten Symbole.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Zählen Sie bitte laut und so schnell Sie können")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top,20)
+                    
+                    Text("alle gesuchten Symbole, die zu sehen sind.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Bitte zählen Sie die gesuchten Symbole Zeile für Zeile,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("von links nach rechts,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("indem Sie mit dem Zeigefinger auf jedes Symbol deuten.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Sind Sie fertig drücken Sie auf den OK Knopf.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top,20)
+                    
+                }
+                .padding(.top,60)
+            })
             
-            VStack{
-                Text("Sie sehen hier auf dieser Tafel verschiedene Symbole:")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Vierecke, Sterne und Blumen.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Wichtig sind nur die gesuchten Symbole.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Zählen Sie bitte laut und so schnell Sie können")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-                
-                Text("alle gesuchten Symbole, die zu sehen sind.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Bitte zählen Sie die gesuchten Symbole Zeile für Zeile,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("von links nach rechts,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("indem Sie mit dem Zeigefinger auf jedes Symbol deuten.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Sind Sie fertig drücken Sie auf den OK Knopf.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-                
-            }
-            .padding(.top,60)
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 6, onContinue: {
                 currentView = .skt7

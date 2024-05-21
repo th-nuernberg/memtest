@@ -11,6 +11,7 @@ struct LearnphaseView: View {
     @Binding var currentView: SKTViewEnum
     
     @State private var finished = false
+    @State private var showExplanation = true
     
     private var symbolList = TestSymbolList()
     
@@ -26,7 +27,7 @@ struct LearnphaseView: View {
     }
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 2,
+        BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 2,
                      textOfCircle:"L", content: {
 
             LazyVGrid(columns: columns) {
@@ -53,29 +54,35 @@ struct LearnphaseView: View {
                 print("Timer completed")
                 finished = true
             }
-        }, explanationContent: {
-            HStack {
-                Text("Lernphase")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
+        }, explanationContent: { onContinue in
             
-            VStack{
-                Text("Ihnen werden die Gegenstände noch einmal ganz kurz gezeigt.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
+            ExplanationView(onNext: {
+                showExplanation.toggle()
+            }, circleIndex: 3, circleText: "L", showProgressCircles: true, content: {
+                HStack {
+                    Text("Lernphase")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
                 
-                Text("Bitte prägen Sie sich die Gegenstände gut ein;")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("später werden Sie nach diesen nochmal gefragt")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-            }
-            .padding(.top,200)
+                VStack{
+                    Text("Ihnen werden die Gegenstände noch einmal ganz kurz gezeigt.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Bitte prägen Sie sich die Gegenstände gut ein;")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("später werden Sie nach diesen nochmal gefragt")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                }
+                .padding(.top,200)
+            })
+            
         }, completedContent: { onContinue in
             CompletedView(completedTasks: 3, onContinue: {
                 currentView = .skt3

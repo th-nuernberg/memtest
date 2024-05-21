@@ -13,6 +13,7 @@ struct BNTView: View {
     
     @ObservedObject private var speechRecognitionManager = SpeechRecognitionManager.shared
     @State private var finished = false
+    @State private var showExplanation = true
     @State private var currentImage: BNT_Picture?  // Use BNT_Picture instead of String
     @State private var timer: Timer?
     @State private var unusedImages: [BNT_Picture]  // Store BNT_Picture objects
@@ -26,7 +27,7 @@ struct BNTView: View {
     }
 
     var body: some View {
-        BaseTestView(showCompletedView: $finished, indexOfCircle: 11, textOfCircle: "11", content: {
+        BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 11, textOfCircle: "11", content: {
             
             AudioIndicatorView()
             
@@ -57,30 +58,36 @@ struct BNTView: View {
                 finished.toggle()
             })
             
-        }, explanationContent: {
-            HStack {
-                Text("Aufgabenstellung 11")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            VStack{
-                Text("Nun werden Ihnen einige Bilder gezeigt. ")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Bitte sagen Sie, wie diese Dinge heißen.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-            }
-            .padding(.top,120)
+        }, explanationContent: { onContinue in
+            
+            ExplanationView(onNext: {
+                showExplanation.toggle()
+            }, showProgressCircles: false, content: {
+                HStack {
+                    Text("Aufgabenstellung BNT")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                VStack{
+                    Text("Nun werden Ihnen einige Bilder gezeigt. ")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Bitte sagen Sie, wie diese Dinge heißen.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top,20)
+                }
+                .padding(.top,120)
+            })
+            
         }, completedContent: { onContinue in
-            CompletedView(completedTasks: 11, onContinue: {
+            CompletedView(numberOfTasks: 1, completedTasks: 1, onContinue: {
                 onNextView?()
                 onContinue()
-            })
+            }, customButtonText: "Beenden ➔")
         })
     }
     

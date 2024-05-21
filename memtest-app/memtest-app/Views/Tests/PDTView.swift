@@ -11,9 +11,11 @@ struct PDTView: View {
     var onNextView: (() -> Void)?
     
     @State private var finished = false
+    @State private var showExplanation = true
     
     var body: some View {
         BaseTestView(showCompletedView: $finished,
+                     showExplanationView: $showExplanation,
                      indexOfCircle: 12,
                      textOfCircle:"12", content: {
             VStack{
@@ -44,30 +46,36 @@ struct PDTView: View {
                 finished = true
                 AudioService.shared.stopRecording()
             }
-        }, explanationContent: {
-            HStack {
-                Text("Aufgabenstellung 12")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            VStack{
-                Text("Ihnen wird gleich ein Bild gezeigt.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Bitte beschreiben Sie was auf diesem zu sehen ist.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top, 20)
-            }
-            .padding(.top,120)
+        }, explanationContent: { onContinue in
+            
+            ExplanationView(onNext: {
+                showExplanation.toggle()
+            }, showProgressCircles: false, content: {
+                HStack {
+                    Text("Aufgabenstellung PDT")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                VStack{
+                    Text("Ihnen wird gleich ein Bild gezeigt.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Bitte beschreiben Sie was auf diesem zu sehen ist.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top, 20)
+                }
+                .padding(.top,120)
+            })
+            
         }, completedContent: { onContinue in
-            CompletedView(completedTasks: 12, onContinue: {
+            CompletedView(numberOfTasks: 1, completedTasks: 1, onContinue: {
                 onNextView?()
                 onContinue()
-            })
+            }, customButtonText: "Beenden ➔")
         })
     }
 }

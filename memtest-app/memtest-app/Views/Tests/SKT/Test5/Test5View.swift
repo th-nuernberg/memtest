@@ -10,6 +10,7 @@ import SwiftUI
 struct Test5View: View {
     @Binding var currentView: SKTViewEnum
     @State private var finished = false
+    @State private var showExplanation = true
     
     @State private var dragElements: [DragElement] = []
     
@@ -19,7 +20,7 @@ struct Test5View: View {
     }
     
     var body: some View {
-        BaseTestView(showCompletedView: $finished,indexOfCircle: 5,
+        BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 5,
                      textOfCircle:"5", content: {
             
             DragNDropContainerView(dragElements: OrderNumberTestService.shared.getDragElements(), dropZones: OrderNumberTestService.shared.getDropZones(), onPositionsChanged: { updatedDragElements in
@@ -35,32 +36,38 @@ struct Test5View: View {
                 onComplete()
             }
                         
-        }, explanationContent: {
-            HStack {
-                Text("Aufgabenstellung 5")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
+        }, explanationContent: {onContinue in
             
+            ExplanationView(onNext: {
+                showExplanation.toggle()
+            }, circleIndex: 6, circleText: "5", showProgressCircles: true, content: {
+                HStack {
+                    Text("Aufgabenstellung 5")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                
+                VStack{
+                    Text("Stellen Sie jetzt bitte, so schnell Sie können,")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text(" die Spielsteine wieder auf ihren alten Platz zurück.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                    
+                    Text("Die Zahl 17 also auf das Feld Nummer 17 usw.")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                        .padding(.top,20)
+                    
+                }
+                .padding(.top,120)
+            })
             
-            VStack{
-                Text("Stellen Sie jetzt bitte, so schnell Sie können,")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text(" die Spielsteine wieder auf ihren alten Platz zurück.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                
-                Text("Die Zahl 17 also auf das Feld Nummer 17 usw.")
-                    .font(.custom("SFProText-SemiBold", size: 40))
-                    .foregroundStyle(Color(hex: "#5377A1"))
-                    .padding(.top,20)
-                
-            }
-            .padding(.top,120)
         }, completedContent: {onContinue in
             CompletedView(completedTasks: 5, onContinue: {
                 currentView = .skt6
