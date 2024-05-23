@@ -10,6 +10,7 @@
 		2E187A0D2BCAAC060081DA0B /* BNTPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E187A0C2BCAAC060081DA0B /* BNTPicture.swift */; };
 		2E187A112BCAAFD30081DA0B /* StringMetric in Frameworks */ = {isa = PBXBuildFile; productRef = 2E187A102BCAAFD30081DA0B /* StringMetric */; };
 		2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */; };
+		2E2C2E9C2BFF330300CFA5A4 /* memtest-api.json in Resources */ = {isa = PBXBuildFile; fileRef = 2E2C2E9B2BFF330300CFA5A4 /* memtest-api.json */; };
 		2E2E39EB2BE0DCD800CB5055 /* DragNDropContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2E39EA2BE0DCD800CB5055 /* DragNDropContainerView.swift */; };
 		2E3241AF2BE018F900F68B91 /* Test5View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3241AE2BE018F900F68B91 /* Test5View.swift */; };
 		2E3624B22BCEE54800368F7F /* HourglassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3624B12BCEE54800368F7F /* HourglassView.swift */; };
@@ -119,6 +120,7 @@
 /* Begin PBXFileReference section */
 		2E187A0C2BCAAC060081DA0B /* BNTPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BNTPicture.swift; sourceTree = "<group>"; };
 		2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
+		2E2C2E9B2BFF330300CFA5A4 /* memtest-api.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "memtest-api.json"; sourceTree = "<group>"; };
 		2E2E39EA2BE0DCD800CB5055 /* DragNDropContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragNDropContainerView.swift; sourceTree = "<group>"; };
 		2E3241AE2BE018F900F68B91 /* Test5View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test5View.swift; sourceTree = "<group>"; };
 		2E3624B12BCEE54800368F7F /* HourglassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourglassView.swift; sourceTree = "<group>"; };
@@ -224,6 +226,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E2C2E992BFF327600CFA5A4 /* OpenApi */ = {
+			isa = PBXGroup;
+			children = (
+				2E2C2E9A2BFF327E00CFA5A4 /* Resources */,
+			);
+			path = OpenApi;
+			sourceTree = "<group>";
+		};
+		2E2C2E9A2BFF327E00CFA5A4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2E2C2E9B2BFF330300CFA5A4 /* memtest-api.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		2E60DB4A2BF4E57E00554E7E /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,8 +305,8 @@
 		2ECA206D2B873EC2000F2790 /* memtest-app */ = {
 			isa = PBXGroup;
 			children = (
+				2E2C2E992BFF327600CFA5A4 /* OpenApi */,
 				2ECA7AF92BC6FE1700C00693 /* Resources */,
-				2EF9748E2B99E0C700EFFA46 /* OpenApi */,
 				2ECA209F2B8740B0000F2790 /* Models */,
 				2ECA209D2B87408F000F2790 /* Services */,
 				2ECA209C2B874089000F2790 /* Util */,
@@ -456,13 +474,6 @@
 				2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */,
 			);
 			path = QRCode;
-			sourceTree = "<group>";
-		};
-		2EF9748E2B99E0C700EFFA46 /* OpenApi */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = OpenApi;
 			sourceTree = "<group>";
 		};
 		2EF974952B99E19000EFFA46 /* memtest-server-client */ = {
@@ -715,6 +726,7 @@
 				2EBBA1CA2BD11B83005F5642 /* animal_names_german.txt in Resources */,
 				2ECA20772B873EC3000F2790 /* Preview Assets.xcassets in Resources */,
 				2ECA20732B873EC3000F2790 /* Assets.xcassets in Resources */,
+				2E2C2E9C2BFF330300CFA5A4 /* memtest-api.json in Resources */,
 				2EC4425A2BD90AC4004E0A61 /* Avatar_Nicken_fast.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
