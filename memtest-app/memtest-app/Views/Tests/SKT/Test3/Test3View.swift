@@ -33,7 +33,21 @@ struct Test3View: View {
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 3,
                      textOfCircle:"3", content: {
-            AudioIndicatorView()
+            
+            BaseHeaderView(
+                showAudioIndicator:true,
+                currentView: $currentView,
+                onBack: {
+                    self.currentView = .learningphase
+                    onComplete()
+                },
+                onNext: {
+                    self.currentView = .skt4
+                    onComplete()
+                }
+            )
+            
+            //AudioIndicatorView()
             Spacer()
             
             DragNDropContainerView(dragElements: dragElements, dropZones: OrderNumberTestService.shared.getDropZones(), isDragEnabled: false, onPositionsChanged: { positions in

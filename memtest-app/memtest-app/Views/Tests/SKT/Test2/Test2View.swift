@@ -37,7 +37,21 @@ struct Test2View: View {
             //Text(manager.recognizedWords.last ?? "")
             
             VStack{
-                AudioIndicatorView()
+                
+                BaseHeaderView(
+                    showAudioIndicator:true,
+                    currentView: $currentView,
+                    onBack: {
+                        self.currentView = .skt1
+                        onComplete()
+                    },
+                    onNext: {
+                        self.currentView = .learningphase
+                        onComplete()
+                    }
+                )
+                
+                //AudioIndicatorView()
                 Spacer()
                 HStack {
                     Spacer()
@@ -121,6 +135,13 @@ struct Test2View: View {
         } catch {
             print("Error while enumerating files \(documentsDirectory.path): \(error.localizedDescription)")
         }
+    }
+    
+    private func onComplete() {
+        // TODO: save dragElements in json
+        
+        finished = true
+        AudioService.shared.stopRecording()
     }
     
     

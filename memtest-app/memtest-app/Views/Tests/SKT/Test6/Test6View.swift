@@ -27,7 +27,20 @@ struct Test6View: View {
                      textOfCircle:"6", content: {
             
             VStack{
-                AudioIndicatorView()
+                BaseHeaderView(
+                    showAudioIndicator:true,
+                    currentView: $currentView,
+                    onBack: {
+                        self.currentView = .skt5
+                        onComplete()
+                    },
+                    onNext: {
+                        self.currentView = .skt7
+                        onComplete()
+                    }
+                )
+                
+                //AudioIndicatorView()
                 
                 VStack (spacing: 0){
                     Text("Gesucht: \(viewModel.selectedSymbol ?? "")")
@@ -150,6 +163,13 @@ struct Test6View: View {
             })
         })
     }
+    
+    private func onComplete() {
+        // TODO: save currentDragElements in json
+        finished = true
+        AudioService.shared.stopRecording()
+    }
+    
 }
 
 #Preview {

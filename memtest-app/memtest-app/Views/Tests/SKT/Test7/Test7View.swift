@@ -21,7 +21,21 @@ struct Test7View: View {
         
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 7, textOfCircle: "7", content: {
             VStack {
-                AudioIndicatorView()
+                
+                BaseHeaderView(
+                    showAudioIndicator:true,
+                    currentView: $currentView,
+                    onBack: {
+                        self.currentView = .skt3
+                        onComplete()
+                    },
+                    onNext: {
+                        self.currentView = .skt5
+                        onComplete()
+                    }
+                )
+                
+                //AudioIndicatorView()
                 Spacer()
                 
                 VStack {
@@ -102,6 +116,13 @@ struct Test7View: View {
         })
         
     }
+    
+    private func onComplete() {
+        // TODO: save currentDragElements in json
+        finished = true
+        AudioService.shared.stopRecording()
+    }
+    
 }
 
 

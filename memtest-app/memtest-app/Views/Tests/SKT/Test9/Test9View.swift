@@ -37,7 +37,21 @@ struct Test9View: View {
                          textOfCircle:"9", content: {
             
                 //Text(manager.recognizedWords.last ?? "")
-                AudioIndicatorView()
+                
+                BaseHeaderView(
+                    showAudioIndicator:true,
+                    currentView: $currentView,
+                    onBack: {
+                        self.currentView = .skt8
+                        onComplete()
+                    },
+                    onNext: {
+                        self.currentView = .finished
+                        onComplete()
+                    }
+                )
+                
+                //AudioIndicatorView()
                 Spacer()
                 VStack {
                     LazyVGrid(columns: columns, spacing: 10) {
@@ -171,6 +185,13 @@ struct Test9View: View {
        }
        symbols.shuffle()
        return symbols
+    }
+    
+    private func onComplete() {
+        // TODO: save dragElements in json
+        
+        finished = true
+        AudioService.shared.stopRecording()
     }
 }
 
