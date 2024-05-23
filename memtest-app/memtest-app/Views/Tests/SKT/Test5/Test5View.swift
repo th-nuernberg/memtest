@@ -23,6 +23,19 @@ struct Test5View: View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 5,
                      textOfCircle:"5", content: {
             
+            BaseHeaderView(
+                showAudioIndicator:false,
+                currentView: $currentView,
+                onBack: {
+                    self.currentView = .skt4
+                    onComplete()
+                },
+                onNext: {
+                    self.currentView = .skt6
+                    onComplete()
+                }
+            )
+            
             DragNDropContainerView(dragElements: OrderNumberTestService.shared.getDragElements(), dropZones: OrderNumberTestService.shared.getDropZones(), onPositionsChanged: { updatedDragElements in
                 self.dragElements = updatedDragElements
                 // if the updatedDragElements are on the there starting positions, the onComplete function should be called
@@ -99,6 +112,7 @@ struct Test5View: View {
         // TODO: save dragElements in json
         
         finished = true
+        AudioService.shared.stopRecording()
     }
 }
 

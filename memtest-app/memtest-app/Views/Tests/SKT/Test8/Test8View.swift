@@ -36,7 +36,21 @@ struct Test8View: View {
             //Text(manager.recognizedWords.last ?? "")
             
             VStack{
-                AudioIndicatorView()
+                
+                BaseHeaderView(
+                    showAudioIndicator:true,
+                    currentView: $currentView,
+                    onBack: {
+                        self.currentView = .skt7
+                        onComplete()
+                    },
+                    onNext: {
+                        self.currentView = .skt9
+                        onComplete()
+                    }
+                )
+                
+                //AudioIndicatorView()
                 Spacer()
                 HStack {
                     Spacer()
@@ -109,6 +123,13 @@ struct Test8View: View {
     // TODO: implement germanet and similarity comparison
     private func isSymbolNameRecognized(_ name: String) -> Bool {
         return manager.recognizedWords.contains { $0.lowercased().contains(name.lowercased()) }
+    }
+    
+    private func onComplete() {
+        // TODO: save dragElements in json
+        
+        finished = true
+        AudioService.shared.stopRecording()
     }
 }
 

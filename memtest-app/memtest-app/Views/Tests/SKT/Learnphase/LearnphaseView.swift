@@ -29,8 +29,20 @@ struct LearnphaseView: View {
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 2,
                      textOfCircle:"L", content: {
-
+            
+            BaseHeaderView(
+                showAudioIndicator:true,
+                currentView: $currentView,
+                onBack: {
+                    self.currentView = .skt2
+                },
+                onNext: {
+                    self.currentView = .skt3
+                }
+            )
+            
             LazyVGrid(columns: columns) {
+                
                 ForEach(symbolList.symbols, id: \.name) { symbol in
                     ZStack {
                         Rectangle()
@@ -49,7 +61,6 @@ struct LearnphaseView: View {
                 }
             }
             .padding(.vertical)
-            .padding(.top, 70)
             .onTimerComplete(duration: 5) {
                 print("Timer completed")
                 finished = true

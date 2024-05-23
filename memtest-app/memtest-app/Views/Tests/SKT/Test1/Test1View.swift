@@ -23,7 +23,7 @@ struct Test1View: View {
         GridItem(.flexible(), spacing: 8),
         GridItem(.flexible(), spacing: 8)
     ]
-
+    
     public init(currentView: Binding<SKTViewEnum>) {
         self._currentView = currentView
     }
@@ -31,7 +31,19 @@ struct Test1View: View {
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 0,
                      textOfCircle:"1", content: {
-            AudioIndicatorView()
+            
+            BaseHeaderView(
+                showAudioIndicator:true,
+                currentView: $currentView,
+                onBack: {
+                    self.currentView = .skt1
+                    onComplete()
+                },
+                onNext: {
+                    self.currentView = .skt2
+                    onComplete()
+                }
+            )
             
             LazyVGrid(columns: columns) {
                 ForEach(symbolList.symbols, id: \.name) { symbol in
@@ -52,7 +64,6 @@ struct Test1View: View {
                 }
             }
             .padding(.vertical)
-            .padding(.top, 70)
             .onAppear(perform: {
                 manager.recognizedWords = []
                 do {
@@ -95,7 +106,7 @@ struct Test1View: View {
                     Text("die Ihnen also bekannt sind.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
-
+                    
                     Text("Es kommt jetzt darauf an, dass Sie, so schnell Sie können,")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
@@ -112,7 +123,7 @@ struct Test1View: View {
                     Text("und dass Sie sich die Gegenstände gleichzeitig auch einprägen.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
-
+                    
                     Text("Sie werden nämlich später noch einmal nach diesen gefragt.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
@@ -157,6 +168,13 @@ struct Test1View: View {
         } catch {
             print("Error while enumerating files \(documentsDirectory.path): \(error.localizedDescription)")
         }
+    }
+    
+    private func onComplete() {
+        // TODO: save dragElements in json
+        
+        finished = true
+        AudioService.shared.stopRecording()
     }
     
 }
