@@ -224,6 +224,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E2C2E992BFF327600CFA5A4 /* OpenApi */ = {
+			isa = PBXGroup;
+			children = (
+				2E2C2E9A2BFF327E00CFA5A4 /* Resources */,
+			);
+			path = OpenApi;
+			sourceTree = "<group>";
+		};
+		2E2C2E9A2BFF327E00CFA5A4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		2E60DB4A2BF4E57E00554E7E /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,8 +302,8 @@
 		2ECA206D2B873EC2000F2790 /* memtest-app */ = {
 			isa = PBXGroup;
 			children = (
+				2E2C2E992BFF327600CFA5A4 /* OpenApi */,
 				2ECA7AF92BC6FE1700C00693 /* Resources */,
-				2EF9748E2B99E0C700EFFA46 /* OpenApi */,
 				2ECA209F2B8740B0000F2790 /* Models */,
 				2ECA209D2B87408F000F2790 /* Services */,
 				2ECA209C2B874089000F2790 /* Util */,
@@ -456,13 +471,6 @@
 				2EF974842B98C47900EFFA46 /* QRCodeScannerView.swift */,
 			);
 			path = QRCode;
-			sourceTree = "<group>";
-		};
-		2EF9748E2B99E0C700EFFA46 /* OpenApi */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = OpenApi;
 			sourceTree = "<group>";
 		};
 		2EF974952B99E19000EFFA46 /* memtest-server-client */ = {
