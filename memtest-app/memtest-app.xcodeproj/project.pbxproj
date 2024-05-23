@@ -10,6 +10,7 @@
 		2E187A0D2BCAAC060081DA0B /* BNTPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E187A0C2BCAAC060081DA0B /* BNTPicture.swift */; };
 		2E187A112BCAAFD30081DA0B /* StringMetric in Frameworks */ = {isa = PBXBuildFile; productRef = 2E187A102BCAAFD30081DA0B /* StringMetric */; };
 		2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */; };
+		2E2C2E9C2BFF330300CFA5A4 /* memtest-api.json in Resources */ = {isa = PBXBuildFile; fileRef = 2E2C2E9B2BFF330300CFA5A4 /* memtest-api.json */; };
 		2E2E39EB2BE0DCD800CB5055 /* DragNDropContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2E39EA2BE0DCD800CB5055 /* DragNDropContainerView.swift */; };
 		2E3241AF2BE018F900F68B91 /* Test5View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3241AE2BE018F900F68B91 /* Test5View.swift */; };
 		2E3624B22BCEE54800368F7F /* HourglassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3624B12BCEE54800368F7F /* HourglassView.swift */; };
@@ -119,6 +120,7 @@
 /* Begin PBXFileReference section */
 		2E187A0C2BCAAC060081DA0B /* BNTPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BNTPicture.swift; sourceTree = "<group>"; };
 		2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
+		2E2C2E9B2BFF330300CFA5A4 /* memtest-api.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "memtest-api.json"; sourceTree = "<group>"; };
 		2E2E39EA2BE0DCD800CB5055 /* DragNDropContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragNDropContainerView.swift; sourceTree = "<group>"; };
 		2E3241AE2BE018F900F68B91 /* Test5View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test5View.swift; sourceTree = "<group>"; };
 		2E3624B12BCEE54800368F7F /* HourglassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourglassView.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 		2E2C2E9A2BFF327E00CFA5A4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2E2C2E9B2BFF330300CFA5A4 /* memtest-api.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -723,6 +726,7 @@
 				2EBBA1CA2BD11B83005F5642 /* animal_names_german.txt in Resources */,
 				2ECA20772B873EC3000F2790 /* Preview Assets.xcassets in Resources */,
 				2ECA20732B873EC3000F2790 /* Assets.xcassets in Resources */,
+				2E2C2E9C2BFF330300CFA5A4 /* memtest-api.json in Resources */,
 				2EC4425A2BD90AC4004E0A61 /* Avatar_Nicken_fast.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
