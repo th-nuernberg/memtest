@@ -12,11 +12,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack{
-                // Comment WelcomeView in, if QR-Code is available
-                // WelcomeView()
-                
-                // Comment out WelcomeStudyView, if QR-Code is available
-                WelcomeStudyView()
+                RoutingView()
             }
         }
     }

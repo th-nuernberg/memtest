@@ -26,11 +26,11 @@ struct Test7View: View {
                     showAudioIndicator:true,
                     currentView: $currentView,
                     onBack: {
-                        self.currentView = .skt3
+                        self.currentView = .skt6
                         onComplete()
                     },
                     onNext: {
-                        self.currentView = .skt5
+                        self.currentView = .skt8
                         onComplete()
                     }
                 )
