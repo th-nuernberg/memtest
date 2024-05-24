@@ -25,7 +25,20 @@ struct VFTView: View {
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 10, textOfCircle: "10", content: {
             VStack {
-                AudioIndicatorView()
+                
+                BaseHeaderViewNotSKT(
+                    showAudioIndicator:true,
+                    onBack: {
+                        //TODO: where to go?
+                        onComplete()
+                    },
+                    onNext: {
+                        //TODO: where to go?
+                        onComplete()
+                    }
+                )
+                
+                //AudioIndicatorView()
                 Spacer()
                 HStack {
                     Spacer()
@@ -115,6 +128,13 @@ struct VFTView: View {
                 }
             }
         }
+    }
+    
+    private func onComplete() {
+        // TODO: save dragElements in json
+        
+        finished = true
+        AudioService.shared.stopRecording()
     }
 }
 

@@ -13,10 +13,72 @@ struct HomeView: View {
 
     var nextView: ((_ nextView: VisibleView) -> Void)
     
+    public var isAdminModeActive: Bool {
+        return isAdminMode
+    }
+    
     var body: some View {
         VStack {
             HStack {
                 Spacer()
+                
+                Button(action: {
+                    isAdminMode.toggle()
+                    DataService.shared.toggleDebugMode()
+                }) {
+                    HStack {
+                        Image(systemName: "ladybug.fill")
+                            .font(.title)
+                        Text(isAdminMode ? "Admin On" : "Admin Off")
+                            .fontWeight(.semibold)
+                    }
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(isAdminMode ? Color.red : Color.gray)
+                    .cornerRadius(10)
+                }
+                .padding()
+            }
+            
+            Spacer()
+            
+            HStack(spacing: 20) {
+                navigationButton(title: "SKT", color: .blue, action: {
+                    nextView(.skt)
+                })
+                navigationButton(title: "VFT", color: .blue, action: {
+                    nextView(.vft)
+                })
+            }
+            .padding(.bottom, 20)
+            
+            HStack(spacing: 20) {
+                navigationButton(title: "BNT", color: .blue, action: {
+                    nextView(.bnt)
+                })
+                navigationButton(title: "PDT", color: .blue, action: {
+                    nextView(.pdt)
+                })
+            }
+            
+            Spacer()
+            
+            HStack {
+                Button(action: {
+                    // TODO: add uploading functionality
+                }) {
+                    HStack {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .font(.title)
+                        Text("Upload")
+                            .fontWeight(.semibold)
+                    }
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(.blue)
+                    .cornerRadius(10)
+                }
+                .padding()
                 
                 Button(action: {
                     isAdminMode.toggle()

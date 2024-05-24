@@ -15,7 +15,6 @@ struct Test9View: View {
     @State private var finished = false
     @State private var showExplanation = true
     @State private var symbols: [TestSymbol]
-    @State private var showingFirstSet = true
     private let testDuration = 60
 
     
@@ -31,18 +30,32 @@ struct Test9View: View {
             let screenWidth = geometry.size.width
             let screenHeight = geometry.size.height - 140
             let columns = columns()
-            let symbolSize = self.dynamicSymbolSize(forWidth: screenWidth, forHeight: screenHeight, numberOfColumns: columns.count, numberOfSymbols: symbols.count/2)
-            let (firstGroup, secondGroup) = splitSymbolsIntoGroups()
+            let symbolSize = self.dynamicSymbolSize(forWidth: screenWidth, forHeight: screenHeight, numberOfColumns: columns.count, numberOfSymbols: symbols.count)
+            let symbolGroup = Array(symbols)
             
             BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 9,
                          textOfCircle:"9", content: {
             
                 //Text(manager.recognizedWords.last ?? "")
-                AudioIndicatorView()
+                
+                BaseHeaderView(
+                    showAudioIndicator:true,
+                    currentView: $currentView,
+                    onBack: {
+                        self.currentView = .skt8
+                        onComplete()
+                    },
+                    onNext: {
+                        self.currentView = .finished
+                        onComplete()
+                    }
+                )
+                
+                //AudioIndicatorView()
                 Spacer()
                 VStack {
                     LazyVGrid(columns: columns, spacing: 10) {
-                        ForEach(showingFirstSet ? firstGroup : secondGroup, id: \.name) { symbol in
+                        ForEach(symbolGroup, id: \.name) { symbol in
                             ZStack {
                                 Rectangle()
                                   .fill(.gray)
@@ -69,20 +82,6 @@ struct Test9View: View {
                     finished = true
                     AudioService.shared.stopRecording()
                 }
-                
-                Spacer()
-                
-                Button(action: {
-                    showingFirstSet.toggle()
-                }) {
-                    Text("Wechseln")
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 10)
-                }
-                .padding(.horizontal,50)
-                .background(Color.blue)
-                .cornerRadius(10)
                 
                 Spacer()
                 
@@ -187,11 +186,12 @@ struct Test9View: View {
        symbols.shuffle()
        return symbols
     }
-    private func splitSymbolsIntoGroups() -> ([TestSymbol], [TestSymbol]) {
-        let midIndex = symbols.count / 2
-        let firstGroup = Array(symbols[..<midIndex])
-        let secondGroup = Array(symbols[midIndex...])
-        return (firstGroup, secondGroup)
+    
+    private func onComplete() {
+        // TODO: save dragElements in json
+        
+        finished = true
+        AudioService.shared.stopRecording()
     }
 }
 

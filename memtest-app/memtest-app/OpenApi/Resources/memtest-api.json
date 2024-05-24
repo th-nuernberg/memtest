@@ -1,0 +1,60 @@
+openapi: 3.0.3
+info:
+  title: Memtest
+  description: This is the API definition for the memtest-app
+  contact:
+    email: witzlch88229@th-nuernberg.de
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: http://localhost/api/v1/
+tags:
+  - name: Test-Result
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /testresult/upload:
+    post:
+      tags:
+        - Test-Result
+      summary: "Uploads one or multiple test result zip files"
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      requestBody:
+        required: true
+        description: "The array of test result zip files"
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                    description: "ZIP file containing test results"
+
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: ApiResponse
+

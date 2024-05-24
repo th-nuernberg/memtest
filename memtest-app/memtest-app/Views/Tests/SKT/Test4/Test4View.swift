@@ -42,6 +42,20 @@ struct Test4View: View {
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 4,
                      textOfCircle:"4", content: {
+            
+            BaseHeaderView(
+                showAudioIndicator:false,
+                currentView: $currentView,
+                onBack: {
+                    self.currentView = .skt3
+                    onComplete()
+                },
+                onNext: {
+                    self.currentView = .skt5
+                    onComplete()
+                }
+            )
+            
             DragNDropContainerView(dragElements: dragElements, dropZones: OrderNumberTestService.shared.getDropZones(), onPositionsChanged: { updatedDragElements in
                 OrderNumberTestService.shared.setDragElements(dragElements: updatedDragElements)
                 // if the updatedDragElements are in an ascending order regarding the label and the lowest label number element is on posIndex 0 and the highest label number is on posIndex (dragElements.count - ), the onComplete function is called
@@ -125,6 +139,7 @@ struct Test4View: View {
     private func onComplete() {
         // TODO: save currentDragElements in json
         finished = true
+        AudioService.shared.stopRecording()
     }
 }
 

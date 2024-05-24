@@ -89,6 +89,10 @@ class DataService {
         return self.debugMode
     }
     
+    func toggleDebugMode() -> Void {
+        self.debugMode.toggle()
+    }
+    
     //Metadata
     
     func hasQRCodeScanned() -> Bool {
