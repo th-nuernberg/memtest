@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Zip
 
 class DataService {
     static let shared = DataService()
@@ -91,17 +92,14 @@ class DataService {
     //Metadata
     
     func hasQRCodeScanned() -> Bool {
-        return true
         return (uuid != "" && aes_key != "" )
     }
     
     func hasMetadataBeenCollected() -> Bool {
-        return true
         return (patientData != nil)
     }
     
     func hasCalibrated() -> Bool {
-        return true
         return self.calibrated
     }
     
@@ -120,4 +118,54 @@ class DataService {
     func hasPDTFinished() -> Bool {
         return self.pdtFinished
     }
+    
+    // Zipping
+    func saveDataToJsonFiles() {
+        print("save data")
+        
+        let fileManager = FileManager.default
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        self.uuid = "testergebnis_2"
+        let uuidDirectory = documentsDirectory.appendingPathComponent(uuid)
+        
+        print(uuidDirectory)
+        
+        // Create the directory if it does not exist
+        if !fileManager.fileExists(atPath: uuidDirectory.path) {
+            do {
+                try fileManager.createDirectory(at: uuidDirectory, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print("Failed to create directory: \(error)")
+                return
+            }
+        }
+
+        let jsonEncoder = JSONEncoder()
+        jsonEncoder.outputFormatting = .prettyPrinted
+        
+        // Save QRCodeData
+        let qrPath = uuidDirectory.appendingPathComponent("QRCodeData.json")
+        if let qrData = try? jsonEncoder.encode(QRCodeData(study_id: self.study_id, id: self.uuid, key: self.aes_key)) {
+            do {
+                try qrData.write(to: qrPath)
+            } catch {
+                print("Failed to write QRCodeData: \(error)")
+            }
+        }
+
+        // Save PatientData
+        let patientPath = uuidDirectory.appendingPathComponent("PatientData.json")
+        if let patientData = self.patientData,
+           let patientDataEncoded = try? jsonEncoder.encode(patientData) {
+            do {
+                try patientDataEncoded.write(to: patientPath)
+            } catch {
+                print("Failed to write PatientData: \(error)")
+            }
+        }
+        
+        print(try! Zip.quickZipFiles([uuidDirectory], fileName: "\(uuid)_encrypted"))
+    }
+
+
 }
