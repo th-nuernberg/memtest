@@ -22,6 +22,7 @@ struct HomeView: View {
                 
                 Button(action: {
                     isAdminMode.toggle()
+                    DataService.shared.toggleDebugMode()
                 }) {
                     HStack {
                         Image(systemName: "ladybug.fill")
