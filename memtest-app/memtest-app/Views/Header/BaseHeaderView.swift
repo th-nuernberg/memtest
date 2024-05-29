@@ -27,7 +27,7 @@ struct BaseHeaderView: View {
     var body: some View {
         
         HStack {
-            if DataService.shared.isDebugMode() {
+            if DataService.shared.isAdminMode() {
                 Button(action: {
                     onBack()
                 }) {
@@ -49,7 +49,7 @@ struct BaseHeaderView: View {
             }
             Spacer()
             
-            if DataService.shared.isDebugMode() {
+            if DataService.shared.isAdminMode() {
                 Button(action: {
                     onNext()
                 }) {

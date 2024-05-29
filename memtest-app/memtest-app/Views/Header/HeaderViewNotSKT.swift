@@ -24,7 +24,7 @@ struct BaseHeaderViewNotSKT: View {
     var body: some View {
         
         HStack {
-            if HomeView() {nextView in }.isAdminModeActive {
+            if DataService.shared.isAdminMode() {
                 Button(action: {
                     onBack()
                 }) {
@@ -46,7 +46,7 @@ struct BaseHeaderViewNotSKT: View {
             }
             Spacer()
             
-            if HomeView() {nextView in }.isAdminModeActive {
+            if DataService.shared.isAdminMode() {
                 Button(action: {
                     onNext()
                 }) {
