@@ -12,10 +12,33 @@ servers:
   - url: http://localhost/api/v1/
 tags:
   - name: Test-Result
-    externalDocs:
-      description: Find out more
-      url: http://swagger.io
 paths:
+  /testresult/{qrcode-uuid}:
+    get:
+      tags:
+        - Test-Result
+      summary: "Retrieves a specific test result by UUID as an encrypted ZIP file"
+      operationId: "getTestResult"
+      parameters:
+        - in: path
+          name: qrcode-uuid
+          required: true
+          schema:
+            type: string
+          description: "UUID associated with the specific test result"
+      responses:
+        '200':
+          description: "Successful operation, encrypted test result retrieved"
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+                description: "Encrypted ZIP file containing the test result"
+        '404':
+          description: "Test result not found"
+        '500':
+          description: "Server error"
   /testresult/upload/{qrcode-uuid}:
     put:
       tags:
