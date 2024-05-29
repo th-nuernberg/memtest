@@ -21,7 +21,7 @@ public struct MemtestClient {
     }
     
     public func checkHealth() async throws {
-        let response = try await client.api_period_health_period_health_check()
+        let response = try await client.getHealthStatus()
         switch response {
         case .ok:
             return
@@ -30,15 +30,10 @@ public struct MemtestClient {
         }
     }
     
-    public func uploadTestResult(testResult: Components.Schemas.TestResult) async throws {
-        let response = try await client.api_period_test_result_period_upload_test_result(.init(body: .json(testResult)))
-        
-        switch response {
-        case .ok:
-            return
-        default:
-            throw MemtestClientError.uploadFailed
-        }
+
+    
+    func uploadTestResult(uuid: String, fileData: Data) async throws {
+        // TODO: implement this
     }
 }
 
