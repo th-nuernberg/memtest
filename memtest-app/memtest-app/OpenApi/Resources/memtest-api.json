@@ -16,11 +16,18 @@ tags:
       description: Find out more
       url: http://swagger.io
 paths:
-  /testresult/upload:
-    post:
+  /testresult/upload/{qrcode-uuid}:
+    put:
       tags:
         - Test-Result
-      summary: "Uploads one or multiple test result zip files"
+      summary: "Updates a test result zip file"
+      parameters:
+        - in: path
+          name: qrcode-uuid
+          required: true
+          schema:
+            type: string
+          description: "UUID associated with the QR code"
       responses:
         '200':
           description: "Successful operation"
@@ -30,18 +37,13 @@ paths:
                 $ref: '#/components/schemas/ApiResponse'
       requestBody:
         required: true
-        description: "The array of test result zip files"
+        description: "Encrypted ZIP file containing updated test results"
         content:
-          multipart/form-data:
+          application/zip:
             schema:
-              type: object
-              properties:
-                files:
-                  type: array
-                  items:
-                    type: string
-                    format: binary
-                    description: "ZIP file containing test results"
+              type: string
+              format: binary
+              description: "Encrypted ZIP file"
 
 components:
   schemas:
@@ -57,4 +59,3 @@ components:
           type: string
       xml:
         name: ApiResponse
-
