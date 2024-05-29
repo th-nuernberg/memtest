@@ -30,7 +30,19 @@ struct BNTView: View {
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 11, textOfCircle: "11", content: {
             
-            AudioIndicatorView()
+            BaseHeaderViewNotSKT(
+                showAudioIndicator:true,
+                onBack: {
+                    //TODO: where to go?
+                    onComplete()
+                },
+                onNext: {
+                    //TODO: where to go?
+                    onComplete()
+                }
+            )
+            
+            //AudioIndicatorView()
             
             VStack {
                 if let image = currentImage {  // Use currentImage of type BNT_Picture
@@ -129,6 +141,13 @@ struct BNTView: View {
     func stopTimer() {
         timer?.invalidate()
         timer = nil
+    }
+    
+    private func onComplete() {
+        // TODO: save dragElements in json
+        
+        finished = true
+        AudioService.shared.stopRecording()
     }
 }
 

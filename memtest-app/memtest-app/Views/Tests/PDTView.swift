@@ -20,7 +20,20 @@ struct PDTView: View {
                      indexOfCircle: 12,
                      textOfCircle:"12", content: {
             VStack{
-                AudioIndicatorView()
+                
+                BaseHeaderViewNotSKT(
+                    showAudioIndicator:true,
+                    onBack: {
+                        //TODO: where to go?
+                        onComplete()
+                    },
+                    onNext: {
+                        //TODO: where to go?
+                        onComplete()
+                    }
+                )
+                
+                //AudioIndicatorView()
                 GeometryReader { geometry in
                     VStack{
                         Spacer()
@@ -85,6 +98,13 @@ struct PDTView: View {
                 onContinue()
             }, customButtonText: "Beenden ➔")
         })
+    }
+    
+    private func onComplete() {
+        // TODO: save dragElements in json
+        
+        finished = true
+        AudioService.shared.stopRecording()
     }
 }
 

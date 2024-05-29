@@ -11,6 +11,10 @@ struct HomeView: View {
     @State private var isAdminMode = false
     var nextView: ((_ nextView: VisibleView) -> Void)
     
+    public var isAdminModeActive: Bool {
+        return isAdminMode
+    }
+    
     var body: some View {
         VStack {
             HStack {
@@ -18,6 +22,7 @@ struct HomeView: View {
                 
                 Button(action: {
                     isAdminMode.toggle()
+                    DataService.shared.toggleDebugMode()
                 }) {
                     HStack {
                         Image(systemName: "ladybug.fill")
