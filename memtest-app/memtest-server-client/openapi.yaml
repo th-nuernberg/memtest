@@ -1,46 +1,60 @@
 openapi: 3.0.3
 info:
-  title: MEMTEST-API - OpenAPI 3.0
-  description: This is the API Used in the memtest-app
+  title: Memtest
+  description: This is the API definition for the memtest-app
   contact:
-    email: christopher.witzl@gmx.de
+    email: witzlch88229@th-nuernberg.de
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.11
 servers:
-  - url: http://192.168.178.187:8080/api/v1
+  - url: http://localhost/api/v1/
 tags:
-  - name: result
-    description: Everything about the results of the finished tests
-  - name: health
-    description: Health check for the application
-
+  - name: Test-Result
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
 paths:
-  /result:
-    post:
+  /testresult/upload/{qrcode-uuid}:
+    put:
       tags:
-        - result
-      description: uploads a single test result
-      operationId: api.test_result.upload_test_result
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TestResult'
+        - Test-Result
+      summary: "Uploads a test result zip file"
+      operationId: "uploadTestResult"
+      parameters:
+        - in: path
+          name: qrcode-uuid
+          required: true
+          schema:
+            type: string
+          description: "UUID associated with the QR code"
       responses:
         '200':
-          description: Successful upload
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      requestBody:
+        required: true
+        description: "Encrypted ZIP file containing test results"
+        content:
+          application/zip:
+            schema:
+              type: string
+              format: binary
+              description: "Encrypted ZIP file"
   /health:
     get:
       tags:
-        - health
-      summary: Health check endpoint
-      description: Checks if the server is up and running
-      operationId: api.health.health_check
+        - Health Check
+      summary: "Health Check Endpoint"
+      description: "Returns the health status of the API server"
+      operationId: "getHealthStatus"
       responses:
         '200':
-          description: Service is up and running
+          description: "API server is up and running"
           content:
             application/json:
               schema:
@@ -48,13 +62,23 @@ paths:
                 properties:
                   status:
                     type: string
-                    example: 'ok'
+                    example: "healthy"
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2024-05-29T12:34:56Z"
 
 components:
   schemas:
-    TestResult:
+    ApiResponse:
       type: object
       properties:
-        testdatetime:
+        code:
+          type: integer
+          format: int32
+        type:
           type: string
-          format: date-time
+        message:
+          type: string
+      xml:
+        name: ApiResponse
