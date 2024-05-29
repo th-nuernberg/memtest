@@ -9,13 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var isAdminMode = false
-    @State private var zippedFiles: [String] = []
-
     var nextView: ((_ nextView: VisibleView) -> Void)
     
-    public var isAdminModeActive: Bool {
-        return isAdminMode
-    }
     
     var body: some View {
         VStack {
@@ -24,17 +19,17 @@ struct HomeView: View {
                 
                 Button(action: {
                     isAdminMode.toggle()
-                    DataService.shared.toggleDebugMode()
+                    DataService.shared.toggleAdminMode()
                 }) {
                     HStack {
-                        Image(systemName: "ladybug.fill")
+                        Image(systemName: "person.fill")
                             .font(.title)
                         Text(isAdminMode ? "Admin On" : "Admin Off")
                             .fontWeight(.semibold)
                     }
                     .foregroundColor(.white)
                     .padding()
-                    .background(isAdminMode ? Color.red : Color.gray)
+                    .background(isAdminMode  ? Color.red : Color.gray)
                     .cornerRadius(10)
                 }
                 .padding()
@@ -81,20 +76,17 @@ struct HomeView: View {
                 .padding()
                 
                 Button(action: {
-                    isAdminMode.toggle()
-                    if isAdminMode {
-                        zippedFiles = fetchZippedFiles() // Fetch files when Admin mode is turned on
-                    }
+                    // TODO: add uploading functionality
                 }) {
                     HStack {
-                        Image(systemName: "ladybug.fill")
+                        Image(systemName: "stop.fill")
                             .font(.title)
-                        Text(isAdminMode ? "Admin On" : "Admin Off")
+                        Text("Sitzung beenden")
                             .fontWeight(.semibold)
                     }
                     .foregroundColor(.white)
                     .padding()
-                    .background(isAdminMode ? Color.red : Color.gray)
+                    .background(.blue)
                     .cornerRadius(10)
                 }
                 .padding()
@@ -102,76 +94,7 @@ struct HomeView: View {
             
             Spacer()
             
-            HStack {
-                VStack {
-                    HStack(spacing: 20) {
-                        navigationButton(title: "SKT", color: .blue, action: {
-                            nextView(.skt)
-                        })
-                        navigationButton(title: "VFT", color: .blue, action: {
-                            nextView(.vft)
-                        })
-                    }
-                    .padding(.bottom, 20)
-                    
-                    HStack(spacing: 20) {
-                        navigationButton(title: "BNT", color: .blue, action: {
-                            nextView(.bnt)
-                        })
-                        navigationButton(title: "PDT", color: .blue, action: {
-                            nextView(.pdt)
-                        })
-                    }
-                    
-                    Spacer()
-                    
-                    HStack {
-                        Button(action: {
-                            // TODO: add uploading functionality
-                        }) {
-                            HStack {
-                                Image(systemName: "arrow.up.circle.fill")
-                                    .font(.title)
-                                Text("Upload")
-                                    .fontWeight(.semibold)
-                            }
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(.blue)
-                            .cornerRadius(10)
-                        }
-                        .padding()
                         
-                        Button(action: {
-                            // TODO: add functionality to end the test
-                        }) {
-                            HStack {
-                                Image(systemName: "stop.fill")
-                                    .font(.title)
-                                Text("Test Beenden")
-                                    .fontWeight(.semibold)
-                            }
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(.blue)
-                            .cornerRadius(10)
-                        }
-                        .padding()
-                    }
-                }
-                if isAdminMode {
-                    VStack {
-                        Text("Verschlüsselte Testergebnisse")
-                            .font(.title)
-                        List(zippedFiles, id: \.self) { file in
-                            Text(file)
-                        }
-                    }
-                   
-               }
-            }
-            
-            
         }
         .padding()
         .navigationBarTitleDisplayMode(.inline)

@@ -12,7 +12,7 @@ class DataService {
     static let shared = DataService()
     
     // APP - Settings
-    private var debugMode = false
+    private var adminMode = false
     
     // Metadata
     private var study_id: String = ""
@@ -42,9 +42,14 @@ class DataService {
     // MARK: Setting data
     
     // App - Settings
-    func setDebugMode(debugMode: Bool) {
-        self.debugMode = debugMode
+    func setAdminMode(debugMode: Bool) {
+        self.adminMode = debugMode
     }
+    
+    func toggleAdminMode() -> Void {
+        self.adminMode.toggle()
+    }
+    
     
     // Metadata
     
@@ -85,12 +90,8 @@ class DataService {
     
     // MARK: CHECKS
     // App - Settings
-    func isDebugMode() -> Bool {
-        return self.debugMode
-    }
-    
-    func toggleDebugMode() -> Void {
-        self.debugMode.toggle()
+    func isAdminMode() -> Bool {
+        return self.adminMode
     }
     
     //Metadata
