@@ -11,9 +11,6 @@ import Zip
 class DataService {
     static let shared = DataService()
     
-    // APP - Settings
-    private var adminMode = false
-    
     // Metadata
     private var study_id: String = ""
     private var uuid: String = ""
@@ -40,16 +37,6 @@ class DataService {
     }
     
     // MARK: Setting data
-    
-    // App - Settings
-    func setAdminMode(debugMode: Bool) {
-        self.adminMode = debugMode
-    }
-    
-    func toggleAdminMode() -> Void {
-        self.adminMode.toggle()
-    }
-    
     
     // Metadata
     
@@ -89,11 +76,6 @@ class DataService {
     }
     
     // MARK: CHECKS
-    // App - Settings
-    func isAdminMode() -> Bool {
-        return self.adminMode
-    }
-    
     //Metadata
     
     func hasQRCodeScanned() -> Bool {

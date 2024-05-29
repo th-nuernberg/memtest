@@ -19,7 +19,7 @@ struct HomeView: View {
                 
                 Button(action: {
                     isAdminMode.toggle()
-                    DataService.shared.toggleAdminMode()
+                    SettingsService.shared.toggleAdminMode()
                 }) {
                     HStack {
                         Image(systemName: "person.fill")

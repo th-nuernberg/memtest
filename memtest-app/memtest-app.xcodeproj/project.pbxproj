@@ -51,6 +51,7 @@
 		2ECA209A2B873F36000F2790 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ECA20992B873F36000F2790 /* Launch Screen.storyboard */; };
 		2ECA7AF72BC6FDD000C00693 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2ECA7AF62BC6FDD000C00693 /* AudioKit */; };
 		2ED416A22C07758500FC64ED /* StringMetric in Frameworks */ = {isa = PBXBuildFile; productRef = 2ED416A12C07758500FC64ED /* StringMetric */; };
+		2ED416A52C07779400FC64ED /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED416A42C07779400FC64ED /* SettingsService.swift */; };
 		2EEA58142B9A773C00CB2483 /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEA58132B9A773C00CB2483 /* OpenAPIURLSession */; };
 		2EEBF6102BDD361100594070 /* SecondDataInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEBF60F2BDD361100594070 /* SecondDataInputView.swift */; };
 		2EEBF6162BDD38C500594070 /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEBF6152BDD38C500594070 /* RadioButtonView.swift */; };
@@ -164,6 +165,7 @@
 		2ECA208A2B873EC3000F2790 /* memtest_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memtest_appUITests.swift; sourceTree = "<group>"; };
 		2ECA208C2B873EC3000F2790 /* memtest_appUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memtest_appUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2ECA20992B873F36000F2790 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		2ED416A42C07779400FC64ED /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		2EEBF60F2BDD361100594070 /* SecondDataInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondDataInputView.swift; sourceTree = "<group>"; };
 		2EEBF6152BDD38C500594070 /* RadioButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonView.swift; sourceTree = "<group>"; };
 		2EECBA462BF8CA35005F91CA /* SKTRoutingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTRoutingView.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				2EBBA1C62BD11B46005F5642 /* AnimalNameChecker.swift */,
 				2EBBA1CB2BD12B67005F5642 /* DataService.swift */,
 				2E4176412BE277C7009B0790 /* OrderNumberTestService.swift */,
+				2ED416A42C07779400FC64ED /* SettingsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -770,6 +773,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2ED416A52C07779400FC64ED /* SettingsService.swift in Sources */,
 				C66BB4262BAF0AB300ACC04F /* Test1View.swift in Sources */,
 				2EBE8FD42BAC793700F983C0 /* TestSymbol.swift in Sources */,
 				2EC57FDA2B90EE7500091804 /* QRCodeUtils.swift in Sources */,
