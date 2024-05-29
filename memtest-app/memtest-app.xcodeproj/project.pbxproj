@@ -8,10 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2E187A0D2BCAAC060081DA0B /* BNTPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E187A0C2BCAAC060081DA0B /* BNTPicture.swift */; };
-		2E187A112BCAAFD30081DA0B /* StringMetric in Frameworks */ = {isa = PBXBuildFile; productRef = 2E187A102BCAAFD30081DA0B /* StringMetric */; };
 		2E1AAA902BB4488A009EA657 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AAA8F2BB4488A009EA657 /* SymbolView.swift */; };
-		2E27D5D82C0756A300E82FB2 /* OpenAPIRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 2E27D5D72C0756A300E82FB2 /* OpenAPIRuntime */; };
 		2E27D5D42C07527900E82FB2 /* HeaderViewNotSKT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E27D5D32C07527900E82FB2 /* HeaderViewNotSKT.swift */; };
+		2E27D5D82C0756A300E82FB2 /* OpenAPIRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 2E27D5D72C0756A300E82FB2 /* OpenAPIRuntime */; };
 		2E2E39EB2BE0DCD800CB5055 /* DragNDropContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2E39EA2BE0DCD800CB5055 /* DragNDropContainerView.swift */; };
 		2E3241AF2BE018F900F68B91 /* Test5View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3241AE2BE018F900F68B91 /* Test5View.swift */; };
 		2E3624B22BCEE54800368F7F /* HourglassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3624B12BCEE54800368F7F /* HourglassView.swift */; };
@@ -51,6 +50,7 @@
 		2ECA208D2B873EC3000F2790 /* memtest_appUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECA208C2B873EC3000F2790 /* memtest_appUITestsLaunchTests.swift */; };
 		2ECA209A2B873F36000F2790 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ECA20992B873F36000F2790 /* Launch Screen.storyboard */; };
 		2ECA7AF72BC6FDD000C00693 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2ECA7AF62BC6FDD000C00693 /* AudioKit */; };
+		2ED416A22C07758500FC64ED /* StringMetric in Frameworks */ = {isa = PBXBuildFile; productRef = 2ED416A12C07758500FC64ED /* StringMetric */; };
 		2EEA58142B9A773C00CB2483 /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEA58132B9A773C00CB2483 /* OpenAPIURLSession */; };
 		2EEBF6102BDD361100594070 /* SecondDataInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEBF60F2BDD361100594070 /* SecondDataInputView.swift */; };
 		2EEBF6162BDD38C500594070 /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEBF6152BDD38C500594070 /* RadioButtonView.swift */; };
@@ -200,9 +200,9 @@
 			files = (
 				2ECA7AF72BC6FDD000C00693 /* AudioKit in Frameworks */,
 				2EF9749A2B99E19000EFFA46 /* memtest_server_client.framework in Frameworks */,
-				2E187A112BCAAFD30081DA0B /* StringMetric in Frameworks */,
 				2EABC7DE2BC81159005F99F6 /* SwiftWhisper in Frameworks */,
 				2E9A10F72BFF51D100B1A063 /* Zip in Frameworks */,
+				2ED416A22C07758500FC64ED /* StringMetric in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,10 +602,10 @@
 			);
 			name = "memtest-app";
 			packageProductDependencies = (
-				2E187A102BCAAFD30081DA0B /* StringMetric */,
 				2ECA7AF62BC6FDD000C00693 /* AudioKit */,
 				2EABC7DD2BC81159005F99F6 /* SwiftWhisper */,
 				2E9A10F62BFF51D100B1A063 /* Zip */,
+				2ED416A12C07758500FC64ED /* StringMetric */,
 			);
 			productName = "memtest-app";
 			productReference = 2ECA206B2B873EC2000F2790 /* memtest-app.app */;
@@ -1325,6 +1325,14 @@
 				minimumVersion = 0.3.2;
 			};
 		};
+		2E81A3CC2C07675B00A2E627 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-generator";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
 		2E9A10F52BFF51D100B1A063 /* XCRemoteSwiftPackageReference "Zip" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marmelroy/Zip";
@@ -1333,14 +1341,6 @@
 				minimumVersion = 2.1.2;
 			};
 		};
-        2E81A3CC2C07675B00A2E627 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */ = {
-            isa = XCRemoteSwiftPackageReference;
-            repositoryURL = "https://github.com/apple/swift-openapi-generator";
-            requirement = {
-                kind = upToNextMajorVersion;
-                minimumVersion = 1.2.1;
-            };
-        };
 		2EABC7DC2BC81159005F99F6 /* XCRemoteSwiftPackageReference "SwiftWhisper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/exPHAT/SwiftWhisper";
@@ -1373,12 +1373,9 @@
 				minimumVersion = 1.0.1;
 			};
 		};
-		2E9A10F62BFF51D100B1A063 /* Zip */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2E9A10F52BFF51D100B1A063 /* XCRemoteSwiftPackageReference "Zip" */;
-			productName = Zip;
-        };
-  
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
 		2E27D5D72C0756A300E82FB2 /* OpenAPIRuntime */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2EEA58102B9A764600CB2483 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */;
@@ -1389,11 +1386,6 @@
 			package = 2E81A3CC2C07675B00A2E627 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */;
 			productName = "plugin:OpenAPIGenerator";
 		};
-        2EABC7DD2BC81159005F99F6 /* SwiftWhisper */ = {
-            isa = XCSwiftPackageProductDependency;
-            package = 2EABC7DC2BC81159005F99F6 /* XCRemoteSwiftPackageReference "SwiftWhisper" */;
-            productName = SwiftWhisper;
-        };
 		2E9A10F62BFF51D100B1A063 /* Zip */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2E9A10F52BFF51D100B1A063 /* XCRemoteSwiftPackageReference "Zip" */;
@@ -1408,6 +1400,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2ECA7AF52BC6FDD000C00693 /* XCRemoteSwiftPackageReference "AudioKit" */;
 			productName = AudioKit;
+		};
+		2ED416A12C07758500FC64ED /* StringMetric */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E187A0F2BCAAFD30081DA0B /* XCRemoteSwiftPackageReference "StringMetric" */;
+			productName = StringMetric;
 		};
 		2EEA58132B9A773C00CB2483 /* OpenAPIURLSession */ = {
 			isa = XCSwiftPackageProductDependency;
