@@ -4,13 +4,13 @@
 //
 //  Created by Christopher Witzl on 13.05.24.
 //
-
 import SwiftUI
 
 struct HomeView: View {
     @State private var isAdminMode = false
-    var nextView: ((_ nextView: VisibleView) -> Void)
+    @State private var isCalibrated: Bool = DataService.shared.hasCalibrated()
     
+    var nextView: ((_ nextView: VisibleView) -> Void)
     
     var body: some View {
         VStack {
@@ -29,38 +29,57 @@ struct HomeView: View {
                     }
                     .foregroundColor(.white)
                     .padding()
-                    .background(isAdminMode  ? Color.red : Color.gray)
+                    .background(isAdminMode ? Color.red : Color.gray)
                     .cornerRadius(10)
                 }
                 .padding()
             }
             
-            Spacer()
+            Spacer(minLength: 20)
             
+            Button(action: {
+                nextView(.calibration)
+            }) {
+                HStack {
+                    Image(systemName: "gear")
+                        .font(.title)
+                    Text("Kalibrieren")
+                        .fontWeight(.semibold)
+                }
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.green)
+                .cornerRadius(10)
+            }
+            .padding()
+
+            // Test Buttons
             HStack(spacing: 20) {
-                navigationButton(title: "SKT", color: .blue, action: {
+                navigationButton(title: "SKT", color: isCalibrated ? .blue : .gray, action: {
                     nextView(.skt)
-                })
-                navigationButton(title: "VFT", color: .blue, action: {
+                }).disabled(!isCalibrated)
+                
+                navigationButton(title: "VFT", color: isCalibrated ? .blue : .gray, action: {
                     nextView(.vft)
-                })
+                }).disabled(!isCalibrated)
             }
             .padding(.bottom, 20)
             
             HStack(spacing: 20) {
-                navigationButton(title: "BNT", color: .blue, action: {
+                navigationButton(title: "BNT", color: isCalibrated ? .blue : .gray, action: {
                     nextView(.bnt)
-                })
-                navigationButton(title: "PDT", color: .blue, action: {
+                }).disabled(!isCalibrated)
+                
+                navigationButton(title: "PDT", color: isCalibrated ? .blue : .gray, action: {
                     nextView(.pdt)
-                })
+                }).disabled(!isCalibrated)
             }
-            
+
             Spacer()
             
             HStack {
                 Button(action: {
-                    // TODO: add uploading functionality
+                    // Upload functionality goes here
                 }) {
                     HStack {
                         Image(systemName: "arrow.up.circle.fill")
@@ -70,13 +89,13 @@ struct HomeView: View {
                     }
                     .foregroundColor(.white)
                     .padding()
-                    .background(.blue)
+                    .background(Color.blue)
                     .cornerRadius(10)
                 }
                 .padding()
                 
                 Button(action: {
-                    // TODO: add uploading functionality
+                    // End session functionality goes here
                 }) {
                     HStack {
                         Image(systemName: "stop.fill")
@@ -86,7 +105,7 @@ struct HomeView: View {
                     }
                     .foregroundColor(.white)
                     .padding()
-                    .background(.blue)
+                    .background(Color.blue)
                     .cornerRadius(10)
                 }
                 .padding()
@@ -94,7 +113,6 @@ struct HomeView: View {
             
             Spacer()
             
-                        
         }
         .padding()
         .navigationBarTitleDisplayMode(.inline)
@@ -111,23 +129,6 @@ struct HomeView: View {
                 .cornerRadius(10)
         }
     }
-    
-    func fetchZippedFiles() -> [String] {
-        let fileManager = FileManager.default
-        var documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        
-        
-        do {
-            let fileURLs = try fileManager.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil)
-            //return fileURLs.filter { $0.pathExtension == "zip" }.map { $0.lastPathComponent }
-            return fileURLs.map { $0.lastPathComponent }
-        } catch {
-            print("Error while enumerating files: \(error.localizedDescription)")
-        }
-        
-        return []
-    }
-
 }
 
 #Preview {
