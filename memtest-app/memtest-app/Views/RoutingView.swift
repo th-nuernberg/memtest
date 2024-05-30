@@ -17,6 +17,7 @@ enum VisibleView: Equatable {
     case bnt
     case pdt
     case feedback
+    case settings
 }
 
 struct RoutingView: View {
@@ -67,6 +68,11 @@ struct RoutingView: View {
             }
         case .feedback:
             FeedbackView()
+            
+        case .settings:
+            AdminSettingsView() {
+                self.visibleView = .home
+            }
         }
     }
     

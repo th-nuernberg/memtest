@@ -15,6 +15,21 @@ struct HomeView: View {
     var body: some View {
         VStack {
             HStack {
+               
+                if isAdminMode {
+                    Button(action: {
+                        nextView(.settings)
+                    }) {
+                        Image(systemName: "gear")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .padding(8)
+                            .background(Color.black.opacity(0.5))
+                            .clipShape(Circle())
+                    }
+                    .transition(.scale)
+                }
+
                 Spacer()
                 
                 Button(action: {
@@ -83,7 +98,7 @@ struct HomeView: View {
                 }) {
                     HStack {
                         Image(systemName: "arrow.up.circle.fill")
-                            .font(.title)
+                        .font(.title)
                         Text("Upload")
                             .fontWeight(.semibold)
                     }

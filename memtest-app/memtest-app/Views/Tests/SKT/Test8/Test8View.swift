@@ -15,7 +15,7 @@ struct Test8View: View {
     @State private var finished = false
     @State private var showExplanation = true
     
-    private let testDuration = 60
+    private let testDuration = SettingsService.shared.getTestDuration()
 
     private var symbolList = TestSymbolList()
     

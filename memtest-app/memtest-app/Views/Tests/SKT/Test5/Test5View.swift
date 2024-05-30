@@ -44,7 +44,7 @@ struct Test5View: View {
             })
             
             Text("test5")
-            .onTimerComplete(duration: 60) {
+            .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
                 print("Timer completed")
                 onComplete()
             }

@@ -65,7 +65,7 @@ struct BNTView: View {
                 AudioService.shared.stopRecording()
                 //stopTimer()
             }
-            .onTimerComplete(duration: 60, onComplete: {
+            .onTimerComplete(duration: SettingsService.shared.getTestDuration(), onComplete: {
                 DataService.shared.setRecognizedObjectNames(names: self.recognizedImages)
                 AudioService.shared.stopRecording()
                 finished.toggle()

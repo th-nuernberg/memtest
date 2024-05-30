@@ -9,9 +9,10 @@ import Foundation
 
 class SettingsService {
     static let shared = SettingsService()
-    
-    
     private var adminMode = false
+    
+    public var test_duration = 60
+    public var sound_enabled = true
     
     private init() {
         
@@ -27,6 +28,11 @@ class SettingsService {
     
     func isAdminMode() -> Bool {
         return self.adminMode
+    }
+    
+    func getTestDuration() -> Int {
+        print(self.test_duration)
+        return self.test_duration
     }
     
 }

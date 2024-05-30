@@ -58,7 +58,7 @@ struct Test7View: View {
             .onAppear(perform: {
                 try! AudioService.shared.startRecording(to: "test7");
             })
-            .onTimerComplete(duration: 60, onComplete: {
+            .onTimerComplete(duration: SettingsService.shared.getTestDuration(), onComplete: {
                 finished = true
                 AudioService.shared.stopRecording()
             })

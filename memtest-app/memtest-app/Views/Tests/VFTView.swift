@@ -20,7 +20,7 @@ struct VFTView: View {
     @State private var finished = false
     @State private var showExplanation = true
     @State private var recognizedAnimalNames: [String] = []
-    private let testDuration = 6
+    private let testDuration = SettingsService.shared.getTestDuration()
 
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 10, textOfCircle: "10", content: {

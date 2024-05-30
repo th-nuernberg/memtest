@@ -92,7 +92,7 @@ struct Test6View: View {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration:60) {
+            .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
                 print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()

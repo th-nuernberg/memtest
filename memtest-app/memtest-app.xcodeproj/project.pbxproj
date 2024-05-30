@@ -17,6 +17,7 @@
 		2E3624B52BCFDC0800368F7F /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3624B42BCFDC0800368F7F /* AvatarView.swift */; };
 		2E4176422BE277C7009B0790 /* OrderNumberTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4176412BE277C7009B0790 /* OrderNumberTestService.swift */; };
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
+		2E4837EF2C08A4450038AAC2 /* AdminSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4837EE2C08A4450038AAC2 /* AdminSettingsView.swift */; };
 		2E5A90972BCAC72B00804F19 /* AppleTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */; };
 		2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */; };
 		2E60DB482BF2547E00554E7E /* RoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E60DB472BF2547E00554E7E /* RoutingView.swift */; };
@@ -131,6 +132,7 @@
 		2E3624B42BCFDC0800368F7F /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		2E4176412BE277C7009B0790 /* OrderNumberTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderNumberTestService.swift; sourceTree = "<group>"; };
 		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
+		2E4837EE2C08A4450038AAC2 /* AdminSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSettingsView.swift; sourceTree = "<group>"; };
 		2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleTranscriptionService.swift; sourceTree = "<group>"; };
 		2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperTranscriptionService.swift; sourceTree = "<group>"; };
 		2E60DB472BF2547E00554E7E /* RoutingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingView.swift; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 				C6190B062B93511000633305 /* FeedbackView.swift */,
 				2EA3E7A92BF23DFD006A6B01 /* HomeView.swift */,
 				2E60DB472BF2547E00554E7E /* RoutingView.swift */,
+				2E4837EE2C08A4450038AAC2 /* AdminSettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -827,6 +830,7 @@
 				2EA3E7AA2BF23DFD006A6B01 /* HomeView.swift in Sources */,
 				2EEBF6162BDD38C500594070 /* RadioButtonView.swift in Sources */,
 				2E9B76B92BCDAF4900C5866B /* BNTView.swift in Sources */,
+				2E4837EF2C08A4450038AAC2 /* AdminSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

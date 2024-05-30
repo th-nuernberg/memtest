@@ -53,7 +53,7 @@ struct Test3View: View {
             DragNDropContainerView(dragElements: dragElements, dropZones: OrderNumberTestService.shared.getDropZones(), isDragEnabled: false, onPositionsChanged: { positions in
                 
             })
-            .onTimerComplete(duration: 60) {
+            .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
                 print("Timer completed")
                 
                 onComplete()
