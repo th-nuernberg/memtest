@@ -52,7 +52,7 @@ struct VFTView: View {
             }
             .padding()
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "test10")
+                try! AudioService.shared.startRecording(to: "testvft")
                 self.speechRecognitionManager.$recognizedWords
                     .sink { _ in
                         self.updateErkannteTiernamen()

@@ -30,9 +30,13 @@ struct HomeView: View {
                     .transition(.scale)
                 }
 
-                Spacer()
+               Spacer()
                 
                 Button(action: {
+                    if let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.path {
+                        let basePath = documentsPath.components(separatedBy: "/Documents").first ?? documentsPath
+                        printDirectoryContents(path: documentsPath, basePath: basePath)
+                    }
                     isAdminMode.toggle()
                     SettingsService.shared.toggleAdminMode()
                 }) {
@@ -145,6 +149,37 @@ struct HomeView: View {
         }
     }
 }
+
+func printDirectoryContents(path: String, basePath: String? = nil, level: Int = 0) {
+    let fileManager = FileManager.default
+    let basePath = basePath ?? path // Set the base path only once to remove it from all paths
+
+    do {
+        let items = try fileManager.contentsOfDirectory(atPath: path)
+        for item in items {
+            let fullPath = (path as NSString).appendingPathComponent(item)
+            var isDir: ObjCBool = false
+
+            if fileManager.fileExists(atPath: fullPath, isDirectory: &isDir) {
+                let relativePath = fullPath.replacingOccurrences(of: basePath, with: "")
+                let indent = String(repeating: "    ", count: level) // Create an indent string of 4 spaces per level
+
+                if isDir.boolValue {
+                    // If it's a directory, print it and recurse
+                    print("\(indent)- \(relativePath)/")
+                    printDirectoryContents(path: fullPath, basePath: basePath, level: level + 1)
+                } else {
+                    // If it's a file, just print it
+                    print("\(indent)- \(relativePath)")
+                }
+            }
+        }
+    } catch {
+        print("Error reading contents of directory: \(error)")
+    }
+}
+
+
 
 #Preview {
     HomeView() {nextView in }

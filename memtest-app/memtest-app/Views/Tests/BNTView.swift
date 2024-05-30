@@ -54,7 +54,7 @@ struct BNTView: View {
                 }
             }
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "test11")
+                try! AudioService.shared.startRecording(to: "testbnt")
                 setNextImage()
                 //startTimer()
             })
