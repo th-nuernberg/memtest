@@ -73,14 +73,11 @@ struct Test1View: View {
                 }
             })
             .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
-                print("Timer completed")
-                finished = true
-                AudioService.shared.stopRecording()
+                onComplete()
             }
         }, explanationContent: { onContinue in
             
             ExplanationView(onNext: {
-                print("next")
                 showExplanation = false
             },circleIndex: 0, circleText: "1", showProgressCircles: true, content: {
                 HStack {
@@ -143,9 +140,7 @@ struct Test1View: View {
     
     private func startStopRecording() {
         if isRecording {
-            AudioService.shared.stopRecording {
-                listRecordedFiles()
-            }
+            AudioService.shared.stopRecording()
         } else {
             do {
                 try AudioService.shared.startRecording(to: "test1")
@@ -155,24 +150,11 @@ struct Test1View: View {
         }
         isRecording.toggle()
     }
-    
-    private func listRecordedFiles() {
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        do {
-            let fileURLs = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil)
-            let audioFiles = fileURLs.filter { $0.pathExtension == "m4a" }
-            print("Recorded files:")
-            for file in audioFiles {
-                print(file.lastPathComponent)
-            }
-        } catch {
-            print("Error while enumerating files \(documentsDirectory.path): \(error.localizedDescription)")
-        }
-    }
+
     
     private func onComplete() {
-        // TODO: save dragElements in json
-        
+        let recognizedSymbols = Array(Set(manager.recognizedWords.filter { symbolList.contains(word: $0) }))
+        DataService.shared.saveSKT1Results(recognizedSymbolNames: recognizedSymbols)
         finished = true
         AudioService.shared.stopRecording()
     }

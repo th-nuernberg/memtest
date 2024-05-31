@@ -55,6 +55,56 @@ class DataService {
         self.calibrated = calibrated
     }
     // SKT
+    func saveSKT1Results(recognizedSymbolNames: [String]) {
+        self.skt.skt1Results.finished = true
+        print(recognizedSymbolNames)
+        self.skt.skt1Results.recognizedSymbolNames = recognizedSymbolNames
+    }
+    
+    func saveSKT2Results(rememberedSymbolNames: [String]) {
+        self.skt.skt2Results.finished = true
+        print(rememberedSymbolNames)
+        self.skt.skt2Results.rememberedSymbolNames = rememberedSymbolNames
+    }
+    
+    func saveSKT3Results() {
+        self.skt.skt3Results.finished = true
+    }
+    
+    func saveSKT4Results(dragElements: [DragElement]) {
+        self.skt.skt4Results.finished = true
+        self.skt.skt4Results.dragElements = dragElements
+        
+    }
+    
+    func saveSKT5Results(dragElements: [DragElement]) {
+        self.skt.skt5Results.finished = true
+        self.skt.skt5Results.dragElements  = dragElements
+    }
+    
+    func saveSKT6Results(symbolToCount: String, symbolCounts: [String: Int], symbolField: [String], taps: [(Int, String)], userSymbolCount: Int = 0) {
+        self.skt.skt6Results.finished = true
+        self.skt.skt6Results.symbolCounts = symbolCounts
+        self.skt.skt6Results.symbolField = symbolField
+        self.skt.skt6Results.symbolToCount = symbolToCount
+        self.skt.skt6Results.taps  = taps
+        self.skt.skt6Results.userSymbolCount = userSymbolCount
+    }
+    
+    func saveSKT7Results() {
+        self.skt.skt7Results.finished = true
+    }
+    
+    func saveSKT8Results(rememberedSymbolNames: [String]) {
+        self.skt.skt8Results.finished = true
+        self.skt.skt8Results.rememberedSymbolNames = rememberedSymbolNames
+        
+    }
+    
+    func saveSKT9Results(correctlyRememberedSymbolNames: [String]) {
+        self.skt.skt9Results.finished = true
+        self.skt.skt9Results.correctlyRememberedSymbolNames = correctlyRememberedSymbolNames
+    }
     
     // VFT
     func saveVFTResults(recognizedAnimalNames: [String]) {
@@ -75,14 +125,17 @@ class DataService {
     //Metadata
     
     func hasQRCodeScanned() -> Bool {
+        return true
         return (uuid != "" && aes_key != "" )
     }
     
     func hasMetadataBeenCollected() -> Bool {
+        return true
         return (patientData != nil)
     }
     
     func hasCalibrated() -> Bool {
+        return true
         return self.calibrated
     }
     

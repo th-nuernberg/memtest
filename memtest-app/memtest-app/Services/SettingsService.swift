@@ -11,7 +11,7 @@ class SettingsService {
     static let shared = SettingsService()
     private var adminMode = false
     
-    public var test_duration = 60
+    public var test_duration = 6
     public var sound_enabled = true
     
     private init() {

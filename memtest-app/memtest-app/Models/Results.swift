@@ -24,13 +24,13 @@ struct PDTResults {
 struct SKTResults {
     
     var skt1Results = SKT1Results()
-    var skt2Results = SKT1Results()
-    var skt3Results = SKT1Results()
-    var skt4Results = SKT1Results()
-    var skt5Results = SKT1Results()
-    var skt6Results = SKT1Results()
-    var skt7Results = SKT1Results()
-    var skt8Results = SKT1Results()
+    var skt2Results = SKT2Results()
+    var skt3Results = SKT3Results()
+    var skt4Results = SKT4Results()
+    var skt5Results = SKT5Results()
+    var skt6Results = SKT6Results()
+    var skt7Results = SKT7Results()
+    var skt8Results = SKT8Results()
     var skt9Results = SKT9Results()
     
 }
@@ -53,12 +53,12 @@ struct SKT3Results {
 
 struct SKT4Results {
     var finished = false
-    var dragElements: [DragElement]
+    var dragElements: [DragElement] = []
 }
 
 struct SKT5Results {
     var finished = false
-    var dragElements: [DragElement]
+    var dragElements: [DragElement] = []
 }
 
 struct SKT6Results {
