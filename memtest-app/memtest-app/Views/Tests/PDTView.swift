@@ -101,8 +101,7 @@ struct PDTView: View {
     }
     
     private func onComplete() {
-        // TODO: save dragElements in json
-        
+        DataService.shared.savePDTResults()
         finished = true
         AudioService.shared.stopRecording()
     }

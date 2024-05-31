@@ -8,6 +8,8 @@
 import Foundation
 import Zip
 
+
+
 class DataService {
     static let shared = DataService()
     
@@ -20,17 +22,11 @@ class DataService {
     
     private var calibrated: Bool = false
     
-    // SKT-Data
+    private var skt = SKTResults()
     
-    
-    // VFT-Data
-    private var vftFinished: Bool = false
-    private var recognizedAnimalNames: [String] = []
-    // BNT-Data
-    private var bntFinished: Bool = false
-    private var recognizedObjectNames: [String] = []
-    // PDT-Data
-    private var pdtFinished: Bool = false
+    private var vft = VFTResults()
+    private var bnt = BNTResults()
+    private var pdt = PDTResults()
     
     private init() {
         
@@ -61,18 +57,18 @@ class DataService {
     // SKT
     
     // VFT
-    func setRecognizedAnimalNames(names: [String]) {
-        self.vftFinished = true
-        self.recognizedAnimalNames = names
+    func saveVFTResults(recognizedAnimalNames: [String]) {
+        self.vft.finished = true
+        self.vft.recognizedAnimalNames = recognizedAnimalNames
     }
     // BNT
-    func setRecognizedObjectNames(names: [String]) {
-        self.bntFinished = true
-        self.recognizedObjectNames = names
+    func saveBNTResults(recognizedObjectNames: [String]) {
+        self.bnt.finished = true
+        self.bnt.recognizedObjectNames = recognizedObjectNames
     }
     // PDT
-    func setPDTFinished() {
-        self.pdtFinished = true
+    func savePDTResults(){
+        self.pdt.finished = true
     }
     
     // MARK: CHECKS
@@ -95,15 +91,15 @@ class DataService {
     
     // VFT
     func hasVFTFinished() -> Bool {
-        return self.vftFinished
+        return self.vft.finished
     }
     // BNT
     func hasBNTFinished() -> Bool {
-        return self.bntFinished
+        return self.bnt.finished
     }
     // PDT
     func hasPDTFinished() -> Bool {
-        return self.pdtFinished
+        return self.pdt.finished
     }
     
     // Zipping

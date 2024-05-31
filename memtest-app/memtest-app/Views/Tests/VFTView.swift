@@ -60,7 +60,7 @@ struct VFTView: View {
                     .store(in: &cancellables)
             })
             .onTimerComplete(duration: testDuration, onComplete: {
-                DataService.shared.setRecognizedAnimalNames(names: self.recognizedAnimalNames)
+                DataService.shared.saveVFTResults(recognizedAnimalNames: self.recognizedAnimalNames)
                 AudioService.shared.stopRecording()
                 finished = true
             })

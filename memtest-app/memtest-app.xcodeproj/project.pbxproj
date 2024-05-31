@@ -18,6 +18,7 @@
 		2E4176422BE277C7009B0790 /* OrderNumberTestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4176412BE277C7009B0790 /* OrderNumberTestService.swift */; };
 		2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E472B962BA4546900CAC059 /* BaseTestView.swift */; };
 		2E4837EF2C08A4450038AAC2 /* AdminSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4837EE2C08A4450038AAC2 /* AdminSettingsView.swift */; };
+		2E4837F22C08F5790038AAC2 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4837F12C08F5790038AAC2 /* Results.swift */; };
 		2E5A90972BCAC72B00804F19 /* AppleTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */; };
 		2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */; };
 		2E60DB482BF2547E00554E7E /* RoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E60DB472BF2547E00554E7E /* RoutingView.swift */; };
@@ -133,6 +134,7 @@
 		2E4176412BE277C7009B0790 /* OrderNumberTestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderNumberTestService.swift; sourceTree = "<group>"; };
 		2E472B962BA4546900CAC059 /* BaseTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestView.swift; sourceTree = "<group>"; };
 		2E4837EE2C08A4450038AAC2 /* AdminSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSettingsView.swift; sourceTree = "<group>"; };
+		2E4837F12C08F5790038AAC2 /* Results.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Results.swift; sourceTree = "<group>"; };
 		2E5A90962BCAC72B00804F19 /* AppleTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleTranscriptionService.swift; sourceTree = "<group>"; };
 		2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperTranscriptionService.swift; sourceTree = "<group>"; };
 		2E60DB472BF2547E00554E7E /* RoutingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingView.swift; sourceTree = "<group>"; };
@@ -404,6 +406,7 @@
 			children = (
 				2EBE8FD32BAC793700F983C0 /* TestSymbol.swift */,
 				2E187A0C2BCAAC060081DA0B /* BNTPicture.swift */,
+				2E4837F12C08F5790038AAC2 /* Results.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -786,6 +789,7 @@
 				2ECA20712B873EC2000F2790 /* ContentView.swift in Sources */,
 				2EC8E0F02BC917B5003C163C /* Test8View.swift in Sources */,
 				2E187A0D2BCAAC060081DA0B /* BNTPicture.swift in Sources */,
+				2E4837F22C08F5790038AAC2 /* Results.swift in Sources */,
 				C62BE6D32BAC2B6600B111ED /* WelcomeStudyView.swift in Sources */,
 				2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */,
 				2EA41A4E2BB8A78800FDD5B4 /* DragDropExampleScene.swift in Sources */,

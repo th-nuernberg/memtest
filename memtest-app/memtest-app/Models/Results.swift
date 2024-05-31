@@ -9,12 +9,12 @@ import Foundation
 
 struct VFTResults {
     var finished = false
-    private var recognizedAnimalNames: [String] = []
+    var recognizedAnimalNames: [String] = []
 }
 
 struct BNTResults {
     var finished = false
-    private var recognizedObjectNames: [String] = []
+    var recognizedObjectNames: [String] = []
 }
 
 struct PDTResults {
