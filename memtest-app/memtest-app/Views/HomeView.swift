@@ -13,129 +13,121 @@ struct HomeView: View {
     var nextView: ((_ nextView: VisibleView) -> Void)
     
     var body: some View {
-        VStack {
-            HStack {
+           VStack {
+               HStack {
+                   if isAdminMode {
+                       Button(action: {
+                           nextView(.settings)
+                       }) {
+                           Image(systemName: "gear")
+                               .font(.title2)
+                               .foregroundColor(.white)
+                               .padding(8)
+                               .background(Color.black.opacity(0.5))
+                               .clipShape(Circle())
+                       }
+                       .transition(.scale)
+                   }
+
+                   Spacer()
+                   
+                   Button(action: {
+                       isAdminMode.toggle()
+                       SettingsService.shared.toggleAdminMode()
+                   }) {
+                       HStack {
+                           Image(systemName: "person.fill")
+                               .font(.title)
+                           Text(isAdminMode ? "Admin On" : "Admin Off")
+                               .fontWeight(.semibold)
+                       }
+                       .foregroundColor(.white)
+                       .padding()
+                       .background(isAdminMode ? Color.red : Color.gray)
+                       .cornerRadius(10)
+                   }
+                   .padding()
+               }
                
-                if isAdminMode {
-                    Button(action: {
-                        nextView(.settings)
-                    }) {
-                        Image(systemName: "gear")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                            .padding(8)
-                            .background(Color.black.opacity(0.5))
-                            .clipShape(Circle())
-                    }
-                    .transition(.scale)
-                }
+               Spacer(minLength: 20)
+               
+               Button(action: {
+                   nextView(.calibration)
+               }) {
+                   HStack {
+                       Image(systemName: "gear")
+                           .font(.title)
+                       Text("Kalibrieren")
+                           .fontWeight(.semibold)
+                   }
+                   .foregroundColor(.white)
+                   .padding()
+                   .background(Color.green)
+                   .cornerRadius(10)
+               }
+               .padding()
 
+               HStack(spacing: 20) {
+                   navigationButton(title: "SKT", color: DataService.shared.hasSKTFinished() ? .gray : .blue, action: {
+                       nextView(.skt)
+                   }).disabled(DataService.shared.hasSKTFinished())
+                   
+                   navigationButton(title: "VFT", color: DataService.shared.hasVFTFinished() ? .gray : .blue, action: {
+                       nextView(.vft)
+                   }).disabled(DataService.shared.hasVFTFinished())
+               }
+               .padding(.bottom, 20)
+               
+               HStack(spacing: 20) {
+                   navigationButton(title: "BNT", color: DataService.shared.hasBNTFinished() ? .gray : .blue, action: {
+                       nextView(.bnt)
+                   }).disabled(DataService.shared.hasBNTFinished())
+                   
+                   navigationButton(title: "PDT", color: DataService.shared.hasPDTFinished() ? .gray : .blue, action: {
+                       nextView(.pdt)
+                   }).disabled(DataService.shared.hasPDTFinished())
+               }
                Spacer()
-                
-                Button(action: {
-                    if let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.path {
-                        let basePath = documentsPath.components(separatedBy: "/Documents").first ?? documentsPath
-                        printDirectoryContents(path: documentsPath, basePath: basePath)
-                    }
-                    isAdminMode.toggle()
-                    SettingsService.shared.toggleAdminMode()
-                }) {
-                    HStack {
-                        Image(systemName: "person.fill")
-                            .font(.title)
-                        Text(isAdminMode ? "Admin On" : "Admin Off")
-                            .fontWeight(.semibold)
-                    }
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(isAdminMode ? Color.red : Color.gray)
-                    .cornerRadius(10)
-                }
-                .padding()
-            }
-            
-            Spacer(minLength: 20)
-            
-            Button(action: {
-                nextView(.calibration)
-            }) {
+                          
                 HStack {
-                    Image(systemName: "gear")
-                        .font(.title)
-                    Text("Kalibrieren")
-                        .fontWeight(.semibold)
+                  Button(action: {
+                      // Upload functionality goes here
+                  }) {
+                      HStack {
+                          Image(systemName: "arrow.up.circle.fill")
+                          .font(.title)
+                          Text("Upload")
+                              .fontWeight(.semibold)
+                      }
+                      .foregroundColor(.white)
+                      .padding()
+                      .background(Color.blue)
+                      .cornerRadius(10)
+                  }
+                  .padding()
+                  
+                  Button(action: {
+                      // End session functionality goes here
+                  }) {
+                      HStack {
+                          Image(systemName: "stop.fill")
+                              .font(.title)
+                          Text("Sitzung beenden")
+                              .fontWeight(.semibold)
+                      }
+                      .foregroundColor(.white)
+                      .padding()
+                      .background(Color.blue)
+                      .cornerRadius(10)
+                  }
+                  .padding()
                 }
-                .foregroundColor(.white)
-                .padding()
-                .background(Color.green)
-                .cornerRadius(10)
-            }
-            .padding()
 
-            // Test Buttons
-            HStack(spacing: 20) {
-                navigationButton(title: "SKT", color: isCalibrated ? .blue : .gray, action: {
-                    nextView(.skt)
-                }).disabled(!isCalibrated)
-                
-                navigationButton(title: "VFT", color: isCalibrated ? .blue : .gray, action: {
-                    nextView(.vft)
-                }).disabled(!isCalibrated)
-            }
-            .padding(.bottom, 20)
-            
-            HStack(spacing: 20) {
-                navigationButton(title: "BNT", color: isCalibrated ? .blue : .gray, action: {
-                    nextView(.bnt)
-                }).disabled(!isCalibrated)
-                
-                navigationButton(title: "PDT", color: isCalibrated ? .blue : .gray, action: {
-                    nextView(.pdt)
-                }).disabled(!isCalibrated)
-            }
-
-            Spacer()
-            
-            HStack {
-                Button(action: {
-                    // Upload functionality goes here
-                }) {
-                    HStack {
-                        Image(systemName: "arrow.up.circle.fill")
-                        .font(.title)
-                        Text("Upload")
-                            .fontWeight(.semibold)
-                    }
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                }
-                .padding()
-                
-                Button(action: {
-                    // End session functionality goes here
-                }) {
-                    HStack {
-                        Image(systemName: "stop.fill")
-                            .font(.title)
-                        Text("Sitzung beenden")
-                            .fontWeight(.semibold)
-                    }
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                }
-                .padding()
-            }
-            
-            Spacer()
-            
-        }
-        .padding()
-        .navigationBarTitleDisplayMode(.inline)
-    }
+                Spacer()
+           }
+           .padding()
+           .navigationBarTitleDisplayMode(.inline)
+       }
     
     private func navigationButton(title: String, color: Color, action: @escaping () -> Void) -> some View {
         Button(action: action) {
