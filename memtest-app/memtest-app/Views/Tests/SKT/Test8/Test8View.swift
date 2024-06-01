@@ -126,8 +126,8 @@ struct Test8View: View {
     }
     
     private func onComplete() {
-        // TODO: save dragElements in json
-        
+        let rememberedSymbolNames = Array(Set(manager.recognizedWords.filter { symbolList.contains(word: $0) }))
+        DataService.shared.saveSKT8Results(rememberedSymbolNames: rememberedSymbolNames)
         finished = true
         AudioService.shared.stopRecording()
     }

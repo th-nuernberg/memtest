@@ -164,8 +164,8 @@ struct Test6View: View {
         })
     }
     
-    private func onComplete() {
-        // TODO: save currentDragElements in json
+    private func onComplete() {        
+        DataService.shared.saveSKT6Results(symbolToCount: viewModel.selectedSymbol!, symbolCounts: viewModel.symbolCounts, symbolField: viewModel.symbolField, taps: viewModel.taps, userSymbolCount: Int(self.userSymbolCount)!)
         finished = true
         AudioService.shared.stopRecording()
     }

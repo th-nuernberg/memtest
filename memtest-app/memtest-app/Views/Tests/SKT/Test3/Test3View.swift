@@ -54,8 +54,6 @@ struct Test3View: View {
                 
             })
             .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
-                print("Timer completed")
-                
                 onComplete()
             }
             .onAppear(perform: {
@@ -117,7 +115,7 @@ struct Test3View: View {
     }
     
     private func onComplete(){
-        
+        DataService.shared.saveSKT3Results()
         finished = true
         AudioService.shared.stopRecording()
     }

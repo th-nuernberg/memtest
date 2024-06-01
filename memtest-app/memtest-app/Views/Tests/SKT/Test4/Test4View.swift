@@ -35,6 +35,8 @@ struct Test4View: View {
         DragElement(posIndex: 19, label: "40", color: UIColor(Color(hex: "#2CBA76"))),
     ]
     
+    @State var userSortedElements: [DragElement] = []
+    
     public init(currentView: Binding<SKTViewEnum>) {
         self._currentView = currentView
     }
@@ -60,6 +62,7 @@ struct Test4View: View {
                 OrderNumberTestService.shared.setDragElements(dragElements: updatedDragElements)
                 // if the updatedDragElements are in an ascending order regarding the label and the lowest label number element is on posIndex 0 and the highest label number is on posIndex (dragElements.count - ), the onComplete function is called
                 checkOrderAndComplete(dragElements: updatedDragElements)
+                userSortedElements = updatedDragElements
             })
             .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
                 print("Timer completed")
@@ -137,7 +140,7 @@ struct Test4View: View {
     }
     
     private func onComplete() {
-        // TODO: save currentDragElements in json
+        DataService.shared.saveSKT4Results(dragElements: self.userSortedElements)
         finished = true
         AudioService.shared.stopRecording()
     }
