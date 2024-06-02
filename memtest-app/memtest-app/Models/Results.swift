@@ -7,79 +7,83 @@
 
 import Foundation
 
-struct VFTResults {
+protocol TestResult: Codable {
+    var finished: Bool { get set }
+}
+
+struct VFTResults: TestResult {
     var finished = false
     var recognizedAnimalNames: [String] = []
 }
 
-struct BNTResults {
+struct BNTResults: TestResult {
     var finished = false
     var recognizedObjectNames: [String] = []
 }
 
-struct PDTResults {
+struct PDTResults: TestResult {
     var finished = false
 }
 
-struct SKTResults {
+struct DragElementCodable: Codable {
+    var posIndex: Int;
+    var label: String?
     
-    var skt1Results = SKT1Results()
-    var skt2Results = SKT2Results()
-    var skt3Results = SKT3Results()
-    var skt4Results = SKT4Results()
-    var skt5Results = SKT5Results()
-    var skt6Results = SKT6Results()
-    var skt7Results = SKT7Results()
-    var skt8Results = SKT8Results()
-    var skt9Results = SKT9Results()
-    
+    init(dragElement: DragElement) {
+        self.posIndex = dragElement.posIndex
+        self.label = dragElement.label
+    }
 }
 
-
-
-struct SKT1Results {
+struct SKT1Results: TestResult {
     var finished = false
     var recognizedSymbolNames: [String] = []
 }
 
-struct SKT2Results {
+struct SKT2Results: TestResult {
     var finished = false
     var rememberedSymbolNames: [String] = []
 }
 
-struct SKT3Results {
+struct SKT3Results: TestResult {
     var finished = false
 }
 
-struct SKT4Results {
+struct SKT4Results: TestResult {
     var finished = false
-    var dragElements: [DragElement] = []
+    var dragElements: [DragElementCodable] = []
 }
 
-struct SKT5Results {
+struct SKT5Results: TestResult {
     var finished = false
-    var dragElements: [DragElement] = []
+    var dragElements: [DragElementCodable] = []
 }
 
-struct SKT6Results {
+struct Tap: Codable {
+    var index: Int
+    var label: String
+}
+
+
+struct SKT6Results: TestResult {
     var finished = false
     var symbolCounts: [String: Int] = ["★": 0, "✻": 0, "▢": 0]
     var symbolToCount: String = ""
     var symbolField: [String] = []
-    var taps: [(Int, String)] = []
+    var taps: [Tap] = []
     var userSymbolCount: Int = 0
 }
 
-struct SKT7Results {
+struct SKT7Results: TestResult {
     var finished = false
 }
 
-struct SKT8Results {
+struct SKT8Results: TestResult {
     var finished = false
     var rememberedSymbolNames: [String] = []
 }
 
-struct SKT9Results {
+struct SKT9Results: TestResult {
     var finished = false
     var correctlyRememberedSymbolNames: [String] = []
 }

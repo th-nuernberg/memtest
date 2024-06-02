@@ -15,14 +15,23 @@ class DataService {
     
     // Metadata
     private var study_id: String = ""
-    private var uuid: String = ""
+    private var uuid: String = "test-uuid"
     private var aes_key: String = ""
     
     private var patientData: PatientData?
     
     private var calibrated: Bool = false
     
-    private var skt = SKTResults()
+    private var skt1 = SKT1Results()
+    private var skt2 = SKT2Results()
+    private var skt3 = SKT3Results()
+    private var skt4 = SKT4Results()
+    private var skt5 = SKT5Results()
+    private var skt6 = SKT6Results()
+    private var skt7 = SKT7Results()
+    private var skt8 = SKT8Results()
+    private var skt9 = SKT9Results()
+    
     
     private var vft = VFTResults()
     private var bnt = BNTResults()
@@ -56,65 +65,86 @@ class DataService {
     }
     // SKT
     func saveSKT1Results(recognizedSymbolNames: [String]) {
-        self.skt.skt1Results.finished = true
+        self.skt1.finished = true
         print(recognizedSymbolNames)
-        self.skt.skt1Results.recognizedSymbolNames = recognizedSymbolNames
+        self.skt1.recognizedSymbolNames = recognizedSymbolNames
+        
+        try! saveToJson(name: "skt1", data: self.skt1)
     }
     
     func saveSKT2Results(rememberedSymbolNames: [String]) {
-        self.skt.skt2Results.finished = true
+        self.skt2.finished = true
         print(rememberedSymbolNames)
-        self.skt.skt2Results.rememberedSymbolNames = rememberedSymbolNames
+        self.skt2.rememberedSymbolNames = rememberedSymbolNames
+        
+        try! saveToJson(name: "skt2", data: self.skt2)
     }
     
     func saveSKT3Results() {
-        self.skt.skt3Results.finished = true
+        self.skt3.finished = true
     }
     
     func saveSKT4Results(dragElements: [DragElement]) {
-        self.skt.skt4Results.finished = true
-        self.skt.skt4Results.dragElements = dragElements
+        self.skt4.finished = true
         
+        let dragElementsCodable = dragElements.map { DragElementCodable(dragElement: $0) }
+        
+        self.skt4.dragElements = dragElementsCodable
+        
+        try! saveToJson(name: "skt4", data: self.skt4)
     }
     
     func saveSKT5Results(dragElements: [DragElement]) {
-        self.skt.skt5Results.finished = true
-        self.skt.skt5Results.dragElements  = dragElements
+        self.skt5.finished = true
+        let dragElementsCodable = dragElements.map { DragElementCodable(dragElement: $0) }
+        self.skt5.dragElements  = dragElementsCodable
+        
+        try! saveToJson(name: "skt5", data: self.skt5)
     }
     
     func saveSKT6Results(symbolToCount: String, symbolCounts: [String: Int], symbolField: [String], taps: [(Int, String)], userSymbolCount: Int = 0) {
-        self.skt.skt6Results.finished = true
-        self.skt.skt6Results.symbolCounts = symbolCounts
-        self.skt.skt6Results.symbolField = symbolField
-        self.skt.skt6Results.symbolToCount = symbolToCount
-        self.skt.skt6Results.taps  = taps
-        self.skt.skt6Results.userSymbolCount = userSymbolCount
+        self.skt6.finished = true
+        self.skt6.symbolCounts = symbolCounts
+        self.skt6.symbolField = symbolField
+        self.skt6.symbolToCount = symbolToCount
+        self.skt6.taps  = taps.map { Tap(index: $0.0, label: $0.1) }
+        self.skt6.userSymbolCount = userSymbolCount
+        
+        try! saveToJson(name: "skt6", data: self.skt6)
     }
     
     func saveSKT7Results() {
-        self.skt.skt7Results.finished = true
+        self.skt7.finished = true
     }
     
     func saveSKT8Results(rememberedSymbolNames: [String]) {
-        self.skt.skt8Results.finished = true
-        self.skt.skt8Results.rememberedSymbolNames = rememberedSymbolNames
+        self.skt8.finished = true
+        self.skt8.rememberedSymbolNames = rememberedSymbolNames
+        
+        try! saveToJson(name: "skt8", data: self.skt8)
         
     }
     
     func saveSKT9Results(correctlyRememberedSymbolNames: [String]) {
-        self.skt.skt9Results.finished = true
-        self.skt.skt9Results.correctlyRememberedSymbolNames = correctlyRememberedSymbolNames
+        self.skt9.finished = true
+        self.skt9.correctlyRememberedSymbolNames = correctlyRememberedSymbolNames
+        
+        try! saveToJson(name: "skt9", data: self.skt9)
     }
     
     // VFT
     func saveVFTResults(recognizedAnimalNames: [String]) {
         self.vft.finished = true
         self.vft.recognizedAnimalNames = recognizedAnimalNames
+        
+        try! saveToJson(name: "vft", data: self.vft)
     }
     // BNT
     func saveBNTResults(recognizedObjectNames: [String]) {
         self.bnt.finished = true
         self.bnt.recognizedObjectNames = recognizedObjectNames
+        
+        try! saveToJson(name: "bnt", data: self.bnt)
     }
     // PDT
     func savePDTResults(){
@@ -138,7 +168,7 @@ class DataService {
     
     // SKT
     func hasSKTFinished() -> Bool {
-        return skt.skt9Results.finished
+        return skt9.finished
     }
     
     // VFT
@@ -154,53 +184,25 @@ class DataService {
         return self.pdt.finished
     }
     
-    // Zipping
-    func saveDataToJsonFiles() {
-        print("save data")
-        
+    func saveToJson(name: String, data: Codable) throws {
         let fileManager = FileManager.default
         let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        self.uuid = "testergebnis_2"
-        let uuidDirectory = documentsDirectory.appendingPathComponent(uuid)
-        
-        print(uuidDirectory)
-        
-        // Create the directory if it does not exist
+        let uuidDirectory = documentsDirectory.appendingPathComponent(uuid)  // UUID directory
+        let testDirectory = uuidDirectory.appendingPathComponent(name)        // Test-specific directory
+
+        // Create the UUID directory if it does not exist
         if !fileManager.fileExists(atPath: uuidDirectory.path) {
-            do {
-                try fileManager.createDirectory(at: uuidDirectory, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                print("Failed to create directory: \(error)")
-                return
-            }
+            try fileManager.createDirectory(at: uuidDirectory, withIntermediateDirectories: true, attributes: nil)
         }
 
-        let jsonEncoder = JSONEncoder()
-        jsonEncoder.outputFormatting = .prettyPrinted
-        
-        // Save QRCodeData
-        let qrPath = uuidDirectory.appendingPathComponent("QRCodeData.json")
-        if let qrData = try? jsonEncoder.encode(QRCodeData(study_id: self.study_id, id: self.uuid, key: self.aes_key)) {
-            do {
-                try qrData.write(to: qrPath)
-            } catch {
-                print("Failed to write QRCodeData: \(error)")
-            }
+        // Create the test-specific directory if it does not exist
+        if !fileManager.fileExists(atPath: testDirectory.path) {
+            try fileManager.createDirectory(at: testDirectory, withIntermediateDirectories: true, attributes: nil)
         }
 
-        // Save PatientData
-        let patientPath = uuidDirectory.appendingPathComponent("PatientData.json")
-        if let patientData = self.patientData,
-           let patientDataEncoded = try? jsonEncoder.encode(patientData) {
-            do {
-                try patientDataEncoded.write(to: patientPath)
-            } catch {
-                print("Failed to write PatientData: \(error)")
-            }
-        }
-        
-        print(try! Zip.quickZipFiles([uuidDirectory], fileName: "\(uuid)_encrypted"))
+        let jsonData = try JSONEncoder().encode(data)
+        let jsonFileUrl = testDirectory.appendingPathComponent("\(name).json")
+        try jsonData.write(to: jsonFileUrl)
     }
-
 
 }

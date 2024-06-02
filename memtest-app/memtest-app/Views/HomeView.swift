@@ -34,6 +34,11 @@ struct HomeView: View {
                    Button(action: {
                        isAdminMode.toggle()
                        SettingsService.shared.toggleAdminMode()
+                       
+                       if let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.path {
+                          let basePath = documentsPath.components(separatedBy: "/Documents").first ?? documentsPath
+                          printDirectoryContents(path: documentsPath, basePath: basePath)
+                      }
                    }) {
                        HStack {
                            Image(systemName: "person.fill")

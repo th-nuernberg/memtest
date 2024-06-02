@@ -89,7 +89,7 @@ struct Test2View: View {
     
     private func startTest() {
         manager.recognizedWords = []
-        try? AudioService.shared.startRecording(to: "test2")
+        try? AudioService.shared.startRecording(to: "skt")
     }
     
     private func onComplete() {

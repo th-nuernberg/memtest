@@ -75,7 +75,7 @@ struct Test9View: View {
                     }
                 }
                 .onAppear(perform: {
-                    try! AudioService.shared.startRecording(to: "test9")
+                    try! AudioService.shared.startRecording(to: "skt9")
                 })
                 .onTimerComplete(duration: testDuration) {
                     print("Timer completed")

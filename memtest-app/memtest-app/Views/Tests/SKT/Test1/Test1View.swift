@@ -143,7 +143,7 @@ struct Test1View: View {
             AudioService.shared.stopRecording()
         } else {
             do {
-                try AudioService.shared.startRecording(to: "test1")
+                try AudioService.shared.startRecording(to: "skt1")
             } catch {
                 print("Failed to start recording: \(error)")
             }

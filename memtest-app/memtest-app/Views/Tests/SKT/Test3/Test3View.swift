@@ -57,7 +57,7 @@ struct Test3View: View {
                 onComplete()
             }
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "test3")
+                try! AudioService.shared.startRecording(to: "skt3")
             })
             
         }, explanationContent: { onContinue in

@@ -49,7 +49,7 @@ struct PDTView: View {
                 }
             }.onAppear(perform: {
                 do {
-                    try AudioService.shared.startRecording(to: "testpdt")
+                    try AudioService.shared.startRecording(to: "pdt")
                     print("Recording started")
                 } catch {
                     print("Failed to start recording: \(error)")
