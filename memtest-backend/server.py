@@ -1,6 +1,7 @@
 import connexion
 from flask import Flask, request, render_template, send_file
 from werkzeug.utils import secure_filename
+from werkzeug.datastructures import FileStorage
 import os
 import shutil
 from io import BytesIO
@@ -17,45 +18,55 @@ app = connexion.FlaskApp(__name__, specification_dir='../memtest-app/memtest-ser
 
 @app.route("/", methods=['GET', 'POST'])
 def upload_file():
+    
     if request.method == 'POST':
-        if 'file' not in request.files:
-            return 'No file part'
         
-        file = request.files['file']
-
-        if file.filename == '':
-            return 'No selected file'
-
-        if file:
-            filePath = saveFile(file)
-            QRCodes = extractQRCodeFromPDF(filePath)
-            os.remove(filePath)
-            
-            # Create a temporary directory to store the decrypted ZIP files
-            with tempfile.TemporaryDirectory() as tmpdirname:
-                for code in QRCodes:
-                    QRCodeData = scanQRCode(code)
-                    decryptedZip, zipFileName = fetchZip(QRCodeData["id"], QRCodeData["key"])
-                    # Save the decrypted ZIP file in the temporary directory
-                    decryptedZipPath = os.path.join(tmpdirname, zipFileName)
-                    with open(decryptedZipPath, 'wb') as f:
-                        shutil.copyfileobj(decryptedZip, f)
+        files = []
+        
+        if request.form['fileOption'] == 'single':
+            if 'file' not in request.files:
+                return 'No file part'
+            else:
+                files.append(request.files['file'])
                 
-                # Create a combined ZIP file of all decrypted ZIP files
-                combinedZipBytes = BytesIO()
-                with ZipFile(combinedZipBytes, 'w') as combinedZip:
+        elif request.form['fileOption'] == 'multiple':
+            directory = os.path.normpath(request.form["fileDirectory"])
+            
+            for filename in os.listdir(directory):
+                if filename.endswith(".pdf"):
+                    file_path = os.path.join(directory, filename)
+                    with open(file_path, 'rb') as file:
+                        file_content = file.read()
+                        file_storage = FileStorage(stream=BytesIO(file_content), filename=filename, name='file', content_type='application/pdf')
+                        files.append(file_storage)
+        
+        for file in files:
+    
+            filename = secure_filename(os.path.basename(file.name))
+
+            if file.filename == '':
+                return 'No selected file'
+
+            if file:
+                filePath = saveFileToStatic(file)
+                QRCodes = extractQRCodeFromPDF(filePath)
+                os.remove(filePath)
+                
+                # Create a temporary directory to store the decrypted ZIP files
+                with tempfile.TemporaryDirectory() as tmpdirname:
+                    for code in QRCodes:
+                        QRCodeData = scanQRCode(code)
+                        decryptedZip, zipFileName = fetchZip(QRCodeData["id"], QRCodeData["key"])
+                        # Save the decrypted ZIP file in the temporary directory
+                        decryptedZipPath = os.path.join(tmpdirname, zipFileName)
+                        with open(decryptedZipPath, 'wb') as f:
+                            shutil.copyfileobj(decryptedZip, f)
+                    
+                    outputDirectory = os.path.normpath(request.form["outputDirectory"])
                     for filename in os.listdir(tmpdirname):
                         filePath = os.path.join(tmpdirname, filename)
-                        combinedZip.write(filePath, arcname=filename)
-                
-                combinedZipBytes.seek(0)
-                
-                return send_file(
-                    combinedZipBytes,
-                    as_attachment=True,
-                    download_name='combined.zip'
-                )
-                
+                        saveFileToOutput(filePath, outputDirectory, filename)
+                    
     return render_template('upload.html')
 
 def fetchZip(id, key): #fetchzip gets the data from the testData folder for testing purposes
@@ -66,7 +77,7 @@ def fetchZip(id, key): #fetchzip gets the data from the testData folder for test
     # Decrypt the ZIP file and get its content as bytes
     return decryptZip(destZipFilePath, key, id)
 
-def saveFile(file):
+def saveFileToStatic(file):
     filename = secure_filename(file.filename)
     splitFilename = filename.rsplit('.', 1)
     if len(splitFilename) == 2 and splitFilename[1]:
@@ -74,6 +85,9 @@ def saveFile(file):
         file.save(filePath)
         return filePath
 
+def saveFileToOutput(src_file, outputdir, filename):
+    output_path = os.path.join(outputdir, filename)
+    shutil.copyfile(src_file, output_path)
 
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=8080) #runs via localhost for testing purposes

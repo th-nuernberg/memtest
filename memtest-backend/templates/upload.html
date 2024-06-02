@@ -3,12 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload PDF></title>
+    <title>Upload PDFs</title>
+    <script>
+        function showLocationSelector() {
+            const fileLocation = document.getElementById('fileLocationDropDown').value;
+            const inputDirectoryField = document.getElementById('inputDirectoryField');
+
+            if (fileLocation === 'local') {
+                inputDirectoryField.style.display = 'block';
+            } else {
+                inputDirectoryField.style.display = 'none';
+            }
+        }
+
+        function showFileSelector() {
+            const fileOption = document.querySelector('input[name="fileOption"]:checked').value;
+            const singleFileInput = document.getElementById('singleFileInput');
+            const directoryInput = document.getElementById('directoryInput');
+
+            if (fileOption === 'single') {
+                singleFileInput.style.display = 'block';
+                directoryInput.style.display = 'none';
+            } else if (fileOption === 'multiple') {
+                singleFileInput.style.display = 'none';
+                directoryInput.style.display = 'block';
+            }
+        }
+    </script>
 </head>
 <body>
-    <h2>Upload a PDF file</h2>
+    <h2>Upload PDF files</h2>
     <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".pdf" placeholder="Please select a file"><br>
+        <div>
+            <input type="radio" id="single" name="fileOption" value="single" onchange="showFileSelector()" checked>
+            <label for="single">Single PDF</label>
+            <input type="radio" id="multiple" name="fileOption" value="multiple" onchange="showFileSelector()">
+            <label for="multiple">Multiple PDFs</label>
+        </div>
+
+        <br>
+
+        <div id="singleFileInput">
+            <label for="file">PDF</label>
+            <input type="file" name="file" accept=".pdf" placeholder="Please select a file"><br>
+        </div>
+
+        <div id="directoryInput" style="display: none;">
+            <label for="fileDirectory">PDF Directory</label>
+            <input type="text" name="fileDirectory" accept=".pdf" placeholder="Please enter the directory path"><br>
+        </div>
+
+        <br>
+
+        <select name="fileLocation" id="fileLocationDropDown" onchange="showLocationSelector()">
+            <option value="remote">Remote</option>
+            <option value="local">Local</option>
+        </select>
+
+        <div id="inputDirectoryField" style="display: none;">
+            <label for="inputDirectory">Input Directory:</label>
+            <input type="text" name="inputDirectory" placeholder="Please enter the directory path">
+        </div>
+
+        <div id="outputDirectoryField">
+            <label for="outputDirectory">Output Directory:</label>
+            <input type="text" name="outputDirectory" placeholder="Please enter the directory path">
+        </div>
+
         <input type="submit" value="Upload">
     </form>
 </body>
