@@ -10,6 +10,11 @@ struct HomeView: View {
     @State private var isAdminMode = false
     @State private var isCalibrated: Bool = DataService.shared.hasCalibrated()
     
+    @State private var sktFinished: Bool = DataService.shared.hasSKTFinished()
+    @State private var vftFinished: Bool = DataService.shared.hasVFTFinished()
+    @State private var bntFinished: Bool = DataService.shared.hasBNTFinished()
+    @State private var pdtFinished: Bool = DataService.shared.hasPDTFinished()
+    
     var nextView: ((_ nextView: VisibleView) -> Void)
     
     var body: some View {
@@ -73,24 +78,24 @@ struct HomeView: View {
                .padding()
 
                HStack(spacing: 20) {
-                   navigationButton(title: "SKT", color: DataService.shared.hasSKTFinished() ? .gray : .blue, action: {
+                   navigationButton(title: "SKT", color: sktFinished ? .gray : .blue, action: {
                        nextView(.skt)
-                   }).disabled(DataService.shared.hasSKTFinished())
+                   }).disabled(sktFinished)
                    
-                   navigationButton(title: "VFT", color: DataService.shared.hasVFTFinished() ? .gray : .blue, action: {
+                   navigationButton(title: "VFT", color: vftFinished ? .gray : .blue, action: {
                        nextView(.vft)
-                   }).disabled(DataService.shared.hasVFTFinished())
+                   }).disabled(vftFinished)
                }
                .padding(.bottom, 20)
                
                HStack(spacing: 20) {
-                   navigationButton(title: "BNT", color: DataService.shared.hasBNTFinished() ? .gray : .blue, action: {
+                   navigationButton(title: "BNT", color: bntFinished ? .gray : .blue, action: {
                        nextView(.bnt)
-                   }).disabled(DataService.shared.hasBNTFinished())
+                   }).disabled(bntFinished)
                    
-                   navigationButton(title: "PDT", color: DataService.shared.hasPDTFinished() ? .gray : .blue, action: {
+                   navigationButton(title: "PDT", color: pdtFinished ? .gray : .blue, action: {
                        nextView(.pdt)
-                   }).disabled(DataService.shared.hasPDTFinished())
+                   }).disabled(pdtFinished)
                }
                Spacer()
                           
@@ -112,8 +117,10 @@ struct HomeView: View {
                   .padding()
                   
                   Button(action: {
-                      // End session functionality goes here
+                      
                       DataService.shared.zipTestResults()
+                      DataService.shared.reset()
+                      updateViewStates()
                       printDocumentsDirectory()
                       
                   }) {
@@ -148,6 +155,14 @@ struct HomeView: View {
                 .cornerRadius(10)
         }
     }
+    
+    private func updateViewStates() {
+            isCalibrated = DataService.shared.hasCalibrated()
+            sktFinished = DataService.shared.hasSKTFinished()
+            vftFinished = DataService.shared.hasVFTFinished()
+            bntFinished = DataService.shared.hasBNTFinished()
+            pdtFinished = DataService.shared.hasPDTFinished()
+        }
 }
 
 func printDocumentsDirectory() {

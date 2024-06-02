@@ -71,7 +71,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
     private func prepareRecordingDirectory(for testName: String) {
         let fileManager = FileManager.default
         let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let testDirectory = documentsDirectory.appendingPathComponent("tests/\(testName)")
+        let testDirectory = documentsDirectory.appendingPathComponent("\(DataService.shared.getUUID())/\(testName)")
         
         // Create the directory if it does not exist
         if !fileManager.fileExists(atPath: testDirectory.path) {

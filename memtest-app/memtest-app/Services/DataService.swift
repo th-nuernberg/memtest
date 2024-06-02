@@ -14,7 +14,7 @@ class DataService {
     
     // Metadata
     private var study_id: String = ""
-    private var uuid: String = "test-uuid"
+    private var uuid: String = "my-uuid"
     private var aes_key: String = "lol"
     
     private var patientData: PatientData?
@@ -58,6 +58,9 @@ class DataService {
         return self.study_id
     }
     
+    func getUUID() -> String {
+        return self.uuid
+    }
     
     func setCalibrated(calibrated: Bool) {
         self.calibrated = calibrated
@@ -221,6 +224,52 @@ class DataService {
             print("Successfully created ZIP file at path: \(zipFilePath)")
         } else {
             print("Failed to create ZIP file.")
+        }
+    }
+    
+    func reset() {
+        deleteAllFiles()
+        
+        study_id = ""
+        uuid = "test-uuid"
+        aes_key = "lol"
+        
+        patientData = nil
+        calibrated = false
+        
+        skt1 = SKT1Results()
+        skt2 = SKT2Results()
+        skt3 = SKT3Results()
+        skt4 = SKT4Results()
+        skt5 = SKT5Results()
+        skt6 = SKT6Results()
+        skt7 = SKT7Results()
+        skt8 = SKT8Results()
+        skt9 = SKT9Results()
+        
+        vft = VFTResults()
+        bnt = BNTResults()
+        pdt = PDTResults()
+    }
+    
+    func deleteAllFiles() {
+        guard let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            print("Documents path not found.")
+            return
+        }
+        
+        let fileManager = FileManager.default
+        
+        do {
+            let filePaths = try fileManager.contentsOfDirectory(at: documentsPath, includingPropertiesForKeys: nil)
+            for filePath in filePaths {
+                if filePath.pathExtension != "zip" {
+                    try fileManager.removeItem(at: filePath)
+                }
+            }
+            print("All non-zip files and folders deleted.")
+        } catch {
+            print("Could not clear documents folder: \(error)")
         }
     }
     
