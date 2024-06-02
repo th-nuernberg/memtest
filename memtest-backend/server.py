@@ -13,7 +13,7 @@ from pdfScan import extractQRCodeFromPDF, scanQRCode
 app = connexion.FlaskApp(__name__, specification_dir='../memtest-app/memtest-server-client/')
 
 # Lesen Sie die OpenAPI-Spezifikation und konfigurieren Sie die Pfade
-app.add_api('openapi.yaml')
+#app.add_api('openapi.yaml')
 
 @app.route("/", methods=['GET', 'POST'])
 def upload_file():
