@@ -6,8 +6,7 @@
 //
 
 import Foundation
-import Zip
-
+import ZipArchive
 
 
 class DataService {
@@ -16,7 +15,7 @@ class DataService {
     // Metadata
     private var study_id: String = ""
     private var uuid: String = "test-uuid"
-    private var aes_key: String = ""
+    private var aes_key: String = "lol"
     
     private var patientData: PatientData?
     
@@ -204,5 +203,25 @@ class DataService {
         let jsonFileUrl = testDirectory.appendingPathComponent("\(name).json")
         try jsonData.write(to: jsonFileUrl)
     }
-
+    
+    func zipTestResults() {
+        guard !uuid.isEmpty, !aes_key.isEmpty else {
+            print("UUID or AES key is empty, cannot zip the folder.")
+            return
+        }
+        
+        let fileManager = FileManager.default
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let uuidDirectory = documentsDirectory.appendingPathComponent(uuid)
+        let zipFilePath = documentsDirectory.appendingPathComponent("\(uuid).zip").path
+        
+        let success = SSZipArchive.createZipFile(atPath: zipFilePath, withContentsOfDirectory: uuidDirectory.path, withPassword: aes_key)
+        
+        if success {
+            print("Successfully created ZIP file at path: \(zipFilePath)")
+        } else {
+            print("Failed to create ZIP file.")
+        }
+    }
+    
 }

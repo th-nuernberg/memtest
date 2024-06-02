@@ -113,6 +113,9 @@ struct HomeView: View {
                   
                   Button(action: {
                       // End session functionality goes here
+                      DataService.shared.zipTestResults()
+                      printDocumentsDirectory()
+                      
                   }) {
                       HStack {
                           Image(systemName: "stop.fill")
@@ -145,6 +148,13 @@ struct HomeView: View {
                 .cornerRadius(10)
         }
     }
+}
+
+func printDocumentsDirectory() {
+    if let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.path {
+       let basePath = documentsPath.components(separatedBy: "/Documents").first ?? documentsPath
+       printDirectoryContents(path: documentsPath, basePath: basePath)
+   }
 }
 
 func printDirectoryContents(path: String, basePath: String? = nil, level: Int = 0) {
