@@ -32,6 +32,9 @@ def upload_file():
         elif request.form['fileOption'] == 'multiple':
             directory = os.path.normpath(request.form["fileDirectory"])
             
+            if not os.path.exists(directory):
+                return 'Invalid file directory'
+            
             for filename in os.listdir(directory):
                 if filename.endswith(".pdf"):
                     file_path = os.path.join(directory, filename)
@@ -54,18 +57,21 @@ def upload_file():
                 
                 # Create a temporary directory to store the decrypted ZIP files
                 with tempfile.TemporaryDirectory() as tmpdirname:
-                    for code in QRCodes:
-                        QRCodeData = scanQRCode(code)
-                        decryptedZip, zipFileName = fetchZip(QRCodeData["id"], QRCodeData["key"])
-                        # Save the decrypted ZIP file in the temporary directory
-                        decryptedZipPath = os.path.join(tmpdirname, zipFileName)
-                        with open(decryptedZipPath, 'wb') as f:
-                            shutil.copyfileobj(decryptedZip, f)
-                    
                     outputDirectory = os.path.normpath(request.form["outputDirectory"])
-                    for filename in os.listdir(tmpdirname):
-                        filePath = os.path.join(tmpdirname, filename)
-                        saveFileToOutput(filePath, outputDirectory, filename)
+                    if os.path.exists(outputDirectory):
+                        for code in QRCodes:
+                            QRCodeData = scanQRCode(code)
+                            decryptedZip, zipFileName = fetchZip(QRCodeData["id"], QRCodeData["key"])
+                            # Save the decrypted ZIP file in the temporary directory
+                            decryptedZipPath = os.path.join(tmpdirname, zipFileName)
+                            with open(decryptedZipPath, 'wb') as f:
+                                shutil.copyfileobj(decryptedZip, f)
+                                                    
+                        for filename in os.listdir(tmpdirname):
+                            filePath = os.path.join(tmpdirname, filename)
+                            saveFileToOutput(filePath, outputDirectory, filename)
+                    else:
+                        return 'Invalid output directory'
                     
     return render_template('upload.html')
 

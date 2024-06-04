@@ -8,11 +8,14 @@
         function showLocationSelector() {
             const fileLocation = document.getElementById('fileLocationDropDown').value;
             const inputDirectoryField = document.getElementById('inputDirectoryField');
+            const inputDirectory = document.querySelector('input[name="inputDirectory"]');
 
             if (fileLocation === 'local') {
                 inputDirectoryField.style.display = 'block';
+                inputDirectory.required = true;
             } else {
                 inputDirectoryField.style.display = 'none';
+                inputDirectory.required = false;
             }
         }
 
@@ -20,15 +23,26 @@
             const fileOption = document.querySelector('input[name="fileOption"]:checked').value;
             const singleFileInput = document.getElementById('singleFileInput');
             const directoryInput = document.getElementById('directoryInput');
+            const singleFile = document.querySelector('input[name="file"]');
+            const fileDirectory = document.querySelector('input[name="fileDirectory"]');
 
             if (fileOption === 'single') {
                 singleFileInput.style.display = 'block';
                 directoryInput.style.display = 'none';
+                singleFile.required = true;
+                fileDirectory.required = false;
             } else if (fileOption === 'multiple') {
                 singleFileInput.style.display = 'none';
                 directoryInput.style.display = 'block';
+                singleFile.required = false;
+                fileDirectory.required = true;
             }
         }
+
+        window.onload = function() {
+            showLocationSelector();
+            showFileSelector();
+        };
     </script>
 </head>
 <body>
@@ -67,7 +81,7 @@
 
         <div id="outputDirectoryField">
             <label for="outputDirectory">Output Directory:</label>
-            <input type="text" name="outputDirectory" placeholder="Please enter the directory path">
+            <input type="text" name="outputDirectory" placeholder="Please enter the directory path" required>
         </div>
 
         <input type="submit" value="Upload">
