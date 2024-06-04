@@ -1,5 +1,5 @@
 import connexion
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, render_template, send_file, jsonify
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
 import os
@@ -73,6 +73,7 @@ def upload_file():
                     else:
                         return 'Invalid output directory'
                     
+        return render_template('success.html')
     return render_template('upload.html')
 
 def fetchZip(id, key): #fetchzip gets the data from the testData folder for testing purposes
@@ -96,5 +97,4 @@ def saveFileToOutput(src_file, outputdir, filename):
     shutil.copyfile(src_file, output_path)
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=8080) #runs via localhost for testing purposes
-    #app.run(host="0.0.0.0", port=8080)
+    app.run(host="127.0.0.1", port=8080)

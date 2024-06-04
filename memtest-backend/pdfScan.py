@@ -9,12 +9,12 @@ def extractQRCodeFromPDF(fileName):
     filePath = os.path.join("static\\files", fileName)
     
     if not os.path.exists(filePath):
-        return {'error' : 'File does not exist'}, 400
+        return 'File does not exist'
     
     document = fitz.open(filePath)
     
     if not document:
-        return {'error' : 'Failed to open PDF document'}, 500
+        return 'Failed to open PDF document'
     
     pageNums = len(document)
     images = []
@@ -25,7 +25,7 @@ def extractQRCodeFromPDF(fileName):
         images.extend(pageContent.get_images())
         
     if len(images) == 0:
-        return {'error' : 'No images found in the PDF document'}, 400
+        return "No images found in the PDF document"
         
     if len(images) == 0:
         return "No images"
@@ -52,6 +52,6 @@ def scanQRCode(QRCode):
     decoded = decode(QRCode)
     
     if not decoded:
-        return {'error' : 'Failed to decode QR code'}, 400
+        return 'Failed to decode QR code'
     
     return json.loads(decoded[0].data)
