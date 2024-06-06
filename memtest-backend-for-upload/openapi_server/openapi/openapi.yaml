@@ -1,0 +1,129 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: witzlch88229@th-nuernberg.de
+  description: This is the API definition for the memtest-app
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Memtest
+  version: 1.0.11
+servers:
+- url: http://localhost/api/v1/
+tags:
+- name: Test-Result
+paths:
+  /health:
+    get:
+      description: Returns the health status of the API server
+      operationId: get_health_status
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getHealthStatus_200_response'
+          description: API server is up and running
+      summary: Health Check Endpoint
+      tags:
+      - Health Check
+      x-openapi-router-controller: openapi_server.controllers.health_check_controller
+  /testresult/upload/{qrcode-uuid}:
+    put:
+      operationId: upload_test_result
+      parameters:
+      - description: UUID associated with the QR code
+        explode: false
+        in: path
+        name: qrcode-uuid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/zip:
+            schema:
+              description: Encrypted ZIP file
+              format: binary
+              type: string
+        description: Encrypted ZIP file containing test results
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Successful operation
+      summary: Uploads a test result zip file
+      tags:
+      - Test-Result
+      x-openapi-router-controller: openapi_server.controllers.test_result_controller
+  /testresult/{qrcode-uuid}:
+    get:
+      operationId: get_test_result
+      parameters:
+      - description: UUID associated with the specific test result
+        explode: false
+        in: path
+        name: qrcode-uuid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/zip:
+              schema:
+                description: Encrypted ZIP file containing the test result
+                format: binary
+                type: string
+          description: "Successful operation, encrypted test result retrieved"
+        "404":
+          description: Test result not found
+        "500":
+          description: Server error
+      summary: Retrieves a specific test result by UUID as an encrypted ZIP file
+      tags:
+      - Test-Result
+      x-openapi-router-controller: openapi_server.controllers.test_result_controller
+components:
+  schemas:
+    ApiResponse:
+      example:
+        code: 0
+        type: type
+        message: message
+      properties:
+        code:
+          format: int32
+          title: code
+          type: integer
+        type:
+          title: type
+          type: string
+        message:
+          title: message
+          type: string
+      title: ApiResponse
+      type: object
+      xml:
+        name: ApiResponse
+    getHealthStatus_200_response:
+      example:
+        status: healthy
+        timestamp: 2024-05-29T12:34:56Z
+      properties:
+        status:
+          example: healthy
+          title: status
+          type: string
+        timestamp:
+          example: 2024-05-29T12:34:56Z
+          format: date-time
+          title: timestamp
+          type: string
+      title: getHealthStatus_200_response
+      type: object
