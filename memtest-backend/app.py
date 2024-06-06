@@ -59,6 +59,10 @@ def upload_file():
                 QRCodes = extractQRCodeFromPDF(filePath)
                 os.remove(filePath)
                 
+                if isinstance(QRCodes, str) and ("File does not exist" in QRCodes or "Failed to open PDF document" in QRCodes or "No images found in the PDF document" in QRCodes):
+                    errors.append(QRCodes)
+                    continue
+                
                 # Create a temporary directory to store the decrypted ZIP files
                 with tempfile.TemporaryDirectory() as tmpdirname:
                     outputDirectory = os.path.normpath(request.form["outputDirectory"])

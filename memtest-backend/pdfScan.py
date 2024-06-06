@@ -6,7 +6,7 @@ from io import BytesIO
 import json
 
 def extractQRCodeFromPDF(fileName):
-    filePath = os.path.join("static\\files", fileName)
+    filePath = os.path.join(os.path.dirname(__file__), "static", "files", fileName)
     
     if not os.path.exists(filePath):
         return 'File does not exist'
@@ -14,7 +14,7 @@ def extractQRCodeFromPDF(fileName):
     document = fitz.open(filePath)
     
     if not document:
-        return 'Failed to open PDF document'
+        return f'Failed to open {fileName}'
     
     pageNums = len(document)
     images = []
