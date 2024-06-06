@@ -72,7 +72,8 @@ def upload_file():
                                 if os.path.exists(os.path.join(inputDir, QRCodeData["id"] + ".zip")):
                                     decryptedZip, zipFileName = decryptZip(os.path.join(inputDir, QRCodeData["id"] + ".zip"), QRCodeData["key"], QRCodeData["id"])
                                 else:
-                                    errors.append(f"Test result not found for {QRCodeData(id)}")
+                                    errors.append(f"Test result not found for {QRCodeData['id']}")
+                                    continue
                             else: #fileLocation == remote
                                 decryptedZip, zipFileName, error = getZipFromRemote(QRCodeData["id"], QRCodeData["key"])
                                 if error:
