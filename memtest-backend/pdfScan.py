@@ -27,9 +27,6 @@ def extractQRCodeFromPDF(fileName):
     if len(images) == 0:
         return "No images found in the PDF document"
         
-    if len(images) == 0:
-        return "No images"
-    
     for i, image in enumerate(images, start=1):
         xref = image[0]
         baseImage = document.extract_image(xref)
@@ -54,4 +51,12 @@ def scanQRCode(QRCode):
     if not decoded:
         return 'Failed to decode QR code'
     
-    return json.loads(decoded[0].data)
+    try:
+        data = json.loads(decoded[0].data)
+    except json.JSONDecodeError:
+        return 'Couldn\'t retrieve id and key from the QR code'
+    
+    if "id" not in data or "key" not in data:
+        return 'Couldn\'t retrieve id and key from the QR code'
+    
+    return data

@@ -65,6 +65,9 @@ def upload_file():
                     if os.path.exists(outputDirectory):
                         for code in QRCodes:
                             QRCodeData = scanQRCode(code)
+                            if isinstance(QRCodeData, str) and ("Couldn't retrieve id and key" in QRCodeData or "Failed to decode QR code" in QRCodeData):
+                                errors.append(QRCodeData)
+                                continue
                             
                             inputDir = os.path.normpath(request.form["inputDirectory"])
                             
