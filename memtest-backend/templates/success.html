@@ -5,7 +5,17 @@
     <title>Success</title>
 </head>
 <body>
-    <h1>Process completed successfully!</h1>
+    <h1>Process completed</h1>
+    {% if errors %}
+        <div style="color: red;">
+            <h2>Errors:</h2>
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
     <form action="/" method="get">
         <button type="submit">Continue</button>
     </form>

@@ -7,14 +7,12 @@ import shutil
 from io import BytesIO
 from zipfile import ZipFile
 import tempfile
+import requests
 from decrypt import decryptZip  # Ensure this function returns bytes and filename
 from pdfScan import extractQRCodeFromPDF, scanQRCode
 
 # Erstellen Sie eine Connexion-Anwendung
-app = connexion.FlaskApp(__name__, specification_dir='../memtest-app/memtest-server-client/')
-
-# Lesen Sie die OpenAPI-Spezifikation und konfigurieren Sie die Pfade
-#app.add_api('openapi.yaml')
+app = connexion.FlaskApp(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
 def upload_file():
@@ -43,6 +41,12 @@ def upload_file():
                         file_storage = FileStorage(stream=BytesIO(file_content), filename=filename, name='file', content_type='application/pdf')
                         files.append(file_storage)
         
+        if request.form['fileLocation'] == 'local':
+            if not os.path.exists(os.path.normpath(request.form["inputDirectory"])):
+                return "Invalid input directory"
+        
+        errors = [] #keep a list of all errors that happen during requests
+        
         for file in files:
     
             filename = secure_filename(os.path.basename(file.name))
@@ -55,13 +59,34 @@ def upload_file():
                 QRCodes = extractQRCodeFromPDF(filePath)
                 os.remove(filePath)
                 
+                if isinstance(QRCodes, str) and ("File does not exist" in QRCodes or "Failed to open PDF document" in QRCodes or "No images found in the PDF document" in QRCodes):
+                    errors.append(QRCodes)
+                    continue
+                
                 # Create a temporary directory to store the decrypted ZIP files
                 with tempfile.TemporaryDirectory() as tmpdirname:
                     outputDirectory = os.path.normpath(request.form["outputDirectory"])
                     if os.path.exists(outputDirectory):
                         for code in QRCodes:
                             QRCodeData = scanQRCode(code)
-                            decryptedZip, zipFileName = fetchZip(QRCodeData["id"], QRCodeData["key"])
+                            if isinstance(QRCodeData, str) and ("Couldn't retrieve id and key" in QRCodeData or "Failed to decode QR code" in QRCodeData):
+                                errors.append(QRCodeData)
+                                continue
+                            
+                            inputDir = os.path.normpath(request.form["inputDirectory"])
+                            
+                            if request.form["fileLocation"] == "local":
+                                if os.path.exists(os.path.join(inputDir, QRCodeData["id"] + ".zip")):
+                                    decryptedZip, zipFileName = decryptZip(os.path.join(inputDir, QRCodeData["id"] + ".zip"), QRCodeData["key"], QRCodeData["id"])
+                                else:
+                                    errors.append(f"Test result not found for {QRCodeData['id']}")
+                                    continue
+                            else: #fileLocation == remote
+                                decryptedZip, zipFileName, error = getZipFromRemote(QRCodeData["id"], QRCodeData["key"])
+                                if error:
+                                    errors.append(error)
+                                    continue
+                                    
                             # Save the decrypted ZIP file in the temporary directory
                             decryptedZipPath = os.path.join(tmpdirname, zipFileName)
                             with open(decryptedZipPath, 'wb') as f:
@@ -72,8 +97,9 @@ def upload_file():
                             saveFileToOutput(filePath, outputDirectory, filename)
                     else:
                         return 'Invalid output directory'
-                    
-        return render_template('success.html')
+        allErrors = errors
+        errors = []
+        return render_template('success.html', errors=allErrors)
     return render_template('upload.html')
 
 def fetchZip(id, key): #fetchzip gets the data from the testData folder for testing purposes
@@ -83,6 +109,31 @@ def fetchZip(id, key): #fetchzip gets the data from the testData folder for test
     
     # Decrypt the ZIP file and get its content as bytes
     return decryptZip(destZipFilePath, key, id)
+
+def getZipFromRemote(id, key):
+    url = f"http://127.0.0.1:8080/api/v1/testresult/{id}"
+    
+    error = None
+    decryptedZip = None
+    zipFileName = None
+    
+    try:
+        response = requests.get(url)
+        
+        if response.status_code == 200:
+            with tempfile.NamedTemporaryFile(delete=False) as tmpfile:
+                tmpfile.write(response.content)
+                path = tmpfile.name
+            decryptedZip, zipFileName = decryptZip(path, key, id)
+        elif response.status_code == 404:
+            error = f"Test result not found for {id}"
+        elif response.status_code == 500:
+            error = f"Server error occurred for {id}"
+        else:
+            error = f"Unexpected error occurred for {id} error code: {response.status_code}"
+    except requests.RequestException as e:
+        print(f"Request failed: {e}")
+    return decryptedZip, zipFileName, error
 
 def saveFileToStatic(file):
     filename = secure_filename(file.filename)
@@ -97,4 +148,4 @@ def saveFileToOutput(src_file, outputdir, filename):
     shutil.copyfile(src_file, output_path)
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=8080)
+    app.run(host="127.0.0.1", port=3000)
