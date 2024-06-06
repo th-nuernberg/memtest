@@ -9,7 +9,8 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.11
 servers:
-  - url: http://localhost/api/v1/
+  - url: http://localhost:8080/api/v1
+  - url: http://my-url/api/v1
 tags:
   - name: Test-Result
 paths:
@@ -18,7 +19,8 @@ paths:
       tags:
         - Test-Result
       summary: "Retrieves a specific test result by UUID as an encrypted ZIP file"
-      operationId: "getTestResult"
+      operationId: "get_test_result"
+      x-openapi-router-controller: openapi_server.controllers.test_result_controller
       parameters:
         - in: path
           name: qrcode-uuid
@@ -44,7 +46,8 @@ paths:
       tags:
         - Test-Result
       summary: "Uploads a test result zip file"
-      operationId: "uploadTestResult"
+      operationId: "upload_test_result"
+      x-openapi-router-controller: openapi_server.controllers.test_result_controller
       parameters:
         - in: path
           name: qrcode-uuid
@@ -74,7 +77,8 @@ paths:
         - Health Check
       summary: "Health Check Endpoint"
       description: "Returns the health status of the API server"
-      operationId: "getHealthStatus"
+      operationId: "get_health_status"
+      x-openapi-router-controller: openapi_server.controllers.health_check_controller
       responses:
         '200':
           description: "API server is up and running"
@@ -90,6 +94,7 @@ paths:
                     type: string
                     format: date-time
                     example: "2024-05-29T12:34:56Z"
+      
 
 components:
   schemas:
