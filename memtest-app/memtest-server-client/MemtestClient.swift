@@ -30,7 +30,7 @@ public struct MemtestClient {
     }
     
     public func checkHealth() async throws {
-        let response = try await client.getHealthStatus()
+        let response = try await client.get_health_status()
         switch response {
         case .ok:
             return
@@ -43,17 +43,17 @@ public struct MemtestClient {
     
     public func uploadTestResult(uuid: String, fileData: Data) async throws {
         
-        let uuid_path = Operations.uploadTestResult.Input.Path(qrcode_hyphen_uuid: uuid)
+        let uuid_path = Operations.upload_test_result.Input.Path(qrcode_hyphen_uuid: uuid)
         
         // Convert Data to ArraySlice<UInt8>
         let byteChunk = ArraySlice<UInt8>(fileData)
         // Create HTTPBody using the byteChunk
         let httpBody = HTTPBody(byteChunk, length: .known(Int64(fileData.count)))
         // Create requestBody with the newly created HTTPBody
-        let requestBody = Operations.uploadTestResult.Input.Body.application_zip(httpBody)
+        let requestBody = Operations.upload_test_result.Input.Body.application_zip(httpBody)
 
         
-        let response = try! await client.uploadTestResult(path: uuid_path, body: requestBody)
+        let response = try! await client.upload_test_result(path: uuid_path, body: requestBody)
         print(response)
     }
 }
