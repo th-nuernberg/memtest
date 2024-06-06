@@ -13,10 +13,19 @@ public struct MemtestClient {
     let client: Client
     
     public init() throws {
-        // Sichereres Unwrapping mit Fehlerbehandlung
+        // Determine the server URL based on the build configuration
+        #if DEBUG
         guard let serverURL = try? Servers.server1() else {
             throw MemtestClientError.serverUrlNotFound
         }
+        print("DEBUG mode: Using endpoint with url: \(serverURL)")
+        #else
+        guard let serverURL = try? Servers.server2() else {
+            throw MemtestClientError.serverUrlNotFound
+        }
+        print("RELEASE mode: Using endpoint with url: \(serverURL)")
+        #endif
+
         self.client = Client(serverURL: serverURL, transport: URLSessionTransport())
     }
     
@@ -32,8 +41,20 @@ public struct MemtestClient {
     
 
     
-    func uploadTestResult(uuid: String, fileData: Data) async throws {
-        // TODO: implement this
+    public func uploadTestResult(uuid: String, fileData: Data) async throws {
+        
+        let uuid_path = Operations.uploadTestResult.Input.Path(qrcode_hyphen_uuid: uuid)
+        
+        // Convert Data to ArraySlice<UInt8>
+        let byteChunk = ArraySlice<UInt8>(fileData)
+        // Create HTTPBody using the byteChunk
+        let httpBody = HTTPBody(byteChunk, length: .known(Int64(fileData.count)))
+        // Create requestBody with the newly created HTTPBody
+        let requestBody = Operations.uploadTestResult.Input.Body.application_zip(httpBody)
+
+        
+        let response = try! await client.uploadTestResult(path: uuid_path, body: requestBody)
+        print(response)
     }
 }
 

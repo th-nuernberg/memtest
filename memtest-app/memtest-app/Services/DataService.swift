@@ -7,10 +7,12 @@
 
 import Foundation
 import ZipArchive
+import memtest_server_client
 
 
 class DataService {
     static let shared = DataService()
+    private let client: MemtestClient
     
     // Metadata
     private var study_id: String = ""
@@ -37,7 +39,11 @@ class DataService {
     private var pdt = PDTResults()
     
     private init() {
-        
+        do {
+            self.client = try MemtestClient()
+        } catch {
+            fatalError("Failed to initialize MemtestClient: \(error)")
+        }
     }
     
     // MARK: Setting data
@@ -157,14 +163,17 @@ class DataService {
     //Metadata
     
     func hasQRCodeScanned() -> Bool {
+        return true
         return (uuid != "" && aes_key != "" )
     }
     
     func hasMetadataBeenCollected() -> Bool {
+        return true
         return (patientData != nil)
     }
     
     func hasCalibrated() -> Bool {
+        return true
         return self.calibrated
     }
     
@@ -273,4 +282,66 @@ class DataService {
         }
     }
     
+    func uploadTestResult() async throws {
+        guard hasQRCodeScanned() else {
+            print("QR Code must be scanned before uploading results.")
+            return
+        }
+
+        // Zip the results
+        zipTestResults()
+
+        let fileManager = FileManager.default
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let zipFilePath = documentsDirectory.appendingPathComponent("\(uuid).zip")
+
+        // Check if the zip file exists
+        guard let fileData = try? Data(contentsOf: zipFilePath) else {
+            print("Zip file does not exist at expected path: \(zipFilePath.path)")
+            return
+        }
+
+        // Upload using MemtestClient
+        do {
+            try await client.uploadTestResult(uuid: uuid, fileData: fileData)
+            print("Test results successfully uploaded.")
+        } catch {
+            print("Failed to upload test results: \(error)")
+        }
+    }
+
+    public func uploadAllZipFiles() async {
+        zipTestResults()
+        
+        let directoryPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileManager = FileManager.default
+        do {
+            let zipFiles = try fileManager.contentsOfDirectory(at: directoryPath, includingPropertiesForKeys: nil).filter { $0.pathExtension == "zip" }
+            
+            print("Trying to upload following zip files: \(zipFiles)")
+            
+            for zipFile in zipFiles {
+                do {
+                    // Read the data of the zip file
+                    let fileData = try Data(contentsOf: zipFile)
+                    // Assuming UUID is part of the file name
+                    let uuid = zipFile.deletingPathExtension().lastPathComponent
+                    
+                    do {
+                        // Upload the zip file
+                        try await client.uploadTestResult(uuid: uuid, fileData: fileData)
+                        // If successful, delete the zip file
+                        try fileManager.removeItem(at: zipFile)
+                        print("Successfully uploaded and deleted: \(zipFile.lastPathComponent)")
+                    } catch {
+                        print("Failed to upload: \(zipFile.lastPathComponent), error: \(error)")
+                    }
+                } catch {
+                    print("Error reading file \(zipFile.lastPathComponent): \(error)")
+                }
+            }
+        } catch {
+            print("Failed to list zip files in directory: \(directoryPath), error: \(error)")
+        }
+    }
 }

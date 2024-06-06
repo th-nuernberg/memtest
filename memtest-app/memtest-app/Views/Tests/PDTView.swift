@@ -57,7 +57,7 @@ struct PDTView: View {
             })
             .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
                 print("Timer completed")
-                finished = true
+                onComplete()
                 AudioService.shared.stopRecording()
             }
         }, explanationContent: { onContinue in

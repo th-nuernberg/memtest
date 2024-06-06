@@ -101,7 +101,11 @@ struct HomeView: View {
                           
                 HStack {
                   Button(action: {
-                      // Upload functionality goes here
+                      Task {
+                          await DataService.shared.uploadAllZipFiles()
+                          DataService.shared.reset()
+                          updateViewStates()
+                      }
                   }) {
                       HStack {
                           Image(systemName: "arrow.up.circle.fill")
@@ -157,12 +161,12 @@ struct HomeView: View {
     }
     
     private func updateViewStates() {
-            isCalibrated = DataService.shared.hasCalibrated()
-            sktFinished = DataService.shared.hasSKTFinished()
-            vftFinished = DataService.shared.hasVFTFinished()
-            bntFinished = DataService.shared.hasBNTFinished()
-            pdtFinished = DataService.shared.hasPDTFinished()
-        }
+        isCalibrated = DataService.shared.hasCalibrated()
+        sktFinished = DataService.shared.hasSKTFinished()
+        vftFinished = DataService.shared.hasVFTFinished()
+        bntFinished = DataService.shared.hasBNTFinished()
+        pdtFinished = DataService.shared.hasPDTFinished()
+    }
 }
 
 func printDocumentsDirectory() {
