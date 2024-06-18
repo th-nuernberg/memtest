@@ -8,7 +8,7 @@ from io import BytesIO
 from zipfile import ZipFile
 import tempfile
 import requests
-from decrypt import decryptZip  # Ensure this function returns bytes and filename
+#from decrypt import decryptZip  # Ensure this function returns bytes and filename
 from pdfScan import extractQRCodeFromPDF, scanQRCode
 
 # Erstellen Sie eine Connexion-Anwendung
@@ -77,7 +77,7 @@ def upload_file():
                             
                             if request.form["fileLocation"] == "local":
                                 if os.path.exists(os.path.join(inputDir, QRCodeData["id"] + ".zip")):
-                                    decryptedZip, zipFileName = decryptZip(os.path.join(inputDir, QRCodeData["id"] + ".zip"), QRCodeData["key"], QRCodeData["id"])
+                                    decryptedZip, zipFileName = removePassword(os.path.join(inputDir, QRCodeData["id"] + ".zip"), QRCodeData["key"], QRCodeData["id"])
                                 else:
                                     errors.append(f"Test result not found for {QRCodeData['id']}")
                                     continue
@@ -102,14 +102,6 @@ def upload_file():
         return render_template('success.html', errors=allErrors)
     return render_template('upload.html')
 
-def fetchZip(id, key): #fetchzip gets the data from the testData folder for testing purposes
-    orgZipFilePath = os.path.join(os.path.dirname(__file__), "testData", "encrypted", f"{id}.zip")
-    destZipFilePath = os.path.join(os.path.dirname(__file__), "static", "fetchedFiles", f"{id}.zip")
-    shutil.copyfile(orgZipFilePath, destZipFilePath)
-    
-    # Decrypt the ZIP file and get its content as bytes
-    return decryptZip(destZipFilePath, key, id)
-
 def getZipFromRemote(id, key):
     url = f"http://127.0.0.1:8080/api/v1/testresult/{id}"
     
@@ -124,7 +116,7 @@ def getZipFromRemote(id, key):
             with tempfile.NamedTemporaryFile(delete=False) as tmpfile:
                 tmpfile.write(response.content)
                 path = tmpfile.name
-            decryptedZip, zipFileName = decryptZip(path, key, id)
+            decryptedZip, zipFileName = removePassword(path, key, id)
         elif response.status_code == 404:
             error = f"Test result not found for {id}"
         elif response.status_code == 500:
@@ -146,6 +138,20 @@ def saveFileToStatic(file):
 def saveFileToOutput(src_file, outputdir, filename):
     output_path = os.path.join(outputdir, filename)
     shutil.copyfile(src_file, output_path)
+
+def removePassword(zipFilePath, key, id):
+    zipName = f"{id}.zip"
+
+    decryptedZip = BytesIO()
+
+    with ZipFile(zipFilePath, 'r') as zip_ref:
+        zip_ref.extractall(pwd=bytes(key, 'utf-8'))
+        with ZipFile(decryptedZip, 'w') as new_zip:
+            for file_name in zip_ref.namelist():
+                new_zip.write(file_name)
+    
+    decryptedZip.seek(0)
+    return decryptedZip, zipName
 
 if __name__ == '__main__':
     app.run(host="127.0.0.1", port=3000)
