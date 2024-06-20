@@ -16,9 +16,9 @@ logging.basicConfig(level=logging.INFO, format=' %(levelname)s - %(message)s')
 def main():
     
     parser = argparse.ArgumentParser(description="Download and decrypt the patiend data")
-    parser.add_argument('--outdir', type=str, help="Output directory for the patient data")
+    parser.add_argument('--outdir', type=str, help="Output directory for the patient data (If left empty uses the downloads folder as output)")
     parser.add_argument('--indir', type=str, help='input directory for the patient data (local)')
-    parser.add_argument('--pdfdir', type=str, required=True, help='Directory containing the PDF files')
+    parser.add_argument('--pdfdir', type=str, help='Directory containing the PDF files')
     parser.add_argument('pdf_files', nargs='+', type=str, help="PDF files to process (use 'all' to process all PDFs in the directory)")
     args = parser.parse_args()
 
@@ -36,7 +36,8 @@ def main():
     if(args.pdfdir != None):
         pdfdir = os.path.normpath(args.pdfdir)
     else:
-        pdfdir = os.path.normpath(__file__)
+        pdfdir = os.path.dirname(os.path.abspath(__file__))
+
 
     pdfs = args.pdf_files
 
@@ -137,7 +138,6 @@ def removePasswordAndSave(zipFilePath, key, id, outdir):
 
     with ZipFile(zipFilePath, 'r') as zip_ref:
         zip_ref.extractall(pwd=bytes(key, 'utf-8'), path=outdir)
-    logging.info(f"Successfully downloaded the test data with the id: {id} into the output directory")
     return
 
 #PDFscan functions
