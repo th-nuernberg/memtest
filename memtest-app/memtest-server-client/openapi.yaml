@@ -47,7 +47,7 @@ paths:
       tags:
         - Test-Result
       summary: "Uploads a test result zip file"
-      description: "The uuid is provided as a required query parameter, although it should actually be provided as a path parameter. This is due to the fact that the Swift code generation is buggy, and when provided as a path parameter, no matter which parameter value is set (e.g., test-uuid), the name of the path parameter is always used as the path parameter."
+      description: "The uuid is provided as a required query parameter, although it should actually be provided as a path parameter. This is due to the fact that the Swift code generation is buggy, and when provided as a path parameter, no matter which parameter value is set (e.g., test-uuid), the name of the path parameter is always used as the path parameter. The same is true for the study-secret."
       operationId: "upload_test_result"
       x-openapi-router-controller: openapi_server.controllers.test_result_controller
       parameters:
@@ -57,6 +57,12 @@ paths:
           schema:
             type: string
           description: "UUID associated with the QR code"
+        - in: query
+          name: study-secret
+          required: true
+          schema:
+            type: string
+          description: "the study secret for auth"
       responses:
         '200':
           description: "Successful operation"
