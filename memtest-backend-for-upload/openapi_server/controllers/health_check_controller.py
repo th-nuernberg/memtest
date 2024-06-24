@@ -1,11 +1,11 @@
 import connexion
-import datetime
 from typing import Dict
 from typing import Tuple
 from typing import Union
 
 from openapi_server.models.get_health_status200_response import GetHealthStatus200Response  # noqa: E501
 from openapi_server import util
+from datetime import datetime, timezone
 
 
 def get_health_status():  # noqa: E501
@@ -19,6 +19,6 @@ def get_health_status():  # noqa: E501
 
     status_response = GetHealthStatus200Response()
     status_response.status = "healthy"
-    status_response.timestamp = datetime.datetime.now().isoformat()
+    status_response.timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S%z')
 
     return status_response

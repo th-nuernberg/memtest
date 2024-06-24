@@ -10,6 +10,7 @@ info:
   version: 1.0.11
 servers:
   - url: http://localhost:8080/api/v1
+  - url: http://192.168.178.187:8080/api/v1
   - url: http://my-url/api/v1
 tags:
   - name: Test-Result
@@ -41,15 +42,16 @@ paths:
           description: "Test result not found"
         '500':
           description: "Server error"
-  /testresult/upload/{qrcode-uuid}:
+  /testresult/upload:
     put:
       tags:
         - Test-Result
       summary: "Uploads a test result zip file"
+      description: "The uuid is provided as a required query parameter, although it should actually be provided as a path parameter. This is due to the fact that the Swift code generation is buggy, and when provided as a path parameter, no matter which parameter value is set (e.g., test-uuid), the name of the path parameter is always used as the path parameter."
       operationId: "upload_test_result"
       x-openapi-router-controller: openapi_server.controllers.test_result_controller
       parameters:
-        - in: path
+        - in: query
           name: qrcode-uuid
           required: true
           schema:
@@ -58,6 +60,12 @@ paths:
       responses:
         '200':
           description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '409':
+          description: "Testresult already exists"
           content:
             application/json:
               schema:

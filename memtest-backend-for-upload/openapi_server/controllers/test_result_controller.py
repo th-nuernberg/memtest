@@ -34,7 +34,7 @@ def get_test_result(qrcode_uuid):  # noqa: E501
 def upload_test_result(qrcode_uuid, body):  # noqa: E501
     """Uploads a test result zip file
 
-     # noqa: E501
+    # noqa: E501
 
     :param qrcode_uuid: UUID associated with the QR code
     :type qrcode_uuid: str
@@ -50,17 +50,27 @@ def upload_test_result(qrcode_uuid, body):  # noqa: E501
         os.makedirs(upload_folder)
 
     file_path = os.path.join(upload_folder, f'{qrcode_uuid}.zip')
+    print(f"Received Testresult with the UUID: {qrcode_uuid}")
+    # Check if the file already exists before saving it
+    if os.path.exists(file_path):
+        print("Error: File already exists.")
+        return ApiResponse(code=409, type="error", message=f"Testresult with {qrcode_uuid} already exists. The file will not be saved!"), 409
 
     print("Body length:", len(body))
     if len(body) == 0:
-        return ApiResponse(code=400, type="error", message="Uploaded file is empty"), 400
+        return ApiResponse(code=400, type="error", message="Uploaded Testresult is empty"), 400
 
-    with open(file_path, 'wb') as f:
-        f.write(body)
+    # Save the file if it does not exist
+    try:
+        with open(file_path, 'wb') as f:
+            f.write(body)
+    except Exception as e:
+        print(f"Error saving file: {e}")
+        return ApiResponse(code=500, type="error", message="Error saving Testresult"), 500
 
     if os.path.exists(file_path) and os.path.getsize(file_path) > 0:
         print("File saved successfully.")
-        return ApiResponse(code=200, type="success", message="File uploaded successfully"), 200
+        return ApiResponse(code=200, type="success", message="Testresult uploaded successfully"), 200
     else:
         print("Error: File not saved.")
-        return ApiResponse(code=500, type="error", message="Error: File not saved"), 500
+        return ApiResponse(code=500, type="error", message="Error: Testresult not saved"), 500

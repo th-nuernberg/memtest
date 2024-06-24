@@ -15,7 +15,7 @@ public struct MemtestClient {
     public init() throws {
         // Determine the server URL based on the build configuration
         #if DEBUG
-        guard let serverURL = try? Servers.server1() else {
+        guard let serverURL = try? Servers.server2() else {
             throw MemtestClientError.serverUrlNotFound
         }
         print("DEBUG mode: Using endpoint with url: \(serverURL)")
@@ -30,21 +30,24 @@ public struct MemtestClient {
     }
     
     public func checkHealth() async throws {
-        let response = try await client.get_health_status()
-        switch response {
-        case .ok:
-            return
-        default:
-            throw MemtestClientError.serverHealthCheckFailed
+        
+        do {
+            let response = try await client.get_health_status()
+            if case .ok = response {
+            } else {
+                print("Server returned unexpected status.")
+                throw MemtestClientError.serverHealthCheckFailed
+            }
+        } catch {
+           print("Health check failed with error: \(error)")
+           throw error
         }
+         
     }
     
 
     
     public func uploadTestResult(uuid: String, fileData: Data) async throws {
-        
-        let uuid_path = Operations.upload_test_result.Input.Path(qrcode_hyphen_uuid: uuid)
-        
         // Convert Data to ArraySlice<UInt8>
         let byteChunk = ArraySlice<UInt8>(fileData)
         // Create HTTPBody using the byteChunk
@@ -52,16 +55,29 @@ public struct MemtestClient {
         // Create requestBody with the newly created HTTPBody
         let requestBody = Operations.upload_test_result.Input.Body.application_zip(httpBody)
 
+        let response = try await client.upload_test_result(query: .init(qrcode_hyphen_uuid: uuid), body: requestBody)
         
-        let response = try! await client.upload_test_result(path: uuid_path, body: requestBody)
-        print(response)
+        switch response {
+        case .ok(let okResponse):
+            print("Upload successful: \(okResponse)")
+        
+        case .conflict(let conflictResponse):
+            print("Conflict: \(conflictResponse)")
+            throw MemtestClientError.alreadyExists
+            
+        case .undocumented(statusCode: let statusCode, let data):
+            print("Undocumented Error: Status code \(statusCode) with data \(data)")
+            throw MemtestClientError.serverError(statusCode: statusCode, message: "An undocumented server error occurred.")
+        }
     }
 }
 
-enum MemtestClientError: Error {
+public enum MemtestClientError: Error {
     case serverUrlNotFound
     case uploadFailed
+    case alreadyExists
     case serverHealthCheckFailed
+    case serverError(statusCode: Int, message: String)
     
     var localizedDescription: String {
         switch self {
@@ -69,8 +85,12 @@ enum MemtestClientError: Error {
             return "Server URL konnte nicht gefunden werden."
         case .uploadFailed:
             return "Hochladen des Testergebnisses fehlgeschlagen."
+        case .alreadyExists:
+            return "Das Testergebnis mit der UUID gibt es schon!."
         case .serverHealthCheckFailed:
             return "Der Server antwortet nicht. Ist eine Internetverbindung vorhanden?"
+        case .serverError(let statusCode, let message):
+            return "Serverfehler \(statusCode): \(message)"
         }
     }
 }
