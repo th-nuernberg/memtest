@@ -25,12 +25,11 @@ class WhisperTranscriptionService: TranscriptionService {
     
     private var audioBuffer = [Float]()
     // Sample Rate has to be 160000 for whisper.cpp
-    private let targetSampleRate: Double = 16000
     private var bufferCapacity: Int {
-        return Int(targetSampleRate * 2)
+        return Int(usedSampleRate! * 2)
     }
     private var overlapCapacity: Int {
-        return Int(targetSampleRate * 0.1)
+        return Int(usedSampleRate! * 0.1)
     }
     
     init() {
@@ -63,7 +62,7 @@ class WhisperTranscriptionService: TranscriptionService {
         // Note: the buffer size must not be set arbitrarily ->  the length of the buffer size has to be between 100ms and 400ms -> therefore it has to be computed with sample rate in mind
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: hwFormat) { [weak self] (buffer, when) in
             // because of the buffer size limitation we have to accumulate the buffer for whisper.cpp
-            self?.accumulateAudioBuffer(buffer)
+            self?.accumulateAudioBuffer(buffer, sampleRate: Int(AVAudioSession.sharedInstance().sampleRate), bufferSize:  Int(buffer.frameLength))
         }
 
         audioEngine.prepare()
@@ -83,14 +82,6 @@ class WhisperTranscriptionService: TranscriptionService {
         if isTranscribing {
             accumulateAudioBuffer(buffer, sampleRate: sampleRate, bufferSize: bufferSize)
         }
-    }
-    
-    func startTranscribing() {
-        isTranscribing = true
-    }
-    
-    func stopTranscribing() {
-        isTranscribing = false
     }
     
     public func toggleTranscribing() {
