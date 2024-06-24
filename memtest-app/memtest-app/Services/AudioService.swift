@@ -171,7 +171,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
 protocol TranscriptionService {
     var isTranscribing: Bool { get }
     var transcription: String { get set }
-    let neededSampleRate: Int?
+    var usedSampleRate: Double? { get }
     
     var onTranscriptionUpdate: ((String) -> Void)? { get set }
     

@@ -12,6 +12,8 @@ import SwiftWhisper
 import AVFoundation
 
 class WhisperTranscriptionService: TranscriptionService {
+    var usedSampleRate: Double? = 16000
+    
     let audioEngine = AVAudioEngine()
     let whisper: Whisper
     
@@ -46,7 +48,7 @@ class WhisperTranscriptionService: TranscriptionService {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             // Trying to set the sample Rate -> but setPreferredSampleRate() doesnt guarantee to set it
-            try audioSession.setPreferredSampleRate(sampleRate)
+            try audioSession.setPreferredSampleRate(usedSampleRate!)
             try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {

@@ -9,6 +9,8 @@ import Speech
 import AVFoundation
 
 class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecognizerDelegate {
+    var usedSampleRate: Double?
+    
     private var speechRecognizer: SFSpeechRecognizer
     private var audioEngine = AVAudioEngine()
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
