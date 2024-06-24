@@ -16,8 +16,8 @@ class DataService {
     
     // Metadata
     private var study_id: String = ""
-    private var uuid: String = "test-uuid"
-    private var aes_key: String = "test"
+    private var uuid: String = ""
+    private var aes_key: String = ""
     
     private var patientData: PatientData?
     
@@ -170,7 +170,6 @@ class DataService {
     }
     
     func hasCalibrated() -> Bool {
-        print(self.calibrated)
         return self.calibrated
     }
     
@@ -237,8 +236,8 @@ class DataService {
         deleteAllFiles()
         
         study_id = ""
-        uuid = "test-uuid"
-        aes_key = "test"
+        uuid = ""
+        aes_key = ""
         
         patientData = nil
         calibrated = false
@@ -278,35 +277,6 @@ class DataService {
             print("Could not clear documents folder: \(error)")
         }
     }
-    /*
-    func uploadTestResult() async throws {
-        guard hasQRCodeScanned() else {
-            print("QR Code must be scanned before uploading results.")
-            return
-        }
-
-        // Zip the results
-        zipTestResults()
-
-        let fileManager = FileManager.default
-        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let zipFilePath = documentsDirectory.appendingPathComponent("\(uuid).zip")
-
-        // Check if the zip file exists
-        guard let fileData = try? Data(contentsOf: zipFilePath) else {
-            print("Zip file does not exist at expected path: \(zipFilePath.path)")
-            return
-        }
-
-        // Upload using MemtestClient
-        do {
-            try await client.uploadTestResult(uuid: uuid, fileData: fileData)
-            print("Test results successfully uploaded.")
-        } catch {
-            print("Failed to upload test results: \(error)")
-        }
-    }
-    */
     
     public func isServerConnectionHealthy() async -> Bool {
         do {
@@ -319,29 +289,40 @@ class DataService {
     
     public func uploadAllZipFiles() async -> String? {
         zipTestResults()
-        
+
         let directoryPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileManager = FileManager.default
+        
+        var failedUploads: [String] = []
         
         do {
             let zipFiles = try fileManager.contentsOfDirectory(at: directoryPath, includingPropertiesForKeys: nil)
                 .filter { $0.pathExtension == "zip" }
-            
             for zipFile in zipFiles {
-                let fileData = try Data(contentsOf: zipFile)
-                let uuid = zipFile.deletingPathExtension().lastPathComponent
-                try await client.uploadTestResult(uuid: uuid, fileData: fileData)
-                try! fileManager.removeItem(at: zipFile)
-                
-                // reset if current testresult upload is successfull
-                if (uuid == self.uuid) {
-                    reset()
+                do {
+                    let fileData = try Data(contentsOf: zipFile)
+                    let uuid = zipFile.deletingPathExtension().lastPathComponent
+                    try await client.uploadTestResult(uuid: uuid, fileData: fileData)
+                    try fileManager.removeItem(at: zipFile)
+                    
+                    // Reset if current testresult upload is successful
+                    if (uuid == self.uuid) {
+                        reset()
+                    }
+                } catch {
+                    // If an error occurs, add this file to the failedUploads list
+                    failedUploads.append(zipFile.lastPathComponent)
                 }
             }
             
-            return nil
+            if failedUploads.isEmpty {
+                return nil
+            } else {
+                return "Failed to upload files: \(failedUploads.joined(separator: ", "))"
+            }
         } catch {
-            return error.localizedDescription
+            // This captures errors in fetching the directory contents or filtering
+            return "Error accessing zip files: \(error.localizedDescription)"
         }
     }
 }

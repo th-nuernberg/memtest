@@ -82,30 +82,31 @@ struct HomeView: View {
                    }
                    .foregroundColor(.white)
                    .padding()
-                   .background(Color.green)
+                   .background(isCalibrated ? Color.gray : Color.green)
                    .cornerRadius(10)
                }
+               .disabled(isCalibrated)
                .padding()
 
                HStack(spacing: 20) {
-                   navigationButton(title: "SKT", color: sktFinished ? .gray : .blue, action: {
+                   navigationButton(title: "SKT", color: sktFinished || !isCalibrated ? .gray : .blue, action: {
                        nextView(.skt)
-                   }).disabled(sktFinished)
+                   }).disabled(sktFinished || !isCalibrated)
                    
-                   navigationButton(title: "VFT", color: vftFinished ? .gray : .blue, action: {
+                   navigationButton(title: "VFT", color: vftFinished || !isCalibrated ? .gray : .blue, action: {
                        nextView(.vft)
-                   }).disabled(vftFinished)
+                   }).disabled(vftFinished || !isCalibrated)
                }
                .padding(.bottom, 20)
                
                HStack(spacing: 20) {
-                   navigationButton(title: "BNT", color: bntFinished ? .gray : .blue, action: {
+                   navigationButton(title: "BNT", color: bntFinished || !isCalibrated ? .gray : .blue, action: {
                        nextView(.bnt)
-                   }).disabled(bntFinished)
+                   }).disabled(bntFinished || !isCalibrated)
                    
-                   navigationButton(title: "PDT", color: pdtFinished ? .gray : .blue, action: {
+                   navigationButton(title: "PDT", color: pdtFinished || !isCalibrated ? .gray : .blue, action: {
                        nextView(.pdt)
-                   }).disabled(pdtFinished)
+                   }).disabled(pdtFinished || !isCalibrated)
                }
                Spacer()
                           
@@ -137,11 +138,11 @@ struct HomeView: View {
                   }
                 
                   Button(action: {
-                      
-                      DataService.shared.zipTestResults()
-                      DataService.shared.reset()
-                      updateViewStates()
-                      printDocumentsDirectory()
+                      Task {
+                          await DataService.shared.uploadAllZipFiles()
+                          updateViewStates()
+                          printDocumentsDirectory()
+                      }
                       
                   }) {
                       HStack {

@@ -93,7 +93,6 @@ extension MemtestClientError: LocalizedError {
         }
     }
 
-    // Optionally, you can also implement these if needed:
     public var failureReason: String? {
         switch self {
         case .serverError(let statusCode, _):
