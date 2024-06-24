@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+// This service is designed to save the positions of the circles between SKT3 (ordering numbers) and SKT4 (putting numbers back).
 class OrderNumberTestService {
     static let shared = OrderNumberTestService()
     private var dragElements: [DragElement]
@@ -48,12 +49,10 @@ class OrderNumberTestService {
         DropZone(label: "40"),
     ]
     
-    // Designated initializer
     private init(dragElements: [DragElement]) {
        self.dragElements = dragElements
     }
 
-    // Convenience initializer
     convenience init() {
        self.init(dragElements: OrderNumberTestService.defaultDragElements)
     }

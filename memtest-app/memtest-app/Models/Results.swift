@@ -4,6 +4,8 @@
 //
 //  Created by Christopher Witzl on 30.05.24.
 //
+// The structs for the testresults
+// For Future Work -> make them SwitData compatible
 
 import Foundation
 

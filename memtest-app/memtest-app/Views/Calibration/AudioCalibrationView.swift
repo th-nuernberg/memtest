@@ -11,7 +11,6 @@ struct AudioCalibrationView: View {
     var onNextView: (() -> Void)?
     
     @State var testStarted: Bool = false
-    @ObservedObject var speechRecognitionManager: SpeechRecognitionManager = SpeechRecognitionManager.shared
     var body: some View {
         NavigationStack {
             VStack{

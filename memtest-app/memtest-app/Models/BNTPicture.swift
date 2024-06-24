@@ -26,7 +26,7 @@ class BNTPictureList {
         pictures.append(BNT_Picture(name: "Baum", file_name: "1", maxDistance: 1)) // Simple, short
         pictures.append(BNT_Picture(name: "Bett", file_name: "2", maxDistance: 1)) // Simple, short
         pictures.append(BNT_Picture(name: "Pfeife", file_name: "3", maxDistance: 2)) // A bit more complex
-        pictures.append(BNT_Picture(name: "Blume", file_name: "4", maxDistance: 1))
+        pictures.append(BNT_Picture(name: "Blume", file_name: "4", maxDistance: 1)) // Simple
         pictures.append(BNT_Picture(name: "Haus", file_name: "5", maxDistance: 1)) // Simple, short
         pictures.append(BNT_Picture(name: "Kajak", file_name: "6", maxDistance: 2)) // Uncommon
         pictures.append(BNT_Picture(name: "Zahnbürste", file_name: "7", maxDistance: 3)) // Longer, complex

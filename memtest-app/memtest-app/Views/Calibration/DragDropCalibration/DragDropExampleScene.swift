@@ -9,7 +9,7 @@
 import SwiftUI
 import SpriteKit
 
-
+// for providing a interface between SwiftUI and SpriteKit Scene
 struct DragDropExampleSceneContainerView: UIViewRepresentable {
     
     @Binding var calibrationComplete: Bool
@@ -46,8 +46,9 @@ class DragDropExampleScene: SKScene {
     var startingRectangleNode: SKShapeNode!
     var targetRectangleNode: SKShapeNode!
     var arrowNode: SKShapeNode!
-    var calibrationCompleteBinding: Binding<Bool>?
+    var calibrationCompleteBinding: Binding<Bool>? // Optional binding to communicate completion status
     
+    // initially called when the scene has been presented by a view
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupScene()
@@ -59,13 +60,13 @@ class DragDropExampleScene: SKScene {
         
         let rectangleSize = CGSize(width: 200, height: 200)
         
-        
+        // the start zone
         startingRectangleNode = SKShapeNode(rectOf: rectangleSize, cornerRadius: 10)
         startingRectangleNode.fillColor = .lightGray
         startingRectangleNode.position = CGPoint(x: -rectangleSize.width, y: 0)
         self.addChild(startingRectangleNode)
         
-        
+        // the drop zone
         targetRectangleNode = SKShapeNode(rectOf: rectangleSize, cornerRadius: 10)
         targetRectangleNode.fillColor = .lightGray
         targetRectangleNode.position = CGPoint(x: rectangleSize.width, y: 0)
@@ -120,7 +121,8 @@ class DragDropExampleScene: SKScene {
             circleNode.position = pos
         }
     }
-
+    
+    // handles the end of a touch drag event
     func touchUp(atPoint pos : CGPoint) {
         isDraggingCircleNode = false
         

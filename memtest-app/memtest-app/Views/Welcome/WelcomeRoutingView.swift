@@ -12,7 +12,8 @@ enum WelcomeViewEnum {
     case welcomeStudy
     case next
 }
-
+// View for routing between the WelcomeView with QRCode reading and the WelcomeStudyView
+// there should be a better way to route
 struct WelcomeRoutingView: View {
     @State var visibleView: WelcomeViewEnum = .welcome
     var onNextView: (() -> Void)

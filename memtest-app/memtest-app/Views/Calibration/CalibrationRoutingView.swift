@@ -12,8 +12,11 @@ enum  CalibrationViewEnum {
     case audioCalibration
 }
 
+// View for routing between the DragNDropCalibrationView and the AudioCalibrationView
+// there should be a better way to route
 struct CalibrationRoutingView: View {
     @State var visibleView: CalibrationViewEnum = .dragDropCalibration
+    // callback for signaling that the calibration is finished
     var onNextView: (() -> Void)
     
     var body: some View {
