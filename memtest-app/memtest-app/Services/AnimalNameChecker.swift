@@ -4,11 +4,12 @@
 //
 //  Created by Christopher Witzl on 18.04.24.
 //
+// TODO: use germanet for animal names
 
 import Foundation
 
-class TrieNode {
-    var children: [Character: TrieNode] = [:]
+class TreeNode {
+    var children: [Character: TreeNode] = [:]
     var isWord: Bool = false
     
     func insert(word: String) {
@@ -16,7 +17,7 @@ class TrieNode {
         var current = self
         for letter in word.lowercased() {
             if current.children[letter] == nil {
-                current.children[letter] = TrieNode()
+                current.children[letter] = TreeNode()
             }
             current = current.children[letter]!
         }
@@ -34,20 +35,19 @@ class TrieNode {
 }
 
 class AnimalNameChecker {
-    var trie = TrieNode()
+    var tree = TreeNode()
     
     init() {
         loadWordsFromFile()
     }
     
     private func loadWordsFromFile() {
-        // Assuming the file is named "animal_names_german.txt" and located in the main bundle
         if let filepath = Bundle.main.path(forResource: "animal_names_german", ofType: "txt") {
             do {
                 let contents = try String(contentsOfFile: filepath)
                 let words = contents.components(separatedBy: .newlines)
                 for word in words where !word.isEmpty {
-                    trie.insert(word: word)
+                    tree.insert(word: word)
                 }
             } catch {
                 // Error handling if the file cannot be read
@@ -59,6 +59,6 @@ class AnimalNameChecker {
     }
     
     func checkWord(_ word: String) -> Bool {
-        return trie.search(word)
+        return tree.search(word)
     }
 }
