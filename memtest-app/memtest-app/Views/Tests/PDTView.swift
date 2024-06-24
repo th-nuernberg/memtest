@@ -33,7 +33,6 @@ struct PDTView: View {
                     }
                 )
                 
-                //AudioIndicatorView()
                 GeometryReader { geometry in
                     VStack{
                         Spacer()
