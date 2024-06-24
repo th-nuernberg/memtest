@@ -97,8 +97,8 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         prepareRecordingDirectory(for: testName)
         
         // use sample rate defined in the used TranscriptionService Implementation
-        if concreteTranscriptionService.neededSampleRate {
-            try! AVAudioSession.sharedInstance().setPreferredSampleRate(concreteTranscriptionService.neededSampleRate)
+        if concreteTranscriptionService.usedSampleRate != nil {
+            try! AVAudioSession.sharedInstance().setPreferredSampleRate(concreteTranscriptionService.usedSampleRate!)
         }
         
         
