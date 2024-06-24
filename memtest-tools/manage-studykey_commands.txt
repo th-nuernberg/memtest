@@ -1,0 +1,6 @@
+# Studie hinzufügen mit Secret
+manage-studykey MyStudyName1
+
+# Studie entfernen anhand Studiennamen
+manage-studykey MyStudyName1 --remove MyStudyName1
+

@@ -1,0 +1,11 @@
+certifi==2024.6.2
+charset-normalizer==3.3.2
+idna==3.7
+MarkupSafe==2.1.5
+pillow==10.3.0
+PyMuPDF==1.24.5
+PyMuPDFb==1.24.3
+pyzbar==0.1.9
+requests==2.32.3
+urllib3==2.2.2
+Werkzeug==3.0.3
