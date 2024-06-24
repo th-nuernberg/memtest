@@ -53,7 +53,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         }
 
         
-        // concreteTranscriptionService.startTranscribing()
+        concreteTranscriptionService.startTranscribing()
     }
     
     func stopRecording(completion: (() -> Void)? = nil) {
