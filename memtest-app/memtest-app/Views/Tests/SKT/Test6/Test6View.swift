@@ -40,8 +40,6 @@ struct Test6View: View {
                     }
                 )
                 
-                //AudioIndicatorView()
-                
                 VStack (spacing: 0){
                     Text("Gesucht: \(viewModel.selectedSymbol ?? "")")
                         .font(.custom("SFProText-Bold", size: 40))
@@ -50,9 +48,6 @@ struct Test6View: View {
                     SymbolView(viewModel: viewModel)
                         .padding()
                 }
-                
-                //Text("Stern \(viewModel.symbolCounts["★"] ?? 0), Flocke \(viewModel.symbolCounts["✻"] ?? 0), Form \(viewModel.symbolCounts["▢"] ?? 0) ")
-                //Text("\(viewModel.selectedSymbolCount)")
                 
                 HStack{
                     TextField("Anzahl der Symbole:", text: $userSymbolCount)
@@ -86,13 +81,13 @@ struct Test6View: View {
             }
             .onAppear(perform: {
                 do {
-                    try AudioService.shared.startRecording(to: "test6")
+                    try AudioService.shared.startRecording(to: "skt6")
                     print("Recording started")
                 } catch {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration:60) {
+            .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
                 print("Timer completed")
                 finished = true
                 AudioService.shared.stopRecording()
@@ -164,8 +159,8 @@ struct Test6View: View {
         })
     }
     
-    private func onComplete() {
-        // TODO: save currentDragElements in json
+    private func onComplete() {        
+        DataService.shared.saveSKT6Results(symbolToCount: viewModel.selectedSymbol!, symbolCounts: viewModel.symbolCounts, symbolField: viewModel.symbolField, taps: viewModel.taps, userSymbolCount: Int(self.userSymbolCount)!)
         finished = true
         AudioService.shared.stopRecording()
     }

@@ -15,7 +15,7 @@ struct Test9View: View {
     @State private var finished = false
     @State private var showExplanation = true
     @State private var symbols: [TestSymbol]
-    private let testDuration = 60
+    private let testDuration = SettingsService.shared.getTestDuration()
 
     
     private var symbolList = TestSymbolList()
@@ -75,7 +75,7 @@ struct Test9View: View {
                     }
                 }
                 .onAppear(perform: {
-                    try! AudioService.shared.startRecording(to: "test9")
+                    try! AudioService.shared.startRecording(to: "skt9")
                 })
                 .onTimerComplete(duration: testDuration) {
                     print("Timer completed")
@@ -188,7 +188,8 @@ struct Test9View: View {
     }
     
     private func onComplete() {
-        // TODO: save dragElements in json
+        let correctlyRememberedSymbolNames = Array(Set(manager.recognizedWords.filter { symbolList.contains(word: $0) }))
+        DataService.shared.saveSKT9Results(correctlyRememberedSymbolNames: correctlyRememberedSymbolNames)
         
         finished = true
         AudioService.shared.stopRecording()

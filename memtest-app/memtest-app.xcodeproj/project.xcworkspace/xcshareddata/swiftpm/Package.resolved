@@ -1,5 +1,5 @@
 {
-  "originHash" : "5bfaf57ac637d3e19d04c2a4e412227f9431b0faf80952043e9d8fee0fbcc795",
+  "originHash" : "0e4c6c5baa66f300dcb7d39b03335328a37b05994aa5151b61b387c03fa101a9",
   "pins" : [
     {
       "identity" : "audiokit",
@@ -116,6 +116,15 @@
       "state" : {
         "revision" : "0d9ee7ea8c4ebd4a489ad7a73d5c6cad55d6fed3",
         "version" : "5.0.6"
+      }
+    },
+    {
+      "identity" : "zip",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/marmelroy/Zip",
+      "state" : {
+        "revision" : "67fa55813b9e7b3b9acee9c0ae501def28746d76",
+        "version" : "2.1.2"
       }
     }
   ],

@@ -44,8 +44,7 @@ struct Test5View: View {
             })
             
             Text("test5")
-            .onTimerComplete(duration: 60) {
-                print("Timer completed")
+            .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
                 onComplete()
             }
                         
@@ -109,8 +108,7 @@ struct Test5View: View {
     }
     
     private func onComplete() {
-        // TODO: save dragElements in json
-        
+        DataService.shared.saveSKT5Results(dragElements: self.dragElements)
         finished = true
         AudioService.shared.stopRecording()
     }

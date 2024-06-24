@@ -49,15 +49,15 @@ struct PDTView: View {
                 }
             }.onAppear(perform: {
                 do {
-                    try AudioService.shared.startRecording(to: "test12")
+                    try AudioService.shared.startRecording(to: "pdt")
                     print("Recording started")
                 } catch {
                     print("Failed to start recording: \(error)")
                 }
             })
-            .onTimerComplete(duration: 60) {
+            .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
                 print("Timer completed")
-                finished = true
+                onComplete()
                 AudioService.shared.stopRecording()
             }
         }, explanationContent: { onContinue in
@@ -101,8 +101,7 @@ struct PDTView: View {
     }
     
     private func onComplete() {
-        // TODO: save dragElements in json
-        
+        DataService.shared.savePDTResults()
         finished = true
         AudioService.shared.stopRecording()
     }

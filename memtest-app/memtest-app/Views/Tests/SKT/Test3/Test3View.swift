@@ -53,13 +53,11 @@ struct Test3View: View {
             DragNDropContainerView(dragElements: dragElements, dropZones: OrderNumberTestService.shared.getDropZones(), isDragEnabled: false, onPositionsChanged: { positions in
                 
             })
-            .onTimerComplete(duration: 60) {
-                print("Timer completed")
-                
+            .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
                 onComplete()
             }
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "test3")
+                try! AudioService.shared.startRecording(to: "skt3")
             })
             
         }, explanationContent: { onContinue in
@@ -117,7 +115,7 @@ struct Test3View: View {
     }
     
     private func onComplete(){
-        
+        DataService.shared.saveSKT3Results()
         finished = true
         AudioService.shared.stopRecording()
     }

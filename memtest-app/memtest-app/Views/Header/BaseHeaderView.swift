@@ -1,22 +1,25 @@
 //
-//  HeaderViewNotSKT.swift
+//  BaseHeaderView.swift
 //  memtest-app
 //
-//  Created by Max Werzinger on 24.05.24.
+//  Created by Max Werzinger on 23.05.24.
 //
-
 
 import SwiftUI
 
-struct BaseHeaderViewNotSKT: View {
+struct BaseHeaderView: View {
+    //@Binding var isAdminMode: Bool
+    
+    @Binding var currentView: SKTViewEnum
     
     var showAudioIndicator: Bool
     
     var onBack: (() -> Void)
     var onNext: (() -> Void)
     
-    public init(showAudioIndicator: Bool, onBack: @escaping (() -> Void), onNext: @escaping (() -> Void)) {
+    public init(showAudioIndicator: Bool,currentView: Binding<SKTViewEnum>, onBack: @escaping (() -> Void), onNext: @escaping (() -> Void)) {
         self.showAudioIndicator = showAudioIndicator
+        self._currentView = currentView
         self.onBack = onBack
         self.onNext = onNext
     }
@@ -24,7 +27,7 @@ struct BaseHeaderViewNotSKT: View {
     var body: some View {
         
         HStack {
-            if HomeView() {nextView in }.isAdminModeActive {
+            if SettingsService.shared.isAdminMode() {
                 Button(action: {
                     onBack()
                 }) {
@@ -46,7 +49,7 @@ struct BaseHeaderViewNotSKT: View {
             }
             Spacer()
             
-            if HomeView() {nextView in }.isAdminModeActive {
+            if SettingsService.shared.isAdminMode() {
                 Button(action: {
                     onNext()
                 }) {
@@ -65,4 +68,3 @@ struct BaseHeaderViewNotSKT: View {
         .padding(.bottom, 20)
     }
 }
-

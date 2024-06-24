@@ -54,7 +54,7 @@ struct BNTView: View {
                 }
             }
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "test11")
+                try! AudioService.shared.startRecording(to: "bnt")
                 setNextImage()
                 //startTimer()
             })
@@ -65,8 +65,8 @@ struct BNTView: View {
                 AudioService.shared.stopRecording()
                 //stopTimer()
             }
-            .onTimerComplete(duration: 60, onComplete: {
-                DataService.shared.setRecognizedObjectNames(names: self.recognizedImages)
+            .onTimerComplete(duration: SettingsService.shared.getTestDuration(), onComplete: {
+                DataService.shared.saveBNTResults(recognizedObjectNames: self.recognizedImages)
                 AudioService.shared.stopRecording()
                 finished.toggle()
             })

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PatientData: ObservableObject {
+class PatientData: ObservableObject, Encodable {
     @Published var age: String = ""
     @Published var selectedDegree: EducationalQualification = .noDegree
     @Published var selectedGender: Gender = .male
@@ -16,6 +16,24 @@ class PatientData: ObservableObject {
     @Published var dementiaSeverity: Severity = .none
     @Published var depressionSeverity: Severity = .none
     @Published var additionalDiagnoses: String = ""
+
+    enum CodingKeys: CodingKey {
+        case age, selectedDegree, selectedGender, hasVisionProblems, hasHearingProblems, dementiaSeverity, depressionSeverity, additionalDiagnoses
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        // Encode each property
+        try container.encode(age, forKey: .age)
+        try container.encode(selectedDegree.rawValue, forKey: .selectedDegree)
+        try container.encode(selectedGender.rawValue, forKey: .selectedGender)
+        try container.encode(hasVisionProblems, forKey: .hasVisionProblems)
+        try container.encode(hasHearingProblems, forKey: .hasHearingProblems)
+        try container.encode(dementiaSeverity.rawValue, forKey: .dementiaSeverity)
+        try container.encode(depressionSeverity.rawValue, forKey: .depressionSeverity)
+        try container.encode(additionalDiagnoses, forKey: .additionalDiagnoses)
+    }
 }
 
 

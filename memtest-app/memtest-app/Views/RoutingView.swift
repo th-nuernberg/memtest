@@ -17,6 +17,7 @@ enum VisibleView: Equatable {
     case bnt
     case pdt
     case feedback
+    case settings
 }
 
 struct RoutingView: View {
@@ -28,30 +29,15 @@ struct RoutingView: View {
         switch visibleView {
         case .home:
             HomeView { nextView in
-                   if (nextView == .skt || nextView == .vft || nextView == .bnt || nextView == .pdt) && dataService.hasQRCodeScanned() && dataService.hasMetadataBeenCollected() && dataService.hasCalibrated() {
-                       self.visibleView = nextView
-                   } else if !dataService.hasQRCodeScanned() {
-                       if !dataService.hasMetadataBeenCollected() {
-                           nextViews.append(.metadata)
-                           nextViews.append(.calibration)
-                           nextViews.append(nextView)
-                       }
-                       self.visibleView = .welcome
-                   } else if !dataService.hasMetadataBeenCollected() {
-                       if !dataService.hasQRCodeScanned() {
-                           nextViews.append(.welcome)
-                           nextViews.append(.calibration)
-                           nextViews.append(nextView)
-                       } else {
-                           nextViews.append(.calibration)
-                           nextViews.append(nextView)
-                       }
-                       self.visibleView = .metadata
-                   } else if !dataService.hasCalibrated() {
-                       nextViews.append(nextView)
-                       self.visibleView = .calibration
-                   }
-               }
+                if (nextView == .calibration) {
+                    self.visibleView = .welcome
+                    nextViews.append(.metadata)
+                    nextViews.append(.calibration)
+                    nextViews.append(.home)
+                } else {
+                    self.visibleView = nextView
+                }
+            }
         case .welcome:
             WelcomeRoutingView() {
                 self.visibleView = self.nextViews.removeFirst()
@@ -82,6 +68,11 @@ struct RoutingView: View {
             }
         case .feedback:
             FeedbackView()
+            
+        case .settings:
+            AdminSettingsView() {
+                self.visibleView = .home
+            }
         }
     }
     

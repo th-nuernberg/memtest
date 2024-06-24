@@ -20,7 +20,7 @@ struct VFTView: View {
     @State private var finished = false
     @State private var showExplanation = true
     @State private var recognizedAnimalNames: [String] = []
-    private let testDuration = 6
+    private let testDuration = SettingsService.shared.getTestDuration()
 
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 10, textOfCircle: "10", content: {
@@ -52,7 +52,7 @@ struct VFTView: View {
             }
             .padding()
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "test10")
+                try! AudioService.shared.startRecording(to: "vft")
                 self.speechRecognitionManager.$recognizedWords
                     .sink { _ in
                         self.updateErkannteTiernamen()
@@ -60,7 +60,7 @@ struct VFTView: View {
                     .store(in: &cancellables)
             })
             .onTimerComplete(duration: testDuration, onComplete: {
-                DataService.shared.setRecognizedAnimalNames(names: self.recognizedAnimalNames)
+                DataService.shared.saveVFTResults(recognizedAnimalNames: self.recognizedAnimalNames)
                 AudioService.shared.stopRecording()
                 finished = true
             })

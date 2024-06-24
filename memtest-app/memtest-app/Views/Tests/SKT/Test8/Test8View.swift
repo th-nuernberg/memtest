@@ -15,7 +15,7 @@ struct Test8View: View {
     @State private var finished = false
     @State private var showExplanation = true
     
-    private let testDuration = 60
+    private let testDuration = SettingsService.shared.getTestDuration()
 
     private var symbolList = TestSymbolList()
     
@@ -65,7 +65,7 @@ struct Test8View: View {
             .onAppear(perform: {
                 manager.recognizedWords = []
                 do {
-                    try AudioService.shared.startRecording(to: "test8")
+                    try AudioService.shared.startRecording(to: "skt8")
                 } catch {
                     print("Failed to start recording: \(error)")
                 }
@@ -126,8 +126,8 @@ struct Test8View: View {
     }
     
     private func onComplete() {
-        // TODO: save dragElements in json
-        
+        let rememberedSymbolNames = Array(Set(manager.recognizedWords.filter { symbolList.contains(word: $0) }))
+        DataService.shared.saveSKT8Results(rememberedSymbolNames: rememberedSymbolNames)
         finished = true
         AudioService.shared.stopRecording()
     }
