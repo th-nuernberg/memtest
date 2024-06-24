@@ -49,7 +49,6 @@ struct GifImage: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIImageView, context: Context) {
-        print("update")
         if animate {
             startAnimation(uiView: uiView)
         } else {
@@ -69,7 +68,6 @@ struct GifImage: UIViewRepresentable {
     }
     
     private func startAnimation(uiView: UIImageView) {
-        print("start Animating")
         uiView.stopAnimating()  // Ensure to stop any previous animations
         let path = Bundle.main.path(forResource: resourceName, ofType: "gif")!
         let url = URL(fileURLWithPath: path)

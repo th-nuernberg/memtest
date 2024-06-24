@@ -5,21 +5,31 @@
 //  Created by Christopher Witzl on 13.05.24.
 //
 import SwiftUI
+import memtest_server_client
 
 struct HomeView: View {
     @State private var isAdminMode = false
+    @State private var isServerConnected: Bool = false
     @State private var isCalibrated: Bool = DataService.shared.hasCalibrated()
     
     @State private var sktFinished: Bool = DataService.shared.hasSKTFinished()
     @State private var vftFinished: Bool = DataService.shared.hasVFTFinished()
     @State private var bntFinished: Bool = DataService.shared.hasBNTFinished()
     @State private var pdtFinished: Bool = DataService.shared.hasPDTFinished()
+
+    @State private var errorMessage: String?
     
     var nextView: ((_ nextView: VisibleView) -> Void)
     
     var body: some View {
            VStack {
                HStack {
+                   Image(systemName: isServerConnected ? "wifi" : "wifi.slash")
+                       .foregroundColor(isServerConnected ? .green : .red)
+                       .padding(8)
+                       .background(Color.black.opacity(0.5))
+                       .clipShape(Circle())
+                   
                    if isAdminMode {
                        Button(action: {
                            nextView(.settings)
@@ -102,8 +112,7 @@ struct HomeView: View {
                 HStack {
                   Button(action: {
                       Task {
-                          await DataService.shared.uploadAllZipFiles()
-                          DataService.shared.reset()
+                          errorMessage = await DataService.shared.uploadAllZipFiles()
                           updateViewStates()
                       }
                   }) {
@@ -119,7 +128,14 @@ struct HomeView: View {
                       .cornerRadius(10)
                   }
                   .padding()
-                  
+                  .alert("Fehler beim Hochladen", isPresented: Binding<Bool>.constant(errorMessage != nil), presenting: errorMessage) { _ in
+                      Button("OK") {
+                          errorMessage = nil  // Reset error message when the alert is dismissed
+                      }
+                  } message: { detail in
+                      Text(detail)
+                  }
+                
                   Button(action: {
                       
                       DataService.shared.zipTestResults()
@@ -146,6 +162,9 @@ struct HomeView: View {
            }
            .padding()
            .navigationBarTitleDisplayMode(.inline)
+           .onAppear() {
+              checkServerConnection()
+           }
        }
     
     private func navigationButton(title: String, color: Color, action: @escaping () -> Void) -> some View {
@@ -166,7 +185,15 @@ struct HomeView: View {
         vftFinished = DataService.shared.hasVFTFinished()
         bntFinished = DataService.shared.hasBNTFinished()
         pdtFinished = DataService.shared.hasPDTFinished()
+        checkServerConnection()
     }
+    
+    func checkServerConnection() {
+        Task {
+            isServerConnected = await DataService.shared.isServerConnectionHealthy()
+        }
+    }
+    
 }
 
 func printDocumentsDirectory() {
@@ -204,7 +231,6 @@ func printDirectoryContents(path: String, basePath: String? = nil, level: Int = 
         print("Error reading contents of directory: \(error)")
     }
 }
-
 
 
 #Preview {

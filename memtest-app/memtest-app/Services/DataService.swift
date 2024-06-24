@@ -16,8 +16,8 @@ class DataService {
     
     // Metadata
     private var study_id: String = ""
-    private var uuid: String = "my-uuid"
-    private var aes_key: String = "lol"
+    private var uuid: String = "test-uuid"
+    private var aes_key: String = "test"
     
     private var patientData: PatientData?
     
@@ -82,7 +82,6 @@ class DataService {
     
     func saveSKT2Results(rememberedSymbolNames: [String]) {
         self.skt2.finished = true
-        print(rememberedSymbolNames)
         self.skt2.rememberedSymbolNames = rememberedSymbolNames
         
         try! saveToJson(name: "skt2", data: self.skt2)
@@ -163,17 +162,15 @@ class DataService {
     //Metadata
     
     func hasQRCodeScanned() -> Bool {
-        return true
         return (uuid != "" && aes_key != "" )
     }
     
     func hasMetadataBeenCollected() -> Bool {
-        return true
         return (patientData != nil)
     }
     
     func hasCalibrated() -> Bool {
-        return true
+        print(self.calibrated)
         return self.calibrated
     }
     
@@ -241,7 +238,7 @@ class DataService {
         
         study_id = ""
         uuid = "test-uuid"
-        aes_key = "lol"
+        aes_key = "test"
         
         patientData = nil
         calibrated = false
@@ -281,7 +278,7 @@ class DataService {
             print("Could not clear documents folder: \(error)")
         }
     }
-    
+    /*
     func uploadTestResult() async throws {
         guard hasQRCodeScanned() else {
             print("QR Code must be scanned before uploading results.")
@@ -309,39 +306,42 @@ class DataService {
             print("Failed to upload test results: \(error)")
         }
     }
-
-    public func uploadAllZipFiles() async {
+    */
+    
+    public func isServerConnectionHealthy() async -> Bool {
+        do {
+            try await client.checkHealth()
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    public func uploadAllZipFiles() async -> String? {
         zipTestResults()
         
         let directoryPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileManager = FileManager.default
+        
         do {
-            let zipFiles = try fileManager.contentsOfDirectory(at: directoryPath, includingPropertiesForKeys: nil).filter { $0.pathExtension == "zip" }
-            
-            print("Trying to upload following zip files: \(zipFiles)")
+            let zipFiles = try fileManager.contentsOfDirectory(at: directoryPath, includingPropertiesForKeys: nil)
+                .filter { $0.pathExtension == "zip" }
             
             for zipFile in zipFiles {
-                do {
-                    // Read the data of the zip file
-                    let fileData = try Data(contentsOf: zipFile)
-                    // Assuming UUID is part of the file name
-                    let uuid = zipFile.deletingPathExtension().lastPathComponent
-                    
-                    do {
-                        // Upload the zip file
-                        try await client.uploadTestResult(uuid: uuid, fileData: fileData)
-                        // If successful, delete the zip file
-                        try fileManager.removeItem(at: zipFile)
-                        print("Successfully uploaded and deleted: \(zipFile.lastPathComponent)")
-                    } catch {
-                        print("Failed to upload: \(zipFile.lastPathComponent), error: \(error)")
-                    }
-                } catch {
-                    print("Error reading file \(zipFile.lastPathComponent): \(error)")
+                let fileData = try Data(contentsOf: zipFile)
+                let uuid = zipFile.deletingPathExtension().lastPathComponent
+                try await client.uploadTestResult(uuid: uuid, fileData: fileData)
+                try! fileManager.removeItem(at: zipFile)
+                
+                // reset if current testresult upload is successfull
+                if (uuid == self.uuid) {
+                    reset()
                 }
             }
+            
+            return nil
         } catch {
-            print("Failed to list zip files in directory: \(directoryPath), error: \(error)")
+            return error.localizedDescription
         }
     }
 }
