@@ -168,7 +168,6 @@ Axolotl
 Aye-Aye
 Ayu
 Azarafuchs
-Einfügen (unter B):
 Babakoto
 Babirussa
 Bache
@@ -593,8 +592,6 @@ Bussard
 Butt
 Butterfisch
 Butterkrebs
-C
-Einfügen (unter C): 
 Cacajao
 Calandra
 Cambarus
@@ -649,8 +646,6 @@ Cornwallschwein
 Coscoroba
 Coyote
 Cyclops
-D
-Einfügen (unter D): 
 Daboia
 Dachratte
 Dachschildkröte
@@ -778,8 +773,6 @@ Dungkäfer
 Durukulis
 Dybowskihirsch
 Dytiscus
-E
-Einfügen (unter E): 
 Eber
 Echse
 Edelfasan
@@ -808,8 +801,6 @@ Erpel
 Esel
 Eselspinguin
 Eule
-F
-Einfügen (unter F): 
 Falkennachtschwalbe
 Falter
 Färberfrosch
@@ -847,8 +838,6 @@ Frosch
 Fruchtvampir
 Fuchs
 Fuchsbandwurm
-G
-Einfügen (unter G): 
 Gabelracke
 Galagos
 Geburtshelferkröte
@@ -917,8 +906,6 @@ Guanako
 Guppy
 Gürtelmull
 Gürteltier
-H
-Einfügen (unter H): 
 Haarnasenwombat
 Haarschopftaucher
 Halsbanddrossel
@@ -965,8 +952,6 @@ Hund
 Hundsfisch
 Hyäne
 Hyazinth-Ara
-I
-Einfügen (unter I): 
 Igel
 Igelfisch
 Iltis
@@ -977,15 +962,11 @@ Insekt
 Iris
 Isabellabär
 Ibis
-J
-Einfügen (unter J): 
 Jaguar
 Jak
 Jack Russell Terrier
 Jaguarundi
 Japanmakake
-K
-Einfügen (unter K): 
 Kabeljau
 Katta
 Kleinstein
@@ -1029,9 +1010,6 @@ Kröte
 Kugelfisch
 Küchenschabe
 Kuh
-
-L
-Einfügen (unter L): 
 Lachmöwe
 Lachsforelle
 Lama
@@ -1055,8 +1033,6 @@ Lippenbär
 Löwe
 Luchs
 Lurch
-M
-Einfügen (unter M): 
 Farbmaus
 Made
 Madenhacker
@@ -1133,8 +1109,6 @@ Muräne
 Murmeltier
 Muschel
 Mustang
-N
-Einfügen (unter N): 
 Nachtigall
 Nachtigall-Grashüpfer
 Nackthund
@@ -1155,8 +1129,6 @@ Nilpferd
 Nördlicher Pfeifhase
 Nutria
 Nymphensittich
-O
-Einfügen (unter O): 
 Ochse
 Ochsenauge (großes, kleines, rostbraunes; Schmetterling)
 Ochsenfrosch
@@ -1173,11 +1145,7 @@ Orang-Utan
 Orangefleckwaldsänger
 Otter
 Ozelot
-Ö
-Einfügen (unter Ö): 
 Ölkäfer
-P
-Einfügen (unter P): 
 Pampashase
 Panda
 Pangasius
@@ -1210,14 +1178,10 @@ Purpurbock
 Purpurkopfbarbe
 Pute
 Puter
-Q
-Einfügen (unter Q): 
 Quagga
 Qualle
 Quastenflosser
 Quokka
-R
-Einfügen (unter R): 
 Rabe
 Rabenkrähe
 Racke
@@ -1289,8 +1253,6 @@ Rotzunge
 Rubinfleckwaldsänger
 Rubinkehlkolibri
 Ruderfrosch
-S
-Einfügen (unter S): 
 Sardelle
 Säbelschnäbler
 Säbelzahntiger
@@ -1554,8 +1516,6 @@ Sumpfohreule
 Sumpfschildkröte
 Swainson-Tukan
 Schwein
-T
-Einfügen (unter T): 
 Tabakkäfer
 Tagfalter
 Tagpfauenauge
@@ -1592,9 +1552,6 @@ Tüpfelhyäne
 Turmfalke
 Turteltaube
 Tyrann
-
-U
-Einfügen (unter U): 
 Uakari
 Uferschnepfe
 Uferschwalbe
@@ -1605,9 +1562,6 @@ Ur
 Urangutan
 Urpferd
 Urson
-
-V
-Einfügen (unter V): 
 Vampirfisch
 Veilchenente
 Veilchenohrkolibri
@@ -1624,8 +1578,6 @@ Vikunja
 Viper
 Vogel
 Vogelspinne
-W
-Einfügen (unter W): 
 Wachtel
 Wal
 Waldgärtner
@@ -1676,13 +1628,9 @@ Würgeschlange
 Wurm
 Wüstenheuschrecke
 Wüstenmaus
-Y
-Einfügen (unter Y): 
 Yak
 Yeti-Krabbe
 Yuccamotte
-Z
-Einfügen (unter Z): 
 Zackenbarsch
 Zander
 Zauneidechse

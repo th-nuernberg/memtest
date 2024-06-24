@@ -42,7 +42,7 @@ struct BNTView: View {
                 }
             )
             
-            //AudioIndicatorView()
+            
             
             VStack {
                 if let image = currentImage {  // Use currentImage of type BNT_Picture
@@ -52,23 +52,26 @@ struct BNTView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .transition(.opacity)
                 }
+                
+                Button("Weiter") {
+                    setNextImage()
+                }
+                .buttonStyle(.borderedProminent)
+                .padding()
             }
             .onAppear(perform: {
                 try! AudioService.shared.startRecording(to: "bnt")
                 setNextImage()
-                //startTimer()
             })
-            .onChange(of: speechRecognitionManager.recognizedWords) { words in
-                checkLastWord(words: words)
+            .onChange(of: speechRecognitionManager.recognizedWords) {
+                checkLastWord(words: speechRecognitionManager.recognizedWords)
             }
             .onDisappear {
                 AudioService.shared.stopRecording()
-                //stopTimer()
             }
             .onTimerComplete(duration: SettingsService.shared.getTestDuration(), onComplete: {
                 DataService.shared.saveBNTResults(recognizedObjectNames: self.recognizedImages)
-                AudioService.shared.stopRecording()
-                finished.toggle()
+                onComplete()
             })
             
         }, explanationContent: { onContinue in
@@ -144,8 +147,6 @@ struct BNTView: View {
     }
     
     private func onComplete() {
-        // TODO: save dragElements in json
-        
         finished = true
         AudioService.shared.stopRecording()
     }

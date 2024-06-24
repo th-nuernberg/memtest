@@ -18,7 +18,6 @@ class DataService {
     private var study_id: String = ""
     private var uuid: String = ""
     private var aes_key: String = ""
-    
     private var patientData: PatientData?
     
     private var calibrated: Bool = false
@@ -71,20 +70,21 @@ class DataService {
     func setCalibrated(calibrated: Bool) {
         self.calibrated = calibrated
     }
+    
+    // TODO: Make saving generic
     // SKT
     func saveSKT1Results(recognizedSymbolNames: [String]) {
         self.skt1.finished = true
-        print(recognizedSymbolNames)
         self.skt1.recognizedSymbolNames = recognizedSymbolNames
         
-        try! saveToJson(name: "skt1", data: self.skt1)
+        saveToJson(name: "skt1", data: self.skt1)
     }
     
     func saveSKT2Results(rememberedSymbolNames: [String]) {
         self.skt2.finished = true
         self.skt2.rememberedSymbolNames = rememberedSymbolNames
         
-        try! saveToJson(name: "skt2", data: self.skt2)
+        saveToJson(name: "skt2", data: self.skt2)
     }
     
     func saveSKT3Results() {
@@ -93,12 +93,10 @@ class DataService {
     
     func saveSKT4Results(dragElements: [DragElement]) {
         self.skt4.finished = true
-        
         let dragElementsCodable = dragElements.map { DragElementCodable(dragElement: $0) }
-        
         self.skt4.dragElements = dragElementsCodable
         
-        try! saveToJson(name: "skt4", data: self.skt4)
+        saveToJson(name: "skt4", data: self.skt4)
     }
     
     func saveSKT5Results(dragElements: [DragElement]) {
@@ -106,7 +104,7 @@ class DataService {
         let dragElementsCodable = dragElements.map { DragElementCodable(dragElement: $0) }
         self.skt5.dragElements  = dragElementsCodable
         
-        try! saveToJson(name: "skt5", data: self.skt5)
+        saveToJson(name: "skt5", data: self.skt5)
     }
     
     func saveSKT6Results(symbolToCount: String, symbolCounts: [String: Int], symbolField: [String], taps: [(Int, String)], userSymbolCount: Int = 0) {
@@ -117,7 +115,7 @@ class DataService {
         self.skt6.taps  = taps.map { Tap(index: $0.0, label: $0.1) }
         self.skt6.userSymbolCount = userSymbolCount
         
-        try! saveToJson(name: "skt6", data: self.skt6)
+        saveToJson(name: "skt6", data: self.skt6)
     }
     
     func saveSKT7Results() {
@@ -128,15 +126,14 @@ class DataService {
         self.skt8.finished = true
         self.skt8.rememberedSymbolNames = rememberedSymbolNames
         
-        try! saveToJson(name: "skt8", data: self.skt8)
-        
+        saveToJson(name: "skt8", data: self.skt8)
     }
     
     func saveSKT9Results(correctlyRememberedSymbolNames: [String]) {
         self.skt9.finished = true
         self.skt9.correctlyRememberedSymbolNames = correctlyRememberedSymbolNames
         
-        try! saveToJson(name: "skt9", data: self.skt9)
+        saveToJson(name: "skt9", data: self.skt9)
     }
     
     // VFT
@@ -144,14 +141,14 @@ class DataService {
         self.vft.finished = true
         self.vft.recognizedAnimalNames = recognizedAnimalNames
         
-        try! saveToJson(name: "vft", data: self.vft)
+        saveToJson(name: "vft", data: self.vft)
     }
     // BNT
     func saveBNTResults(recognizedObjectNames: [String]) {
         self.bnt.finished = true
         self.bnt.recognizedObjectNames = recognizedObjectNames
         
-        try! saveToJson(name: "bnt", data: self.bnt)
+        saveToJson(name: "bnt", data: self.bnt)
     }
     // PDT
     func savePDTResults(){
@@ -191,25 +188,27 @@ class DataService {
         return self.pdt.finished
     }
     
-    func saveToJson(name: String, data: Codable) throws {
-        let fileManager = FileManager.default
-        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let uuidDirectory = documentsDirectory.appendingPathComponent(uuid)  // UUID directory
-        let testDirectory = uuidDirectory.appendingPathComponent(name)        // Test-specific directory
+    func saveToJson(name: String, data: Codable) {
+        do {
+            let fileManager = FileManager.default
+            let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let uuidDirectory = documentsDirectory.appendingPathComponent(uuid)
+            let testDirectory = uuidDirectory.appendingPathComponent(name)
 
-        // Create the UUID directory if it does not exist
-        if !fileManager.fileExists(atPath: uuidDirectory.path) {
-            try fileManager.createDirectory(at: uuidDirectory, withIntermediateDirectories: true, attributes: nil)
+            if !fileManager.fileExists(atPath: uuidDirectory.path) {
+                try fileManager.createDirectory(at: uuidDirectory, withIntermediateDirectories: true, attributes: nil)
+            }
+
+            if !fileManager.fileExists(atPath: testDirectory.path) {
+                try fileManager.createDirectory(at: testDirectory, withIntermediateDirectories: true, attributes: nil)
+            }
+
+            let jsonData = try JSONEncoder().encode(data)
+            let jsonFileUrl = testDirectory.appendingPathComponent("\(name).json")
+            try jsonData.write(to: jsonFileUrl)
+        } catch {
+            print("Failed to save \(name): \(error)")
         }
-
-        // Create the test-specific directory if it does not exist
-        if !fileManager.fileExists(atPath: testDirectory.path) {
-            try fileManager.createDirectory(at: testDirectory, withIntermediateDirectories: true, attributes: nil)
-        }
-
-        let jsonData = try JSONEncoder().encode(data)
-        let jsonFileUrl = testDirectory.appendingPathComponent("\(name).json")
-        try jsonData.write(to: jsonFileUrl)
     }
     
     func zipTestResults() {
@@ -262,9 +261,7 @@ class DataService {
             print("Documents path not found.")
             return
         }
-        
         let fileManager = FileManager.default
-        
         do {
             let filePaths = try fileManager.contentsOfDirectory(at: documentsPath, includingPropertiesForKeys: nil)
             for filePath in filePaths {

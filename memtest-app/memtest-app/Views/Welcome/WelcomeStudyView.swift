@@ -43,12 +43,7 @@ struct WelcomeStudyView: View {
                 .background(.blue)
                 .cornerRadius(10)
                 .padding(.top,70)
-                .padding(.leading)
-                .navigationBarBackButtonHidden(true)
-                .navigationDestination(isPresented: $showNextView) {
-                    DataInputView()
-                }
-                    
+                .padding(.leading)                    
             }
             .onAppear(perform: {
                 studyID = DataService.shared.getStudyId()

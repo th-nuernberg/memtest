@@ -9,6 +9,8 @@ import Speech
 import AVFoundation
 
 class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecognizerDelegate {
+    var usedSampleRate: Double?
+    
     private var speechRecognizer: SFSpeechRecognizer
     private var audioEngine = AVAudioEngine()
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -24,7 +26,7 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
         super.init()
         speechRecognizer.delegate = self
     }
-    
+    // requesting authorization for audio processing
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         SFSpeechRecognizer.requestAuthorization { status in
             DispatchQueue.main.async {
@@ -34,7 +36,7 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
     }
     
     func startTranscribing() {
-        print("Start Apple Transcription")
+        // remove transcription task if still exists
         if recognitionTask != nil {
             recognitionTask?.cancel()
             recognitionTask = nil
@@ -63,10 +65,9 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
             if let result = result {
                 self?.transcription = result.bestTranscription.formattedString
         
-                
+                // use callback to propagate the transcribed text
                 self?.onTranscriptionUpdate?(result.bestTranscription.formattedString)
                 
-                //print(self?.transcription)
                 self?.isTranscribing = !result.isFinal
             }
             
@@ -77,6 +78,8 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
 
         let inputNode = audioEngine.inputNode
         let recordingFormat = inputNode.outputFormat(forBus: 0)
+    
+        // install tap for speech transcribing
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
             recognitionRequest.append(buffer)
         }
@@ -111,6 +114,7 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
             startTranscribing()
         }
     }
+    // this is for conforming to the TranscriptionServiceProtocol -> apple Transcription works a little bit different than the WhisperTranscription
     func processAudioBuffer(_ buffer: AVAudioPCMBuffer, sampleRate: Int, bufferSize: Int) {
         // DO NOTHING
     }

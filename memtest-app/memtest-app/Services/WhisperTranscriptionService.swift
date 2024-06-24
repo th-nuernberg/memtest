@@ -4,6 +4,7 @@
 //
 //  Created by Christopher Witzl on 13.04.24.
 //
+// This Service is currently not used because of optimization that is needed to properly let it run on device
 
 import Foundation
 import AudioKit
@@ -11,6 +12,8 @@ import SwiftWhisper
 import AVFoundation
 
 class WhisperTranscriptionService: TranscriptionService {
+    var usedSampleRate: Double? = 16000
+    
     let audioEngine = AVAudioEngine()
     let whisper: Whisper
     
@@ -18,15 +21,15 @@ class WhisperTranscriptionService: TranscriptionService {
     var onTranscriptionUpdate: ((String) -> Void)?
     
     @Published var isTranscribing = false
-    @Published var transcription = "Transcription will appear here"
+    @Published var transcription = ""
     
     private var audioBuffer = [Float]()
-    private let targetSampleRate: Double = 16000
+    // Sample Rate has to be 160000 for whisper.cpp
     private var bufferCapacity: Int {
-        return Int(targetSampleRate * 2)
+        return Int(usedSampleRate! * 2)
     }
     private var overlapCapacity: Int {
-        return Int(targetSampleRate * 0.1)
+        return Int(usedSampleRate! * 0.1)
     }
     
     init() {
@@ -37,17 +40,14 @@ class WhisperTranscriptionService: TranscriptionService {
         whisper.params.language = WhisperLanguage.german
         whisper.params.print_progress = false
         whisper.params.no_context = false
-        
-        //hisper.params.max_tokens = 3
-        //whisper.params.print_realtime = true
-        
         self.whisper = whisper
     }
-    /*
+    
     func startTranscribing() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setPreferredSampleRate(sampleRate)
+            // Trying to set the sample Rate -> but setPreferredSampleRate() doesnt guarantee to set it
+            try audioSession.setPreferredSampleRate(usedSampleRate!)
             try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
@@ -58,8 +58,11 @@ class WhisperTranscriptionService: TranscriptionService {
         let hwSampleRate = audioSession.sampleRate
         let inputNode = audioEngine.inputNode
         let hwFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: hwSampleRate, channels: 1, interleaved: false)!
+        
+        // Note: the buffer size must not be set arbitrarily ->  the length of the buffer size has to be between 100ms and 400ms -> therefore it has to be computed with sample rate in mind
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: hwFormat) { [weak self] (buffer, when) in
-            self?.accumulateAudioBuffer(buffer)
+            // because of the buffer size limitation we have to accumulate the buffer for whisper.cpp
+            self?.accumulateAudioBuffer(buffer, sampleRate: Int(AVAudioSession.sharedInstance().sampleRate), bufferSize:  Int(buffer.frameLength))
         }
 
         audioEngine.prepare()
@@ -73,29 +76,21 @@ class WhisperTranscriptionService: TranscriptionService {
         audioBuffer.removeAll()
         isTranscribing = false
     }
-    */
+    
+    // this function is for conforming to the TranscriptionService protocol and is called in the AudioService
     func processAudioBuffer(_ buffer: AVAudioPCMBuffer, sampleRate: Int, bufferSize: Int) {
         if isTranscribing {
             accumulateAudioBuffer(buffer, sampleRate: sampleRate, bufferSize: bufferSize)
         }
     }
     
-    func startTranscribing() {
-        isTranscribing = true
-    }
-    
-    func stopTranscribing() {
-        isTranscribing = false
-    }
-    
     public func toggleTranscribing() {
         if (!isTranscribing) {
             startTranscribing()
-            //startTranscribing()
         } else {
             stopTranscribing()
+            // reset audio buffer
             audioBuffer = []
-            //stopTranscribing()
         }
     }
     
@@ -136,6 +131,7 @@ class WhisperTranscriptionService: TranscriptionService {
     }
     
     private func transcribeAudioBuffer() {
+        
         if audioBuffer.count > bufferCapacity {
             let extraBuffer = Array(audioBuffer.dropFirst(bufferCapacity))
             audioBuffer.removeSubrange(bufferCapacity...)
@@ -149,6 +145,7 @@ class WhisperTranscriptionService: TranscriptionService {
                     let fullTranscription = segments.map { $0.text }.joined(separator: " ")
                     self?.transcription = fullTranscription
                     
+                    // Use callback for notification
                     self?.onTranscriptionUpdate?(fullTranscription)
                     
                 case .failure(let error):

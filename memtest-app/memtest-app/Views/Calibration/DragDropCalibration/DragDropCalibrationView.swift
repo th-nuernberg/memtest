@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Simple View that is used to make patients who are not familiar to the drag n drop concept familiar to it
 struct DragDropCalibrationView: View {
     var onNextView: (() -> Void)?
     
