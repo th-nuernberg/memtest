@@ -8,6 +8,14 @@ import os
 @click.option('--output', default='studykey.json', help='Output JSON file name')
 @click.option('--remove', is_flag=True, help='Remove the key-value pair with the given studienname')
 def manage_studykey(studienname, output, remove):
+    """
+    Manage study keys by adding or removing key-value pairs in a JSON file.
+
+    Args:
+        studienname (str): The name of the study.
+        output (str): The name of the output JSON file.
+        remove (bool): Flag to indicate if the key-value pair should be removed.
+    """
     # Load existing data if the file exists
     if os.path.exists(output):
         with open(output, 'r') as json_file:

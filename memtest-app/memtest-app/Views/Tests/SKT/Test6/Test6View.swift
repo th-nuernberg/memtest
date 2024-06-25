@@ -1,5 +1,5 @@
 //
-//  Test5View.swift
+//  Test6View.swift
 //  memtest-app
 //
 //  Created by Maximilian Werzinger - TH on 02.03.24.
@@ -8,14 +8,18 @@
 import SwiftUI
 import Combine
 
-
+/// `Test6View` serves as the Test 6 of the SKT-Tests
+///
+/// Features:
+/// - Displays a grid of symbols for the user to count
+/// - Provides explanation and instructions before starting the test
 struct Test6View: View {
     @Binding var currentView: SKTViewEnum
-    
     @StateObject private var viewModel: SymbolViewModel = SymbolViewModel()
     @State private var finished = false
     @State private var showExplanation = true
     
+    // variable to capture the user's count of symbols
     @State private var userSymbolCount = ""
     
     public init(currentView: Binding<SKTViewEnum>) {
@@ -24,23 +28,26 @@ struct Test6View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 6,
-                     textOfCircle:"6", content: {
+                     textOfCircle: "6", content: {
             
-            VStack{
+            VStack {
+                // Header view with audio indicator, back and next buttons
                 BaseHeaderView(
-                    showAudioIndicator:true,
+                    showAudioIndicator: true,
                     currentView: $currentView,
                     onBack: {
+                        // Navigate to the previous test
                         self.currentView = .skt5
                         onComplete()
                     },
                     onNext: {
+                        // Navigate to the next test
                         self.currentView = .skt7
                         onComplete()
                     }
                 )
                 
-                VStack (spacing: 0){
+                VStack (spacing: 0) {
                     Text("Gesucht: \(viewModel.selectedSymbol ?? "")")
                         .font(.custom("SFProText-Bold", size: 40))
                         .frame(maxWidth: .infinity, alignment: .trailing)
@@ -49,7 +56,7 @@ struct Test6View: View {
                         .padding()
                 }
                 
-                HStack{
+                HStack {
                     TextField("Anzahl der Symbole:", text: $userSymbolCount)
                         .keyboardType(.numberPad)
                         .padding()
@@ -94,8 +101,8 @@ struct Test6View: View {
             }
             
             
-        }, explanationContent: {onContinue in
-            
+        }, explanationContent: { onContinue in
+            // Explanation content
             ExplanationView(onNext: {
                 showExplanation.toggle()
             }, circleIndex: 6, circleText: "6", showProgressCircles: true, content: {
@@ -107,8 +114,7 @@ struct Test6View: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
-                
-                VStack{
+                VStack {
                     Text("Sie sehen hier auf dieser Tafel verschiedene Symbole:")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
@@ -124,7 +130,7 @@ struct Test6View: View {
                     Text("Zählen Sie bitte laut und so schnell Sie können")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
-                        .padding(.top,20)
+                        .padding(.top, 20)
                     
                     Text("alle gesuchten Symbole, die zu sehen sind.")
                         .font(.custom("SFProText-SemiBold", size: 40))
@@ -142,29 +148,35 @@ struct Test6View: View {
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                     
-                    Text("Sind Sie fertig drücken Sie auf den OK Knopf.")
+                    Text("Sind Sie fertig, drücken Sie auf den OK Knopf.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
-                        .padding(.top,20)
-                    
+                        .padding(.top, 20)
                 }
-                .padding(.top,60)
+                .padding(.top, 60)
             })
             
-        }, completedContent: {onContinue in
+        }, completedContent: { onContinue in
+            // Completed Test6
             CompletedView(completedTasks: 6, onContinue: {
+                // Navigate to the next test
                 currentView = .skt7
                 onContinue()
             })
         })
     }
     
+    /// Function to handle completion of the test
+    ///
+    /// Actions:
+    /// - mark test as finished
+    /// - Filters Test-Results and saves them
+    /// - Stops recording
     private func onComplete() {
         DataService.shared.saveSKT6Results(symbolToCount: viewModel.selectedSymbol!, symbolCounts: viewModel.symbolCounts, symbolField: viewModel.symbolField, taps: viewModel.taps, userSymbolCount: Int(self.userSymbolCount)!)
         finished = true
         AudioService.shared.stopRecording()
     }
-    
 }
 
 #Preview {

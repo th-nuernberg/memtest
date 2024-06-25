@@ -4,10 +4,21 @@
 //
 //  Created by Christopher Witzl on 13.04.24.
 //
+
 import Foundation
 import Speech
 import AVFoundation
 
+/// `AppleTranscriptionService` handles audio transcription using Apple's `SFSpeechRecognizer`
+///
+/// Features:
+/// - Requests authorization for speech recognition
+/// - Starts and stops transcribing audio
+/// - Provides real-time updates of transcribed text
+///
+/// - Parameters:
+///   - usedSampleRate: The sample rate used for audio processing
+///   - onTranscriptionUpdate: Callback for updating the transcribed text
 class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecognizerDelegate {
     var usedSampleRate: Double?
     
@@ -26,7 +37,10 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
         super.init()
         speechRecognizer.delegate = self
     }
-    // requesting authorization for audio processing
+    
+    /// Requests authorization for speech recognition
+    ///
+    /// - Parameter completion: A closure called with the authorization status
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         SFSpeechRecognizer.requestAuthorization { status in
             DispatchQueue.main.async {
@@ -35,8 +49,9 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
         }
     }
     
+    /// Starts transcribing audio
     func startTranscribing() {
-        // remove transcription task if still exists
+        // Remove existing transcription task if it exists
         if recognitionTask != nil {
             recognitionTask?.cancel()
             recognitionTask = nil
@@ -65,7 +80,7 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
             if let result = result {
                 self?.transcription = result.bestTranscription.formattedString
                 
-                // use callback to propagate the transcribed text
+                // Use callback to propagate the transcribed text
                 self?.onTranscriptionUpdate?(result.bestTranscription.formattedString)
                 
                 self?.isTranscribing = !result.isFinal
@@ -79,7 +94,7 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
         let inputNode = audioEngine.inputNode
         let recordingFormat = inputNode.outputFormat(forBus: 0)
         
-        // install tap for speech transcribing
+        // Install tap for speech transcribing
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
             recognitionRequest.append(buffer)
         }
@@ -96,6 +111,7 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
         }
     }
     
+    /// Stops transcribing audio
     func stopTranscribing() {
         audioEngine.stop()
         audioEngine.inputNode.removeTap(onBus: 0)
@@ -107,6 +123,7 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
         transcription = ""
     }
     
+    /// Toggles the transcribing state
     func toggleTranscribing() {
         if isTranscribing {
             stopTranscribing()
@@ -114,8 +131,16 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
             startTranscribing()
         }
     }
-    // this is for conforming to the TranscriptionServiceProtocol -> apple Transcription works a little bit different than the WhisperTranscription
+    
+    /// Processes an audio buffer (no operation needed for Apple transcription)
+    ///
+    /// this is for conforming to the TranscriptionServiceProtocol -> apple Transcription works a little bit different than the WhisperTranscription
+    ///
+    /// - Parameters:
+    ///   - buffer: The audio buffer to process
+    ///   - sampleRate: The sample rate of the audio buffer
+    ///   - bufferSize: The size of the audio buffer
     func processAudioBuffer(_ buffer: AVAudioPCMBuffer, sampleRate: Int, bufferSize: Int) {
-        // DO NOTHING
+        // No operation needed for Apple transcription
     }
 }

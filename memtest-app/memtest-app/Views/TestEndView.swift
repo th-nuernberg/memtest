@@ -7,10 +7,16 @@
 
 import SwiftUI
 
+/// `TestEndView` provides the end screen of the SKT-Tests
+///
+/// Features:
+/// - Displays a thank you message and instructions to the user
+/// - Provides a button to end the test and navigate to the feedback view
 struct TestEndView: View {
     @State var showNextView: Bool = false
+    
     var body: some View {
-        VStack{
+        VStack {
             Text("Vielen Dank für Ihre Mitarbeit!")
                 .font(.custom("SFProText-SemiBold", size: 40))
                 .foregroundStyle(Color(hex: "#5377A1"))
@@ -18,25 +24,24 @@ struct TestEndView: View {
             Text("Sie haben alle Aufgaben erfolgreich bearbeitet.")
                 .font(.custom("SFProText-SemiBold", size: 40))
                 .foregroundStyle(Color(hex: "#5377A1"))
-                .padding(.top,20)
+                .padding(.top, 20)
             
             Text("Ihre Antworten werden jetzt verarbeitet.")
                 .font(.custom("SFProText-SemiBold", size: 40))
                 .foregroundStyle(Color(hex: "#5377A1"))
             
-            
             Text("Bitte geben Sie das Gerät zurück an den Prüfer.")
                 .font(.custom("SFProText-SemiBold", size: 40))
                 .foregroundStyle(Color(hex: "#5377A1"))
-                .padding(.top,20)
+                .padding(.top, 20)
             
         }
-        .padding(.top,200)
+        .padding(.top, 200)
+        
         NavigationStack {
-            VStack{
+            VStack {
                 Button(action: {
                     showNextView.toggle()
-                    
                 }) {
                     Text("Test beenden")
                         .foregroundColor(.white)
@@ -46,7 +51,7 @@ struct TestEndView: View {
                 .padding(10)
                 .background(Color.blue)
                 .cornerRadius(10)
-                .padding(.bottom,100)
+                .padding(.bottom, 100)
                 .navigationBarBackButtonHidden(true)
                 .navigationDestination(isPresented: $showNextView) {
                     FeedbackView()

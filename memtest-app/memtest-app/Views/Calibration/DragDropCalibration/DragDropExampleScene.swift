@@ -5,11 +5,13 @@
 //  Created by Christopher Witzl on 30.03.24.
 //
 
-
 import SwiftUI
 import SpriteKit
 
-// for providing a interface between SwiftUI and SpriteKit Scene
+/// `DragDropExampleSceneContainerView` provides an interface between SwiftUI and a SpriteKit scene for drag-and-drop calibration
+///
+/// - Parameters:
+///   - calibrationComplete: A binding to track the completion status of the calibration
 struct DragDropExampleSceneContainerView: UIViewRepresentable {
     
     @Binding var calibrationComplete: Bool
@@ -21,6 +23,7 @@ struct DragDropExampleSceneContainerView: UIViewRepresentable {
         return view
     }
     
+    // Update the SKView with the scene if not already present, or update the scene size
     func updateUIView(_ uiView: SKView, context: Context) {
         if uiView.scene == nil {
             let scene = DragDropExampleScene(size: uiView.bounds.size)
@@ -38,8 +41,7 @@ struct DragDropExampleSceneContainerView: UIViewRepresentable {
     }
 }
 
-
-
+/// `DragDropExampleScene` is a SpriteKit scene used for drag-and-drop calibration
 class DragDropExampleScene: SKScene {
     var circleNode: SKShapeNode!
     var isDraggingCircleNode = false
@@ -48,35 +50,34 @@ class DragDropExampleScene: SKScene {
     var arrowNode: SKShapeNode!
     var calibrationCompleteBinding: Binding<Bool>? // Optional binding to communicate completion status
     
-    // initially called when the scene has been presented by a view
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupScene()
     }
     
+    // Setup the initial scene with shapes and positions
     func setupScene() {
         self.backgroundColor = .white
         self.removeAllChildren()
         
         let rectangleSize = CGSize(width: 200, height: 200)
         
-        // the start zone
+        // Setup the start zone
         startingRectangleNode = SKShapeNode(rectOf: rectangleSize, cornerRadius: 10)
         startingRectangleNode.fillColor = .lightGray
         startingRectangleNode.position = CGPoint(x: -rectangleSize.width, y: 0)
         self.addChild(startingRectangleNode)
         
-        // the drop zone
+        // Setup the drop zone
         targetRectangleNode = SKShapeNode(rectOf: rectangleSize, cornerRadius: 10)
         targetRectangleNode.fillColor = .lightGray
         targetRectangleNode.position = CGPoint(x: rectangleSize.width, y: 0)
         targetRectangleNode.name = "targetRectangle"
         self.addChild(targetRectangleNode)
         
-        
+        // Setup the arrow between start and drop zones
         arrowNode = createArrowNode(from: startingRectangleNode.position, to: targetRectangleNode.position)
         self.addChild(arrowNode)
-        
         
         // Setup the draggable red circle
         let circleDiameter = rectangleSize.height / 2
@@ -86,12 +87,12 @@ class DragDropExampleScene: SKScene {
         self.addChild(circleNode)
     }
     
+    // Create an arrow node to guide the user
     func createArrowNode(from start: CGPoint, to end: CGPoint) -> SKShapeNode {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: start.x + 110, y: 0))
         let arrowLength: CGFloat = end.x - start.x - 220
         path.addLine(to: CGPoint(x: start.x + 110 + arrowLength, y: 0))
-        
         
         let arrowWidth: CGFloat = 20
         path.move(to: CGPoint(x: start.x + 110 + arrowLength, y: 0))
@@ -108,25 +109,26 @@ class DragDropExampleScene: SKScene {
         return arrowNode
     }
     
-    
-    func touchDown(atPoint pos : CGPoint) {
+    // Handle touch down event
+    func touchDown(atPoint pos: CGPoint) {
         if circleNode.contains(pos) {
             isDraggingCircleNode = true
             circleNode.position = pos
         }
     }
     
-    func touchMoved(toPoint pos : CGPoint) {
+    // Handle touch move event
+    func touchMoved(toPoint pos: CGPoint) {
         if isDraggingCircleNode {
             circleNode.position = pos
         }
     }
     
-    // handles the end of a touch drag event
-    func touchUp(atPoint pos : CGPoint) {
+    // Handle touch up event
+    func touchUp(atPoint pos: CGPoint) {
         isDraggingCircleNode = false
         
-        // snapping
+        // Snapping the circle to the target position if within bounds
         if targetRectangleNode.frame.contains(circleNode.position) {
             circleNode.position = targetRectangleNode.position
             calibrationCompleteBinding?.wrappedValue = true
@@ -134,7 +136,6 @@ class DragDropExampleScene: SKScene {
             circleNode.position = startingRectangleNode.position
         }
     }
-    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {

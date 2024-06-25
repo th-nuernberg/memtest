@@ -7,21 +7,30 @@
 
 import SwiftUI
 
+/// representing a numbered circle with a specific color --> playing stone
 struct NumberCircles {
     var number: Int
     var color: UIColor
 }
 
+/// representing a drop zone circle --> circle where stones can be dragged to
+/// optional with number
 struct DropZoneCircle {
     var number: Int?
 }
 
+/// `Test4View` serves as the Test 4 of the SKT-Tests
+///
+/// Features:
+/// - Displays draggable elements with numbers for the user to sort
+/// - Provides explanation and instructions before starting the test
 struct Test4View: View {
     @Binding var currentView: SKTViewEnum
-    
     @State private var finished = false
     @State private var showExplanation = true
     
+    // List of elements with numbers and colors
+    // elements represent the stones on the board of the real skt test
     let dragElements: [DragElement] = [
         DragElement(posIndex: 10, label: "10", color: UIColor(Color(hex: "#D10B0B"))),
         DragElement(posIndex: 11, label: "81", color: UIColor(Color(hex: "#44FF57"))),
@@ -35,6 +44,7 @@ struct Test4View: View {
         DragElement(posIndex: 19, label: "40", color: UIColor(Color(hex: "#2CBA76"))),
     ]
     
+    // variable to keep track of user-sorted elements
     @State var userSortedElements: [DragElement] = []
     
     public init(currentView: Binding<SKTViewEnum>) {
@@ -43,16 +53,19 @@ struct Test4View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 4,
-                     textOfCircle:"4", content: {
+                     textOfCircle: "4", content: {
             
+            // Header view with audio indicator, back and next buttons
             BaseHeaderView(
-                showAudioIndicator:false,
+                showAudioIndicator: false,
                 currentView: $currentView,
                 onBack: {
+                    // Navigate to the previous test
                     self.currentView = .skt3
                     onComplete()
                 },
                 onNext: {
+                    // Navigate to the next test
                     self.currentView = .skt5
                     onComplete()
                 }
@@ -60,7 +73,7 @@ struct Test4View: View {
             
             DragNDropContainerView(dragElements: dragElements, dropZones: OrderNumberTestService.shared.getDropZones(), onPositionsChanged: { updatedDragElements in
                 OrderNumberTestService.shared.setDragElements(dragElements: updatedDragElements)
-                // if the updatedDragElements are in an ascending order regarding the label and the lowest label number element is on posIndex 0 and the highest label number is on posIndex (dragElements.count - ), the onComplete function is called
+                // Check if the elements are in order and complete if they are
                 checkOrderAndComplete(dragElements: updatedDragElements)
                 userSortedElements = updatedDragElements
             })
@@ -69,11 +82,11 @@ struct Test4View: View {
                 onComplete()
             }
             
-        }, explanationContent: {onContinue in
-            
+        }, explanationContent: { onContinue in
+            // Explanation content
             ExplanationView(onNext: {
                 showExplanation.toggle()
-            },circleIndex: 4, circleText: "4", showProgressCircles: true, content: {
+            }, circleIndex: 4, circleText: "4", showProgressCircles: true, content: {
                 HStack {
                     Text("Aufgabenstellung 4")
                         .font(.largeTitle)
@@ -82,8 +95,7 @@ struct Test4View: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
-                
-                VStack{
+                VStack {
                     Text("Wie Sie sehen, sind die Zahlen nicht geordnet.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
@@ -95,7 +107,7 @@ struct Test4View: View {
                     Text("Bitte ordnen Sie jetzt, so schnell Sie können,")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
-                        .padding(.top,20)
+                        .padding(.top, 20)
                     
                     Text("die Zahlen der Größe nach.")
                         .font(.custom("SFProText-SemiBold", size: 40))
@@ -104,7 +116,7 @@ struct Test4View: View {
                     Text("Dazu suchen Sie die kleinste Zahl ")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
-                        .padding(.top,20)
+                        .padding(.top, 20)
                     
                     Text("und ziehen sie auf das erste Feld links oben.")
                         .font(.custom("SFProText-SemiBold", size: 40))
@@ -117,19 +129,21 @@ struct Test4View: View {
                     Text(" und ziehen Sie daneben und so weiter.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
-                    
                 }
-                .padding(.top,120)
+                .padding(.top, 120)
             })
             
-        }, completedContent: {onContinue in
+        }, completedContent: { onContinue in
+            // Completed Test4
             CompletedView(completedTasks: 4, onContinue: {
+                // Navigate to the next test
                 currentView = .skt5
                 onContinue()
             })
         })
     }
     
+    /// Checks if the elements are sorted in ascending order and calls `onComplete` if they are
     private func checkOrderAndComplete(dragElements: [DragElement]) {
         let sortedByLabel = dragElements.sorted(by: { Int($0.label ?? "") ?? 0 < Int($1.label ?? "") ?? 0 })
         let sortedByPosition = sortedByLabel.sorted(by: { $0.posIndex < $1.posIndex })
@@ -139,6 +153,12 @@ struct Test4View: View {
         }
     }
     
+    /// Function to handle completion of the test
+    ///
+    /// Actions:
+    /// - mark test as finished
+    /// - Filters Test-Results and saves them
+    /// - Stops recording
     private func onComplete() {
         DataService.shared.saveSKT4Results(dragElements: self.userSortedElements)
         finished = true

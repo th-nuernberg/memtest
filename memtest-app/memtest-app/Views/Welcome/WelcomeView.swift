@@ -7,24 +7,28 @@
 
 import SwiftUI
 
+/// `WelcomeView` provides the initial view for starting the test
+///
+/// Features:
+/// - Displays instructions for the test administrator
+/// - Initiates QR code scanning to authenticate and proceed with the test
+/// - Navigates to the next view upon successful QR code scan or if the QR code data is already available
 struct WelcomeView: View {
     @State var showNextView: Bool = false
     @State private var qrCodeData: QRCodeData?
     @State private var isScanning = false
-    var onNextView: ((_ nextView: WelcomeViewEnum) -> Void)?
     
+    var onNextView: ((_ nextView: WelcomeViewEnum) -> Void)?
     
     var body: some View {
         NavigationStack {
-            
             if !isScanning {
-                VStack{
+                VStack {
                     Text("Test beginnen")
                         .font(.custom("SFProText-SemiBold", size: 60))
-                        .padding(.bottom,60)
+                        .padding(.bottom, 60)
                         .padding(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    
                     
                     Text("Bitte geben Sie das Gerät jetzt an die Testperson weiter.")
                         .font(.custom("SFProText-SemiBold", size: 25))
@@ -60,7 +64,6 @@ struct WelcomeView: View {
                         .padding(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    
                     Text("Halten Sie bitte die Kamera über den Ihnen gegebenen QR-Code damit das Gerät diesen erkennen kann.")
                         .font(.custom("SFProText-SemiBold", size: 25))
                         .foregroundStyle(Color(hex: "#958787"))
@@ -76,14 +79,14 @@ struct WelcomeView: View {
                             onNextView?(.welcomeStudy)
                         }
                     }) {
-                        Text(qrCodeData != nil ? "Weiter": "QR-Code scannen")
+                        Text(qrCodeData != nil ? "Weiter" : "QR-Code scannen")
                             .font(.custom("SFProText-SemiBold", size: 25))
                             .foregroundStyle(.white)
                     }
                     .padding(20)
                     .background(.blue)
                     .cornerRadius(10)
-                    .padding(.top,70)
+                    .padding(.top, 70)
                     .padding(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .navigationBarBackButtonHidden(true)
@@ -97,7 +100,6 @@ struct WelcomeView: View {
                     qrCodeData = code
                     isScanning = false
                     DataService.shared.setQRCodeData(qrCodeData: qrCodeData!)
-                    
                 }, onCancel: {
                     isScanning = false
                 })

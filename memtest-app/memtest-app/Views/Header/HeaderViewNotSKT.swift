@@ -5,14 +5,27 @@
 //  Created by Max Werzinger on 24.05.24.
 //
 
-
 import SwiftUI
 
+/// `BaseHeaderViewNotSKT` provides a consistent header view for non-SKT tests
+///
+/// Features:
+/// - Displays back and next buttons if the application is in admin mode
+/// - Shows an audio indicator if required
+///
+/// - Parameters:
+///   - showAudioIndicator: A Boolean to determine if the audio indicator should be shown.
+///   - onBack: A closure to be executed when the back button is pressed.
+///   - onNext: A closure to be executed when the next button is pressed.
 struct BaseHeaderViewNotSKT: View {
     
+    // Boolean to determine if the audio indicator should be shown
     var showAudioIndicator: Bool
     
+    // Closure to be executed when the back button is pressed
     var onBack: (() -> Void)
+    
+    // Closure to be executed when the next button is pressed
     var onNext: (() -> Void)
     
     public init(showAudioIndicator: Bool, onBack: @escaping (() -> Void), onNext: @escaping (() -> Void)) {
@@ -22,8 +35,8 @@ struct BaseHeaderViewNotSKT: View {
     }
     
     var body: some View {
-        
         HStack {
+            // check if admin mode is activated
             if SettingsService.shared.isAdminMode() {
                 Button(action: {
                     onBack()
@@ -41,9 +54,10 @@ struct BaseHeaderViewNotSKT: View {
             
             Spacer()
             
-            if(showAudioIndicator){
+            if showAudioIndicator {
                 AudioIndicatorView()
             }
+            
             Spacer()
             
             if SettingsService.shared.isAdminMode() {
@@ -65,4 +79,3 @@ struct BaseHeaderViewNotSKT: View {
         .padding(.bottom, 20)
     }
 }
-
