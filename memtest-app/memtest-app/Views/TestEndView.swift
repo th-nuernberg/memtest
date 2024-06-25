@@ -14,7 +14,7 @@ struct TestEndView: View {
             Text("Vielen Dank für Ihre Mitarbeit!")
                 .font(.custom("SFProText-SemiBold", size: 40))
                 .foregroundStyle(Color(hex: "#5377A1"))
-
+            
             Text("Sie haben alle Aufgaben erfolgreich bearbeitet.")
                 .font(.custom("SFProText-SemiBold", size: 40))
                 .foregroundStyle(Color(hex: "#5377A1"))
@@ -23,7 +23,7 @@ struct TestEndView: View {
             Text("Ihre Antworten werden jetzt verarbeitet.")
                 .font(.custom("SFProText-SemiBold", size: 40))
                 .foregroundStyle(Color(hex: "#5377A1"))
-                
+            
             
             Text("Bitte geben Sie das Gerät zurück an den Prüfer.")
                 .font(.custom("SFProText-SemiBold", size: 40))

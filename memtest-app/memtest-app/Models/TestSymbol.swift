@@ -11,7 +11,7 @@ class TestSymbol {
     var name: String
     var synonyms: [String]
     var fileUrl: String
-
+    
     init(name: String, synonyms: [String], fileUrl: String) {
         self.name = name
         self.synonyms = synonyms

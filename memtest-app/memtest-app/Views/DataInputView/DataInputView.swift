@@ -25,7 +25,6 @@ struct DataInputView: View {
                 }
             } else {
                 SecondDataInputView(patientData: patientData){
-                    // TODO: use DataService to save metadata
                     dataService.setPatientData(patientData: self.patientData)
                     onNextView?()
                     showNextView.toggle()

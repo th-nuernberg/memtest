@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BaseHeaderView: View {
-    //@Binding var isAdminMode: Bool
     
     @Binding var currentView: SKTViewEnum
     

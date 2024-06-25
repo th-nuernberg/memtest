@@ -22,22 +22,22 @@ struct FeedbackView: View {
                 .font(.system(size: 25))
             
             Divider()
-                
+            
             Text("Möchten Sie einen Fehler melden?")
             HorizontalRadioButtons(isSelected: $isSelected)
             
             if isSelected {
                 
                 TextEditor(text: $errorDescription)
-                            .frame(width: 1000, height: 300)
-                            .scrollContentBackground(.hidden)
-                            .cornerRadius(20)
-                            .background(.white)
-                            .overlay(
-                                     RoundedRectangle(cornerRadius: 10)
-                                       .stroke(Color(hex: "#CAD8E3"), lineWidth: 5)
-                                     )
-                            .padding()
+                    .frame(width: 1000, height: 300)
+                    .scrollContentBackground(.hidden)
+                    .cornerRadius(20)
+                    .background(.white)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color(hex: "#CAD8E3"), lineWidth: 5)
+                    )
+                    .padding()
             }
             
             Button(action: {
@@ -62,7 +62,7 @@ struct FeedbackView: View {
             EmptyView()
         }
         .navigationBarBackButtonHidden(true)
-       
+        
     }
 }
 

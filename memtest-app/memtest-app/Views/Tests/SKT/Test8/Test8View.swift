@@ -16,7 +16,7 @@ struct Test8View: View {
     @State private var showExplanation = true
     
     private let testDuration = SettingsService.shared.getTestDuration()
-
+    
     private var symbolList = TestSymbolList()
     
     var columns: [GridItem] = [
@@ -33,8 +33,6 @@ struct Test8View: View {
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 8,
                      textOfCircle:"8", content: {
-            //Text(manager.recognizedWords.last ?? "")
-            
             VStack{
                 
                 BaseHeaderView(
@@ -50,7 +48,6 @@ struct Test8View: View {
                     }
                 )
                 
-                //AudioIndicatorView()
                 Spacer()
                 HStack {
                     Spacer()

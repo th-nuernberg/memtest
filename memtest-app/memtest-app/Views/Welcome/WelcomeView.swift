@@ -16,7 +16,7 @@ struct WelcomeView: View {
     
     var body: some View {
         NavigationStack {
-                
+            
             if !isScanning {
                 VStack{
                     Text("Test beginnen")

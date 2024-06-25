@@ -15,12 +15,12 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
     private var audioEngine = AVAudioEngine()
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
-
+    
     var onTranscriptionUpdate: ((String) -> Void)?
     
     var isTranscribing: Bool = false
     var transcription: String = ""
-
+    
     override init() {
         speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "de-DE"))!
         super.init()
@@ -41,7 +41,7 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
             recognitionTask?.cancel()
             recognitionTask = nil
         }
-
+        
         do {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
@@ -50,21 +50,21 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
             print("Failed to set up audio session: \(error)")
             return
         }
-
+        
         // Create a new recognition request
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
         guard let recognitionRequest = recognitionRequest else {
             fatalError("Unable to create a new SFSpeechAudioBufferRecognitionRequest.")
         }
-
+        
         recognitionRequest.shouldReportPartialResults = true
         recognitionRequest.requiresOnDeviceRecognition = false
-
+        
         // Create a recognition task
         recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
             if let result = result {
                 self?.transcription = result.bestTranscription.formattedString
-        
+                
                 // use callback to propagate the transcribed text
                 self?.onTranscriptionUpdate?(result.bestTranscription.formattedString)
                 
@@ -75,15 +75,15 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
                 self?.stopTranscribing()
             }
         }
-
+        
         let inputNode = audioEngine.inputNode
         let recordingFormat = inputNode.outputFormat(forBus: 0)
-    
+        
         // install tap for speech transcribing
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
             recognitionRequest.append(buffer)
         }
-
+        
         audioEngine.prepare()
         do {
             try audioEngine.start()
@@ -95,7 +95,7 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
             isTranscribing = false
         }
     }
-
+    
     func stopTranscribing() {
         audioEngine.stop()
         audioEngine.inputNode.removeTap(onBus: 0)
@@ -106,7 +106,7 @@ class AppleTranscriptionService: NSObject, TranscriptionService, SFSpeechRecogni
         isTranscribing = false
         transcription = ""
     }
-
+    
     func toggleTranscribing() {
         if isTranscribing {
             stopTranscribing()

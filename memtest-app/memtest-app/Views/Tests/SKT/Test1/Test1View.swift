@@ -65,6 +65,7 @@ struct Test1View: View {
             }
             .padding(.vertical)
             .onAppear(perform: {
+                // resets previously recognized words, if there are any
                 manager.recognizedWords = []
                 do {
                     try AudioService.shared.startRecording(to: "test1")
@@ -87,8 +88,6 @@ struct Test1View: View {
                         .padding(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                
-                
                 
                 Spacer()
                 VStack{
@@ -150,7 +149,7 @@ struct Test1View: View {
         }
         isRecording.toggle()
     }
-
+    
     
     private func onComplete() {
         let recognizedSymbols = Array(Set(manager.recognizedWords.filter { symbolList.contains(word: $0) }))

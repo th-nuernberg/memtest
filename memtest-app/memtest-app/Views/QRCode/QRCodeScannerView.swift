@@ -8,6 +8,9 @@
 import SwiftUI
 import AVFoundation
 
+/// This view is used for scanning the QR-Code data from the documents
+/// It should be reworked using the the vision framework from apple
+/// Ticket: https://github.com/orgs/th-nuernberg/projects/3/views/1?pane=issue&itemId=60039381
 class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -90,25 +93,26 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
         // Update the bottom bar's frame
         let barHeight: CGFloat = 60
         bottomBar.frame = CGRect(x: 0, y: view.frame.height - barHeight, width: view.frame.width, height: barHeight)
-
+        
         // Update the cancel button's frame
         let buttonWidth: CGFloat = 100
         let buttonHeight: CGFloat = 40
         cancelButton.frame = CGRect(x: bottomBar.frame.width - buttonWidth - 20, y: (barHeight - buttonHeight) / 2, width: buttonWidth, height: buttonHeight)
-
+        
     }
     
+    // TODO: use newer isVideoRotationAngleSupported & videoRotationAngle calls for orientation
     @objc func handleDeviceOrientationChange() {
         let orientation = UIDevice.current.orientation
         guard let connection = previewLayer.connection, connection.isVideoOrientationSupported else { return }
-
+        
         switch orientation {
         case .portrait:
             connection.videoOrientation = .portrait
         case .landscapeRight:
-            connection.videoOrientation = .landscapeLeft // Note the inversion
+            connection.videoOrientation = .landscapeLeft
         case .landscapeLeft:
-            connection.videoOrientation = .landscapeRight // Note the inversion
+            connection.videoOrientation = .landscapeRight
         case .portraitUpsideDown:
             connection.videoOrientation = .portraitUpsideDown
         default:
@@ -164,11 +168,11 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
     @objc func cancelTapped() {
         onCancel?()  // Calls the onCancel closure if it's set
     }
-
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
-
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
@@ -176,15 +180,15 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
 
 struct QRCodeScannerView: UIViewControllerRepresentable {
     var onCodeScanned: (QRCodeData) -> Void
-    var onCancel: () -> Void  // Add this line
-
+    var onCancel: () -> Void
+    
     func makeUIViewController(context: Context) -> QRCodeScannerViewController {
         let controller = QRCodeScannerViewController()
         controller.onCodeScanned = onCodeScanned
-        controller.onCancel = onCancel  // Set the closure
+        controller.onCancel = onCancel
         return controller
     }
-
+    
     func updateUIViewController(_ uiViewController: QRCodeScannerViewController, context: Context) {
         // The closure is already set, nothing needed here for now.
     }

@@ -21,7 +21,7 @@ struct VFTView: View {
     @State private var showExplanation = true
     @State private var recognizedAnimalNames: [String] = []
     private let testDuration = SettingsService.shared.getTestDuration()
-
+    
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 10, textOfCircle: "10", content: {
             VStack {
@@ -29,16 +29,18 @@ struct VFTView: View {
                 BaseHeaderViewNotSKT(
                     showAudioIndicator:true,
                     onBack: {
-                        //TODO: where to go?
                         onComplete()
                     },
                     onNext: {
-                        //TODO: where to go?
                         onComplete()
                     }
                 )
                 
-                //AudioIndicatorView()
+                VStack {
+                    Text("Bitte nennen Sie Tiernamen")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                }
                 Spacer()
                 HStack {
                     Spacer()
@@ -46,9 +48,7 @@ struct VFTView: View {
                     Spacer()
                     HourglassView(size: 300, lineWidth: 15, duration: testDuration)
                         .padding(.trailing, 150)
-                    
                 }
-                //Text("\(speechRecognitionManager.recognizedWords.last ?? "")")
             }
             .padding()
             .onAppear(perform: {
@@ -131,8 +131,6 @@ struct VFTView: View {
     }
     
     private func onComplete() {
-        // TODO: save dragElements in json
-        
         finished = true
         AudioService.shared.stopRecording()
     }

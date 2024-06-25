@@ -14,7 +14,7 @@ struct Test2View: View {
     @State private var isRecording = false
     @State private var finished = false
     @State private var showExplanation = true
-
+    
     private let testDuration = SettingsService.shared.getTestDuration()
     private var symbolList = TestSymbolList()
     
@@ -49,6 +49,7 @@ struct Test2View: View {
                 Spacer()
                 HStack {
                     Spacer()
+                    // Animation gets triggered by the notification of the SpeechRecognitionManager
                     AvatarView(gifName: "Avatar_Nicken_fast")
                     Spacer()
                     HourglassView(size: 300, lineWidth: 15, duration: testDuration)
@@ -103,3 +104,4 @@ struct Test2View: View {
 #Preview {
     Test2View(currentView: .constant(.skt2))
 }
+

@@ -7,15 +7,20 @@
 
 import SwiftUI
 
+/// A view for managing and modifying administrative settings within the application.
+///
+/// This view allows administrators to adjust test parameters and handle secure keys.
+/// It also provides functionality to delete all saved test results.
 struct AdminSettingsView: View {
+    /// Closure called to navigate to the previous view.
     var onNextView: (() -> Void)?
-
+    
     @State private var testDuration = SettingsService.shared.test_duration
     @State private var soundEnabled = SettingsService.shared.sound_enabled
     @State private var showingDeleteConfirmation = false
     @State private var secretKey = ""
     @State private var saveStatusMessage: String? = nil
-
+    
     var body: some View {
         VStack {
             topBar
@@ -27,7 +32,7 @@ struct AdminSettingsView: View {
             .listStyle(GroupedListStyle())
             
             Spacer()
-
+            
             saveStatusView
         }
         .alert(isPresented: $showingDeleteConfirmation, content: deleteConfirmationAlert)
@@ -36,6 +41,7 @@ struct AdminSettingsView: View {
     var topBar: some View {
         HStack {
             Button(action: {
+                // Save the modified settings and execute the navigation closure.
                 SettingsService.shared.test_duration = testDuration
                 SettingsService.shared.sound_enabled = soundEnabled
                 onNextView?()

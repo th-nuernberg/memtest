@@ -7,6 +7,8 @@
 
 import Foundation
 
+// defines structures for saving the patient data from the DataInputViews
+
 class PatientData: ObservableObject, Encodable {
     @Published var age: String = ""
     @Published var selectedDegree: EducationalQualification = .noDegree
@@ -16,11 +18,11 @@ class PatientData: ObservableObject, Encodable {
     @Published var dementiaSeverity: Severity = .none
     @Published var depressionSeverity: Severity = .none
     @Published var additionalDiagnoses: String = ""
-
+    
     enum CodingKeys: CodingKey {
         case age, selectedDegree, selectedGender, hasVisionProblems, hasHearingProblems, dementiaSeverity, depressionSeverity, additionalDiagnoses
     }
-
+    
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
@@ -73,7 +75,7 @@ enum Severity: String, RadioButtonType {
     case mild = "Leichte"
     case moderate = "Mittelschwere"
     case severe = "Schwere"
-
+    
     var id: String { rawValue }
     var displayValue: String { self.rawValue }
 }

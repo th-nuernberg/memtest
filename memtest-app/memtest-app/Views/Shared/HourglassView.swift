@@ -8,6 +8,12 @@
 import SwiftUI
 import SpriteKit
 
+/// `HourglassView` provides a visual representation of a timer using an hourglass.
+///
+/// Parameters:
+/// - `size`: The overall size of the hourglass (default is 130).
+/// - `lineWidth`: The thickness of the lines forming the hourglass outline (default is 6).
+/// - `duration`: The duration of the sand falling animation in seconds.
 struct HourglassView: View {
     var size = 130
     var lineWidth = 6
@@ -15,10 +21,11 @@ struct HourglassView: View {
     var body: some View {
         Hourglass(hourglassSize: CGFloat(size), lineWidth: CGFloat(lineWidth), glassColor: .black, sandColor: Color(red: 0.96, green: 0.84, blue: 0.69), duration: Double(self.duration))
         
-        .shadow(color: .gray, radius: 10, x: 5, y: 5)
+            .shadow(color: .gray, radius: 10, x: 5, y: 5)
     }
 }
 
+/// The view uses SwiftUI's `GeometryReader` to adapt the size dynamically to its container, maintaining aspect ratio and functionality across different device sizes.
 struct Hourglass: View {
     
     let hourglassSize: CGFloat
@@ -45,12 +52,12 @@ struct Hourglass: View {
                             .frame(width: hourglassSize, height: hourglassSize / 2)
                     )
                     .offset(y: -hourglassSize / 4 - hourglassSize * 0.03)
-
+                
                 Rectangle()
                     .frame(width: hourglassSize * 0.07, height: hourglassSize / 2)
                     .foregroundColor(sandColor)
                     .offset(y: middleOffset)
-
+                
                 Rectangle()
                     .frame(width: hourglassSize, height: hourglassSize / 2)
                     .foregroundColor(sandColor)
@@ -60,7 +67,7 @@ struct Hourglass: View {
                             .frame(width: hourglassSize, height: hourglassSize / 2)
                     )
                     .offset(y: hourglassSize / 4 + hourglassSize * 0.03)
-
+                
             }
             .mask(
                 HourGlassShape()
@@ -70,7 +77,7 @@ struct Hourglass: View {
             HourGlassShape()
                 .stroke(glassColor, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
                 .frame(width: hourglassSize * 0.8, height: hourglassSize)
-                
+            
         }
         .rotationEffect(.degrees(rotation))
         .onAppear {
@@ -80,8 +87,8 @@ struct Hourglass: View {
         }
     }
     
+    // for animating the falling sand in respect to the duration of the hourglass
     func startAnimation() {
-        // Instead of this animation there should be a particle emitter emmiting sand particless
         withAnimation(Animation.linear(duration: 0.15)) {
             middleOffset = (hourglassSize / 4) - hourglassSize * 0.03
         }
@@ -100,7 +107,7 @@ struct Hourglass: View {
     }
     
 }
-
+// the hourglass shape
 struct HourGlassShape: Shape {
     func path(in rect: CGRect) -> Path {
         
@@ -138,7 +145,6 @@ struct HourGlassShape: Shape {
         path.addLine(to: CGPoint(x: midLeftX, y: midTopY))
         path.addLine(to: tls)
         path.addRelativeArc(center: tlc, radius: r, startAngle: Angle.degrees(135), delta: Angle.degrees(135))
-        // Top Line
         path.addLine(to: trs)
         
         return path

@@ -33,5 +33,4 @@ class SettingsService {
     func getTestDuration() -> Int {
         return self.test_duration
     }
-    
 }

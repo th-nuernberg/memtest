@@ -16,7 +16,7 @@ struct Test9View: View {
     @State private var showExplanation = true
     @State private var symbols: [TestSymbol]
     private let testDuration = SettingsService.shared.getTestDuration()
-
+    
     
     private var symbolList = TestSymbolList()
     
@@ -35,8 +35,6 @@ struct Test9View: View {
             
             BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 9,
                          textOfCircle:"9", content: {
-            
-                //Text(manager.recognizedWords.last ?? "")
                 
                 BaseHeaderView(
                     showAudioIndicator:true,
@@ -51,26 +49,25 @@ struct Test9View: View {
                     }
                 )
                 
-                //AudioIndicatorView()
                 Spacer()
                 VStack {
                     LazyVGrid(columns: columns, spacing: 10) {
                         ForEach(symbolGroup, id: \.name) { symbol in
                             ZStack {
                                 Rectangle()
-                                  .fill(.gray)
-                                  .frame(width: symbolSize, height: symbolSize)
-                                  .cornerRadius(20)
-
-
+                                    .fill(.gray)
+                                    .frame(width: symbolSize, height: symbolSize)
+                                    .cornerRadius(20)
+                                
+                                
                                 Image(symbol.fileUrl)
-                                  .resizable()
-                                  .aspectRatio(contentMode: .fit)
-                                  .frame(width: symbolSize * 0.75, height: symbolSize * 0.75)
-
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: symbolSize * 0.75, height: symbolSize * 0.75)
+                                
                             }
                             .padding(.bottom, 10)
-
+                            
                         }
                     }
                 }
@@ -145,7 +142,7 @@ struct Test9View: View {
                         
                     }
                     .padding(.top,30)
-                }) 
+                })
                 
             }, completedContent: {onContinue in
                 CompletedView(completedTasks: 9, onContinue: {
@@ -159,7 +156,7 @@ struct Test9View: View {
     private func columns() -> [GridItem] {
         Array(repeating: .init(.flexible(), spacing: 0), count: 6)
     }
-
+    
     private func dynamicSymbolSize(forWidth width: CGFloat, forHeight height: CGFloat, numberOfColumns: Int, numberOfSymbols: Int) -> CGFloat {
         let totalVerticalSpacing = CGFloat(numberOfSymbols / numberOfColumns) * 10 // Anpassen basierend auf der Anzahl der Zeilen
         let adjustedHeight = height - totalVerticalSpacing // Verfügbare Höhe nach Abzug des vertikalen Abstands
@@ -177,14 +174,13 @@ struct Test9View: View {
         return manager.recognizedWords.contains { $0.lowercased().contains(name.lowercased()) }
     }
     
-    // MARK: Static Methods
     private static func initializeSymbols() -> [TestSymbol] {
-       var symbols = TestSymbolList().symbols
-       for i in 0...35 {
-           symbols.append(TestSymbol(name: "Fragezeichen\(i)", synonyms: [], fileUrl: "Test9Icons/test9_1"))
-       }
-       symbols.shuffle()
-       return symbols
+        var symbols = TestSymbolList().symbols
+        for i in 0...35 {
+            symbols.append(TestSymbol(name: "Fragezeichen\(i)", synonyms: [], fileUrl: "Test9Icons/test9_1"))
+        }
+        symbols.shuffle()
+        return symbols
     }
     
     private func onComplete() {

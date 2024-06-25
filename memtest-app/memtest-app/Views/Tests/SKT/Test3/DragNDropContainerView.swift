@@ -97,17 +97,17 @@ class DragNDropScene: SKScene {
             print("Scene size is not valid yet.")
             return
         }
-
+        
         self.backgroundColor = .white
         self.removeAllChildren()
-
+        
         configureDropZonesAndAddDragElements()
     }
     
     private func configureDropZonesAndAddDragElements() {
         let targetSize = min(self.size.width, self.size.height) / CGFloat(columns) - spacing
         let (startX, startY) = calculateStartPositions(targetSize: targetSize)
-    
+        
         // Create DropZones and Add DragElements
         createDropZones(startX: startX, startY: startY, targetSize: targetSize)
         createDragElements(targetSize: targetSize)
@@ -134,15 +134,15 @@ class DragNDropScene: SKScene {
         let xPosition = startX + CGFloat(column) * (targetSize + spacing)
         let yPosition = startY - CGFloat(row) * (targetSize + spacing)
         let position = CGPoint(x: xPosition, y: yPosition)
-
+        
         
         let dropZoneNode = createDropZoneNode(dropZoneIndex: dropZoneIndex, position: position, targetSize: targetSize)
         self.addChild(dropZoneNode)
-
+        
         // for the shadow effect
         let shadowNode = createShadowNode(position: position, targetSize: targetSize)
         self.addChild(shadowNode)
-
+        
         dropZonePositions.append(position)
         
         let indicesToAddDragElement = self.dragElements.map({ dragElement in
@@ -206,7 +206,7 @@ class DragNDropScene: SKScene {
     }
     
     // MARK: all gesture stuff
-   
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard isDragEnabled, let touch = touches.first else { return }
         
@@ -243,7 +243,7 @@ class DragNDropScene: SKScene {
         
         let sortedDropZones = potentialDropZones.sorted {
             hypot($0.position.x - circle.position.x, $0.position.y - circle.position.y) <
-            hypot($1.position.x - circle.position.x, $1.position.y - circle.position.y)
+                hypot($1.position.x - circle.position.x, $1.position.y - circle.position.y)
         }
         
         return sortedDropZones.first
@@ -272,7 +272,7 @@ class DragNDropScene: SKScene {
     // reports the current indices of the numberCircles
     func reportDropZoneIndices() {
         var updatedDragElements: [DragElement] = []
-
+        
         self.children.forEach { node in
             if let dragNode = node as? SKShapeNode,
                let name = dragNode.name,
@@ -287,14 +287,14 @@ class DragNDropScene: SKScene {
                 }
             }
         }
-
+        
         // Ensure all elements are returned, including those not updated
         for element in dragElements {
             if !updatedDragElements.contains(where: { $0.label == element.label }) {
                 updatedDragElements.append(element)
             }
         }
-
+        
         updatedDragElements.sort(by: { $0.posIndex < $1.posIndex })
         onPositionsChanged(updatedDragElements)
     }

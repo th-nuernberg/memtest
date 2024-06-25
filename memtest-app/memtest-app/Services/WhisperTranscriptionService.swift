@@ -35,7 +35,7 @@ class WhisperTranscriptionService: TranscriptionService {
     init() {
         
         let modelURL = Bundle.main.url(forResource: "ggml-small", withExtension: "bin")!
-    
+        
         let whisper = Whisper(fromFileURL: modelURL)
         whisper.params.language = WhisperLanguage.german
         whisper.params.print_progress = false
@@ -54,7 +54,7 @@ class WhisperTranscriptionService: TranscriptionService {
             print("Failed to set audio session properties: \(error)")
             return
         }
-
+        
         let hwSampleRate = audioSession.sampleRate
         let inputNode = audioEngine.inputNode
         let hwFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: hwSampleRate, channels: 1, interleaved: false)!
@@ -64,12 +64,12 @@ class WhisperTranscriptionService: TranscriptionService {
             // because of the buffer size limitation we have to accumulate the buffer for whisper.cpp
             self?.accumulateAudioBuffer(buffer, sampleRate: Int(AVAudioSession.sharedInstance().sampleRate), bufferSize:  Int(buffer.frameLength))
         }
-
+        
         audioEngine.prepare()
         try! audioEngine.start()
     }
     
-  
+    
     func stopTranscribing() {
         audioEngine.inputNode.removeTap(onBus: 0)
         audioEngine.stop()
@@ -101,7 +101,7 @@ class WhisperTranscriptionService: TranscriptionService {
         }
         
         let frameLength = Int(buffer.frameLength)
-    
+        
         let channel = floatChannelData[0]
         
         
@@ -112,15 +112,15 @@ class WhisperTranscriptionService: TranscriptionService {
         }
         
         /*
-         Not currently used 
-        // Calculate the number of samples required for the targetSampleRate
-        let targetSampleCount = Int(Double(tmpBuffer.count) * (targetSampleRate / Double(sampleRate)))
-        
-        // Downsample the buffer
-        let downSampledBuffer = tmpBuffer.downSample(to: targetSampleCount)
-        
-        print(buffer.frameLength)
-        print(downSampledBuffer.count)
+         Not currently used
+         // Calculate the number of samples required for the targetSampleRate
+         let targetSampleCount = Int(Double(tmpBuffer.count) * (targetSampleRate / Double(sampleRate)))
+         
+         // Downsample the buffer
+         let downSampledBuffer = tmpBuffer.downSample(to: targetSampleCount)
+         
+         print(buffer.frameLength)
+         print(downSampledBuffer.count)
          */
         
         audioBuffer.append(contentsOf: tmpBuffer)
@@ -137,7 +137,7 @@ class WhisperTranscriptionService: TranscriptionService {
             audioBuffer.removeSubrange(bufferCapacity...)
             audioBuffer = extraBuffer
         }
-
+        
         whisper.transcribe(audioFrames: audioBuffer) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
