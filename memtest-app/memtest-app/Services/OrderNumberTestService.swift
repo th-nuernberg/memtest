@@ -50,22 +50,22 @@ class OrderNumberTestService {
     ]
     
     private init(dragElements: [DragElement]) {
-       self.dragElements = dragElements
+        self.dragElements = dragElements
     }
-
+    
     convenience init() {
-       self.init(dragElements: OrderNumberTestService.defaultDragElements)
+        self.init(dragElements: OrderNumberTestService.defaultDragElements)
     }
-
+    
     func getDragElements() -> [DragElement] {
-       return self.dragElements
+        return self.dragElements
     }
-
+    
     func setDragElements(dragElements: [DragElement]) {
-       self.dragElements = dragElements
+        self.dragElements = dragElements
     }
-
+    
     func getDropZones() -> [DropZone] {
-       return self.dropZones
+        return self.dropZones
     }
 }

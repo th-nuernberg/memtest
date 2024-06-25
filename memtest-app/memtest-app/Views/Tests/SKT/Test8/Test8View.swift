@@ -16,7 +16,7 @@ struct Test8View: View {
     @State private var showExplanation = true
     
     private let testDuration = SettingsService.shared.getTestDuration()
-
+    
     private var symbolList = TestSymbolList()
     
     var columns: [GridItem] = [
@@ -48,7 +48,6 @@ struct Test8View: View {
                     }
                 )
                 
-                //AudioIndicatorView()
                 Spacer()
                 HStack {
                     Spacer()

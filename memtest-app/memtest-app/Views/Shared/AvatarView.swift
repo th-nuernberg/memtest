@@ -11,7 +11,7 @@ import SwiftUI
 struct AvatarView: View {
     let gifName: String
     @State private var animate: Bool = false
-
+    
     var body: some View {
         VStack {
             GifImage(resourceName: gifName, frame: CGRect(x: 0, y: 0, width: 100, height: 100), animate: $animate)
@@ -39,7 +39,7 @@ struct GifImage: UIViewRepresentable {
     var resourceName: String
     var frame: CGRect
     @Binding var animate: Bool
-
+    
     func makeUIView(context: Context) -> UIImageView {
         let imageView = UIImageView(frame: frame)
         imageView.contentMode = .scaleAspectFit
@@ -56,7 +56,7 @@ struct GifImage: UIViewRepresentable {
             uiView.animationImages = nil
         }
     }
-
+    
     private func loadFirstFrame(into imageView: UIImageView) {
         let path = Bundle.main.path(forResource: resourceName, ofType: "gif")!
         let url = URL(fileURLWithPath: path)

@@ -7,19 +7,19 @@
 
 import Foundation
 
+// The struct for storing the retriving the data from the qrcode
 public struct QRCodeData: Codable {
     public var study_id: String
     public var id: String
     public var key: String
     
-    // Ein öffentlicher Initialisierer ist notwendig, wenn Sie Strukturen außerhalb ihres eigenen Moduls instanziieren möchten.
     public init(study_id: String, id: String, key: String) {
         self.study_id = study_id
         self.id = id
         self.key = key
     }
 }
-
+// Used for decoding the qrcode data
 public func decodeQRCodeString(_ qrCodeString: String) -> QRCodeData? {
     let jsonData = Data(qrCodeString.utf8)
     let decoder = JSONDecoder()

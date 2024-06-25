@@ -35,7 +35,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         self.concreteTranscriptionService = concreteTranscriptionService
         super.init()
     }
-
+    
     
     // this is called in every Test that needs audio to be recorded
     func startRecording(to testName: String) throws {
@@ -46,12 +46,12 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         
         
         self.concreteTranscriptionService.onTranscriptionUpdate = { [weak self] updatedText in
-            DispatchQueue.main.async {                
+            DispatchQueue.main.async {
                 self?.delegate?.audioService(self!, didRecognizeText:updatedText)
                 
             }
         }
-
+        
         
         concreteTranscriptionService.startTranscribing()
     }
@@ -92,7 +92,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
         try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
     }
-
+    
     private func startAudioEngineRecording(to testName: String) throws {
         prepareRecordingDirectory(for: testName)
         
@@ -142,7 +142,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
     // logarithmic calculation for displaying the audio in a human friendly way
     private func calculateAudioLevel(from buffer: AVAudioPCMBuffer) -> Float {
         guard let channelData = buffer.floatChannelData else { return 0.0 }
-
+        
         let frameLength = Int(buffer.frameLength)
         var sum: Float = 0
         for i in 0..<frameLength {
@@ -153,7 +153,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         let meanSquare = sum / Float(frameLength)
         
         let rms = sqrt(meanSquare)
-
+        
         if rms == 0 { return 0.0 }
         let dB = 20 * log10(rms)
         
@@ -162,7 +162,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         let normalizedDB = min(max(minDB, dB), 0)
         
         let level = pow((normalizedDB - minDB) / (-minDB), 1/2.0) // Using a square root to increase sensitivity
-
+        
         return level
     }
 }
@@ -187,18 +187,18 @@ protocol TranscriptionService {
 // the speech detection should ideally be done by a VAD
 class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
     static let shared = SpeechRecognitionManager()
-       
+    
     @Published var recognizedWords: [String] = []
     @Published var inputLevel: Float = 0.0
-    @Published var shouldAnimateAvatar: Bool = false  
-
+    @Published var shouldAnimateAvatar: Bool = false
+    
     private var lastNotificationTime: Date?
     private let throttleInterval: TimeInterval = 0.75
     
     private init() {
-       AudioService.shared.delegate = self
+        AudioService.shared.delegate = self
     }
-
+    
     func audioService(_ service: AudioService, didRecognizeText text: String) {
         DispatchQueue.main.async {
             let words = text.split(separator: " ").map(String.init)
@@ -213,19 +213,19 @@ class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
         if let lastTime = lastNotificationTime, now.timeIntervalSince(lastTime) < throttleInterval {
             return
         }
-
+        
         lastNotificationTime = now
         NotificationCenter.default.post(name: .triggerAvatarAnimation, object: nil)
     }
-
+    
     func removeLastWord() {
         if !recognizedWords.isEmpty {
             recognizedWords.removeLast()
         }
     }
-
+    
     func audioService(_ service: AudioService, didChangeAvailability isAvailable: Bool) {}
-
+    
     func audioService(_ service: AudioService, didUpdateInputLevel level: Float) {
         self.inputLevel = level
     }

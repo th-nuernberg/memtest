@@ -25,7 +25,7 @@ struct Test3View: View {
         DragElement(posIndex: 18, label: "29", color: UIColor(Color(hex: "#AC9725"))),
         DragElement(posIndex: 19, label: "40", color: UIColor(Color(hex: "#2CBA76"))),
     ]
-        
+    
     public init(currentView: Binding<SKTViewEnum>) {
         self._currentView = currentView
     }

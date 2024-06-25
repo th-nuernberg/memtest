@@ -43,7 +43,7 @@ struct WelcomeStudyView: View {
                 .background(.blue)
                 .cornerRadius(10)
                 .padding(.top,70)
-                .padding(.leading)                    
+                .padding(.leading)
             }
             .onAppear(perform: {
                 studyID = DataService.shared.getStudyId()

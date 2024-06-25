@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Used for getting additional audio data
 struct AudioCalibrationView: View {
     var onNextView: (() -> Void)?
     

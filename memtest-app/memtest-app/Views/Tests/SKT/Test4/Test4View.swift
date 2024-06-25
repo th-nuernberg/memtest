@@ -68,7 +68,7 @@ struct Test4View: View {
                 print("Timer completed")
                 onComplete()
             }
-                        
+            
         }, explanationContent: {onContinue in
             
             ExplanationView(onNext: {

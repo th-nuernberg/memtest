@@ -9,7 +9,15 @@ import Foundation
 import ZipArchive
 import memtest_server_client
 
-
+/// `DataService` is a singleton class that provides centralized management of application data and interactions with the network client.
+///
+/// Responsibilities:
+/// - Managing user and test metadata.
+/// - Storing results of tests.
+/// - Handling the serialization of test results to JSON.
+/// - Zipping and uploading test results securely.
+/// - Deleting files when necessary.
+/// - Performing server health checks.
 class DataService {
     static let shared = DataService()
     private let client: MemtestClient
@@ -46,9 +54,7 @@ class DataService {
     }
     
     // MARK: Setting data
-    
     // Metadata
-    
     func setQRCodeData(qrCodeData: QRCodeData){
         study_id = qrCodeData.study_id
         uuid = qrCodeData.id
@@ -194,15 +200,15 @@ class DataService {
             let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
             let uuidDirectory = documentsDirectory.appendingPathComponent(uuid)
             let testDirectory = uuidDirectory.appendingPathComponent(name)
-
+            
             if !fileManager.fileExists(atPath: uuidDirectory.path) {
                 try fileManager.createDirectory(at: uuidDirectory, withIntermediateDirectories: true, attributes: nil)
             }
-
+            
             if !fileManager.fileExists(atPath: testDirectory.path) {
                 try fileManager.createDirectory(at: testDirectory, withIntermediateDirectories: true, attributes: nil)
             }
-
+            
             let jsonData = try JSONEncoder().encode(data)
             let jsonFileUrl = testDirectory.appendingPathComponent("\(name).json")
             try jsonData.write(to: jsonFileUrl)
@@ -286,7 +292,7 @@ class DataService {
     
     public func uploadAllZipFiles() async -> String? {
         zipTestResults()
-
+        
         let directoryPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileManager = FileManager.default
         
@@ -294,9 +300,9 @@ class DataService {
         
         // Retrieve the secret from the Keychain
         guard let studySecret = KeychainService.shared.loadSecret(for: "study-secret") else {
-           return "Failed to retrieve the study secret"
+            return "Failed to retrieve the study secret"
         }
-           
+        
         
         do {
             let zipFiles = try fileManager.contentsOfDirectory(at: directoryPath, includingPropertiesForKeys: nil)

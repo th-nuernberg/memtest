@@ -10,7 +10,7 @@ import SwiftUI
 struct SecondDataInputView: View {
     @ObservedObject var patientData: PatientData
     var finished: () -> ()
-
+    
     var body: some View {
         Form {
             Section(header: Text("Weitere medizinische Informationen").font(.title3)) {
@@ -18,14 +18,14 @@ struct SecondDataInputView: View {
                 CheckboxView(label: "Haben Sie Hörprobleme", isChecked: $patientData.hasHearingProblems)
             }
             .listRowInsets(EdgeInsets(top: 15, leading: 20, bottom: 0, trailing: 20))
-
+            
             Section(header: Text("Demenz Schweregrad:").font(.title3)){
                 ForEach(Severity.allCases, id: \.self) { severity in
                     RadioButtonView(selectedValue: $patientData.dementiaSeverity, value: severity)
                 }
             }
             .listRowInsets(EdgeInsets(top: 15, leading: 20, bottom: 0, trailing: 20))
-
+            
             Section(header: Text("Depression Schweregrad:").font(.title3)) {
                 ForEach(Severity.allCases, id: \.self) { severity in
                     RadioButtonView(selectedValue: $patientData.depressionSeverity, value: severity)
@@ -34,7 +34,7 @@ struct SecondDataInputView: View {
             .listRowInsets(EdgeInsets(top: 15, leading: 20, bottom: 0, trailing: 20))
             
             
-          TextField("Zusätzliche relevante Diagnosen", text: $patientData.additionalDiagnoses)
+            TextField("Zusätzliche relevante Diagnosen", text: $patientData.additionalDiagnoses)
                 .padding()
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)
@@ -58,7 +58,7 @@ struct SecondDataInputView: View {
         }
         .scrollContentBackground(.hidden)
         
-       
+        
     }
 }
 

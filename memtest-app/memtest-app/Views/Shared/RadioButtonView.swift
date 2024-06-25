@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A generic radio Button for the DataInputViews
 struct RadioButtonView<T: RadioButtonType>: View {
     @Binding var selectedValue: T
     let value: T

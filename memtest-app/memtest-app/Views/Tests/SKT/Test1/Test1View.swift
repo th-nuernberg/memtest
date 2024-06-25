@@ -149,7 +149,7 @@ struct Test1View: View {
         }
         isRecording.toggle()
     }
-
+    
     
     private func onComplete() {
         let recognizedSymbols = Array(Set(manager.recognizedWords.filter { symbolList.contains(word: $0) }))

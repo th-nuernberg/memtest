@@ -26,7 +26,7 @@ struct BNTView: View {
         let bntPictureList = BNTPictureList()
         _unusedImages = State(initialValue: bntPictureList.pictures)
     }
-
+    
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 11, textOfCircle: "11", content: {
             
@@ -132,13 +132,13 @@ struct BNTView: View {
             stopTimer()
         }
     }
-
+    
     func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
             setNextImage()
         }
     }
-
+    
     func stopTimer() {
         timer?.invalidate()
         timer = nil
@@ -152,6 +152,6 @@ struct BNTView: View {
 
 #Preview {
     BNTView(){
-         
+        
     }
 }

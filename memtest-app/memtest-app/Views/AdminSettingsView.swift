@@ -14,13 +14,13 @@ import SwiftUI
 struct AdminSettingsView: View {
     /// Closure called to navigate to the previous view.
     var onNextView: (() -> Void)?
-
+    
     @State private var testDuration = SettingsService.shared.test_duration
     @State private var soundEnabled = SettingsService.shared.sound_enabled
     @State private var showingDeleteConfirmation = false
     @State private var secretKey = ""
     @State private var saveStatusMessage: String? = nil
-
+    
     var body: some View {
         VStack {
             topBar
@@ -32,7 +32,7 @@ struct AdminSettingsView: View {
             .listStyle(GroupedListStyle())
             
             Spacer()
-
+            
             saveStatusView
         }
         .alert(isPresented: $showingDeleteConfirmation, content: deleteConfirmationAlert)

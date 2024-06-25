@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+/// modifier used for easy tracking of time for the tests
+/// it uses a callback to notify the view, that the timer has been completed
 struct TimerModifier: ViewModifier {
     let duration: Int
     var onComplete: () -> Void

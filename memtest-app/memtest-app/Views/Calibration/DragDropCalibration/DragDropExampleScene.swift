@@ -75,7 +75,7 @@ class DragDropExampleScene: SKScene {
         
         
         arrowNode = createArrowNode(from: startingRectangleNode.position, to: targetRectangleNode.position)
-                self.addChild(arrowNode)
+        self.addChild(arrowNode)
         
         
         // Setup the draggable red circle
@@ -107,7 +107,7 @@ class DragDropExampleScene: SKScene {
         
         return arrowNode
     }
-
+    
     
     func touchDown(atPoint pos : CGPoint) {
         if circleNode.contains(pos) {
@@ -115,7 +115,7 @@ class DragDropExampleScene: SKScene {
             circleNode.position = pos
         }
     }
-
+    
     func touchMoved(toPoint pos : CGPoint) {
         if isDraggingCircleNode {
             circleNode.position = pos
@@ -134,30 +134,30 @@ class DragDropExampleScene: SKScene {
             circleNode.position = startingRectangleNode.position
         }
     }
-
-
+    
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let pos = touch.location(in: self)
             touchDown(atPoint: pos)
         }
     }
-
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let pos = touch.location(in: self)
             touchMoved(toPoint: pos)
         }
     }
-
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let pos = touch.location(in: self)
             touchUp(atPoint: pos)
         }
     }
-
+    
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        isDraggingCircleNode = false 
+        isDraggingCircleNode = false
     }
 }

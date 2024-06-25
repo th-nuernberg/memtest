@@ -24,7 +24,7 @@ struct BaseTestView<Content: View, ExplanationContent: View, CompletedContent: V
     @Binding private var showExplanationView: Bool
     private var circleText: String
     private var circleIndex: Int
-
+    
     init(showCompletedView: Binding<Bool>, showExplanationView: Binding<Bool>,
          indexOfCircle: Int,
          textOfCircle: String, @ViewBuilder content: @escaping () -> Content,
@@ -37,7 +37,7 @@ struct BaseTestView<Content: View, ExplanationContent: View, CompletedContent: V
         self.circleText = textOfCircle
         self.circleIndex = indexOfCircle
     }
-
+    
     var body: some View {
         VStack {
             // Dynamically display content based on the state of `showExplanationView` and `showCompletedView`
@@ -75,7 +75,7 @@ struct ExplanationView<Content: View>: View {
     var circleIndex: Int = 1
     var circleText: String = "1"
     var showProgressCircles: Bool
-
+    
     init(onNext: @escaping (() -> Void), circleIndex: Int,
          circleText: String, showProgressCircles: Bool, @ViewBuilder content: () -> Content) {
         self.onNext = onNext
@@ -90,7 +90,7 @@ struct ExplanationView<Content: View>: View {
         self.content = content()
         self.showProgressCircles = showProgressCircles
     }
-
+    
     var body: some View {
         if showProgressCircles {
             HStack {
@@ -115,7 +115,7 @@ struct ExplanationView<Content: View>: View {
                 }
             }
         }
-
+        
         VStack {
             content
             Spacer()
@@ -182,7 +182,7 @@ struct CompletedView: View {
     var completedTasks: Int = 1 // Number of tasks completed
     var onContinue: ContinueHandler
     var customButtonText: String? // Optional custom button text
-
+    
     var buttonText: String {
         if let customText = customButtonText {
             return customText
@@ -194,11 +194,11 @@ struct CompletedView: View {
             return "Beenden ➔"
         }
     }
-
+    
     var body: some View {
         VStack {
             Spacer()
-
+            
             Text("Die Aufgabe ist abgeschlossen.\nMachen Sie eine kurze Pause.")
                 .font(.custom("SFProText-SemiBold", size: 40))
                 .foregroundStyle(Color(hex: "#958787"))
@@ -206,7 +206,7 @@ struct CompletedView: View {
                 .padding(.leading)
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
-
+            
             HStack(spacing: 50) {
                 ForEach(0..<numberOfTasks) { index in
                     Image(systemName: completedTasks > index ? "checkmark.circle.fill" : "circle")
@@ -217,9 +217,9 @@ struct CompletedView: View {
                 }
             }
             .padding()
-
+            
             Spacer()
-
+            
             Button(action: {
                 onContinue()
             }, label: {
@@ -230,7 +230,7 @@ struct CompletedView: View {
                     .background(Color.blue)
                     .cornerRadius(10)
             })
-
+            
             Spacer()
         }
         .padding()

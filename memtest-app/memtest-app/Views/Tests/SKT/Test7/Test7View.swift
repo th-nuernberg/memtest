@@ -12,7 +12,7 @@ struct Test7View: View {
     
     @State private var finished = false
     @State private var showExplanation = true
-
+    
     public init(currentView: Binding<SKTViewEnum>) {
         self._currentView = currentView
     }
@@ -34,8 +34,6 @@ struct Test7View: View {
                         onComplete()
                     }
                 )
-                
-                //AudioIndicatorView()
                 Spacer()
                 
                 VStack {
@@ -59,9 +57,7 @@ struct Test7View: View {
                 try! AudioService.shared.startRecording(to: "skt7");
             })
             .onTimerComplete(duration: SettingsService.shared.getTestDuration(), onComplete: {
-                DataService.shared.saveSKT7Results()
-                finished = true
-                AudioService.shared.stopRecording()
+                onComplete()
             })
         }, explanationContent: {onContinue in
             
@@ -80,7 +76,7 @@ struct Test7View: View {
                     Text("Sie sehen hier zwei Zeilen mit den Buchstaben A und B,")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
-                
+                    
                     Text("darüber eine unterstrichene Übungszeile.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
@@ -107,19 +103,17 @@ struct Test7View: View {
             })
             
         },
-        completedContent: { onContinue in
-            
+                     completedContent: { onContinue in
             CompletedView( completedTasks: 7, onContinue: {
                 currentView = .skt8
                 onContinue()
             })
-            
         })
         
     }
     
     private func onComplete() {
-        // TODO: save currentDragElements in json
+        DataService.shared.saveSKT7Results()
         finished = true
         AudioService.shared.stopRecording()
     }

@@ -44,10 +44,10 @@ struct Test5View: View {
             })
             
             Text("test5")
-            .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
-                onComplete()
-            }
-                        
+                .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
+                    onComplete()
+                }
+            
         }, explanationContent: {onContinue in
             
             ExplanationView(onNext: {

@@ -12,7 +12,7 @@ struct FirstDataInputView: View {
     @ObservedObject var patientData: PatientData
     @State private var showAlert = false
     var finished: () -> ()
-
+    
     var body: some View {
         Form {
             Section(header: Text("Alter des Teilnehmers:").font(.title)) {
@@ -22,6 +22,7 @@ struct FirstDataInputView: View {
                         .padding()
                         .background(Color.gray.opacity(0.2))
                         .cornerRadius(10)
+                    // This is for filtering out invalid ages
                         .onChange(of: patientData.age) { oldValue, newValue in
                             let filtered = newValue.filter { $0.isNumber }
                             if let ageInt = Int(filtered), ageInt > 200 {
@@ -33,7 +34,7 @@ struct FirstDataInputView: View {
                 }
             }
             .padding(.horizontal,20)
-
+            
             Section(header: Text("Höchster Bildungsabschluss des Teilnehmers:").font(.title)) {
                 ForEach(EducationalQualification.allCases, id: \.self) { degree in
                     RadioButtonView(selectedValue: $patientData.selectedDegree, value: degree)

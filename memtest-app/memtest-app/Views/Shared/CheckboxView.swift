@@ -7,12 +7,13 @@
 
 import SwiftUI
 
+/// Checkbox that is used in the DataInputViews
 struct CheckboxView: View {
     let label: String
     @Binding var isChecked: Bool
     var checkedColor: Color = .blue
     var uncheckedColor: Color = .gray
-
+    
     var body: some View {
         Button(action: {
             isChecked.toggle()
