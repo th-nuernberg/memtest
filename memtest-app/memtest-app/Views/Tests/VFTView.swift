@@ -38,7 +38,11 @@ struct VFTView: View {
                     }
                 )
                 
-                //AudioIndicatorView()
+                VStack {
+                    Text("Bitte nennen Sie Tiernamen")
+                        .font(.custom("SFProText-SemiBold", size: 40))
+                        .foregroundStyle(Color(hex: "#5377A1"))
+                }
                 Spacer()
                 HStack {
                     Spacer()

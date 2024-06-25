@@ -42,8 +42,6 @@ struct BNTView: View {
                 }
             )
             
-            
-            
             VStack {
                 if let image = currentImage {  // Use currentImage of type BNT_Picture
                     Image(image.file_name)  // Access file_name from BNT_Picture
