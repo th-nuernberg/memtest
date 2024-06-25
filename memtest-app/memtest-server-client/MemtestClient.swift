@@ -47,7 +47,7 @@ public struct MemtestClient {
     
 
     
-    public func uploadTestResult(uuid: String, fileData: Data) async throws {
+    public func uploadTestResult(uuid: String, fileData: Data, studySecret: String) async throws {
         // Convert Data to ArraySlice<UInt8>
         let byteChunk = ArraySlice<UInt8>(fileData)
         // Create HTTPBody using the byteChunk
@@ -55,7 +55,7 @@ public struct MemtestClient {
         // Create requestBody with the newly created HTTPBody
         let requestBody = Operations.upload_test_result.Input.Body.application_zip(httpBody)
 
-        let response = try await client.upload_test_result(query: .init(qrcode_hyphen_uuid: uuid), body: requestBody)
+        let response = try await client.upload_test_result(query: .init(qrcode_hyphen_uuid: uuid, study_hyphen_secret: studySecret), body: requestBody)
         
         switch response {
         case .ok(_): break
