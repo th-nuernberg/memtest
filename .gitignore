@@ -342,5 +342,7 @@ $RECYCLE.BIN/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
+.idea
 
+**/Package.resolved
 # End of https://www.toptal.com/developers/gitignore/api/xcode,swift,macos,python,windows,linux
