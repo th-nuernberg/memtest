@@ -292,6 +292,12 @@ class DataService {
         
         var failedUploads: [String] = []
         
+        // Retrieve the secret from the Keychain
+        guard let studySecret = KeychainService.shared.loadSecret(for: "study-secret") else {
+           return "Failed to retrieve the study secret"
+        }
+           
+        
         do {
             let zipFiles = try fileManager.contentsOfDirectory(at: directoryPath, includingPropertiesForKeys: nil)
                 .filter { $0.pathExtension == "zip" }
@@ -299,7 +305,7 @@ class DataService {
                 do {
                     let fileData = try Data(contentsOf: zipFile)
                     let uuid = zipFile.deletingPathExtension().lastPathComponent
-                    try await client.uploadTestResult(uuid: uuid, fileData: fileData)
+                    try await client.uploadTestResult(uuid: uuid, fileData: fileData, studySecret: studySecret)
                     try fileManager.removeItem(at: zipFile)
                     
                     // Reset if current testresult upload is successful

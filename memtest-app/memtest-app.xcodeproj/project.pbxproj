@@ -23,6 +23,7 @@
 		2E5A909A2BCAC75500804F19 /* WhisperTranscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */; };
 		2E60DB482BF2547E00554E7E /* RoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E60DB472BF2547E00554E7E /* RoutingView.swift */; };
 		2E60DB512BF4E6AD00554E7E /* WelcomeRoutingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E60DB502BF4E6AD00554E7E /* WelcomeRoutingView.swift */; };
+		2E7C42742C2A118D00F3B218 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C42732C2A118D00F3B218 /* KeychainService.swift */; };
 		2E8914282BDD2BCB008E68EE /* FirstDataInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8914272BDD2BCB008E68EE /* FirstDataInputView.swift */; };
 		2E89142A2BDD2BF7008E68EE /* PatientData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8914292BDD2BF7008E68EE /* PatientData.swift */; };
 		2E8D1D662C0CB9D900C2A56A /* ZipArchive in Frameworks */ = {isa = PBXBuildFile; productRef = 2E8D1D652C0CB9D900C2A56A /* ZipArchive */; };
@@ -139,6 +140,7 @@
 		2E5A90992BCAC75500804F19 /* WhisperTranscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperTranscriptionService.swift; sourceTree = "<group>"; };
 		2E60DB472BF2547E00554E7E /* RoutingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingView.swift; sourceTree = "<group>"; };
 		2E60DB502BF4E6AD00554E7E /* WelcomeRoutingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeRoutingView.swift; sourceTree = "<group>"; };
+		2E7C42732C2A118D00F3B218 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		2E8914272BDD2BCB008E68EE /* FirstDataInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDataInputView.swift; sourceTree = "<group>"; };
 		2E8914292BDD2BF7008E68EE /* PatientData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientData.swift; sourceTree = "<group>"; };
 		2E93EC092BDD3D4A001F8B96 /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 				2EBBA1CB2BD12B67005F5642 /* DataService.swift */,
 				2E4176412BE277C7009B0790 /* OrderNumberTestService.swift */,
 				2ED416A42C07779400FC64ED /* SettingsService.swift */,
+				2E7C42732C2A118D00F3B218 /* KeychainService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -793,6 +796,7 @@
 				C62BE6D32BAC2B6600B111ED /* WelcomeStudyView.swift in Sources */,
 				2ECA206F2B873EC2000F2790 /* memtest_appApp.swift in Sources */,
 				2EA41A4E2BB8A78800FDD5B4 /* DragDropExampleScene.swift in Sources */,
+				2E7C42742C2A118D00F3B218 /* KeychainService.swift in Sources */,
 				2E3624B52BCFDC0800368F7F /* AvatarView.swift in Sources */,
 				2E472B972BA4546900CAC059 /* BaseTestView.swift in Sources */,
 				2E5A90972BCAC72B00804F19 /* AppleTranscriptionService.swift in Sources */,
