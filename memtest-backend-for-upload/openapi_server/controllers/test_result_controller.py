@@ -43,13 +43,16 @@ def upload_test_result(qrcode_uuid, study_secret, body):  # noqa: E501
     :rtype: Union[ApiResponse, Tuple[ApiResponse, int], Tuple[ApiResponse, int, Dict[str, str]]
     """
     
+    # try to load studykey.json file to get all studies for validating the file upload
     try:
         with open('../../memtest-tools/studykey.json', 'r') as f:
             studies = json.load(f)
     except Exception as e:
         return ApiResponse(code=500, type="error", message="Error reading studies.json"), 500
 
-    # Check if the study_secret matches any in the JSON
+    # Check if the study_secret matches any secret/study in the JSON
+    # if found the upload continues
+    # else u get an ApiError 401 Unauthorized
     for study in studies:
         if study_secret == study['secret']:
                 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
