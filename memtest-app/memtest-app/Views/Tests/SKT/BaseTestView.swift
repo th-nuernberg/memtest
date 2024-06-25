@@ -2,6 +2,20 @@ import SwiftUI
 
 typealias ContinueHandler = () -> Void
 
+
+/// A generic SwiftUI view for managing the presentation of different stages of a test.
+///
+/// This view dynamically switches between content, explanation, and completed states based on the
+/// user interaction and completion of test conditions.
+///
+/// - Parameters:
+///   - showCompletedView: A binding to a Boolean value that determines whether the completed content should be displayed.
+///   - showExplanationView: A binding to a Boolean value that determines whether the explanation content should be displayed.
+///   - indexOfCircle: An index for a progress circle indicating the current test's progress.
+///   - textOfCircle: A label for the progress circle, typically showing the current step or phase.
+///   - content: A closure returning the primary content of the test when neither the explanation nor completion conditions are met. Here the actual Test View is written in the Tests
+///   - explanationContent: A closure returning an optional explanation view that provides additional information or instructions for the test. It accepts a continuation handler to trigger the next step.
+///   - completedContent: A closure returning an optional view displayed upon test completion. It also accepts a continuation handler for further actions.
 struct BaseTestView<Content: View, ExplanationContent: View, CompletedContent: View>: View {
     let content: () -> Content
     var explanationContent: (@escaping ContinueHandler) -> ExplanationContent?
@@ -26,6 +40,7 @@ struct BaseTestView<Content: View, ExplanationContent: View, CompletedContent: V
 
     var body: some View {
         VStack {
+            // Dynamically display content based on the state of `showExplanationView` and `showCompletedView`
             if showExplanationView == true {
                 explanationContent({
                 })
@@ -33,15 +48,26 @@ struct BaseTestView<Content: View, ExplanationContent: View, CompletedContent: V
                 if showCompletedView == false {
                     content()
                 } else {
-                    completedContent({
-                        // Handle what happens when continue is pressed in completed view
-                    })
+                    completedContent({})
                 }
             }
         }
     }
 }
 
+/// A SwiftUI view that presents explanatory content along with an optional set of progress indicators.
+///
+/// This view is typically used to provide users with guidelines or instructions before they start or continue with a process.
+///
+/// - Parameters:
+///   - onNext: A closure executed when the user taps the "Next" button, intended to advance the user through the app's flow.
+///   - circleIndex: The current index in the progress circle, representing the user's progress in a series of steps.
+///   - circleText: The text displayed inside the progress circle.
+///   - showProgressCircles: A Boolean value indicating whether progress circles should be displayed.
+///   - content: A closure providing the content to be displayed within the explanation view.
+///
+/// - Remarks:
+///   This view dynamically adjusts to include progress circles if required and ensures all instructional content is displayed alongside navigational controls.
 struct ExplanationView<Content: View>: View {
     var onNext: (() -> Void)
     

@@ -103,3 +103,4 @@ struct Test2View: View {
 #Preview {
     Test2View(currentView: .constant(.skt2))
 }
+
