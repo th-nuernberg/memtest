@@ -1,5 +1,5 @@
 //
-//  Test6View.swift
+//  Test7View.swift
 //  memtest-app
 //
 //  Created by Maximilian Werzinger - TH on 02.03.24.
@@ -7,12 +7,16 @@
 
 import SwiftUI
 
+/// `Test7View` serves as the Test 7 of the SKT-Tests
+///
+/// Features:
+/// - Displays a series of letters for the user to reverse (A to B, B to A)
+/// - Provides explanation and instructions before starting the test
 struct Test7View: View {
     @Binding var currentView: SKTViewEnum
-    
     @State private var finished = false
     @State private var showExplanation = true
-    
+
     public init(currentView: Binding<SKTViewEnum>) {
         self._currentView = currentView
     }
@@ -22,14 +26,17 @@ struct Test7View: View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 7, textOfCircle: "7", content: {
             VStack {
                 
+                // Header view with audio indicator, back and next buttons
                 BaseHeaderView(
-                    showAudioIndicator:true,
+                    showAudioIndicator: true,
                     currentView: $currentView,
                     onBack: {
+                        // Navigate to the previous test
                         self.currentView = .skt6
                         onComplete()
                     },
                     onNext: {
+                        // Navigate to the next test
                         self.currentView = .skt8
                         onComplete()
                     }
@@ -54,13 +61,13 @@ struct Test7View: View {
                 
             }
             .onAppear(perform: {
-                try! AudioService.shared.startRecording(to: "skt7");
+                try! AudioService.shared.startRecording(to: "skt7")
             })
             .onTimerComplete(duration: SettingsService.shared.getTestDuration(), onComplete: {
                 onComplete()
             })
-        }, explanationContent: {onContinue in
-            
+        }, explanationContent: { onContinue in
+            // Explanation content
             ExplanationView(onNext: {
                 showExplanation.toggle()
             }, circleIndex: 7, circleText: "7", showProgressCircles: true, content: {
@@ -72,7 +79,7 @@ struct Test7View: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
-                VStack{
+                VStack {
                     Text("Sie sehen hier zwei Zeilen mit den Buchstaben A und B,")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
@@ -86,7 +93,7 @@ struct Test7View: View {
                         .foregroundStyle(Color(hex: "#5377A1"))
                         .padding(.top, 20)
                     
-                    Text("und umgekehrt für jedes B,„A“.")
+                    Text("und umgekehrt für jedes B, „A“.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                     
@@ -99,12 +106,13 @@ struct Test7View: View {
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                 }
-                .padding(.top,120)
+                .padding(.top, 120)
             })
             
         },
-                     completedContent: { onContinue in
-            CompletedView( completedTasks: 7, onContinue: {
+        completedContent: { onContinue in
+            CompletedView(completedTasks: 7, onContinue: {
+                // Navigate to the next test
                 currentView = .skt8
                 onContinue()
             })
@@ -112,15 +120,18 @@ struct Test7View: View {
         
     }
     
+    /// Function to handle completion of the test
+    ///
+    /// Actions:
+    /// - mark test as finished
+    /// - Filters Test-Results and saves them
+    /// - Stops recording
     private func onComplete() {
         DataService.shared.saveSKT7Results()
         finished = true
         AudioService.shared.stopRecording()
     }
-    
 }
-
-
 
 #Preview {
     Test7View(currentView: .constant(.skt7))

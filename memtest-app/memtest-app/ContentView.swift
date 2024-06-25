@@ -11,15 +11,18 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            VStack{
+            VStack {
                 RoutingView()
             }
         }
     }
-   
 }
 
+/// Extension to `Color` to allow initialization with a hexadecimal color code
 extension Color {
+    /// Initializes a `Color` instance with a hexadecimal color code
+    ///
+    /// - Parameter hex: A string representing the hexadecimal color code
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
         let rgbValue = UInt32(hex, radix: 16)
@@ -29,7 +32,6 @@ extension Color {
         self.init(red: r, green: g, blue: b)
     }
 }
-
 
 #Preview {
     ContentView()

@@ -7,12 +7,18 @@
 
 import SwiftUI
 
+/// `Test3View` serves as the Test 3 of the SKT-Tests
+///
+/// Features:
+/// - Displays elements with numbers for the user to read out loud
+/// - Provides explanation and instructions before starting the test
 struct Test3View: View {
     @Binding var currentView: SKTViewEnum
-    
     @State private var finished = false
     @State private var showExplanation = true
     
+    // List of elements with numbers and colors
+    // elements represent the stones on the board of the real skt test
     let dragElements: [DragElement] = [
         DragElement(posIndex: 10, label: "10", color: UIColor(Color(hex: "#D10B0B"))),
         DragElement(posIndex: 11, label: "81", color: UIColor(Color(hex: "#44FF57"))),
@@ -32,28 +38,31 @@ struct Test3View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 3,
-                     textOfCircle:"3", content: {
+                     textOfCircle: "3", content: {
             
+            // Header view with audio indicator, back and next buttons
             BaseHeaderView(
-                showAudioIndicator:true,
+                showAudioIndicator: true,
                 currentView: $currentView,
                 onBack: {
+                    // Navigate to the previous test
                     self.currentView = .learningphase
                     onComplete()
                 },
                 onNext: {
+                    // Navigate to the next test
                     self.currentView = .skt4
                     onComplete()
                 }
             )
             
-            //AudioIndicatorView()
             Spacer()
             
             DragNDropContainerView(dragElements: dragElements, dropZones: OrderNumberTestService.shared.getDropZones(), isDragEnabled: false, onPositionsChanged: { positions in
-                
+                // Handle positions changed
             })
             .onTimerComplete(duration: SettingsService.shared.getTestDuration()) {
+                // Complete the test when the timer ends
                 onComplete()
             }
             .onAppear(perform: {
@@ -61,10 +70,10 @@ struct Test3View: View {
             })
             
         }, explanationContent: { onContinue in
-            
+            // Explanation content
             ExplanationView(onNext: {
                 showExplanation.toggle()
-            },circleIndex: 3, circleText: "3", showProgressCircles: true, content: {
+            }, circleIndex: 3, circleText: "3", showProgressCircles: true, content: {
                 HStack {
                     Text("Aufgabenstellung 3")
                         .font(.largeTitle)
@@ -73,8 +82,7 @@ struct Test3View: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
-                
-                VStack{
+                VStack {
                     Text("Sie sehen nun ein Spielbrett mit bunten Spielsteinen,")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
@@ -86,7 +94,7 @@ struct Test3View: View {
                     Text("Als erstes lesen Sie bitte die Zahlen,")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
-                        .padding(.top,20)
+                        .padding(.top, 20)
                     
                     Text("von links nach rechts, laut vor,")
                         .font(.custom("SFProText-SemiBold", size: 40))
@@ -99,22 +107,28 @@ struct Test3View: View {
                     Text("Sie brauchen sich die Zahlen nicht zu merken.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
-                        .padding(.top,20)
-                    
-                    
+                        .padding(.top, 20)
                 }
-                .padding(.top,120)
+                .padding(.top, 120)
             })
             
-        }, completedContent: {onContinue in
+        }, completedContent: { onContinue in
+            // Completed Test3
             CompletedView(completedTasks: 3, onContinue: {
+                // Navigate to the next test
                 currentView = .skt4
                 onContinue()
             })
         })
     }
     
-    private func onComplete(){
+    /// Function to handle completion of the test
+    ///
+    /// Actions:
+    /// - mark test as finished
+    /// - Filters Test-Results and saves them
+    /// - Stops recording
+    private func onComplete() {
         DataService.shared.saveSKT3Results()
         finished = true
         AudioService.shared.stopRecording()

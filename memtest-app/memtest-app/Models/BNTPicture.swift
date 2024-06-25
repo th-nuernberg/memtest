@@ -7,10 +7,16 @@
 
 import Foundation
 
+/// `BNT_Picture` represents a picture used in the BNT (Boston Naming Test) with its name, file name, and maximum Levenshtein distance allowed for recognition
+///
+/// - Parameters:
+///   - name: The name of the picture
+///   - file_name: The file name of the picture
+///   - maxDistance: The maximum allowed Levenshtein distance for recognizing the picture name
 class BNT_Picture: Identifiable {
     var name: String
     var file_name: String
-    var maxDistance: Int // This is the max Levenshtein Distance that is allowed relative to the ASR words
+    var maxDistance: Int
     
     init(name: String, file_name: String, maxDistance: Int) {
         self.name = name
@@ -19,6 +25,10 @@ class BNT_Picture: Identifiable {
     }
 }
 
+/// `BNTPictureList` manages a list of `BNT_Picture` objects
+///
+/// Features:
+/// - Initializes with a predefined list of BNT pictures
 class BNTPictureList {
     var pictures: [BNT_Picture] = []
     

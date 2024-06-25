@@ -1,5 +1,5 @@
 //
-//  Test8View.swift
+//  Test9View.swift
 //  memtest-app
 //
 //  Created by Christopher Witzl - TH on 17.04.24.
@@ -7,17 +7,24 @@
 
 import SwiftUI
 
+/// `Test9View` serves as the Test 9 of the SKT-Tests
+///
+/// Features:
+/// - Prompts the user to recall previously shown symbols from a grid
+/// - Provides explanation and instructions before starting the test
 struct Test9View: View {
     @Binding var currentView: SKTViewEnum
-    
     @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
     @State private var finished = false
     @State private var showExplanation = true
+    // variable to hold the list of symbols to be displayed
     @State private var symbols: [TestSymbol]
+    
+    // Duration of the test retrieved from settings
     private let testDuration = SettingsService.shared.getTestDuration()
     
-    
+    // List of symbols used in the test
     private var symbolList = TestSymbolList()
     
     public init(currentView: Binding<SKTViewEnum>) {
@@ -34,10 +41,10 @@ struct Test9View: View {
             let symbolGroup = Array(symbols)
             
             BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 9,
-                         textOfCircle:"9", content: {
+                         textOfCircle: "9", content: {
                 
                 BaseHeaderView(
-                    showAudioIndicator:true,
+                    showAudioIndicator: true,
                     currentView: $currentView,
                     onBack: {
                         self.currentView = .skt8
@@ -59,7 +66,6 @@ struct Test9View: View {
                                     .frame(width: symbolSize, height: symbolSize)
                                     .cornerRadius(20)
                                 
-                                
                                 Image(symbol.fileUrl)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
@@ -67,7 +73,6 @@ struct Test9View: View {
                                 
                             }
                             .padding(.bottom, 10)
-                            
                         }
                     }
                 }
@@ -82,8 +87,8 @@ struct Test9View: View {
                 
                 Spacer()
                 
-            }, explanationContent: {onContinue in
-                
+            }, explanationContent: { onContinue in
+                // Explanation content
                 ExplanationView(onNext: {
                     showExplanation.toggle()
                 }, circleIndex: 9, circleText: "9", showProgressCircles: true, content: {
@@ -95,8 +100,7 @@ struct Test9View: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     
-                    
-                    VStack{
+                    VStack {
                         Text("Um es Ihnen leichter zu machen,")
                             .font(.custom("SFProText-SemiBold", size: 40))
                             .foregroundStyle(Color(hex: "#5377A1"))
@@ -112,7 +116,7 @@ struct Test9View: View {
                         Text("Unter diesen befinden sich auch diejenigen,")
                             .font(.custom("SFProText-SemiBold", size: 40))
                             .foregroundStyle(Color(hex: "#5377A1"))
-                            .padding(.top,20)
+                            .padding(.top, 20)
                         
                         Text("die Sie vorhin gesehen haben.")
                             .font(.custom("SFProText-SemiBold", size: 40))
@@ -125,26 +129,25 @@ struct Test9View: View {
                         Text("Deuten Sie bitte mit dem Finger darauf")
                             .font(.custom("SFProText-SemiBold", size: 40))
                             .foregroundStyle(Color(hex: "#5377A1"))
-                            .padding(.top,20)
+                            .padding(.top, 20)
                         
                         Text("und sagen Sie nochmals laut,")
                             .font(.custom("SFProText-SemiBold", size: 40))
                             .foregroundStyle(Color(hex: "#5377A1"))
                         
-                        Text(" was auf dem Bild dargestellt ist.")
+                        Text("was auf dem Bild dargestellt ist.")
                             .font(.custom("SFProText-SemiBold", size: 40))
                             .foregroundStyle(Color(hex: "#5377A1"))
                         
-                        Text("Mit dem Knopf können Sie zur nächsten Seite wechseln. ")
+                        Text("Mit dem Knopf können Sie zur nächsten Seite wechseln.")
                             .font(.custom("SFProText-SemiBold", size: 40))
                             .foregroundStyle(Color(hex: "#5377A1"))
-                            .padding(.top,20)
-                        
+                            .padding(.top, 20)
                     }
-                    .padding(.top,30)
+                    .padding(.top, 30)
                 })
                 
-            }, completedContent: {onContinue in
+            }, completedContent: { onContinue in
                 CompletedView(completedTasks: 9, onContinue: {
                     currentView = .finished
                     onContinue()
@@ -153,27 +156,31 @@ struct Test9View: View {
         }
     }
     
+    /// Configures the grid columns
     private func columns() -> [GridItem] {
         Array(repeating: .init(.flexible(), spacing: 0), count: 6)
     }
     
+    /// Calculates the dynamic symbol size based on screen dimensions
     private func dynamicSymbolSize(forWidth width: CGFloat, forHeight height: CGFloat, numberOfColumns: Int, numberOfSymbols: Int) -> CGFloat {
-        let totalVerticalSpacing = CGFloat(numberOfSymbols / numberOfColumns) * 10 // Anpassen basierend auf der Anzahl der Zeilen
-        let adjustedHeight = height - totalVerticalSpacing // Verfügbare Höhe nach Abzug des vertikalen Abstands
-        let symbolHeight = adjustedHeight / CGFloat(numberOfSymbols / numberOfColumns) // Höhe jedes Symbols
+        let totalVerticalSpacing = CGFloat(numberOfSymbols / numberOfColumns) * 10 // Adjust based on number of rows
+        let adjustedHeight = height - totalVerticalSpacing // Available height after subtracting vertical spacing
+        let symbolHeight = adjustedHeight / CGFloat(numberOfSymbols / numberOfColumns) // Height of each symbol
         
-        let spacing = CGFloat(numberOfColumns - 1) * 10 // Horizontaler Abstand zwischen den Symbolen
-        let adjustedWidth = width - spacing // Verfügbare Breite nach Abzug des horizontalen Abstands
-        let symbolWidth = adjustedWidth / CGFloat(numberOfColumns) // Breite jedes Symbols
+        let spacing = CGFloat(numberOfColumns - 1) * 10 // Horizontal spacing between symbols
+        let adjustedWidth = width - spacing // Available width after subtracting horizontal spacing
+        let symbolWidth = adjustedWidth / CGFloat(numberOfColumns) // Width of each symbol
         
-        // Nimmt den kleineren Wert, um sicherzustellen, dass die Symbole nicht außerhalb des sichtbaren Bereichs geraten
+        // Takes the smaller value to ensure symbols do not exceed visible area
         return min(symbolWidth, symbolHeight)
     }
     
+    /// Checks if a recognized word matches any symbol name
     private func isSymbolNameRecognized(_ name: String) -> Bool {
         return manager.recognizedWords.contains { $0.lowercased().contains(name.lowercased()) }
     }
     
+    /// Initializes the symbols for the test
     private static func initializeSymbols() -> [TestSymbol] {
         var symbols = TestSymbolList().symbols
         for i in 0...35 {
@@ -183,6 +190,12 @@ struct Test9View: View {
         return symbols
     }
     
+    /// Function to handle completion of the test
+    ///
+    /// Actions:
+    /// - mark test as finished
+    /// - Filters Test-Results and saves them
+    /// - Stops recording
     private func onComplete() {
         let correctlyRememberedSymbolNames = Array(Set(manager.recognizedWords.filter { symbolList.contains(word: $0) }))
         DataService.shared.saveSKT9Results(correctlyRememberedSymbolNames: correctlyRememberedSymbolNames)

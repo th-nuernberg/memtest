@@ -13,16 +13,21 @@ import NaturalLanguage
 protocol AudioServiceDelegate: AnyObject {
     func audioService(_ service: AudioService, didRecognizeText text: String)
     func audioService(_ service: AudioService, didChangeAvailability isAvailable: Bool)
-    
     func audioService(_ service: AudioService, didUpdateInputLevel level: Float)
 }
 
-
+/// `AudioService` is responsible for handling audio recording and transcription using a specified transcription service
+///
+/// Features:
+/// - Starts and stops audio recording
+/// - Updates input audio level for visual indicators
+/// - Interfaces with different transcription services
+///
+/// - Parameters:
+///   - concreteTranscriptionService: The transcription service to use for audio transcription
 class AudioService: NSObject, SFSpeechRecognizerDelegate {
-    // using the AppleTranscriptionService
     static let shared = AudioService(concreteTranscriptionService: AppleTranscriptionService())
     
-    // The used Transcription Service (e.g. AppleTranscriptionService or the WhisperTranscriptionService)
     private var concreteTranscriptionService: TranscriptionService
     
     private let audioEngine = AVAudioEngine()
@@ -36,26 +41,26 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         super.init()
     }
     
-    
-    // this is called in every Test that needs audio to be recorded
+    /// Starts audio recording and transcription
+    ///
+    /// - Parameter testName: The name of the test for which audio is being recorded
     func startRecording(to testName: String) throws {
         prepareRecordingDirectory(for: testName)
         try configureAudioSession()
-        
         try startAudioEngineRecording(to: testName)
-        
         
         self.concreteTranscriptionService.onTranscriptionUpdate = { [weak self] updatedText in
             DispatchQueue.main.async {
-                self?.delegate?.audioService(self!, didRecognizeText:updatedText)
-                
+                self?.delegate?.audioService(self!, didRecognizeText: updatedText)
             }
         }
-        
         
         concreteTranscriptionService.startTranscribing()
     }
     
+    /// Stops audio recording and transcription
+    ///
+    /// - Parameter completion: An optional closure to be executed after stopping the recording
     func stopRecording(completion: (() -> Void)? = nil) {
         audioEngine.stop()
         audioEngine.inputNode.removeTap(onBus: 0)
@@ -72,7 +77,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
     
     // MARK: - Private Methods
     
-    // Create a directory for the audio recording -> foo -> /Documents/uuid/foo/foo.m4a
+    // Creates a directory for the audio recording
     private func prepareRecordingDirectory(for testName: String) {
         let fileManager = FileManager.default
         let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -87,49 +92,48 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         self.audioFile = try? AVAudioFile(forWriting: filePath, settings: [:])
     }
     
+    // Configures the audio session
     private func configureAudioSession() throws {
         let audioSession = AVAudioSession.sharedInstance()
         try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
         try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
     }
     
+    // Starts audio engine recording
     private func startAudioEngineRecording(to testName: String) throws {
         prepareRecordingDirectory(for: testName)
         
-        // use sample rate defined in the used TranscriptionService Implementation
-        if concreteTranscriptionService.usedSampleRate != nil {
-            try! AVAudioSession.sharedInstance().setPreferredSampleRate(concreteTranscriptionService.usedSampleRate!)
+        // Use sample rate defined in the used TranscriptionService implementation
+        if let sampleRate = concreteTranscriptionService.usedSampleRate {
+            try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
         }
-        
         
         let recordingFormat = audioEngine.inputNode.outputFormat(forBus: 0)
         
-        // remove previous exsisting tap -> if not removed an error is thrown on installing a new tap
+        // Remove previous existing tap
         audioEngine.inputNode.removeTap(onBus: 0)
         
-        // the buffer size can not be set arbitrarily -> if accumulation is needed, like in the WhisperTranscriptionService the accumulation of the audio has to haoppen in the processAudioBuffer method
+        // Install a new tap
         audioEngine.inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] (buffer, _) in
             self?.appendAudioToFile(buffer)
-            // used for the AudioIndicatorView
             self?.updateInputLevel(buffer: buffer)
-            // the actual transcriptioning is happening here
             self?.concreteTranscriptionService.processAudioBuffer(buffer, sampleRate: Int(AVAudioSession.sharedInstance().sampleRate), bufferSize: Int(buffer.frameLength))
         }
         
-        // Trying to prepare and start the recording | transcription
+        // Prepare and start the audio engine
         audioEngine.prepare()
         try audioEngine.start()
     }
     
-    // Needed for the AudioIndicatorView
+    // Updates the input audio level for visual indicators
     private func updateInputLevel(buffer: AVAudioPCMBuffer) {
-        let level = self.calculateAudioLevel(from: buffer)
+        let level = calculateAudioLevel(from: buffer)
         DispatchQueue.main.async {
             self.delegate?.audioService(self, didUpdateInputLevel: level)
         }
     }
     
-    
+    // Appends audio to the file
     private func appendAudioToFile(_ buffer: AVAudioPCMBuffer) {
         guard let audioFile = self.audioFile else { return }
         do {
@@ -139,7 +143,7 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         }
     }
     
-    // logarithmic calculation for displaying the audio in a human friendly way
+    // Calculates the audio level in a logarithmic scale
     private func calculateAudioLevel(from buffer: AVAudioPCMBuffer) -> Float {
         guard let channelData = buffer.floatChannelData else { return 0.0 }
         
@@ -151,23 +155,20 @@ class AudioService: NSObject, SFSpeechRecognizerDelegate {
         }
         
         let meanSquare = sum / Float(frameLength)
-        
         let rms = sqrt(meanSquare)
         
         if rms == 0 { return 0.0 }
         let dB = 20 * log10(rms)
         
         let minDB: Float = -70.0
-        
         let normalizedDB = min(max(minDB, dB), 0)
-        
-        let level = pow((normalizedDB - minDB) / (-minDB), 1/2.0) // Using a square root to increase sensitivity
+        let level = pow((normalizedDB - minDB) / (-minDB), 1/2.0)
         
         return level
     }
 }
 
-// The protocol every new subcription Service has to conform
+// Protocol that every transcription service must conform to
 protocol TranscriptionService {
     var isTranscribing: Bool { get }
     var transcription: String { get set }
@@ -181,10 +182,11 @@ protocol TranscriptionService {
     func processAudioBuffer(_ buffer: AVAudioPCMBuffer, sampleRate: Int, bufferSize: Int)
 }
 
-
-// this singleton class is used for interfacing with the transcribed audio, the inputAudioLevel for displaying the "loudness" and for animating the avatar if speech has been detected
-// not the best implementation
-// the speech detection should ideally be done by a VAD
+/// `SpeechRecognitionManager` a class used for interfacing with transcribed audio, updating input audio level, and animating the avatar on speech detection
+///
+/// - Features:
+///   - Publishes recognized words and input level
+///   - Notifies about avatar animation on speech detection
 class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
     static let shared = SpeechRecognitionManager()
     
@@ -207,7 +209,7 @@ class SpeechRecognitionManager: ObservableObject, AudioServiceDelegate {
         }
     }
     
-    // throtteling the notification sending to prevent weird gif behavior
+    // Throttles the notification to prevent frequent updates
     private func throttleNotification() {
         let now = Date()
         if let lastTime = lastNotificationTime, now.timeIntervalSince(lastTime) < throttleInterval {
@@ -235,4 +237,3 @@ extension Notification.Name {
     static let didRecognizeNoun = Notification.Name("didRecognizeNoun")
     static let triggerAvatarAnimation = Notification.Name("triggerAvatarAnimation")
 }
-

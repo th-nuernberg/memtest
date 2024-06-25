@@ -42,7 +42,6 @@ def upload_test_result(qrcode_uuid, study_secret, body):  # noqa: E501
 
     :rtype: Union[ApiResponse, Tuple[ApiResponse, int], Tuple[ApiResponse, int, Dict[str, str]]
     """
-
     try:
         with open('../../memtest-tools/studykey.json', 'r') as f:
             studies = json.load(f)

@@ -7,13 +7,19 @@
 
 import SwiftUI
 
+/// `FeedbackView` provides an interface for users to report technical errors
+///
+/// Features:
+/// - Displays options for users to indicate if they encountered any technical errors
+/// - Provides a text editor for users to describe the error if they choose to report one
+/// - Includes navigation to the next view upon form submission
 struct FeedbackView: View {
     @State var showNextView: Bool = false
     @State var isSelected: Bool = false
     @State var errorDescription: String = ""
     
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             Text("Fehlerreport")
                 .font(.system(size: 30))
             Text("Technische Fehler")
@@ -27,7 +33,6 @@ struct FeedbackView: View {
             HorizontalRadioButtons(isSelected: $isSelected)
             
             if isSelected {
-                
                 TextEditor(text: $errorDescription)
                     .frame(width: 1000, height: 300)
                     .scrollContentBackground(.hidden)
@@ -55,17 +60,20 @@ struct FeedbackView: View {
             
         }
         .padding(.leading, 100)
-        
         .padding(.trailing, 70)
         .navigationDestination(isPresented: $showNextView) {
-            //TODO: Start Datatransfer to university server
+            // TODO: Start data transfer to university server
             EmptyView()
         }
         .navigationBarBackButtonHidden(true)
-        
     }
 }
 
+/// `HorizontalRadioButtons` provides radio Button Yes or No selection
+///
+/// Features:
+/// - Displays two radio buttons for Yes and No options
+/// - Updates the `isSelected` state based on user selection
 struct HorizontalRadioButtons: View {
     @Binding var isSelected: Bool
     
@@ -108,9 +116,6 @@ struct HorizontalRadioButtons: View {
     }
 }
 
-
 #Preview {
     FeedbackView()
 }
-
-

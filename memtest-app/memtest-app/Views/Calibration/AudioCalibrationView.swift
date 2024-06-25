@@ -7,14 +7,22 @@
 
 import SwiftUI
 
-// Used for getting additional audio data
+/// `AudioCalibrationView` is used for calibrating the audio settings before starting the test by letting the user read a part of the Nordwind und Sonne Text
+///
+/// Features:
+/// - Displays instructions for audio calibration
+/// - Starts and stops audio recording for calibration
+/// - Navigates to the next view upon completion
+///
+/// - Parameters:
+///   - onNextView: A closure to be executed when navigating to the next view
 struct AudioCalibrationView: View {
     var onNextView: (() -> Void)?
-    
     @State var testStarted: Bool = false
+    
     var body: some View {
         NavigationStack {
-            VStack{
+            VStack {
                 AudioIndicatorView()
                 
                 Spacer()
@@ -42,12 +50,12 @@ struct AudioCalibrationView: View {
                         Text("Nordwind und Sonne")
                             .font(.custom("SFProText-SemiBold", size: 60))
                             .foregroundStyle(Color(hex: "#5377A1"))
-                            .padding(.bottom,100)
+                            .padding(.bottom, 100)
                         
-                        Text("Einst stritten sich Nordwind und Sonne, wer von ihnen beiden wohl der Stärkere wäre, als ein Wanderer, der in einen warmen Mantel gehüllt war, des Weges daherkam. Sie wurden einig, dass derjenige für den Stärkeren gelten sollte, der den Wanderer zwingen würde, seinen Mantel abzunehmen. ")
+                        Text("Einst stritten sich Nordwind und Sonne, wer von ihnen beiden wohl der Stärkere wäre, als ein Wanderer, der in einen warmen Mantel gehüllt war, des Weges daherkam. Sie wurden einig, dass derjenige für den Stärkeren gelten sollte, der den Wanderer zwingen würde, seinen Mantel abzunehmen.")
                             .font(.custom("SFProText-SemiBold", size: 35))
                             .foregroundStyle(Color(hex: "#5377A1"))
-                            .padding(.horizontal,40)
+                            .padding(.horizontal, 40)
                     }
                     .padding(.all)
                 }
@@ -55,22 +63,18 @@ struct AudioCalibrationView: View {
                 Spacer()
                 
                 Button(action: {
-                    
-                    if (testStarted) {
+                    if testStarted {
                         AudioService.shared.stopRecording()
                         self.onNextView?()
                     } else {
-                        
                         do {
                             try AudioService.shared.startRecording(to: "calibration")
                             print("Recording started")
                         } catch {
                             print("Failed to start recording: \(error)")
                         }
-                        
                         testStarted.toggle()
                     }
-                    
                 }) {
                     Text(testStarted ? "Weiter ➔" : "Sprachaufnahme testen")
                         .font(.custom("SFProText-SemiBold", size: 25))

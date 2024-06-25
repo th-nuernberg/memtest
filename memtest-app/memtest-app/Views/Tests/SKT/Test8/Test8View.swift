@@ -1,5 +1,5 @@
 //
-//  Test7View.swift
+//  Test8View.swift
 //  memtest-app
 //
 //  Created by Christopher Witzl on 12.04.24.
@@ -7,18 +7,25 @@
 
 import SwiftUI
 
+/// `Test8View` serves as the Test 8 of the SKT-Tests
+///
+/// Features:
+/// - Prompts the user to recall previously shown symbols
+/// - Provides explanation and instructions before starting the test
 struct Test8View: View {
     @Binding var currentView: SKTViewEnum
-    
     @ObservedObject private var manager = SpeechRecognitionManager.shared
     @State private var isRecording = false
     @State private var finished = false
     @State private var showExplanation = true
     
+    // Duration of the test retrieved from settings
     private let testDuration = SettingsService.shared.getTestDuration()
     
+    // List of symbols to be used in the test
     private var symbolList = TestSymbolList()
     
+    // Layout for the grid of symbols
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 8),
         GridItem(.flexible(), spacing: 8),
@@ -32,17 +39,20 @@ struct Test8View: View {
     
     var body: some View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 8,
-                     textOfCircle:"8", content: {
-            VStack{
+                     textOfCircle: "8", content: {
+            VStack {
                 
+                // Header view with audio indicator, back and next buttons
                 BaseHeaderView(
-                    showAudioIndicator:true,
+                    showAudioIndicator: true,
                     currentView: $currentView,
                     onBack: {
+                        // Navigate to the previous test
                         self.currentView = .skt7
                         onComplete()
                     },
                     onNext: {
+                        // Navigate to the next test
                         self.currentView = .skt9
                         onComplete()
                     }
@@ -72,10 +82,10 @@ struct Test8View: View {
                 finished = true
                 AudioService.shared.stopRecording()
             }
-        }, explanationContent: {onContinue in
-            
+        }, explanationContent: { onContinue in
+            // Explanation content
             ExplanationView(onNext: {
-                showExplanation.toggle()
+                showExplanation.toggle()  
             }, circleIndex: 8, circleText: "8", showProgressCircles: true, content: {
                 HStack {
                     Text("Aufgabenstellung 8")
@@ -85,13 +95,12 @@ struct Test8View: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
-                
-                VStack{
+                VStack {
                     Text("Jetzt kommen wir noch einmal zu den Gegenständen,")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                     
-                    Text(" die Sie am Anfang gesehen haben.")
+                    Text("die Sie am Anfang gesehen haben.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                     
@@ -106,10 +115,10 @@ struct Test8View: View {
                         .padding(.top, 20)
                     
                 }
-                .padding(.top,120)
+                .padding(.top, 120)
             })
             
-        }, completedContent: {onContinue in
+        }, completedContent: { onContinue in
             CompletedView(completedTasks: 8, onContinue: {
                 currentView = .skt9
                 onContinue()
@@ -117,11 +126,17 @@ struct Test8View: View {
         })
     }
     
-    // TODO: implement germanet and similarity comparison
+    /// Function to check if a recognized word matches any symbol name
     private func isSymbolNameRecognized(_ name: String) -> Bool {
         return manager.recognizedWords.contains { $0.lowercased().contains(name.lowercased()) }
     }
     
+    /// Function to handle completion of the test
+    ///
+    /// Actions:
+    /// - mark test as finished
+    /// - Filters Test-Results and saves them
+    /// - Stops recording
     private func onComplete() {
         let rememberedSymbolNames = Array(Set(manager.recognizedWords.filter { symbolList.contains(word: $0) }))
         DataService.shared.saveSKT8Results(rememberedSymbolNames: rememberedSymbolNames)

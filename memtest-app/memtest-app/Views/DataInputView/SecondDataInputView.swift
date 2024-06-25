@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+/// `SecondDataInputView` handles the second step of patient data input
+///
+/// Features:
+/// - Collects additional patient data including medical information, dementia severity, depression severity, and additional diagnoses
+///
+/// - Parameters:
+///   - patientData: The `PatientData` object to store the input data
+///   - finished: A closure to be executed when the user completes this step
 struct SecondDataInputView: View {
     @ObservedObject var patientData: PatientData
     var finished: () -> ()
@@ -19,7 +27,7 @@ struct SecondDataInputView: View {
             }
             .listRowInsets(EdgeInsets(top: 15, leading: 20, bottom: 0, trailing: 20))
             
-            Section(header: Text("Demenz Schweregrad:").font(.title3)){
+            Section(header: Text("Demenz Schweregrad:").font(.title3)) {
                 ForEach(Severity.allCases, id: \.self) { severity in
                     RadioButtonView(selectedValue: $patientData.dementiaSeverity, value: severity)
                 }
@@ -33,13 +41,12 @@ struct SecondDataInputView: View {
             }
             .listRowInsets(EdgeInsets(top: 15, leading: 20, bottom: 0, trailing: 20))
             
-            
             TextField("Zusätzliche relevante Diagnosen", text: $patientData.additionalDiagnoses)
                 .padding()
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)
             
-            HStack{
+            HStack {
                 Spacer()
                 Button(action: {
                     self.finished()
@@ -52,20 +59,16 @@ struct SecondDataInputView: View {
                 .padding(10)
                 .background(Color.blue)
                 .cornerRadius(10)
-                .padding(.bottom,100)
+                .padding(.bottom, 100)
                 Spacer()
             }
         }
         .scrollContentBackground(.hidden)
-        
-        
     }
 }
 
-
-
 #Preview {
-    SecondDataInputView(patientData: PatientData()){
-        
+    SecondDataInputView(patientData: PatientData()) {
+        // Closure action
     }
 }

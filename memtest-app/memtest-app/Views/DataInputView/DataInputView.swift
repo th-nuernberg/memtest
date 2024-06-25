@@ -8,8 +8,12 @@
 import SwiftUI
 import Combine
 
+/// `DataInputView` handles the input of patient data
+///
+/// Features:
+/// - User can enter patient data
+/// - Navigates to the next view upon completion of data entry
 struct DataInputView: View {
-    
     var dataService: DataService = DataService.shared
     @StateObject private var patientData = PatientData()
     @State var showSecondView = false
@@ -18,13 +22,13 @@ struct DataInputView: View {
     var onNextView: (() -> Void)?
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             if !showSecondView {
                 FirstDataInputView(patientData: patientData) {
                     self.showSecondView = true
                 }
             } else {
-                SecondDataInputView(patientData: patientData){
+                SecondDataInputView(patientData: patientData) {
                     dataService.setPatientData(patientData: self.patientData)
                     onNextView?()
                     showNextView.toggle()
@@ -34,7 +38,6 @@ struct DataInputView: View {
             if showSecondView {
                 Button(action: {
                 }) {
-                    
                 }
                 .navigationBarBackButtonHidden(true)
                 .navigationDestination(isPresented: $showNextView) {

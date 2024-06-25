@@ -7,14 +7,20 @@
 
 import SwiftUI
 
+/// `LearnphaseView` serves as the learning phase of the SKT-Tests
+///
+/// Features:
+/// - Displays a list of symbols for the user to memorize
+/// - Provides explanation and instructions before starting the learning phase
 struct LearnphaseView: View {
     @Binding var currentView: SKTViewEnum
-    
     @State private var finished = false
     @State private var showExplanation = true
     
+    // List of symbols to be displayed in the learning phase
     private var symbolList = TestSymbolList()
     
+    // Layout for the grid of symbols
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 8),
         GridItem(.flexible(), spacing: 8),
@@ -30,19 +36,22 @@ struct LearnphaseView: View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 2,
                      textOfCircle:"L", content: {
             
+            // Header view with audio indicator, back and next buttons
             BaseHeaderView(
-                showAudioIndicator:true,
+                showAudioIndicator: true,
                 currentView: $currentView,
                 onBack: {
+                    // Navigate to the previous test
                     self.currentView = .skt2
                 },
                 onNext: {
+                    // Navigate to the next test
                     self.currentView = .skt3
                 }
             )
             
+            // Grid of symbols
             LazyVGrid(columns: columns) {
-                
                 ForEach(symbolList.symbols, id: \.name) { symbol in
                     ZStack {
                         Rectangle()
@@ -63,10 +72,11 @@ struct LearnphaseView: View {
             .padding(.vertical)
             .onTimerComplete(duration: 5) {
                 print("Timer completed")
+                // Complete the learning phase when the timer ends
                 finished = true
             }
         }, explanationContent: { onContinue in
-            
+            // Explanation content
             ExplanationView(onNext: {
                 showExplanation.toggle()
             }, circleIndex: 2, circleText: "L", showProgressCircles: true, content: {
@@ -78,7 +88,7 @@ struct LearnphaseView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
-                VStack{
+                VStack {
                     Text("Ihnen werden die Gegenstände noch einmal ganz kurz gezeigt.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
@@ -91,11 +101,13 @@ struct LearnphaseView: View {
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                 }
-                .padding(.top,200)
+                .padding(.top, 200)
             })
             
         }, completedContent: { onContinue in
+            // Completed learningphase
             CompletedView(completedTasks: 3, onContinue: {
+                // Navigate to the next test
                 currentView = .skt3
                 onContinue()
             })

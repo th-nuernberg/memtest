@@ -7,20 +7,28 @@
 
 import SwiftUI
 
-// Simple View that is used to make patients who are not familiar to the drag n drop concept familiar to it
+/// `DragDropCalibrationView` is used to familiarize patients with the drag and drop concept
+///
+/// Features:
+/// - Displays instructions for the drag and drop exercise
+/// - Contains a drag and drop example scene for practice
+/// - Proceeds to the next view upon completion
+///
+/// - Parameters:
+///   - onNextView: A closure to be executed when navigating to the next view
 struct DragDropCalibrationView: View {
     var onNextView: (() -> Void)?
-    
     @State var calibrationComplete = false
     
     var body: some View {
-        
         NavigationStack {
-            VStack(spacing: 12){
+            VStack(spacing: 12) {
                 Spacer()
+                
                 Text("Bitte verschieben Sie den Punkt in das leere Rechteck.")
                     .font(.custom("SFProText-SemiBold", size: 40))
                     .foregroundStyle(Color(hex: "#5377A1"))
+                
                 Spacer()
                 
                 DragDropExampleSceneContainerView(calibrationComplete: $calibrationComplete)
@@ -42,10 +50,8 @@ struct DragDropCalibrationView: View {
                 .padding(.leading)
             }
         }
-        
     }
 }
-
 
 #Preview {
     DragDropCalibrationView()
