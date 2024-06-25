@@ -9,7 +9,7 @@ import SwiftUI
 
 enum VisibleView: Equatable {
     case home
-    case welcome
+    case welcome // WelcomeView & WelcomeStudyView
     case metadata
     case calibration
     case skt
@@ -20,6 +20,11 @@ enum VisibleView: Equatable {
     case settings
 }
 
+/// Main routing view that is responsible for showing all the views
+/// Subrouting View:
+/// - WelcomeRoutingView
+/// - CalibrationRoutingView
+/// - SKTRoutingView -> responsible for the routing of the skt subtests
 struct RoutingView: View {
     var dataService: DataService = DataService.shared
     @State var visibleView: VisibleView = .home
@@ -31,10 +36,12 @@ struct RoutingView: View {
             HomeView { nextView in
                 if (nextView == .calibration) {
                     self.visibleView = .welcome
+                    // Queue up a sequence of views for a calibration flow.
                     nextViews.append(.metadata)
                     nextViews.append(.calibration)
                     nextViews.append(.home)
                 } else {
+                    // Navigate directly to the selected view.
                     self.visibleView = nextView
                 }
             }

@@ -137,7 +137,7 @@ struct ExplanationView<Content: View>: View {
             .padding()
         }
     }
-
+    // The third view in the SKT Tests is the LearningPhaseView, therefore L
     func getTextForIndex(index: Int) -> String {
         switch index {
         case 1:
@@ -170,6 +170,13 @@ struct ExplanationView<Content: View>: View {
     }
 }
 
+/// This view is used at the end of a test
+///
+/// - Parameters:
+///   - numberOfTasks: The total number of tasks in the series.
+///   - completedTasks: The number of tasks that have been completed successfully.
+///   - onContinue: A closure that is executed when the user taps the continue button.
+///   - customButtonText: An optional string that can be used to customize the text on the continue button.
 struct CompletedView: View {
     var numberOfTasks: Int = 10 // Total number of tasks
     var completedTasks: Int = 1 // Number of tasks completed

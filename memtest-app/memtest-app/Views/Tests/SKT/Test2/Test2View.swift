@@ -49,6 +49,7 @@ struct Test2View: View {
                 Spacer()
                 HStack {
                     Spacer()
+                    // Animation gets triggered by the notification of the SpeechRecognitionManager
                     AvatarView(gifName: "Avatar_Nicken_fast")
                     Spacer()
                     HourglassView(size: 300, lineWidth: 15, duration: testDuration)

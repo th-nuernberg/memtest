@@ -21,6 +21,7 @@ enum SKTViewEnum {
     case finished
 }
 
+/// Routing View for the skt subtests
 struct SKTRoutingView: View {
     @State var currentView: SKTViewEnum = .skt1
     
