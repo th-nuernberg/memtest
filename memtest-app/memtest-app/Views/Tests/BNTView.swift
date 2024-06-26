@@ -1,5 +1,5 @@
 //
-//  Test9View.swift
+//  BNTView.swift
 //  memtest-app
 //
 //  Created by Christopher Witzl on 04.04.24.
@@ -8,6 +8,11 @@
 import SwiftUI
 import StringMetric
 
+/// `BNTView` represents the View for the Boston Naming Test (BNT) where participants are asked to name objects shown in images.
+///
+/// - Parameters:
+///   - onNextView: A closure to navigate to the next view.
+///
 struct BNTView: View {
     
     var onNextView: (() -> Void)?
@@ -31,13 +36,11 @@ struct BNTView: View {
         BaseTestView(showCompletedView: $finished, showExplanationView: $showExplanation, indexOfCircle: 11, textOfCircle: "11", content: {
             
             BaseHeaderViewNotSKT(
-                showAudioIndicator:true,
+                showAudioIndicator: true,
                 onBack: {
-                    //TODO: where to go?
                     onComplete()
                 },
                 onNext: {
-                    //TODO: where to go?
                     onComplete()
                 }
             )
@@ -99,9 +102,9 @@ struct BNTView: View {
                     Text("Bitte sagen Sie, wie diese Dinge heißen.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
-                        .padding(.top,20)
+                        .padding(.top, 20)
                 }
-                .padding(.top,120)
+                .padding(.top, 120)
             })
             
         }, completedContent: { onContinue in
@@ -112,6 +115,9 @@ struct BNTView: View {
         })
     }
     
+    /// Checks the last recognized word and matches it with the current image name
+    ///
+    /// - Parameter words: Array of recognized words
     func checkLastWord(words: [String]) {
         guard let lastWord = words.last, let currentName = currentImage?.name, let maxDistance = currentImage?.maxDistance else { return }
         
@@ -122,6 +128,7 @@ struct BNTView: View {
         }
     }
     
+    /// Sets the next image to be displayed
     func setNextImage() {
         if !unusedImages.isEmpty {
             let randomIndex = Int.random(in: 0..<unusedImages.count)
@@ -133,17 +140,24 @@ struct BNTView: View {
         }
     }
     
+    /// Starts the timer to change images at regular intervals
     func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
             setNextImage()
         }
     }
     
+    /// Stops the timer
     func stopTimer() {
         timer?.invalidate()
         timer = nil
     }
     
+    /// Function to handle completion of the test
+    ///
+    /// Actions:
+    /// - mark test as finished
+    /// - Stops recording
     private func onComplete() {
         finished = true
         AudioService.shared.stopRecording()

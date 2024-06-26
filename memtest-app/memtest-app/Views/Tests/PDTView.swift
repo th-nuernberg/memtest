@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+/// `PDTView` represents the View for the Picture Description Task (PDT) where participants are asked to describe a given picture.
+///
+/// - Parameters:
+///   - onNextView: A closure to navigate to the next view.
+///
 struct PDTView: View {
     
     var onNextView: (() -> Void)?
@@ -22,13 +27,11 @@ struct PDTView: View {
             VStack{
                 
                 BaseHeaderViewNotSKT(
-                    showAudioIndicator:true,
+                    showAudioIndicator: true,
                     onBack: {
-                        //TODO: where to go?
                         onComplete()
                     },
                     onNext: {
-                        //TODO: where to go?
                         onComplete()
                     }
                 )
@@ -99,6 +102,12 @@ struct PDTView: View {
         })
     }
     
+    /// Function to handle completion of the test
+    ///
+    /// Actions:
+    /// - mark test as finished
+    /// - Saves Test-Results
+    /// - Stops recording
     private func onComplete() {
         DataService.shared.savePDTResults()
         finished = true
