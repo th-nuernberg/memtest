@@ -1,5 +1,5 @@
 //
-//  Test8View.swift
+//  VFTView.swift
 //  memtest-app
 //
 //  Created by Christopher Witzl on 04.04.24.
@@ -8,6 +8,11 @@
 import SwiftUI
 import Combine
 
+/// `VFTView` represents the View for the Verbal Fluency Test (VFT) where participants are asked to name animal names.
+///
+/// - Parameters:
+///   - onNextView: A closure to navigate to the next view.
+///
 struct VFTView: View {
     
     var onNextView: (() -> Void)?
@@ -27,7 +32,7 @@ struct VFTView: View {
             VStack {
                 
                 BaseHeaderViewNotSKT(
-                    showAudioIndicator:true,
+                    showAudioIndicator: true,
                     onBack: {
                         onComplete()
                     },
@@ -96,18 +101,17 @@ struct VFTView: View {
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                     
-                    Text("Wenn die Kategorie Kleidungsstücke' lautet,")
+                    Text("Wenn die Kategorie 'Kleidungsstücke' lautet,")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
-                        .padding(.top,20)
+                        .padding(.top, 20)
                     
                     Text("können Sie 'Hemd', 'Krawatte' oder 'Hut', usw. aufzählen.")
                         .font(.custom("SFProText-SemiBold", size: 40))
                         .foregroundStyle(Color(hex: "#5377A1"))
                 }
-                .padding(.top,120)
+                .padding(.top, 120)
             })
-            
             
         }, completedContent: { onContinue in
             CompletedView(numberOfTasks: 1, completedTasks: 1, onContinue: {
@@ -117,7 +121,7 @@ struct VFTView: View {
         })
     }
     
-    // temporär -> nutze germanet
+    /// Updates the list of recognized animal names based on the recognized words
     private func updateErkannteTiernamen() {
         var tempSet = Set(recognizedAnimalNames)
         for word in speechRecognitionManager.recognizedWords {
@@ -130,6 +134,11 @@ struct VFTView: View {
         }
     }
     
+    /// Function to handle completion of the test
+    ///
+    /// Actions:
+    /// - mark test as finished
+    /// - Stops recording
     private func onComplete() {
         finished = true
         AudioService.shared.stopRecording()
